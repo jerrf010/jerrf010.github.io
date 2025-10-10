@@ -1,0 +1,46 @@
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.4;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 20px;
+    padding: 0;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+a {
+    color: #1100ff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+.container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+    padding: 20px;
+}
+
+button {
+    display: inline-block;
+    background: #b2cbe6;
+    padding: 10px 20px;
+    border: 2px solid #ff00005a;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+img {
+    max-width: 90%;
+    height: auto;
+}
