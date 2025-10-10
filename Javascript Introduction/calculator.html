@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Calculator
+        </title>
+    </head>
+    <body>
+        <h1>This is a Calculator</h1>
+        <p><b>The answer is: </b> <span id="result"></span></p>
+        <script>
+            let num1 = Number(prompt("Enter a value:"));
+            let num2 = Number(prompt("Enter a second value:"));
+            let operator = prompt("Enter an operator (+, -, *, /):");
+            let result;
+            switch (operator) {
+                case "+":
+                    result = num1 + num2;
+                    break;
+                case "-":
+                    result = num1 - num2;
+                    break;
+                case "*":
+                    result = num1 * num2;
+                    break;
+                case "/":
+                    result = num1 / num2;
+                    break;
+                default:
+                    result = "Invalid operator";
+            }
+            document.getElementById("result").textContent = result;
+        </script>
+    </body>
+</html>
