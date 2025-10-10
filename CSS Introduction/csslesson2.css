@@ -1,0 +1,12 @@
+h1 {
+    color: blue;
+    text-align: center;
+}
+h2 {
+    color: green;
+    text-align: left;
+}
+p {
+    font-size: 16px;
+    line-height: 1.5;
+}
