@@ -6,4 +6,6 @@
 .name {
     font-size: 18px;
     color: blue;
+    font-style: italic;
+    text-align: center;
 }
