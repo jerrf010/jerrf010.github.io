@@ -2,9 +2,13 @@
     font-size: 20px;
     font-weight: bold;
     color: green;
+    border-color: black;
+    border-style: solid;
+    margin-bottom: 20px;
+    padding: 10px;
 }
 .name {
-    font-size: 18px;
+    font-size: 50px;
     color: blue;
     font-style: italic;
     text-align: center;
