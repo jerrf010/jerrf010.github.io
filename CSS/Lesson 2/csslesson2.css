@@ -1,13 +1,9 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    background-color: #f4f4f4;
+.question {
+    font-size: 20px;
+    font-weight: bold;
+    color: green;
 }
-h1 {
-    color: #333;
-}
-p {
-    font-size: 16px;
-    line-height: 1.6;
-    color: #666;
+.name {
+    font-size: 18px;
+    color: blue;
 }
