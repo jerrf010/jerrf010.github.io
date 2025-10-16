@@ -1,19 +1,21 @@
-h1 {
-    text-align:center;
-}
-
-#header {
+#header{
     background-color: #7b9e89;
     color: #020122;
     width: 80%;
-    height:30 px;
+    height: 30px;
     text-align: center;
     margin: auto;
     padding: 30px;
     border-radius: 35px;
+    border: 2px solid #020122;
+    position:sticky;
+    top: 0;
+    width: 30%;
+    height: 30 px;
 }
-#header p, h2 {
-    display: inline;
+
+h1{
+    text-align: center;
 }
 
 #parent {
@@ -21,34 +23,45 @@ h1 {
     width: 80%;
     height: 550px;
     background-color: #fc9e4f;
-    color:#020122;
+    color: #020122;
     border-radius: 70px;
+    border: 2px solid #020122;
 }
 
-#parent p,h3 {
+#parent p, h3{
     padding: 3%;
     font-size: 1.25rem;
-
 }
 
 #child{
+
     width: 75%;
     height: 350px;
     background-color: #f4442e;
     color: #020122;
+    margin: auto;
+    border: 2px solid #020122;
 }
-
-#child p,h3{
-    padding:3%;
+#child p{
+    padding: 3%;
     font-size: 1.25rem;
 }
 
-#fixed {
+#child h3{
+    font-size: 1.25rem;
+    text-align: center;
+}
+
+#fixed{
     width: 30%;
     height: auto;
     border-radius: 55px;
     background-color: #fc9e4f;
     color: #020122;
+    position:fixed;
+    top: 90%;
+    width: 30%;
+    height: 30px;
 }
 
 #fixed p{
@@ -58,10 +71,13 @@ h1 {
 
 #relative{
     width: 60%;
-    height: 350px;
+    height: auto;
     background-color: #edd382;
     color: #020122;
+    margin: auto;
+    
 }
+
 #relative p, h3{
     padding: 3%;
     font-size: 1.25rem;
