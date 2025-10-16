@@ -9,9 +9,18 @@
     border-radius: 35px;
     border: 2px solid #020122;
     position:sticky;
-    top: 0;
+    top: 1%;
     width: 30%;
     height: 30 px;
+    z-index: 1;
+}
+#title{
+    width: 80%;
+    margin: 10px auto;
+    padding: 10px;
+    border-radius: 35px;
+    border: 2px solid #020122;
+    color: #020122;
 }
 
 h1{
@@ -19,6 +28,7 @@ h1{
 }
 
 #parent {
+    position:relative;
     margin: 5% auto;
     width: 80%;
     height: 550px;
@@ -36,7 +46,7 @@ h1{
 #child{
 
     width: 75%;
-    height: 350px;
+    height: 250px;
     background-color: #f4442e;
     color: #020122;
     margin: auto;
@@ -53,13 +63,11 @@ h1{
 }
 
 #fixed{
-    width: 30%;
-    height: auto;
     border-radius: 55px;
     background-color: #fc9e4f;
     color: #020122;
     position:fixed;
-    top: 90%;
+    top: 95%;
     width: 30%;
     height: 30px;
 }
@@ -67,18 +75,25 @@ h1{
 #fixed p{
     display: inline;
     padding: 5%;
+    text-align: center;
 }
 
 #relative{
-    width: 60%;
-    height: auto;
+    width: 50%;
+    height: 200px;
     background-color: #edd382;
     color: #020122;
-    margin: auto;
-    
+    margin: 200px auto 0 auto;
+    position: static;
+    border-radius: 55px;
+    border: 2px solid #020122;
 }
 
 #relative p, h3{
     padding: 3%;
     font-size: 1.25rem;
+}
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #a3cef1;
 }
