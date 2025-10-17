@@ -19,10 +19,12 @@ body {
     margin-bottom: 10px;
     text-transform: uppercase;
     font-weight: 200;
+    border-bottom: 5px solid white;
+    padding-bottom: 10px;
 }
 
 .f-cambria {
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family: 'Times New Roman';
 }
 
 #role {
