@@ -24,7 +24,8 @@ body {
 }
 
 .f-cambria {
-    font-family: 'Times New Roman';
+    font-family: 'Cambria';
+    font-weight: 400;
 }
 
 #role {
