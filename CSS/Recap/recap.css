@@ -1,0 +1,23 @@
+body {
+    background-color: black;
+    color: white;
+}
+
+#card-container {
+    background-color: #1e1e1e;
+    border: 2px solid white;
+    padding: 20px;
+    width: 500px;
+    margin: 50px auto;
+    text-align: center;
+}
+
+#name {
+    font-family: 'Arial Black', Gadget, sans-serif;
+    font-size: 60px;
+    margin-bottom: 10px;
+}
+
+.f-cambria {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
