@@ -5,7 +5,7 @@ body {
 
 #card-container {
     background-color: #1e1e1e;
-    border: 2px solid white;
+    border: 2px dashed white;
     padding: 20px;
     width: 500px;
     margin: 50px auto;
