@@ -19,7 +19,7 @@ body{
 #c-text{
     background-color: #124D1F;
     padding: 5%;
-    margin: auto;
+    margin: 0 auto;
     margin-left: 25%;
     margin-bottom: 2%;
     margin-top: -10%;
@@ -38,7 +38,7 @@ body{
 
 #text{
     background-color: #124D1F; 
-    margin: auto;
+    margin: 0 auto;
     padding: 5%;
     text-align: center;
     color: rgb(255, 255, 255);
