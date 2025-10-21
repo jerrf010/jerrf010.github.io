@@ -11,7 +11,7 @@ body{
     border-radius: 5px;
     background-color: #124D1F;
 }
-#c-text, #b-text{
+#c-text{
     background-color: #124D1F;
     padding: 5%;
     margin: auto; 
@@ -21,15 +21,16 @@ body{
     border-radius: 8px;
 }
 #colour{
-background-color: #8A4304;
-width: 200;
-height: 200;
-border-radius: 50%;
-margin: 0 auto;
+    background-color: #8A4304;
+    width: 200;
+    height: 200;
+    border-radius: 50%;
+    margin: 0 auto;
 }
+
 #text {
-    background-color: #124D1F; padding: 5%;
-    margin: 5% auto;
+    background-color: #124D1F; 
+    margin-top: 50%;
     text-align: center;
     color: brown;
     width: 500px;
