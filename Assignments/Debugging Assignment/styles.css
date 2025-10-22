@@ -44,7 +44,7 @@ body {
     border-radius: 12px;
     box-shadow: 0 4px 10px rgb(0,0,0,0.1); /* Changed "rgba" to "rgb", will cause issues with shadow coloring, no such thing as rgba */
     position: relative;
-    background: #ffffff; /*fixed color profile for the background of the section, it was originally not defined*/
+    background-color: #ffffff; /*fixed color profile for the background of the section, it was originally not defined*/
     
 }
 
