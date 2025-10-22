@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elephants of the World</title>
-    <link href="styles.css" rel="stylesheet" type="text/css"/> <!--added missing style sheet link-->
+    <link href="styles.css" rel="stylesheet" type="text/css"/> <!--added missing style sheet link, would cause HTML to not have styling-->
     <link rel=icon href="https://github.com/jerrf010/basic_html/blob/main/park_with_shades.png?raw=true" type="image/icon type">
 </head>
 <body>
@@ -15,7 +15,7 @@
     <div id="hero">
         <h1>Elephants of the World</h1>
         <p>The gentle giants that shape our ecosystems.</p>
-    </div> <!--Missing div tag, may impact CSS styling and browser may not know when the container ends-->
+    </div> <!--Missing div tag, may impact CSS styling and browser may not know when the container ends, which affects styling-->
 
     <div class="section"> <!--missing "" which may affect class naming for styling-->
         <h2>About Elephants</h2>
@@ -41,7 +41,7 @@
             <li><strong>Asian Elephant:</strong> Found across South and Southeast Asia.</li>
         </ul> <!--Should use ul instead of li because it is the ending tag of the list, not the ending of the content in the list-->
         <div class="info-box">
-            <p><strong>Fun fact: Elephant ears help regulate body temperature!</p>
+            <p><strong>Fun fact:</strong> Elephant ears help regulate body temperature!</p> <!--Missing ending of strong tag, affects how the texts would look-->
         </div>
     </div>
 
