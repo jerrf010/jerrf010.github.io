@@ -1,0 +1,105 @@
+body {
+    font-family: "Segoe UI", sans-serif;
+    background-color: #f5f9fc;
+    color: #333;
+    margin:0 auto; /* Changed from 0 to 0 auto to center the body content */
+    /*Added missing margin property to center the body content and get rid of margins on the sides*/
+}
+
+#navbar {
+    position: fixed;
+    width: 100%;
+    background-color: #3a7ca5;
+    color: white;
+    padding: 10px 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;    
+}
+
+#hero { /*Removed margin-top, which causes extra space in the top of the navbar*/
+    text-align: center;
+    background: #c8e8f3;
+    color: #2b6777;
+    padding: 140px 20px 80px;
+    position: relative;
+    z-index: 1;
+}
+#hero h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+#hero p {
+    font-size: 1.2rem;
+}
+
+.section {
+    margin: 60px auto;
+    width: 80%;
+    max-width: 900px;
+    color: rgb(0, 0, 0);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgb(0,0,0,0.1); /* Changed "rgba" to "rgb", will cause issues with shadow coloring, no such thing as rgba */
+    position: relative;
+    background: #ffffff; /*fixed color profile for the background of the section, it was originally not defined*/
+    
+}
+
+.parent-box {
+    position: relative; /* Added missing semicolon, will cause issues with styling */
+    background-color: #d8efff;
+    padding: 30px;
+    margin-top: 25px;
+    border-radius: 8px;
+}
+
+.child-box {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    background-color: #9bcdff; /* Fixed color code, it was the wrong color selected*/
+    padding: 10px; /* No such thing as png for padding parameters */
+    border-radius: 6px;
+    width: 45%; /* Missing "d" in width, will cause issues with box sizing */
+    box-shadow: 0 2px 6px rgb(0,0,0,0.15); /* Changed "rgba" to "rgb", will cause issues with shadow coloring, no such thing as rgba */
+}
+
+.sticky-title {
+    position: sticky;
+    top: 70px;
+    background-color: #3a7ca5;
+    color: white; /*Used american spelling, will cause issues with color recognition if not resolved*/
+    padding: 10px;
+    border-radius: 8px;
+    z-index: 5;
+}
+
+.info-box {
+    background-color: #f0f9ff; /* Added missing # for hex color, will cause issues with coloring if not resolved */
+    border-left: 6px solid #3a7ca5;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 8px;
+}
+
+#fact-card {
+    background-color: #e3f8e0;
+    border: 2px solid #6fc276;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    position: relative;
+    margin-top: 10px;
+}
+
+#footer {
+    background-color: #3a7ca5;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+    z-index: 10; /* Missing colon fixed, cause errors in css */
+} /* Added missing closing brace, cause errors in css, computer doesn't know where the styling of the element ends */
