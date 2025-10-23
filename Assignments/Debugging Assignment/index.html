@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elephants of the World</title>
-    <link href="styles.css" rel="stylesheet" type="text/css"/> <!--added missing style sheet link, would cause HTML to not have styling-->
+    <link href="more.css" rel="stylesheet" type="text/css"/> <!--added missing style sheet link, would cause HTML to not have styling-->
     <link rel=icon href="https://github.com/jerrf010/basic_html/blob/main/park_with_shades.png?raw=true" type="image/icon type">
 </head>
 
@@ -16,7 +16,9 @@
     <div id="hero">
         <h1>Elephants of the World</h1>
         <p>The gentle giants that shape our ecosystems.</p>
-    </div> <!--Missing div tag, may impact CSS styling and browser may not know when the container ends, which affects styling-->
+    </div> 
+    <!-- Replaced missing div tag, may impact CSS styling and browser may not 
+    know when the container ends, which affects styling-->
 
     <div class="section"> <!--missing "" which may affect class naming for styling-->
         <h2>About Elephants</h2>
@@ -41,25 +43,32 @@
             <li><strong>African Savannah Elephant:</strong> Found in open grasslands.</li>
             <li><strong>African Forest Elephant:</strong> Smaller, lives in dense forests.</li>
             <li><strong>Asian Elephant:</strong> Found across South and Southeast Asia.</li>
-        </ul> <!--Should use ul instead of li because it is the ending tag of the list, not the ending of the content in the list-->
+        </ul> <!--Should use ul instead of li because it is the ending tag of the list, 
+        not the ending of one of the contents in the list-->
+        <!--Not defining a list item-->
+
         <div class="info-box">
-            <p><strong>Fun fact:</strong> Elephant ears help regulate body temperature!</p> <!--Missing ending of strong tag, affects how the texts would look-->
+            <p><strong>Fun fact:</strong> Elephant ears help regulate body temperature!</p> 
+            <!--Missing ending of strong tag, affects how the texts would look-->
+            <!--The "fun fact:" would not look bolded-->
         </div>
     </div>
 
     <div class="section" >
         <h2>Fun Facts</h2>
         <div class="facts-container">
-            <div class="fact-card">🐘 Elephants can recognize themselves in mirrors.</div> <!--missing div tag which causes issues with the styling-->
+            <div class="fact-card">🐘 Elephants can recognize themselves in mirrors.</div> 
+            <!--missing end of div tag which causes issues with the styling because the browser
+            doesn't know when the container ends-->
             <div class="fact-card">💧 They use their trunks like snorkels when swimming.</div>
             <div class="fact-card">🌿 They eat up to 300 pounds of food per day!</div> 
-            <!--extra div tag, may cause errors with styling-->
-
+            <!--removed extra div tag, it may cause errors with styling because the browser
+            might expect a div tag that might not exist-->
         </div>
     </div>
 
     <div id="footer"> <!--missing ">" which would make errors in the html as the ending of the tag is not defined-->
         <p>© 2025 Elephants of the World</p>
     </div>
-</body> <!--missing body tag, which may mess up html structure-->
+</body> <!--missing body tag, which may mess up html structure and affect styling-->
 </html>

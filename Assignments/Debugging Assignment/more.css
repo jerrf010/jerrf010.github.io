@@ -2,8 +2,9 @@ body {
     font-family: "Segoe UI", sans-serif;
     background-color: #f5f9fc;
     color: #333;
-    margin:0 auto; /* Changed from 0 to 0 auto to center the body content */
-    /*Added missing margin property to center the body content and get rid of margins on the sides*/
+    margin:0 auto;
+    /*Added missing margin property to center the body content and get rid of 
+    margins on the sides, which makes the website look smaller with borders on the sides*/
 }
 
 #navbar {
@@ -42,7 +43,7 @@ body {
     color: rgb(0, 0, 0);
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 4px 10px rgb(0,0,0,0.1); /* Changed "rgba" to "rgb", will cause issues with shadow coloring, no such thing as rgba */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
     position: relative;
     background-color: #ffffff; /*fixed color profile for the background of the section, it was originally not defined*/
     
@@ -64,7 +65,7 @@ body {
     padding: 10px; /* No such thing as png for padding parameters */
     border-radius: 6px;
     width: 45%; /* Missing "d" in width, will cause issues with box sizing */
-    box-shadow: 0 2px 6px rgb(0,0,0,0.15); /* Changed "rgba" to "rgb", will cause issues with shadow coloring, no such thing as rgba */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
 .sticky-title {
@@ -85,7 +86,7 @@ body {
     border-radius: 8px;
 }
 
-.fact-card { /* Changed from # to . because it is a class, not an id, this will cause issues with stylign */
+.fact-card { /* Changed from # to . because it is a class, not an id, this will cause issues with styling */
     background-color: #e3f8e0;
     border: 2px solid #6fc276;
     padding: 15px;
@@ -101,5 +102,5 @@ body {
     text-align: center;
     padding: 20px;
     position: relative;
-    z-index: 10; /* Missing colon fixed, cause errors in css */
+    z-index: 10; /* Missing colon fixed, cause errors in css because it doesn't know if the property modifer is ended yet */
 } /* Added missing closing brace, cause errors in css, computer doesn't know where the styling of the element ends */
