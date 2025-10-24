@@ -71,7 +71,7 @@ body {
     background-color: #9bcdff;
     /* Fixed color code, it was the wrong color selected*/
     padding: 10px;
-    /* No such thing as png for padding values, that will cause issues with the spacing between the border of the element and the text */
+    /* No such thing as png for padding values, that will cause issues with the spacing between the border of the element and the literal element */
     border-radius: 6px;
     width: 45%;
     /* Missing "d" in width, will cause issues with box sizing*/
@@ -84,7 +84,7 @@ body {
     background-color: #3a7ca5;
     color: white;
     /*Used american spelling, will cause issues with color recognition if not resolved, and the text color of the sticky title element will not be white, and will cause errors*/
-    padding: 10px;
+    padding: 10px;  
     border-radius: 8px;
     z-index: 5;
 }
