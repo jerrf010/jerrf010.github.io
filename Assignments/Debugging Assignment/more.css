@@ -99,7 +99,7 @@ body {
 }
 
 .fact-card {
-    /* Changed from # to . because it is a class, not an id, this will cause issues with styling and there will not be a green border section around the fact card text */
+    /* Changed the selector from # to . because it is a class, not an id, this will cause issues with styling and there will not be a green border section around the fact card text */
     background-color: #e3f8e0;
     border: 2px solid #6fc276;
     padding: 15px;
