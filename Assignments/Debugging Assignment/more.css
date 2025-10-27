@@ -61,7 +61,7 @@ body {
 
 .parent-box {
     position: relative;
-    /* Added missing semicolon, will cause issues with styling because the browser doesn't know when the delaration ends */
+    /* Added missing semicolon, will cause issues with styling because the browser doesn't know when the declaration ends */
     background-color: #d8efff;
     padding: 30px;
     margin-top: 25px;
