@@ -24,6 +24,8 @@ body {
 #hero {
     /*Removed margin-top, which causes extra space in the top of the navbar because it is telling the browser to have space above and outside the hero element, but the navbar 
     element is attached to the hero element, so that causes the extra space.*/
+    /* the margin-top is causing the navbar to have 10px of space above it, which is not desired */
+
     /* if you don't want to remove margin-top, you can add top: 0; to the #navbar to set the top position of the navbar to be 0 */
     text-align: center;
     background: #c8e8f3;
@@ -86,7 +88,7 @@ body {
     background-color: #3a7ca5;
     color: white;
     /*Used american spelling, will cause issues with color recognition if not resolved, and the text color of the sticky title element will not be white, and will cause errors*/
-    padding: 10px;  
+    padding: 10px;
     border-radius: 8px;
     z-index: 5;
 }
