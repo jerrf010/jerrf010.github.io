@@ -1,6 +1,9 @@
 @font-face {
-  font-family: Creepster; /* set name */
-  src: url('/CSS/Lesson\ 8/Creepster/Creepster-Regular.tff'); /* url of the font */
+    font-family: 'Creepster';
+    src: url('/Fonts/Creepster/Creepster-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
 }
 
 
@@ -21,10 +24,12 @@ body {
 
 .container {
     text-align: center;
-    padding: 10px 20px; 
+    padding: 10px 20px;
     color: black;
-    font-family: Creepster;
-
+    font-family: 'Creepster';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 40px;
 }
 
 .polaroid img {
