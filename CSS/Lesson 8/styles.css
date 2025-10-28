@@ -1,3 +1,9 @@
+@font-face {
+  font-family: Creepster; /* set name */
+  src: url('/CSS/Lesson\ 8/Creepster/Creepster-Regular.tff'); /* url of the font */
+}
+
+
 body {
     background-image: url(https://www.anipedia.net/imagenes/tigres.jpg);
     background-size: cover;
@@ -7,7 +13,7 @@ body {
 .polaroid {
     width: 50%;
     margin : auto;
-    background-color: black;
+    background-color: rgb(204, 14, 14);
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     margin-bottom: 25px;
     border-radius: 5px;
@@ -15,7 +21,9 @@ body {
 
 .container {
     text-align: center;
-    padding: 10px 20px;
+    padding: 10px 20px; 
+    color: black;
+    font-family: Creepster;
 
 }
 
@@ -23,6 +31,6 @@ body {
     padding-top: 10px;
     width: 95%;
     margin: auto;
-    border-radius: 5px;
+    border-radius: 20px;
     display: block;
 }
