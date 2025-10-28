@@ -1,4 +1,21 @@
 body {
-    background-color: aqua;
     background-image: url(https://www.anipedia.net/imagenes/tigres.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.polaroid {
+    margin: 0 auto;
+    background-color: rgb(165, 55, 55);
+    width: 50%;
+    border-style: solid black;
+    border-width: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(30, 204, 111, 0.1);
+}
+
+.container {
+    text-align: center;
+    padding: 10px 20px;
+
 }
