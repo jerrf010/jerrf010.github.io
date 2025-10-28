@@ -5,17 +5,24 @@ body {
 }
 
 .polaroid {
-    margin: 0 auto;
-    background-color: rgb(165, 55, 55);
     width: 50%;
-    border-style: solid black;
-    border-width: 10px;
+    margin : auto;
+    background-color: black;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    margin-bottom: 25px;
     border-radius: 5px;
-    box-shadow: 0 4px 10px rgba(30, 204, 111, 0.1);
 }
 
 .container {
     text-align: center;
     padding: 10px 20px;
 
+}
+
+.polaroid img {
+    padding-top: 10px;
+    width: 95%;
+    margin: auto;
+    border-radius: 5px;
+    display: block;
 }
