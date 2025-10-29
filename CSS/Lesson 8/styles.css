@@ -1,41 +1,45 @@
-@font-face {
-    font-family: 'Creepster';
-    src: url('/Fonts/Creepster/Creepster-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+body {
+    background-color: black;
 }
 
-
-body {
-    background-image: url(https://www.anipedia.net/imagenes/tigres.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
+#background img {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    opacity: 0.5;
 }
 
 .polaroid {
     width: 50%;
     margin : auto;
     background-color: rgb(204, 14, 14);
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 4px 8px 0 rgba(1, 255, 124, 0.59);
     margin-bottom: 25px;
     border-radius: 5px;
+    padding-top: 10px;
 }
 
 .container {
     text-align: center;
     padding: 10px 20px;
     color: black;
-    font-family: 'Creepster';
-    font-weight: normal;
-    font-style: normal;
-    font-size: 40px;
+    font-family: "Bitcount Grid Single", system-ui;
+    font-size: 50px;
 }
 
 .polaroid img {
-    padding-top: 10px;
-    width: 95%;
-    margin: auto;
-    border-radius: 20px;
+    width: 70%;
+    height: 800px;
+    margin: 0 auto;
+    margin-top: 50px;
+    border-radius: 30px;
     display: block;
+}
+
+.Yarndings {
+    font-family: 'Yarndings 20';
 }
