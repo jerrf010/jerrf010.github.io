@@ -29,6 +29,7 @@ body {
     color: black;
     font-family: "Bitcount Grid Single", system-ui;
     font-size: 50px;
+    text-transform: uppercase;
 }
 
 .polaroid img {
