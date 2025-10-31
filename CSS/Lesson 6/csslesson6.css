@@ -2,16 +2,13 @@
     background-color: #7b9e89;
     color: #020122;
     width: 80%;
-    height: 30px;
     text-align: center;
-    margin: auto;
-    padding: 30px;
+    margin: 0 auto;
+    padding: 10px;
     border-radius: 35px;
     border: 2px solid #020122;
-    position:sticky;
+    position: sticky;
     top: 1%;
-    width: 30%;
-    height: 30 px;
     z-index: 1;
 }
 #title{
@@ -19,7 +16,6 @@
     margin: 10px auto;
     padding: 10px;
     border-radius: 35px;
-    border: 2px solid #020122;
     color: #020122;
 }
 
@@ -67,9 +63,12 @@ h1{
     background-color: #fc9e4f;
     color: #020122;
     position:fixed;
-    top: 95%;
-    width: 30%;
-    height: 30px;
+    left: 0;
+    bottom: 0;
+    width: 45%;
+    text-align: center;
+    padding: 5px;
+    border: solid 3px black;
 }
 
 #fixed p{
@@ -93,7 +92,17 @@ h1{
     padding: 3%;
     font-size: 1.25rem;
 }
+
 body{
     font-family: Arial, Helvetica, sans-serif;
     background-color: #a3cef1;
+}
+
+.img {
+    top:0px;
+    height: 400px;
+    width: auto;
+    position:fixed;
+    left: 0;
+    z-index: 100;
 }
