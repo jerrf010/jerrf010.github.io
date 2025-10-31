@@ -65,7 +65,7 @@ h1{
     position:fixed;
     left: 0;
     bottom: 0;
-    width: 45%;
+    width: 30%;
     text-align: center;
     padding: 5px;
     border: solid 3px black;
@@ -79,7 +79,7 @@ h1{
 
 #relative{
     width: 50%;
-    height: 200px;
+    height: 360px;
     background-color: #edd382;
     color: #020122;
     margin: 200px auto 0 auto;
