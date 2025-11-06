@@ -5,10 +5,19 @@
         <meta name="viewport" content="width=device-width", initial-scale="1.0">
         <title>Lesson 2 task</title>
         <script>
-            let itemsCost = prompt("The total cost of items: ")
-            itemsCost = Number(itemsCost)
-            totalCost = itemsCost*1.13
-            console.log(`The total cost is ${totalCost}`)
+            let itemsCost = prompt("The total cost of items: ");
+            itemsCost = Number(itemsCost);
+            totalCost = itemsCost*1.13;
+            console.log(`The total cost is ${totalCost}`);
+
+            let travelTimes1 = prompt("Travel times of first trip: ");
+            let travelTimes2 = prompt("Travel times for the second trip: ");
+            travelTimes1 = Number(travelTimes1);
+            travelTimes2 = Number(travelTimes2);
+
+            totalTime = travelTimes1 + travelTimes2;
+
+            console.log(`Total travel time ${totalTime}`);
 
         </script>
     </head>
