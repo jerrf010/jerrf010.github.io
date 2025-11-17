@@ -1,4 +1,63 @@
+.header {
+    background-image: url("https://github.com/jerrf010/jerrf010.github.io/blob/main/Assignments/Website%20Redesign/Media/background.png?raw=true");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
 .navbar {
-    background-color: #333;
-    background-image: ;
+    background-color: #000000;
+    opacity: 0.9;
+    padding-top: 20px;
+    color: #ffffff;
+    font-family: "Stack Sans Headline", sans-serif;
+}
+.navbar h2 {
+    margin-left: 30px;
+    font-weight: 400;
+    font-size: 40px;
+}
+
+.navbar a {
+    color: #ffffff;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: 500;
+}
+
+#current {
+    font-style: bold;
+    color:#ff9900;
+}
+
+.navbar a:hover {
+    color: #ff9900;
+}
+
+.title_box {
+    margin: 0 auto;
+    text-align: center;
+    color: #ffffff;
+    padding: 150px 20px;
+    font-family: "Stack Sans Headline", sans-serif;
+}
+
+.text_border {
+    margin-left: 25%;
+    margin-right: 25%;
+    padding: 40px;
+    background-color: rgba(84, 84, 84, 0.8);
+    border-radius: 10px;
+}
+
+.text_border h1 {
+    font-size: 80px;
+    font-weight: 300;
+    margin: 0;
+}
+
+.text_border h2 {
+    font-size: 30px;
+    font-weight: 500;
+    margin: 0;
+    font-family: "Noto Sans", sans-serif;
 }
