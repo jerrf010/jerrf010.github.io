@@ -360,3 +360,9 @@ html, body {
 .hours_times {
     margin-top: -5%;
 }
+
+.story_txt {
+    margin-left: 15%;
+    margin-top: 10%;
+    width: 75%;
+}
