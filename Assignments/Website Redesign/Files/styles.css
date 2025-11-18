@@ -172,17 +172,17 @@ html, body {
 }
 
 .section_2 iframe {
-    margin-left: 5%;
-    margin-top: 70px;
+    padding-left: 5%;
+    padding-top: 70px;
     width: 40%;
-    height: auto;
+    height: 500px;
 }
 
 .hours {
-    margin-left: 20%;
-    padding: 2%;
     text-align: center;
     font-family: "Stack Sans Headline", sans-serif;
+    margin-top: -26%;
+    margin-left: 30%;
 }
 
 .hours h2 {
@@ -194,7 +194,7 @@ html, body {
 
 .hours h3 {
     font-size: 160%;
-    margin: 3% 0;
+    margin: 2%;
     font-weight: 400;
 }
 
@@ -357,5 +357,6 @@ html, body {
     margin-top: 3%;
 }
 
-.map {
+.hours_times {
+    margin-top: -5%;
 }
