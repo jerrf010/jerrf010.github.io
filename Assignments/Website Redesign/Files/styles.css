@@ -3,6 +3,14 @@
     --bs-my-card-color: #ffb7b7;
 }
 
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    width: auto;
+}
+
 .bg-my-card-color {
     background-color: var(--bs-my-card-color) !important;
 }
