@@ -37,7 +37,7 @@
     margin: 0 auto;
     text-align: center;
     color: #ffffff;
-    padding: 150px 20px;
+    padding: 100px 20px;
     font-family: "Stack Sans Headline", sans-serif;
 }
 
@@ -60,4 +60,48 @@
     font-weight: 500;
     margin: 0;
     font-family: "Noto Sans", sans-serif;
+}
+
+.section_1 {
+    background-color: #ff8b8b;
+}
+
+.section_1 h2 {
+    font-family: "Stack Sans Headline", sans-serif;
+    font-size: 50px;
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom: 20px;
+    color: black;
+    text-decoration: dashed underline 5px;
+    text-underline-offset: 20px;
+}
+
+.card {
+    text-align: center;
+    border-radius: 0 !important;
+}
+
+.card-img-top {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    height: 200px;
+    object-fit: cover;
+}
+.card .card-body {
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
+.card-img-container {
+    padding: 10px;
+}
+
+.card-img-container img {
+    width: 100%;
+}
+
+.card {
+    width: 100%;
+    max-width: 300px;
 }
