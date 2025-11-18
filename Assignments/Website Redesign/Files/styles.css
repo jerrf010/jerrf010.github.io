@@ -1,3 +1,16 @@
+:root {
+    --bs-my-button-color: #ffb7b7;
+    --bs-my-card-color: #ffb7b7;
+}
+
+.bg-my-card-color {
+    background-color: var(--bs-my-card-color) !important;
+}
+
+.bg-my-button-color {
+    background-color: var(--bs-my-button-color) !important;
+}
+
 .header {
     background-image: url("https://github.com/jerrf010/jerrf010.github.io/blob/main/Assignments/Website%20Redesign/Media/background.png?raw=true");
     background-repeat: no-repeat;
@@ -71,7 +84,7 @@
     font-size: 50px;
     text-align: center;
     padding-top: 30px;
-    padding-bottom: 20px;
+    padding-bottom: 50px;
     color: black;
     text-decoration: dashed underline 5px;
     text-underline-offset: 20px;
@@ -85,7 +98,6 @@
 .card-img-top {
     border-top-left-radius: 0 !important;
     border-top-right-radius: 0 !important;
-    height: 200px;
     object-fit: cover;
 }
 .card .card-body {
@@ -95,13 +107,37 @@
 
 .card-img-container {
     padding: 10px;
-}
 
-.card-img-container img {
-    width: 100%;
+    height:100% !important;
 }
 
 .card {
-    width: 100%;
-    max-width: 300px;
+    height: 100% !important;
+    border: dashed 2px #000000 !important;
+}
+.cart-btn img {
+    width: 50px;
+    height: 50px;
+
+}
+
+.col-md-3 {
+    margin-bottom: 30px;
+}
+.explr_btn {
+    display: block;
+    margin-left: 46%;
+    margin-top: 30px;
+    width: fit-content;
+    background-color: #a38032;
+    color: #000;
+    border: black 2px solid;
+    padding: 10px 20px;
+    text-align: center;
+    z-index: 1;
+}
+
+.explr_btn:hover {
+    background-color: #ffc966;
+    color: #000;
 }
