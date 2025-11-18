@@ -3,11 +3,10 @@
 }
 
 
-body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    width: auto;
+html, body {
+   margin: 0;
+   padding: 0;
+   height: 100%;
 }
 
 .bg-my-card-color {
@@ -69,7 +68,7 @@ body {
     padding: 40px;
     background-color: rgba(84, 84, 84, 0.8);
     border-radius: 10px;
-    max-width: 80%;
+    max-width: 40%;
 }
 
 .text_border h1 {
@@ -175,13 +174,13 @@ body {
 .section_2 iframe {
     margin-left: 5%;
     margin-top: 70px;
+    width: 40%;
+    height: auto;
 }
 
 .hours {
-    margin-left: 55%;
-    margin-top: -30%;
+    margin-left: 20%;
     padding: 2%;
-    width: 30%;
     text-align: center;
     font-family: "Stack Sans Headline", sans-serif;
 }
@@ -222,20 +221,22 @@ body {
 
 .section_3 {
     background-color: #ff8b8b;
-    padding-bottom: 50px;
     margin: 0 auto;
-    padding-top: 50px
+    padding-top: 50px;
+    padding-bottom: 3%;
+    font-family: "Stack Sans Headline", sans-serif;
 }
 
 .story {
     font-family: "Stack Sans Headline", sans-serif;
     color: black;
-    height: 450px;
+    height: auto;
     width: 90%;
     background-color: #ffd4d4;
     margin: 0 auto;
     border: black dashed 4px;
-    border-radius: 30px
+    border-radius: 30px;
+    padding-bottom: 3%;
 }
 
 .story h2 {
@@ -257,7 +258,7 @@ body {
 }
 
 .story p {
-    font-size: 120%;
+    font-size: 130%;
     margin-top: -15%;
     line-height: 1.6;
     margin-left: 45%;
@@ -290,4 +291,71 @@ body {
 
 .bw_btn {
     transition: background-color 0.5s ease;
+}
+
+.footer {
+    background-color: #ffb7b7;
+    color: black;
+    text-align: center;
+    padding: 20px 0;
+    font-family: "open sans", sans-serif;
+}
+
+.lt h2{
+    color: black;
+    font-weight: 400;
+    text-align: left;
+    margin-left: 10%;
+    font-size: 400%;
+    margin-top: 1%;
+    width: 30%;
+    border-bottom: solid black 4px;
+    font-family: "open sans", sans-serif;
+}
+
+.caps h3 {
+    text-align: left;
+    margin-left: 10%;
+    text-transform: uppercase;
+    margin-top: 1%;
+    font-family: "Stack Sans Headline", sans-serif;
+    font-weight: 600;;
+}
+
+.social_media_icons img {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 1%;
+    width: 5%;
+    height: 5%;
+}
+
+.social_media_icons {
+    text-align: left;
+    margin-left: 10%;
+    width: auto;
+}
+
+.footer_info {
+   margin-right: 10%;
+   margin-left: 60%;
+   margin-top: -13%;
+   text-align: left;
+}
+
+.footer_info h3 {
+    text-transform: uppercase;
+}
+
+.footer_info h4 {
+    margin-top: 1%;
+    font-weight: 400;
+}
+
+.footer_logo {
+    margin: 0 auto;
+    margin-top: 3%;
+}
+
+.map {
 }
