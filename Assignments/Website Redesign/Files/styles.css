@@ -221,23 +221,23 @@
 
 #story img {
     width: 300px;
-    height: 300px;
+    height: auto;
     margin-top: 20px;
-    margin-left: 200px;
+    margin-left: 214px;
 }
 
 #story p {
     font-size: 20px;
-    margin-top: -230px;
+    margin-top: -173px;
     line-height: 1.6;
     margin-left: 45%;
     text-align: left;
-
+    width: 650px;
 }
 
 #story a {
     display: inline-block;
-    margin-top: 20px;
+    margin-top: 120px;
     padding: 10px 20px;
     background-color: #000000;
     color: #ffffff;
