@@ -206,6 +206,8 @@
     font-family: "Stack Sans Headline", sans-serif;
     color: black;
     height: 600px;
+    width: 90%;
+    margin: 0 auto;
 }
 
 #story h2 {
@@ -218,17 +220,29 @@
 }
 
 #story img {
-    width: 500px;
-    height: 500px;
+    width: 300px;
+    height: 300px;
     margin-top: 20px;
-    margin-left: 20px;
+    margin-left: 200px;
 }
 
 #story p {
     font-size: 20px;
-    margin-top: -50px;
+    margin-top: -230px;
     line-height: 1.6;
-    margin-left: 55%;
+    margin-left: 45%;
     text-align: left;
 
+}
+
+#story a {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #000000;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 500;
+    margin-left:45%;
 }
