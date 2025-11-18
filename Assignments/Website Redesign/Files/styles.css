@@ -196,3 +196,31 @@
     text-transform: uppercase;
     font-weight: 400;
 }
+
+.section_3 {
+    background-color: #ff8b8b;
+    padding-bottom: 50px;
+}
+
+#story {
+    padding: 20px;
+    width: 60%;
+    text-align: center;
+    font-family: "Stack Sans Headline", sans-serif;
+    color: black;
+}
+
+#story h2 {
+    font-size: 50px;
+    text-decoration: underline solid 5px;
+    text-underline-offset: 15px;
+    margin-bottom: 30px;
+}
+
+#story img {
+    width: 100px;
+    height: 100px;
+    margin-top: 20px;
+    margin-left: 20px;
+    padding-left: 20px;
+}
