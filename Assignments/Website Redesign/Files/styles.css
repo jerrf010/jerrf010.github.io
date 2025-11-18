@@ -1,5 +1,4 @@
 :root {
-    --bs-my-button-color: #ffb7b7;
     --bs-my-card-color: #ffb7b7;
 }
 
@@ -65,15 +64,16 @@ body {
 }
 
 .text_border {
-    margin-left: 25%;
-    margin-right: 25%;
+    margin-left: auto;
+    margin-right: auto;
     padding: 40px;
     background-color: rgba(84, 84, 84, 0.8);
     border-radius: 10px;
+    max-width: 80%;
 }
 
 .text_border h1 {
-    font-size: 80px;
+    font-size: 90px;
     font-weight: 300;
     margin: 0;
 }
@@ -143,18 +143,28 @@ body {
     padding: 50px 0;
 }
 
-.explr_btn:hover {
-    background-color: #ffc966;
-    color: #000;
-}
-
-.explore_btn_container a {
+.explore_btn {
     width: 150px;
+    display: inline-block;
     height: 10%;
     text-align: center;
     padding: 10px 10px;
     border: black 4px solid;
     border-radius: 100px;
+    color: black;
+    text-decoration: none;
+    background-color: #ffb7b7;
+    font-family: "open sans", sans-serif;
+    transition: background-color 0.5s ease;
+}
+
+.explore_btn:hover {
+    background-color: white;
+    color: black;
+    border: solid 4px black;
+    padding: 10px 10px;
+    height: 10%;
+    font-family: "open sans", sans-serif;
 }
 
 .section_2 {
@@ -169,35 +179,40 @@ body {
 
 .hours {
     margin-left: 55%;
-    margin-top: -400px;
-    padding: 20px;
-    width: 500px;
+    margin-top: -30%;
+    padding: 2%;
+    width: 30%;
     text-align: center;
     font-family: "Stack Sans Headline", sans-serif;
 }
 
 .hours h2 {
-    font-size: 40px;
+    font-size: 250%;
     text-decoration: underline dashed 5px;
     text-underline-offset: 15px;
-    margin-bottom: 30px;
+    margin-bottom: 10%;
 }
 
 .hours h3 {
-    font-size: 25px;
-    margin: 10px 0;
+    font-size: 160%;
+    margin: 3% 0;
     font-weight: 400;
 }
 
 .hours a {
     display: inline-block;
     margin-top: 20px;
-    padding: 10px 20px;
+    padding: 13px;
     background-color: #000000;
     color: #ffffff;
     text-decoration: none;
     border-radius: 50px;
     font-weight: 500;
+    height: 50px;
+    width: 160px;
+    text-align: center;
+    border: solid 2px black;
+    font-family: "open sans", sans-serif;
 }
 
 .card-title {
@@ -224,40 +239,55 @@ body {
 }
 
 .story h2 {
-    font-size: 50px;
+    font-size: 300%;
     text-decoration: underline solid 5px;
     text-underline-offset: 5px;
-    margin-bottom: 30px;
+    margin-bottom: 3%;
     text-align: center;
-    margin-top: 10px
+    margin-top: 1%;
 }
 
 .story img {
-    width: 350px;
+    width: 25%;
     height: auto;
-    margin-top: -4px;
-    margin-left: 167px;
+    margin-top: -1%;
+    margin-left: 11%;
     border: 3px black solid;
     border-radius: 10px;
 }
 
 .story p {
-    font-size: 20px;
-    margin-top: -194px;
+    font-size: 120%;
+    margin-top: -15%;
     line-height: 1.6;
     margin-left: 45%;
     text-align: left;
-    width: 650px;
+    width: 45%;
 }
 
 .story a {
     display: inline-block;
-    margin-top: 69px;
-    padding: 10px 20px;
+    margin-top: 6%;
+    padding: 1%;
     background-color: #000000;
     color: #ffffff;
     text-decoration: none;
-    border-radius: 50px;
+    border-radius: 36px;
     font-weight: 500;
     margin-left:45%;
+    height: 12%;
+    width: 10%;
+    text-align: center;
+    border: solid 2px black;
+    font-family: "open sans", sans-serif;
+}
+
+.bw_btn:hover {
+    background-color: #ffffff;
+    color: #000000;
+    border: solid 2px #000000;
+}
+
+.bw_btn {
+    transition: background-color 0.5s ease;
 }
