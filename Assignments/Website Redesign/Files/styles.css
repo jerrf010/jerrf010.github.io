@@ -203,11 +203,9 @@
 }
 
 #story {
-    padding: 20px;
-    width: 60%;
-    text-align: center;
     font-family: "Stack Sans Headline", sans-serif;
     color: black;
+    height: 600px;
 }
 
 #story h2 {
@@ -215,12 +213,22 @@
     text-decoration: underline solid 5px;
     text-underline-offset: 15px;
     margin-bottom: 30px;
+    text-align: center;
+    padding-top: 20px;
 }
 
 #story img {
-    width: 100px;
-    height: 100px;
+    width: 500px;
+    height: 500px;
     margin-top: 20px;
     margin-left: 20px;
-    padding-left: 20px;
+}
+
+#story p {
+    font-size: 20px;
+    margin-top: -50px;
+    line-height: 1.6;
+    margin-left: 55%;
+    text-align: left;
+
 }
