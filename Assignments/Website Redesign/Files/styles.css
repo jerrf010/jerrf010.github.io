@@ -3,10 +3,11 @@
 }
 
 
-html, body {
-   margin: 0;
-   padding: 0;
-   height: 100%;
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
 }
 
 .return_up {
@@ -115,9 +116,14 @@ html, body {
     font-family: "Stack Sans Headline", sans-serif;
     font-size: 50px;
     text-align: center;
-    padding-top: 60px;
-    padding-bottom: 50px;
+    padding-top: 3%;
     color: black;
+    font-weight: 400;
+
+    margin-bottom: 3%
+}
+
+#Home_1 h2 {
     text-decoration: dashed underline 5px;
     text-underline-offset: 20px;
 }
@@ -140,8 +146,6 @@ html, body {
 
 .card-img-container {
     padding: 10px;
-
-    height: 100% !important;
 }
 
 .card {
@@ -152,11 +156,12 @@ html, body {
 .cart-btn img {
     width: 50px;
     height: 50px;
+    position: relative;
 
 }
 
 .card_subtitle {
-    font-family:"open sans", sans-serif;
+    font-family: "open sans", sans-serif;
     color: #545454;
 }
 
@@ -288,24 +293,24 @@ html, body {
 
 .story p {
     font-size: 130%;
-    margin-top: -23%;
+    margin-top: -20%;
     line-height: 1.6;
-    margin-left: 45%;
+    margin-left: 41%;
     text-align: left;
-    width: 50%;
+    width: 60%;
     font-family: "open sans", sans-serif;
 }
 
 .story a {
     display: inline-block;
-    margin-top: 4%;
+    margin-top: 5%;
     padding: 1%;
     background-color: #000000;
     color: #ffffff;
     text-decoration: none;
     border-radius: 36px;
     font-weight: 500;
-    margin-left:45%;
+    margin-left: 45%;
     width: 10%;
     border: solid 2px black;
     font-family: "open sans", sans-serif;
@@ -330,7 +335,7 @@ html, body {
     font-family: "open sans", sans-serif;
 }
 
-.lt h2{
+.lt h2 {
     color: black;
     font-weight: 400;
     text-align: left;
@@ -348,15 +353,15 @@ html, body {
     text-transform: uppercase;
     margin-top: 1%;
     font-family: "Stack Sans Headline", sans-serif;
-    font-weight: 600;;
+    font-weight: 600;
+    ;
 }
 
 .social_media_icons img {
     list-style-type: none;
     padding: 0;
     margin-top: 1%;
-    width: 5%;
-    height: 5%;
+    width: 4%;
 }
 
 .social_media_icons {
@@ -407,6 +412,35 @@ html, body {
 }
 
 .menu_titles {
-    font-family:"stack sans headline", sans-serif;
+    font-family: "stack sans headline", sans-serif;
     font-weight: 500;
+    font-size: 25px;
+}
+
+.line {
+    border: solid black 3px;
+    border-radius: 10px;
+    margin: 0 auto;
+    width: 85%;
+}
+
+.menu {
+    background-color: #ff8b8b;
+}
+
+#full_menu h2 {
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 7%;
+    font-family: "Stack Sans Headline", sans-serif;
+    font-size: 50px;
+    font-weight: 400;
+    padding-bottom: 3%;
+}
+
+.secondary_line {
+    border-bottom: dashed black 4px;
+    width: 30%;
+    margin: 0 auto;
+    margin-bottom: 3%;
 }
