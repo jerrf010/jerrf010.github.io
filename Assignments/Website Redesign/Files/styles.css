@@ -405,3 +405,8 @@ html, body {
     margin-left: 15%;
     width: 75%;
 }
+
+.menu_titles {
+    font-family:"stack sans headline", sans-serif;
+    font-weight: 500;
+}
