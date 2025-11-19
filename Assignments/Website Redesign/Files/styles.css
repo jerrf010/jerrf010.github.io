@@ -87,18 +87,18 @@ body {
 }
 
 .text_border {
-    margin-left: auto;
-    margin-right: auto;
     padding: 40px;
     background-color: rgba(84, 84, 84, 0.75);
     border-radius: 20px;
     max-width: 40%;
+    margin: 0 auto;
 }
 
 .text_border h1 {
-    font-size: 90px;
+    font-size: 600%;
     font-weight: 300;
-    margin: 0;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .text_border h2 {
@@ -416,15 +416,17 @@ body {
     font-size: 25px;
 }
 
-.line {
+.div_line {
     border: solid black 3px;
     border-radius: 10px;
     margin: 0 auto;
     width: 85%;
+    margin-top: 10px;
 }
 
-.menu {
+#full_menu {
     background-color: #ff8b8b;
+    padding-bottom: 0;
 }
 
 #full_menu h2 {
@@ -463,6 +465,7 @@ body {
     font-size: 13px;
     font-weight: 500;
 }
+
 
 .rowv1 .card1 {
     text-align: center;
@@ -509,4 +512,8 @@ body {
     margin: 0 auto;
     padding-top: 10px;
     width:100%;
+}
+
+#div_line_special {
+    margin-top: 60px;
 }
