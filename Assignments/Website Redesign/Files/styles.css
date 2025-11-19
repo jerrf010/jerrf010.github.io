@@ -116,11 +116,10 @@ body {
     font-family: "Stack Sans Headline", sans-serif;
     font-size: 50px;
     text-align: center;
-    padding-top: 3%;
+    padding-top: 6%;
     color: black;
     font-weight: 400;
-
-    margin-bottom: 3%
+    margin-bottom: 3%;
 }
 
 #Home_1 h2 {
@@ -465,25 +464,49 @@ body {
     font-weight: 500;
 }
 
-#card1 {
+.rowv1 .card1 {
     text-align: center;
     width: 700px;
     font-size: 10px;
+    height: 280px !important;
 }
-
-.card_type1 {
-    padding-left: 48%;
-    margin-top: -28%;
-}
-
-#card2 {
+.rowv1 .card2 {
     padding-left: 10px;
     padding-top: 30px;
     margin-left: 50px;
     width: 300px;
+    height: 280px !important;
 }
+
+.rowv1 {
+    margin-top: 15px !important;
+}
+
+.rowv2 {
+    margin-top: 15px !important;
+}
+
+.card_text {
+    padding-left: 48%;
+    margin-top: -28%;
+}
+
+.rowv2 .card1 {
+    padding-top: 30px;
+    width: 300px;
+    height: 280px !important;
+}
+
+.rowv2 .card2 {
+    text-align: center;
+    width: 700px;
+    font-size: 10px;
+    margin-left: 50px;
+    height: 280px !important;
+}
+
 .row {
     margin: 0 auto;
     padding-top: 10px;
-    width: 100%;
+    width:100%;
 }
