@@ -444,3 +444,48 @@ body {
     margin: 0 auto;
     margin-bottom: 3%;
 }
+
+
+#full_menu .card-img-container{
+    margin-top: 20px;
+    margin-left: 10px;
+    height: 190px;
+    width: 300px;
+}
+
+#full_menu .card-body h3{
+    font-family: "noto sans", sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+#full_menu .card-body p {
+    font-family: "open sans", sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+#card1 {
+    text-align: center;
+    width: 700px;
+    font-size: 10px;
+    margin-left: 13%;
+}
+
+.card_type1 {
+    padding-left: 48%;
+    margin-top: -28%;
+}
+
+#card2 {
+    width: 350px;
+    margin-left: 62%;
+    text-align: center;
+    margin-top: -277px;
+    padding: 22px;
+}
+
+.row1 {
+    margin: 0 auto;
+    padding-top: 10px;
+}
