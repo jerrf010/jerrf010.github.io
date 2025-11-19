@@ -116,7 +116,7 @@ body {
     font-family: "Stack Sans Headline", sans-serif;
     font-size: 50px;
     text-align: center;
-    padding-top: 6%;
+    padding-top: 4%;
     color: black;
     font-weight: 400;
     margin-bottom: 3%;
@@ -424,10 +424,6 @@ body {
     margin-top: 10px;
 }
 
-#full_menu {
-    background-color: #ff8b8b;
-    padding-bottom: 0;
-}
 
 #full_menu h2 {
     margin: 0 auto;
@@ -515,9 +511,9 @@ body {
     margin-top: 60px;
 }
 
-#h2_about_line {
+.h2_about_line {
     width: 50%;
-    margin-bottom: 0;
+    margin-bottom: 22px;
     margin-top: -30px;
 }
 
@@ -543,4 +539,10 @@ body {
     height: 300px;
     width: 400px;
     border: black solid 3px !important;
+}
+
+#about_section_1 .card-title {
+    font-size: 30px;
+    font-weight: 400;
+    font-family: "stack sans headline", sans-serif;
 }
