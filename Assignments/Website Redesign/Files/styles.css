@@ -469,7 +469,6 @@ body {
     text-align: center;
     width: 700px;
     font-size: 10px;
-    margin-left: 13%;
 }
 
 .card_type1 {
@@ -478,14 +477,13 @@ body {
 }
 
 #card2 {
-    width: 350px;
-    margin-left: 62%;
-    text-align: center;
-    margin-top: -277px;
-    padding: 22px;
+    padding-left: 10px;
+    padding-top: 30px;
+    margin-left: 50px;
+    width: 300px;
 }
-
-.row1 {
+.row {
     margin: 0 auto;
     padding-top: 10px;
+    width: 100%;
 }
