@@ -447,14 +447,14 @@ body {
 }
 
 
-#full_menu .card-img-container{
+#full_menu .card-img-container {
     margin-top: 20px;
     margin-left: 10px;
     height: 190px;
     width: 300px;
 }
 
-#full_menu .card-body h3{
+#full_menu .card-body h3 {
     font-family: "noto sans", sans-serif;
     font-size: 22px;
     font-weight: 600;
@@ -473,6 +473,7 @@ body {
     font-size: 10px;
     height: 280px !important;
 }
+
 .rowv1 .card2 {
     padding-left: 10px;
     padding-top: 30px;
@@ -511,7 +512,7 @@ body {
 .row {
     margin: 0 auto;
     padding-top: 10px;
-    width:100%;
+    width: 100%;
 }
 
 #div_line_special {
