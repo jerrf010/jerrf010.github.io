@@ -140,30 +140,6 @@ body {
     color: #545454;
 }
 
-.explore_btn_container {
-    margin-top: 30px;
-}
-
-.explore_btn {
-    width: 150px;
-    display: inline-block;
-    height: 10%;
-    padding: 10px;
-    border: black 4px solid;
-    border-radius: 100px;
-    text-decoration: none;
-    background-color: #ffb7b7;
-    transition: background-color 0.5s ease;
-    color: black;
-}
-
-.explore_btn:hover {
-    background-color: white;
-    border: solid 4px black;
-    padding: 10px 10px;
-    height: 10%;
-}
-
 .section_2 {
     background-color: #ffb7b7;
     padding-bottom: 5%;
@@ -195,8 +171,7 @@ body {
     font-weight: 200;
 }
 
-.hours a,
-.story a {
+.bw_btn {
     display: inline-block;
     background-color: #000000;
     color: #ffffff;
@@ -214,7 +189,6 @@ body {
 }
 
 .story {
-    height: auto;
     width: 90%;
     background-color: #ffd4d4;
     margin: 0 auto;
@@ -405,7 +379,7 @@ body {
 
 .card_text {
     padding-left: 48%;
-    margin-top: -26%;
+    margin-top: -25.5%;
 }
 
 .rowv2 .card2 {
@@ -417,6 +391,7 @@ body {
     margin: 0 auto;
     padding-top: 10px;
     width: 100%;
+    margin-bottom: 30px;
 }
 
 .h2_about_line {
