@@ -2,22 +2,43 @@
     --bs-my-card-color: #ffe3e3;
 }
 
+.bg-my-card-color {
+    background-color: var(--bs-my-card-color) !important;
+}
+
 
 html,
 body {
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
     height: 100%;
+    text-align: center;
+    color: black;
 }
 
-.return_up {
+.TT_hoves,
+.section_1,
+.section_2,
+.section_3 {
+    font-family: "Stack Sans Headline", sans-serif !important;
+}
+
+.Canva_sans,
+.card-title {
+    font-family: "noto sans", sans-serif !important;
+}
+
+.Open_sans,
+.card-body {
+    font-family: "open sans", sans-serif !important;
+}
+
+.return_up,
+.return_up img {
     position: fixed;
     bottom: 20px;
     right: 20px;
     z-index: 1000;
-}
-
-.return_up img {
     width: 50px;
     height: 50px;
     opacity: 0.7;
@@ -28,19 +49,13 @@ body {
     opacity: 1.0;
 }
 
-.bg-my-card-color {
-    background-color: var(--bs-my-card-color) !important;
-}
-
-.bg-my-button-color {
-    background-color: var(--bs-my-button-color) !important;
-}
 
 .header {
     background-image: url("https://github.com/jerrf010/jerrf010.github.io/blob/main/Assignments/Website%20Redesign/Media/background.png?raw=true");
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
+    color: white;
 }
 
 .navbar {
@@ -48,7 +63,6 @@ body {
     opacity: 0.9;
     padding-top: 20px;
     color: #ffffff;
-    font-family: "Stack Sans Headline", sans-serif;
 }
 
 .navbar h2 {
@@ -58,7 +72,7 @@ body {
     letter-spacing: 2px;
 }
 
-.navbar a {
+.navlinks a {
     color: #ffffff;
     text-decoration: none;
     margin: 0 15px;
@@ -69,78 +83,51 @@ body {
     letter-spacing: 1px;
 }
 
-#current {
-    color: #ff9900;
-}
-
+#current,
 .navbar a:hover {
     color: #ff9900;
 }
 
 .title_box {
-    margin: 0 auto;
-    text-align: center;
-    color: #ffffff;
     padding: 100px 20px;
-    font-family: "Stack Sans Headline", sans-serif;
 }
 
 .text_border {
     padding: 40px;
     background-color: rgba(84, 84, 84, 0.75);
     border-radius: 20px;
-    max-width: 40%;
     margin: 0 auto;
+    width: 30%;
 }
 
 .text_border h1 {
     font-size: 600%;
     font-weight: 300;
-    margin: 0 auto;
-    text-align: center;
 }
 
 .text_border h2 {
     font-size: 30px;
     font-weight: 500;
-    margin: 0;
-    font-family: "Noto Sans", sans-serif;
 }
 
-.section_1 {
+.section_1,
+.section_3 {
     background-color: #ff8b8b;
+    padding-bottom: 40px;
+    padding-top: 40px;
 }
 
 .section_1 h2 {
-    font-family: "Stack Sans Headline", sans-serif;
     font-size: 50px;
-    text-align: center;
-    padding-top: 4%;
-    color: black;
     font-weight: 400;
-    margin-bottom: 3%;
 }
 
-#Home_1 h2 {
-    text-decoration: dashed underline 5px;
-    text-underline-offset: 20px;
+#home_section1_h2 {
+    width: 50%
 }
 
-.card {
-    text-align: center;
-    border-radius: 0 !important;
-}
-
-.card-img-top {
-    border-top-left-radius: 0 !important;
-    border-top-right-radius: 0 !important;
-    object-fit: cover;
-}
-
-.card .card-body {
-    border-bottom-left-radius: 0 !important;
-    border-bottom-right-radius: 0 !important;
-}
+.card-img-top,
+.card .card-body {}
 
 .card-img-container {
     padding: 10px;
@@ -159,47 +146,36 @@ body {
 }
 
 .card_subtitle {
-    font-family: "open sans", sans-serif;
     color: #545454;
 }
 
-.col-md-3 {
-    margin-bottom: 30px;
-}
-
 .explore_btn_container {
-    text-align: center;
-    margin: 0 auto;
-    padding: 50px 0;
+    margin-top: 30px;
 }
 
 .explore_btn {
     width: 150px;
     display: inline-block;
     height: 10%;
-    text-align: center;
     padding: 10px 10px;
     border: black 4px solid;
     border-radius: 100px;
-    color: black;
     text-decoration: none;
     background-color: #ffb7b7;
-    font-family: "noto sans", sans-serif;
     transition: background-color 0.5s ease;
+    color: black;
 }
 
 .explore_btn:hover {
     background-color: white;
-    color: black;
     border: solid 4px black;
     padding: 10px 10px;
     height: 10%;
-    font-family: "open sans", sans-serif;
 }
 
 .section_2 {
     background-color: #ffb7b7;
-    padding-bottom: 10%;
+    padding-bottom: 5%;
 }
 
 .section_2 iframe {
@@ -210,10 +186,9 @@ body {
 }
 
 .hours {
-    text-align: center;
-    font-family: "Stack Sans Headline", sans-serif;
-    margin-top: -28%;
-    margin-left: 38%;
+    margin-left: 16%;
+    width: 500px !important;
+    margin-top: 5% !important;
 }
 
 .hours h2 {
@@ -230,20 +205,17 @@ body {
     font-weight: 200;
 }
 
-.hours a {
+.hours a,
+.story a {
     display: inline-block;
-    margin-top: 20px;
-    padding: 13px;
     background-color: #000000;
     color: #ffffff;
     text-decoration: none;
-    border-radius: 50px;
-    font-weight: 500;
-    height: 50px;
+    padding: 12px;
     width: 160px;
-    text-align: center;
     border: solid 2px black;
-    font-family: "open sans", sans-serif;
+    font-weight: 500;
+    border-radius: 36px;
 }
 
 .card-title {
@@ -251,16 +223,7 @@ body {
     font-weight: 400;
 }
 
-.section_3 {
-    background-color: #ff8b8b;
-    margin: 0 auto;
-    padding-top: 50px;
-    padding-bottom: 3%;
-    font-family: "Stack Sans Headline", sans-serif;
-}
-
 .story {
-    color: black;
     height: auto;
     width: 90%;
     background-color: #ffd4d4;
@@ -275,50 +238,33 @@ body {
     text-decoration: underline solid 5px;
     text-underline-offset: 5px;
     margin-bottom: 3%;
-    text-align: center;
     margin-top: 1%;
-    font-family: "Stack Sans Headline", sans-serif;
 }
 
 .story img {
-    width: 30%;
+    width: 26%;
     height: auto;
-    margin-top: -1%;
+    margin-top: 0%;
     margin-left: 11%;
-    border: 3px black solid;
     border-radius: 10px;
+    object-fit: fill;
+    border: solid 3px black;
+    padding: 0;
 }
 
 .story p {
     font-size: 130%;
-    margin-top: -20%;
+    margin-top: -17%;
     line-height: 1.6;
-    margin-left: 41%;
+    margin-left: 30%;
     text-align: left;
     width: 60%;
-    font-family: "open sans", sans-serif;
-}
-
-.story a {
-    display: inline-block;
-    margin-top: 5%;
-    padding: 1%;
-    background-color: #000000;
-    color: #ffffff;
-    text-decoration: none;
-    border-radius: 36px;
-    font-weight: 500;
-    margin-left: 45%;
-    width: 10%;
-    border: solid 2px black;
-    font-family: "open sans", sans-serif;
-    text-align: center;
 }
 
 .bw_btn:hover {
     background-color: #ffffff;
-    color: #000000;
     border: solid 2px #000000;
+    color: #000;
 }
 
 .bw_btn {
@@ -327,32 +273,25 @@ body {
 
 .footer {
     background-color: #ffb7b7;
-    color: black;
-    text-align: center;
     padding: 20px 0;
-    font-family: "open sans", sans-serif;
+    text-align: left;
+
 }
 
 .lt h2 {
-    color: black;
     font-weight: 400;
-    text-align: left;
     margin-left: 10%;
     font-size: 400%;
     margin-top: 1%;
     width: 30%;
     border-bottom: solid black 4px;
-    font-family: "open sans", sans-serif;
 }
 
 .caps h3 {
-    text-align: left;
     margin-left: 10%;
     text-transform: uppercase;
     margin-top: 1%;
-    font-family: "Stack Sans Headline", sans-serif;
     font-weight: 600;
-    ;
 }
 
 .social_media_icons img {
@@ -363,17 +302,13 @@ body {
 }
 
 .social_media_icons {
-    text-align: left;
     margin-left: 10%;
-    width: auto;
 }
 
 .footer_info {
     margin-right: 10%;
     margin-left: 60%;
     margin-top: -14%;
-    text-align: left;
-    font-family: "Stack Sans Headline", sans-serif;
 }
 
 .footer_info h3 {
@@ -383,25 +318,25 @@ body {
 }
 
 .footer_info h4 {
-    margin-top: 1%;
     font-weight: 200;
-}
-
-.footer_logo {
-    margin: 0 auto;
-    margin-top: 3%;
-}
-
-.footer_logo h3 {
-    font-family: "Stack Sans Headline", sans-serif;
-    font-size: 40px;
-    font-weight: 300;
-    letter-spacing: 2px;
+    text-decoration: none;
     color: black;
 }
 
+.footer_logo{
+    margin: 0 auto;
+    margin-top: 3%;
+    text-align: center;
+}
+
+.footer_logo h3 {
+    font-size: 40px;
+    font-weight: 300;
+    letter-spacing: 2px;
+}
+
 .hours_times {
-    margin-top: -5%;
+    margin-bottom: 40px;
 }
 
 .story_txt {
@@ -410,7 +345,6 @@ body {
 }
 
 .menu_titles {
-    font-family: "stack sans headline", sans-serif;
     font-weight: 500;
     font-size: 25px;
 }
@@ -420,18 +354,16 @@ body {
     border-radius: 10px;
     margin: 0 auto;
     width: 85%;
-    margin-top: 10px;
+    margin-top: 40px;
 }
 
+#full_menu {
+    padding: 0;
+}
 
 #full_menu h2 {
-    margin: 0 auto;
-    text-align: center;
-    padding-top: 7%;
-    font-family: "Stack Sans Headline", sans-serif;
     font-size: 50px;
     font-weight: 400;
-    padding-bottom: 3%;
 }
 
 .secondary_line {
@@ -442,7 +374,8 @@ body {
 }
 
 
-#full_menu .card-img-container , #about_card img{
+#full_menu .card-img-container,
+#about_card img {
     margin-top: 20px;
     margin-left: 10px;
     height: 190px;
@@ -450,54 +383,44 @@ body {
 }
 
 #full_menu .card-body h3 {
-    font-family: "noto sans", sans-serif;
     font-size: 22px;
     font-weight: 600;
 }
 
 #full_menu .card-body p {
-    font-family: "open sans", sans-serif;
     font-size: 13px;
     font-weight: 500;
 }
 
+.rowv1 .card1,
+.rowv2 .card2 {
+    width: 800px;
+}
 
-.rowv1 .card1 {
-    text-align: center;
-    width: 700px;
-    font-size: 10px;
-    height: 280px !important;
+.rowv2 .card1,
+.rowv1 .card2 {
+    padding-top: 30px;
+    width: 378px;
 }
 
 .rowv1 .card2 {
-    padding-left: 10px;
-    padding-top: 30px;
     margin-left: 50px;
-    width: 300px;
-    height: 280px !important;
 }
 
-.rowv1 , .rowv2{
+.rowv1,
+.rowv2 {
     margin-top: 15px !important;
+    height: 260px !important;
 }
 
 .card_text {
     padding-left: 48%;
-    margin-top: -28%;
-}
-
-.rowv2 .card1 {
-    padding-top: 30px;
-    width: 300px;
-    height: 280px !important;
+    margin-top: -26%;
 }
 
 .rowv2 .card2 {
-    text-align: center;
-    width: 700px;
     font-size: 10px;
     margin-left: 50px;
-    height: 280px !important;
 }
 
 .row {
@@ -506,14 +429,10 @@ body {
     width: 100%;
 }
 
-#div_line_special {
-    margin-top: 60px;
-}
-
 .h2_about_line {
     width: 50%;
     margin-bottom: 22px;
-    margin-top: -30px;
+    margin-top: 20px;
 }
 
 #about_card {
@@ -523,9 +442,8 @@ body {
 
 #about_card .card-body {
     padding-left: 37%;
-    margin-top: -20%;
+    margin-top: -22%;
     margin-bottom: 59px;
-    font-family: 'Open Sans', sans-serif;
 }
 
 #about_card .card {
@@ -543,5 +461,4 @@ body {
 #about_section_1 .card-title {
     font-size: 30px;
     font-weight: 400;
-    font-family: "stack sans headline", sans-serif;
 }
