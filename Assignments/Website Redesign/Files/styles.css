@@ -207,7 +207,7 @@ body {
 
 .story img {
     width: 26%;
-    height: auto;
+    height: 249px;
     margin-top: 0%;
     margin-left: 11%;
     border-radius: 10px;
@@ -426,4 +426,28 @@ body {
 #about_section_1 .card-title {
     font-size: 30px;
     font-weight: 400;
+}
+
+.contact_section1 iframe{
+    width: 600px;
+    margin: 50px;
+}
+
+.contact_section1 .row {
+    background-color: #ffd4d4;
+    width: 90%;
+    margin: 0 auto;
+    border: dashed 3px black;
+}
+
+.contact_section1 h3 {
+    font-size: 50px;
+}
+
+#contact_section1 {
+    width: 49%;
+}
+
+.contact_section1 .card-body {
+    width: auto;
 }
