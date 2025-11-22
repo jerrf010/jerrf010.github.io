@@ -122,7 +122,7 @@ body {
     font-weight: 400;
 }
 
-.card-img-container {
+.card-img-container, #full_menu .card-img-container{
     padding: 10px;
 }
 
@@ -407,8 +407,8 @@ body {
 
 #about_card .card-body {
     padding-left: 37%;
-    margin-top: -22%;
-    margin-bottom: 59px;
+    margin-top: -14%;
+    margin-bottom: 89px;
 }
 
 #about_card .card {
@@ -442,6 +442,8 @@ body {
 
 .contact_section1 h3 {
     font-size: 50px;
+    margin-top: 15px;
+    text-decoration: underline;
 }
 
 #contact_section1 {
@@ -450,4 +452,24 @@ body {
 
 .contact_section1 .card-body {
     width: auto;
+    margin-top: 90px;
+}
+
+.contact_section1 .directions h3,.contact_section1 .phone_num h3,.contact_section1 .email h3{
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 40px;
+}
+
+#contact_hours h3{
+    height: 100px;
+    font-size: 39px;
+}
+
+#contact_hours .hours_times {
+    width: max-content;
+}
+
+#contact_hours {
+    margin-left:0;
 }
