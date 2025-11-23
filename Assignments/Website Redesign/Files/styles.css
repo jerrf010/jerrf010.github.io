@@ -122,7 +122,8 @@ body {
     font-weight: 400;
 }
 
-.card-img-container, #full_menu .card-img-container{
+.card-img-container,
+#full_menu .card-img-container {
     padding: 10px;
 }
 
@@ -181,6 +182,7 @@ body {
     border: solid 2px black;
     font-weight: 500;
     border-radius: 36px;
+    z-index: 999;
 }
 
 .card-title {
@@ -300,7 +302,7 @@ body {
 }
 
 .hours_times {
-    margin-bottom: 40px;
+    margin-bottom: 10px;
 }
 
 .story_txt {
@@ -407,7 +409,7 @@ body {
 
 #about_card .card-body {
     padding-left: 37%;
-    margin-top: -14%;
+    margin-top: -21%;
     margin-bottom: 89px;
 }
 
@@ -428,7 +430,7 @@ body {
     font-weight: 400;
 }
 
-.contact_section1 iframe{
+.contact_section1 iframe {
     width: 600px;
     margin: 50px;
 }
@@ -438,10 +440,11 @@ body {
     width: 90%;
     margin: 0 auto;
     border: dashed 3px black;
+    margin-top: 30px;
 }
 
-.contact_section1 h3 {
-    font-size: 50px;
+.contact_section1 .title {
+    font-size: 49px;
     margin-top: 15px;
     text-decoration: underline;
 }
@@ -453,23 +456,55 @@ body {
 .contact_section1 .card-body {
     width: auto;
     margin-top: 90px;
-}
-
-.contact_section1 .directions h3,.contact_section1 .phone_num h3,.contact_section1 .email h3{
+    text-align: left;
     text-decoration: none;
+}
+
+.contact_section1 .card_title a {
+    text-decoration: none;
+    color: black
+}
+
+#contact_hours h2 {
+    font-weight: 200;
+    border-bottom: black 5px dashed;
+    font-size: 60px;
+}
+
+.card_title h3 {
     text-transform: uppercase;
-    font-size: 40px;
 }
 
-#contact_hours h3{
-    height: 100px;
-    font-size: 39px;
-}
-
-#contact_hours .hours_times {
-    width: max-content;
+#contact_hours .hours_times h4 {
+    font-size: 27px;
+    text-decoration: none;
+    font-weight: 100;
 }
 
 #contact_hours {
-    margin-left:0;
+    width: auto;
+    margin-left: 45px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 36px;
+}
+
+#contact_hours .hours_times,
+#contact_hours a {
+    margin-top: 30px;
+}
+
+.contact_info h3 {
+    font-size: 25px;
+    text-align: left;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 300;
+}
+
+.contact_info {
+    margin-top: -23% !important;
+    height: max-content;
+    margin-left: 45%;
+    width: 750px !important;
 }
