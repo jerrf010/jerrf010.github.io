@@ -1,20 +1,22 @@
-:root {
+:root { /*Define the custom color*/
     --bs-my-card-color: #ffe3e3;
 }
 
-.bg-my-card-color {
+.bg-my-card-color { /*reference the class*/
     background-color: var(--bs-my-card-color) !important;
 }
 
 
 html,
-body {
+body { /*Set defaults for the entire website*/
     margin: 0 auto;
     padding: 0;
     height: 100%;
     text-align: center;
     color: black;
 }
+
+/*Define the fonts*/
 
 .TT_hoves,
 .section_1,
@@ -33,7 +35,7 @@ body {
 }
 
 .return_up,
-.return_up img {
+.return_up img { /*Create the return-up arrow and make it fixed to the bottom right of the page*/
     position: fixed;
     bottom: 20px;
     right: 20px;
@@ -44,12 +46,12 @@ body {
     transition: opacity 0.3s;
 }
 
-.return_up img:hover {
+.return_up img:hover { /*Create change on hover*/
     opacity: 1.0;
 }
 
 
-.header {
+.header { /*Set the background images and background image modifiers*/
     background-image: url("https://github.com/jerrf010/jerrf010.github.io/blob/main/Assignments/Website%20Redesign/Media/background.png?raw=true");
     background-repeat: no-repeat;
     background-size: cover;
@@ -57,21 +59,21 @@ body {
     color: white;
 }
 
-.navbar {
+.navbar { /*Create the underneath black bar of the navbar*/
     background-color: #000000;
     opacity: 0.9;
     padding-top: 20px;
     color: #ffffff;
 }
 
-.navbar h2 {
+.navbar h2 { /*Change the logo*/
     margin-left: 30px;
     font-weight: 300;
     font-size: 50px;
     letter-spacing: 2px;
 }
 
-.navlinks a {
+.navlinks a { /*Change the links styling*/
     color: #ffffff;
     text-decoration: none;
     margin: 0 15px;
@@ -83,77 +85,85 @@ body {
 }
 
 #current,
-.navbar a:hover {
+.navbar a:hover { /*Set the current page color for the navbar and the hover color*/
     color: #ff9900;
 }
 
-.title_section {
+.title_section { /*Set the parameters on how big the white space is for the title box*/
     padding: 100px 20px;
 }
 
-.title_box {
+.title_box { /*Set the title box styling*/
     padding: 40px;
-    background-color: rgba(84, 84, 84, 0.75);
+    background-color: rgba(84, 84, 84, 0.75); /*Prevents the text from being modified*/
     border-radius: 20px;
     margin: 0 auto;
     width: 30%;
 }
 
-.title_box h1 {
+.title_box h1 { /*sets the title page font size and weight*/
     font-size: 600%;
     font-weight: 300;
 }
 
-.title_box h2 {
+.title_box h2 { /*Sets the secondary text of the title*/
     font-size: 30px;
     font-weight: 500;
 }
 
-.section_1{
+.section_1{ /*Defines the section's color and gap between each section*/
     background-color: #ff8b8b;
     padding-bottom: 40px;
     padding-top: 40px;
 }
 
-.section_1 h2 {
+.section_1 h2 { /*Defines the styling for the heading of each section*/
     font-size: 50px;
     font-weight: 400;
 }
 
-.card-img-container {
+.card-img-container { /*Sets the small sliver between the card's borders and the image*/
     padding: 10px;
 }
 
-.card {
-    height: 100% !important;
-    border: dashed 2px #000000 !important;
+.card-img-container img { /*Define the transition time between the hover state and static*/
+    transition: 0.5s;
 }
 
-.cart-btn img {
+.card-img-container img:hover { /*Define what happens when I hover a card image*/
+    transform: scale(1.05);
+}
+
+.card { /*Defines the card elements*/
+    height: 100% !important; /*Makes the height of the card only has much as the element, !important -- it needs to override bootstrap*/
+    border: dashed 2px #000000 !important; /*Override bootstrap*/
+}
+
+.cart-btn img { /*Set the cart-button image size*/
     width: 50px;
     height: 50px;
 }
 
-.card_subtitle {
+.card_subtitle { /*Sets the sub-text color of the index.html*/
     color: #545454;
 }
 
-.section_2 {
+.section_2 { /*Defines the second version of section*/
     background-color: #ffb7b7;
     padding-bottom: 5%;
 }
 
-.section_2 iframe {
+.section_2 iframe { /*Defines the dimensions and padding for the embeded map*/
     padding-left: 5%;
     padding-top: 70px;
     width: 95%;
 }
 
-.hours {
+.hours { /*Creates a gap between the hours group and the heading*/
     margin-top: 9%;
 }
 
-.hours h2 {
+.hours h2 { /*Defines the heading styling*/
     font-size: 350%;
     text-decoration: underline dashed 5px;
     text-underline-offset: 15px;
@@ -161,13 +171,13 @@ body {
     font-weight: 100;
 }
 
-.hours h3 {
+.hours h3 { /*Defines the styling for the days and hours*/
     font-size: 160%;
     margin: 2%;
     font-weight: 200;
 }
 
-.bw_btn {
+.bw_btn { /*Defines the styling for the buttons */
     display: inline-block;
     background-color: #000000;
     color: #ffffff;
@@ -176,16 +186,17 @@ body {
     width: 160px;
     border: solid 2px black;
     font-weight: 500;
+    transition: background-color 0.5s ease;
     border-radius: 36px;
-    z-index: 999;
+    z-index: 999; /*Makes sure that the button is the highest element generated*/
 }
 
-.card-title {
+.card-title { /*Makes all the card's titles become capitilized and the same font-weight*/
     text-transform: uppercase;
     font-weight: 400;
 }
 
-.story {
+.story { /*Set the story section from the index.html*/
     width: 90%;
     background-color: #ffd4d4;
     margin: 0 auto;
@@ -194,7 +205,7 @@ body {
     padding-bottom: 3%;
 }
 
-.story h2 {
+.story h2 { /*Set the heading of the story section*/
     font-size: 300%;
     text-decoration: underline solid 5px;
     text-underline-offset: 5px;
@@ -202,7 +213,7 @@ body {
     margin-top: 1%;
 }
 
-.story img {
+.story img { /*Set the image dimensions and border, different from card-img*/
     height: 249px;
     margin-top: 0%;
     margin-left: 11%;
@@ -210,91 +221,87 @@ body {
     border: solid 3px black;
 }
 
-.story p {
+.story p { /*Set the paragraph font size and move it a little bit lower*/
     font-size: 130%;
     line-height: 1.6;
     text-align: left;
     margin-top: 4%;
 }
 
-.bw_btn:hover {
+.bw_btn:hover { /*The Universal button hover, change background color, text color*/
     background-color: #ffffff;
     border: solid 2px #000000;
     color: #000;
 }
 
-.bw_btn {
-    transition: background-color 0.5s ease;
-}
-
-.footer {
+.footer { /*Set the footer background color and change the text to align left*/
     background-color: #ffb7b7;
     padding: 20px 0;
     text-align: left;
 
 }
 
-.lt h2 {
+.lt h2 { /*Set the header of the footer to be larger and have a underline*/
     font-weight: 400;
     font-size: 400%;
     border-bottom: solid black 4px;
 }
 
-.caps h3 {
+.caps h3 { /*Set the sub header of the footer to be uppercase and lower, with a higher font accent*/
     text-transform: uppercase;
     margin-top: 3%;
     font-weight: 600;
 }
 
-.foot_mar {
+.foot_mar { /*Shift the items of lt and caps to the right 10%*/
     margin-left: 10%;
 }
 
-.social_media_icons img {
+.social_media_icons img { /*Set the social media icons size and have no marker that is it a list*/
     list-style-type: none;
     padding: 0;
     margin-top: 1%;
-    width: 4%;
+    width: 6%;
 }
 
-.footer_info {
+.footer_info { /*Shift the footer information to the right*/
     margin-left: 10%;
 }
 
-.footer_info h3 {
+.footer_info h3 { /*Set the footer information subheading to be bolder*/
     font-weight: 800;
 }
 
-.footer_info h4 {
+.footer_info h4 { /*Set the footer information h4 to have be less bold, and remove the blue color for the links*/
     font-weight: 200;
     color: black;
 }
 
-.footer_logo {
+.footer_logo { /*Set the logo of the footer to be centered*/
     text-align: center;
 }
 
-.footer_logo h3 {
+.footer_logo h3 { /*Set the size of the footer logo and change the gap between each letter*/
     font-size: 40px;
     font-weight: 300;
     letter-spacing: 2px;
 }
 
-.hours_times {
+.hours_times {/*Move the bw_button down more*/
     margin-bottom: 42px;
 }
 
-.menu_titles {
+.menu_titles { /*Set a different font accent and size to the menu cards*/
     font-weight: 500;
     font-size: 25px;
 }
 
-#full_menu h2 {
+#full_menu h2 { /*Set a different font size and weight for the headings in menu page*/
     font-size: 50px;
     font-weight: 400;
 }
 
-.div_line {
+.div_line { /*The line that creates a division between two sections, is by seting the border decorations*/
     border: solid black 3px;
     border-radius: 10px;
     margin: 0 auto;
@@ -302,7 +309,7 @@ body {
     margin-top: 40px;
 }
 
-.secondary_line {
+.secondary_line { /*Set the custom line decoration underneath the text, this is better so that I can set how wide it is*/
     border-bottom: dashed black 4px;
     width: 40%;
     margin: 0 auto;
@@ -310,36 +317,36 @@ body {
 }
 
 
-#full_menu .card-img-container {
+#full_menu .card-img-container { /*Set the img size for the full menu, so it fits in the card*/
     width: 300px;
     margin-left: 36px;
 }
 
-#full_menu .card-body h3 {
+#full_menu .card-body h3 { /*Set the full menu card's heading size and accent*/
     font-size: 22px;
     font-weight: 600;
 }
 
-#full_menu .card-body p {
+#full_menu .card-body p { /*Set the full menu card's p tag size and accent*/
     font-size: 13px;
     font-weight: 500;
 }
 
 .rowv1 .card1,
-.rowv2 .card2 {
+.rowv2 .card2 { /*Change the width of the selected cards so that there is a gap between the cards in each row and a set width for each different card version*/
     width: 800px;
     margin-left: 50px
 }
 
 .rowv2 .card1,
-.rowv1 .card2 {
+.rowv1 .card2 { /*This is for the second card version, so it is smaller than the first*/
     padding-top: 10px;
     width: 430px;
     margin-left: 50px;
 }
 
 .rowv1,
-.rowv2 {
+.rowv2 { /*Sets the gap between the two row type, so it is not as crowded*/
     margin-top: 15px;
     height: 260px;
 }
@@ -403,12 +410,6 @@ body {
     color: black;
 }
 
-#contact_hours h2 {
-    font-weight: 200;
-    border-bottom: black 5px dashed;
-    font-size: 60px;
-}
-
 .card_title h3 {
     text-transform: uppercase;
 }
@@ -420,14 +421,9 @@ body {
 }
 
 #contact_hours {
-    margin-top: 50px;
     margin-bottom: 50px;
     padding: 20px;
-}
-
-#contact_hours .hours_times,
-#contact_hours a {
-    margin-top: 30px;
+    margin-left: 48px;
 }
 
 .contact_info h3 {
@@ -439,7 +435,7 @@ body {
 }
 
 .contact_info {
-    margin-top: 28%;
+    margin-top: 23%;
     height: max-content;
 }
 
