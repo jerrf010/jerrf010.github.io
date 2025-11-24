@@ -285,7 +285,7 @@ body {
 }
 
 .menu_titles {
-    font-weight: 500;
+    font-weight: 700;
     font-size: 25px;
 }
 
@@ -304,7 +304,7 @@ body {
 
 .secondary_line {
     border-bottom: dashed black 4px;
-    width: 30%;
+    width: 40%;
     margin: 0 auto;
     margin-bottom: 3%;
 }
@@ -328,12 +328,13 @@ body {
 .rowv1 .card1,
 .rowv2 .card2 {
     width: 800px;
+    /* margin: 0 auto; */
 }
 
 .rowv2 .card1,
 .rowv1 .card2 {
     padding-top: 30px;
-    width: 440px;
+    width: 430px;
 }
 
 .rowv1 .card2 {
@@ -367,6 +368,8 @@ body {
     margin: 0 auto;
     padding: 35px;
     padding-right: 70px;
+    border: dashed;
+    border-radius: 30px;
 }
 
 #about_card img {
@@ -394,25 +397,17 @@ body {
 }
 
 .contact_section1 .title {
-    font-size: 49px;
-    margin-top: 15px;
     text-decoration: underline;
 }
 
-#contact_section1 {
-    width: 49%;
-}
-
 .contact_section1 .card-body {
-    width: auto;
     margin-top: 90px;
     text-align: left;
-    text-decoration: none;
 }
 
 .contact_section1 .card_title a {
     text-decoration: none;
-    color: black
+    color: black;
 }
 
 #contact_hours h2 {
@@ -432,10 +427,9 @@ body {
 }
 
 #contact_hours {
-    margin-left: 45px;
     margin-top: 50px;
     margin-bottom: 50px;
-    padding: 7px;
+    padding: 20px;
 }
 
 #contact_hours .hours_times,
@@ -444,15 +438,18 @@ body {
 }
 
 .contact_info h3 {
-    font-size: 25px;
+    font-size: 22px;
     text-align: left;
-    text-decoration: none;
     text-transform: uppercase;
     font-weight: 300;
+    margin-top: 20px;
 }
 
 .contact_info {
-    margin-top: 22%;
+    margin-top: 28%;
     height: max-content;
-    width: 750px !important;
+}
+
+.contact_section1 .card_title {
+    margin-top:20px
 }

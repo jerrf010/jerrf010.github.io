@@ -18,119 +18,124 @@
 </head>
 
 <body>
-    <div class="header TT_hoves">
-        <div class="navbar p-3">
+    <div class="header TT_hoves"> <!--standard header across all pages, contains navbar, and page title-->
+        <div class="navbar p-3"> <!--Navigation bar, contains website logo and navbar links-->
             <h2>nutmeg.</h2>
             <div class="navlinks">
-                <a href="index.html">Home</a>
+                <a href="index.html">Home</a> <!--id current defines the current page-->
                 <a href="menu.html">Menu</a>
                 <a href="about.html">About us</a>
                 <a href="contact.html" id="current">Contact Us</a>
             </div>
         </div>
 
-        <div class="title_box">
-            <div class="text_border">
-                <h2>Contact</h2>
+        <div class="title_section"> <!--Contains the website title page and makes the space for the title box-->
+            <div class="title_box"> <!--It is the title container that makes up the background box of the title-->
+                <h2>Welcome To</h2>
                 <h1>nutmeg.</h1>
             </div>
         </div>
     </div>
 
-    <div class="return_up">
+    <div class="return_up"> <!--Floating return to top button that is fixed to your bottom right of the page-->
         <a href="#top"><img
                 src="https://github.com/jerrf010/jerrf010.github.io/blob/main/Assignments/Website%20Redesign/Media/returnup.png?raw=true"
                 alt="Return Up Icon"></a>
     </div>
 
-    <div class="section_1 contact_section1">
-        <div class="row TT_hoves">
-            <h2 class="title">Find Us</h2>
-            <div class="col">
-                <iframe class="map"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d22940.263816381477!2d-79.49156632089843!3d44.0517019!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882ad211b4b39e97%3A0xa62229e1a5dd195b!2sNutmeg%20Bakeshop!5e0!3m2!1sen!2sca!4v1763407717375!5m2!1sen!2sca"
-                    width="300" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-            <div class="col">
-                <div class="card-body">
-                    <div class="card_title">
-                        <h3><strong>256 Main Street South</strong></h3>
-                        <h4>Newmarket ON, L3Y 3Z5</h4>
-                    </div>
-                    <div class="card_title">
-                        <h3><strong>phone number</strong></h3>
-                        <h4>(289) 796 1802</h4>
-                    </div>
-                    <div class="card_title">
-                        <h3><strong>Email Address</strong></h3>
-                        <a href="mailto:megan@nutmegbakeshop.com">
-                            <h4>megan@nutmegbakeshop.com</h4>
-                        </a>
-                        <a href="mailto:tim@nutmegbackshop.com">
-                            <h4>tim@nutmegbakeshop.com</h4>
-                        </a>
+    <div class="section_1 contact_section1"> <!--Define the section type-->
+        <div class="TT_hoves"> <!--Change the font family-->
+            <div class="row">
+                <h2 class="title">Find Us</h2> <!--Different styling for the h2-->
+                <div class="col">
+                    <iframe class="map"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d22940.263816381477!2d-79.49156632089843!3d44.0517019!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882ad211b4b39e97%3A0xa62229e1a5dd195b!2sNutmeg%20Bakeshop!5e0!3m2!1sen!2sca!4v1763407717375!5m2!1sen!2sca"
+                        width="300" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <div class="col">
+                    <div class="card-body">
+                        <div class="card_title"> <!--Defined at every topic to create margins at each spot-->
+                            <h3><strong>256 Main Street South</strong></h3>
+                            <h4>Newmarket ON, L3Y 3Z5</h4>
+                        </div>
+                        <div class="card_title">
+                            <h3><strong>phone number</strong></h3>
+                            <h4>(289) 796 1802</h4>
+                        </div>
+                        <div class="card_title">
+                            <h3><strong>Email Address</strong></h3>
+                            <a href="mailto:megan@nutmegbakeshop.com">
+                                <h4>megan@nutmegbakeshop.com</h4>
+                            </a>
+                            <a href="mailto:tim@nutmegbackshop.com">
+                                <h4>tim@nutmegbakeshop.com</h4>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col">
-                <div class="TT_hoves" id="contact_hours">
-                    <h2><strong>Hours of Business</strong></h2>
-                    <div class="hours_times">
-                        <h4>Wednesday - Friday: 10am - 5pm</h4>
-                        <h4>Saturday: 9am - 5pm</h4>
-                        <h4>Sunday: 9am - 4pm</h4>
-                        <h4>Monday & Tuesday: closed</h4>
+            <div class="section_1"> <!--Version 1 of section-->
+                <div class="row">
+                    <div class="col">
+                        <div class="TT_hoves" id="contact_hours"> <!--Apply TT_hoves font, id for easier reference in css-->
+                            <h2><strong>Hours of Business</strong></h2>
+                            <div class="hours_times">
+                                <h4>Wednesday - Friday: 10am - 5pm</h4>
+                                <h4>Saturday: 9am - 5pm</h4>
+                                <h4>Sunday: 9am - 4pm</h4>
+                                <h4>Monday & Tuesday: closed</h4>
+                            </div>
+                            <a target="_blank" rel="noopener noreferrer"
+                                href="https://www.google.com/maps/place/Nutmeg+Bakeshop/@44.0517057,-79.4591223,17z/data=!3m2!4b1!5s0x882ad2104ba8f2a1:0xf34dd123d8635c0d!4m6!3m5!1s0x882ad211b4b39e97:0xa62229e1a5dd195b!8m2!3d44.0517019!4d-79.4565474!16s%2Fg%2F11b6hzrj5g?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D"
+                                class="bw_btn">Get Directions</a>
+                        </div>
                     </div>
-                    <a target="_blank" rel="noopener noreferrer"
-                        href="https://www.google.com/maps/place/Nutmeg+Bakeshop/@44.0517057,-79.4591223,17z/data=!3m2!4b1!5s0x882ad2104ba8f2a1:0xf34dd123d8635c0d!4m6!3m5!1s0x882ad211b4b39e97:0xa62229e1a5dd195b!8m2!3d44.0517019!4d-79.4565474!16s%2Fg%2F11b6hzrj5g?entry=ttu&g_ep=EgoyMDI1MTExMi4wIKXMDSoASAFQAw%3D%3D"
-                        class="bw_btn">Get Directions</a>
-                </div>
-            </div>
-            <div class="col">
-                <div class="contact_info">
-                    <h3>Please place your order through our <span style="text-decoration: underline">online shop</span>
-                    </h3>
-                    <h3>If you have any questions, please call us at 289-796-1802, or email Megan at
-                        megan@nutmegbakeshop.com</h3>
+                    <div class="col">
+                        <div class="contact_info">
+                            <h3>Please place your order through our <span style="text-decoration: underline">online
+                                    shop</span>
+                            </h3>
+                            <h3>If you have any questions, please call us at 289-796-1802, or email Megan at
+                                megan@nutmegbakeshop.com</h3>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="footer TT_hoves">
+    <div class="footer TT_hoves"> <!--Base Footer and define it with the font of TT_hoves-->
         <div class="row">
             <div class="col">
-                <span class="lt Open_sans">
-                    <h2>Let's Talk</h2>
-                </span>
-                <span class="caps">
-                    <h3><strong>follow us on social media</strong></h3>
-                </span>
+                <div class="foot_mar">
+                    <span class="lt Open_sans"> <!--Define the font-->
+                        <h2>Let's Talk</h2>
+                    </span>
+                    <span class="caps"> <!--helps define the captions-->
+                        <h3><strong>follow us on social media</strong></h3>
+                    </span>
 
-                <div class="social_media_icons">
-                    <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/nutmegbakeshop/"><img
-                            src="https://github.com/jerrf010/jerrf010.github.io/blob/main/Assignments/Website%20Redesign/Media/instagram.png?raw=true"
-                            alt="Instagram Icon"></a>
-                    <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/nutmegbakeshop"><img
-                            src="https://github.com/jerrf010/jerrf010.github.io/blob/main/Assignments/Website%20Redesign/Media/facebook.png?raw=true"
-                            alt="Facebook Icon"></a>
+                    <div class="social_media_icons"> <!--helps define the social media icon's positioning-->
+                        <a target="_blank" rel="noopener noreferrer"
+                            href="https://www.instagram.com/nutmegbakeshop/"><img
+                                src="https://github.com/jerrf010/jerrf010.github.io/blob/main/Assignments/Website%20Redesign/Media/instagram.png?raw=true"
+                                alt="Instagram Icon"></a>
+                        <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/nutmegbakeshop"><img
+                                src="https://github.com/jerrf010/jerrf010.github.io/blob/main/Assignments/Website%20Redesign/Media/facebook.png?raw=true"
+                                alt="Facebook Icon"></a>
+                    </div>
                 </div>
             </div>
             <div class="col">
-                <div class="footer_info">
-                    <div class="directions">
+                <div class="footer_info"> <!--Helps containerize the information and set a margin on them-->
+                    <div class="caps"> <!--Text-transform--uppercase them-->
                         <h3><strong>256 Main Street South</strong></h3>
                         <h4>Newmarket ON, L3Y 3Z5</h4>
-                    </div>
-                    <div class="phone_num">
+
                         <h3><strong>phone number</strong></h3>
                         <h4>(289) 796 1802</h4>
-                    </div>
-                    <div class="email">
+
                         <h3><strong>Email Address</strong></h3>
                         <a href="mailto:megan@nutmegbakeshop.com">
                             <h4>megan@nutmegbakeshop.com</h4>
@@ -142,7 +147,7 @@
                 </div>
             </div>
         </div>
-        <div class="footer_logo">
+        <div class="footer_logo"> <!--Separate div class to help with setting margins-->
             <a href="#" class="btn">
                 <h3>nutmeg.</h3>
             </a>
