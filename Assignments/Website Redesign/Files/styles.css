@@ -285,7 +285,7 @@ body {
 }
 
 .menu_titles {
-    font-weight: 700;
+    font-weight: 500;
     font-size: 25px;
 }
 
@@ -328,16 +328,13 @@ body {
 .rowv1 .card1,
 .rowv2 .card2 {
     width: 800px;
-    /* margin: 0 auto; */
+    margin-left: 50px
 }
 
 .rowv2 .card1,
 .rowv1 .card2 {
-    padding-top: 30px;
+    padding-top: 10px;
     width: 430px;
-}
-
-.rowv1 .card2 {
     margin-left: 50px;
 }
 
@@ -345,10 +342,6 @@ body {
 .rowv2 {
     margin-top: 15px;
     height: 260px;
-}
-
-.rowv2 .card2 {
-    margin-left: 50px;
 }
 
 .row {
