@@ -29,7 +29,7 @@ body {
 
 .Open_sans,
 .card-body {
-    font-family: "open sans", sans-serif !important;
+    font-family: "open sans", sans-serif;
 }
 
 .return_up,
@@ -120,8 +120,7 @@ body {
     font-weight: 400;
 }
 
-.card-img-container,
-#full_menu .card-img-container {
+.card-img-container{
     padding: 10px;
 }
 
@@ -263,13 +262,11 @@ body {
 }
 
 .footer_info h3 {
-    padding-top: 3%;
     font-weight: 800;
 }
 
 .footer_info h4 {
     font-weight: 200;
-    text-decoration: none;
     color: black;
 }
 
@@ -319,10 +316,8 @@ body {
 
 #full_menu .card-img-container,
 #about_card img {
-    margin-top: 20px;
-    margin-left: 10px;
-    height: 190px;
     width: 300px;
+    margin-left: 36px;
 }
 
 #full_menu .card-body h3 {
@@ -343,7 +338,7 @@ body {
 .rowv2 .card1,
 .rowv1 .card2 {
     padding-top: 30px;
-    width: 378px;
+    width: 418px;
 }
 
 .rowv1 .card2 {
@@ -352,22 +347,15 @@ body {
 
 .rowv1,
 .rowv2 {
-    margin-top: 15px !important;
-    height: 260px !important;
-}
-
-.card_text {
-    padding-left: 48%;
-    margin-top: -25.5%;
+    margin-top: 15px;
+    height: 260px;
 }
 
 .rowv2 .card2 {
-    font-size: 10px;
     margin-left: 50px;
 }
 
 .row {
-    margin: 0 auto;
     padding-top: 10px;
     width: 100%;
     margin-bottom: 30px;

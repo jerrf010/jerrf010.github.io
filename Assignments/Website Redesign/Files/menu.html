@@ -18,45 +18,48 @@
 </head>
 
 <body>
-    <div class="header TT_hoves">
-        <div class="navbar p-3">
+    <div class="header TT_hoves"> <!--standard header across all pages, contains navbar, and page title-->
+        <div class="navbar p-3"> <!--Navigation bar, contains website logo and navbar links-->
             <h2>nutmeg.</h2>
             <div class="navlinks">
                 <a href="index.html">Home</a>
-                <a href="menu.html" id="current">Menu</a>
+                <a href="menu.html" id="current">Menu</a> <!--id current defines the current page-->
                 <a href="about.html">About us</a>
                 <a href="contact.html">Contact Us</a>
             </div>
         </div>
 
-        <div class="title_box">
-            <div class="text_border">
-                <h2>Menu Of</h2>
+        <div class="title_section"> <!--Contains the website title page and makes the space for the title box-->
+            <div class="title_box"> <!--It is the title container that makes up the background box of the title-->
+                <h2>Welcome To</h2>
                 <h1>nutmeg.</h1>
             </div>
         </div>
     </div>
 
-    <div class="return_up">
+    <div class="return_up"> <!--Floating return to top button that is fixed to your bottom right of the page-->
         <a href="#top"><img
                 src="https://github.com/jerrf010/jerrf010.github.io/blob/main/Assignments/Website%20Redesign/Media/returnup.png?raw=true"
                 alt="Return Up Icon"></a>
     </div>
 
-    <div class="section_1 menu">
-        <div class="secondary_line">
+    <div class="section_1"> <!--Defines the first section version-->
+        <div class="secondary_line"> <!--Makes a custom line underneath, allows me to control the width-->
             <h2>The Tastiest</h2>
         </div>
-        <div class="row align-items-stretch justify-content-center" style="width: 100%;">
-            <div class="col-md-3 ">
-                <div class="card bg-my-card-color">
-                    <div class="card-img-container">
+
+        <div class="row align-items-stretch justify-content-center">
+            <!--Makes a row with the items in horizonal line, also reisizes items to be the same size-->
+            <div class="col-md-3 "> <!--Defines the first column with a medium size of 3-->
+                <div class="card bg-my-card-color"> <!--Utilizes my custom made background color defines in CSS-->
+                    <div class="card-img-container"> <!--Defines the image container to wrap around the image-->
                         <img class="card-img-top object-fit-fill border rounded"
                             src="https://github.com/jerrf010/jerrf010.github.io/blob/main/Assignments/Website%20Redesign/Media/gingerbread_cakes.png?raw=true"
                             alt="Gingerbread Cakes">
                     </div>
                     <div class="card-body">
                         <h3 class="card-title menu_titles">Gingerbread Cakes | 15</h3>
+                        <!--has a class of menu_titles because it is different from other card-titles-->
                         <p class="card-text">Filled with spices of ginger, cinnamon, and cloves. A melted caramel core
                             with a hint of ginger garnish. Finished off with glazed toffee and ginger strips.</p>
                         <a href="https://www.ordernutmegbakeshop.com/"
@@ -67,6 +70,7 @@
                 </div>
             </div>
 
+            <!--Repeat of the first column-->
             <div class="col-md-3 ">
                 <div class="card bg-my-card-color">
                     <div class="card-img-container">
@@ -86,6 +90,7 @@
                 </div>
             </div>
 
+            <!--Repeat of the first column-->
             <div class="col-md-3 ">
                 <div class="card bg-my-card-color">
                     <div class="card-img-container">
@@ -105,39 +110,44 @@
                 </div>
             </div>
         </div>
-        <div class="div_line"></div>
+        <div class="div_line"></div> <!--Creates a custom divider line between sections-->
     </div>
 
 
     <div class="section_1" id="full_menu">
-        <div class="secondary_line">
+        <!--Utilizes the id of full_menu because it is different from the rest of the website-->
+        <div class="secondary_line"> <!--Defines the decoration line underneath-->
             <h2>The Full Menu</h2>
         </div>
-        <div class="row align-items-stretch justify-content-center rowv1">
-            <div class="col-md-4 card bg-my-card-color card1">
-                <div class="card-img-container">
-                    <img class="card-img-top menu_img object-fit-fill border rounded"
-                        src="https://github.com/jerrf010/jerrf010.github.io/blob/main/Assignments/Website%20Redesign/Media/blood_orange.png?raw=true"
-                        alt="blood_orange_olive_oil_cakes">
-                </div>
-                <div class="card-body">
-                    <div class="card_text">
-                        <h3 class="card-title">Blood orange olive oil cakes | 12</h3>
-                        <p class="card-text">Moist and golden, topped with a glossy citrus glaze speckled with
-                            vibrant
-                            zest. A sprig of rosemary adds an elegant, aromatic touch to this bright and
-                            fragrant
-                            dessert.</p>
-                        <a href="https://www.ordernutmegbakeshop.com/"
-                            class="btn cart-btn align-self-center mt-auto"><img
-                                src="https://github.com/jerrf010/jerrf010.github.io/blob/main/Assignments/Website%20Redesign/Media/button_cart.png?raw=true"
-                                alt="Order Button"></a>
+        <div class="row align-items-stretch justify-content-center rowv1"> <!--defines the row version of 1, which differs from the card positions-->
+            <div class="col-md-4 card bg-my-card-color card1"> <!--sets the card version which changes by row and position--> <!--Sets a larger size of card (md-4)-->
+                <div class="row"><!--makes the contents in the card in a row-->
+                    <div class="col"> <!--makes the first column of the row-->
+                        <div class="card-img-container">
+                            <img class="card-img-top menu_img object-fit-fill border rounded"
+                                src="https://github.com/jerrf010/jerrf010.github.io/blob/main/Assignments/Website%20Redesign/Media/blood_orange.png?raw=true"
+                                alt="blood_orange_olive_oil_cakes">
+                        </div>
+                    </div>
+                    <div class="col"> <!--makes the second column-->
+                        <div class="card-body">
+                            <h3 class="card-title">Blood orange olive oil cakes | 12</h3>
+                            <p class="card-text">Moist and golden, topped with a glossy citrus glaze speckled with
+                                vibrant
+                                zest. A sprig of rosemary adds an elegant, aromatic touch to this bright and
+                                fragrant
+                                dessert.</p>
+                            <a href="https://www.ordernutmegbakeshop.com/"
+                                class="btn cart-btn align-self-center mt-auto"><img
+                                    src="https://github.com/jerrf010/jerrf010.github.io/blob/main/Assignments/Website%20Redesign/Media/button_cart.png?raw=true"
+                                    alt="Order Button"></a>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-2 card bg-my-card-color card2">
-                <div class="card-body">
+            <div class="col-md-2 card bg-my-card-color card2"> <!-- defines the second version of the card--> <!--Sets the smaller version of the card (md-2)-->
+                <div class="card-body"> <!--row and col not required in the card as contents are vertical-->
                     <h3 class="card-title">Raspberry earl grey cruffins | 9</h3>
                     <p class="card-text">Delicate swirls of buttery pastry. They're filled or drizzled with
                         a
@@ -149,11 +159,13 @@
             </div>
         </div>
 
-        <div class="row align-items-stretch justify-content-center rowv2">
-            <div class="col-md-2 card bg-my-card-color card1">
+        <div class="row align-items-stretch justify-content-center rowv2"> <!--Defines the second version of the row, which is the opposite positions of the card-->
+            <!--Contents are relativly the same to the first version of the row, just fliped-->
+            <div class="col-md-2 card bg-my-card-color card1"> 
                 <div class="card-body">
                     <h3 class="card-title">Milk chocolate toffee cruffins | 10</h3>
-                    <p class="card-text">Caramelized croissant pastry filled with toffee bits and milk chocolate chips
+                    <p class="card-text">Caramelized croissant pastry filled with toffee bits and milk chocolate
+                        chips
                         and finished with a house made sponge toffee</p>
                     <a href="https://www.ordernutmegbakeshop.com/" class="btn cart-btn align-self-center mt-auto"><img
                             src="https://github.com/jerrf010/jerrf010.github.io/blob/main/Assignments/Website%20Redesign/Media/button_cart.png?raw=true"
@@ -162,41 +174,53 @@
             </div>
 
             <div class="col-md-4 card bg-my-card-color card2">
-                <div class="card-img-container">
-                    <img class="card-img-top menu_img object-fit-fill border rounded"
-                        src="https://github.com/jerrf010/jerrf010.github.io/blob/main/Assignments/Website%20Redesign/Media/caram_citrus.png?raw=true"
-                        alt="Caramelized Citrus Cruffins">
-                </div>
-                <div class="card-body">
-                    <div class="card_text">
-                        <h3 class="card-title">Caramelized citrus cruffins | 10</h3>
-                        <p class="card-text"> Caramelized croissant pastry with lemon and orange zest, a citrus ganache
-                            and finished with a vanilla meringue cookie</p>
-                        <a href="https://www.ordernutmegbakeshop.com/"
-                            class="btn cart-btn align-self-center mt-auto"><img
-                                src="https://github.com/jerrf010/jerrf010.github.io/blob/main/Assignments/Website%20Redesign/Media/button_cart.png?raw=true"
-                                alt="Order Button"></a>
+                <div class="row">
+                    <div class="col">
+                        <div class="card-img-container">
+                            <img class="card-img-top menu_img object-fit-fill border rounded"
+                                src="https://github.com/jerrf010/jerrf010.github.io/blob/main/Assignments/Website%20Redesign/Media/caram_citrus.png?raw=true"
+                                alt="Caramelized Citrus Cruffins">
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="card-body">
+                            <h3 class="card-title">Caramelized citrus cruffins | 10</h3>
+                            <p class="card-text"> Caramelized croissant pastry with lemon and orange zest, a
+                                citrus
+                                ganache
+                                and finished with a vanilla meringue cookie</p>
+                            <a href="https://www.ordernutmegbakeshop.com/"
+                                class="btn cart-btn align-self-center mt-auto"><img
+                                    src="https://github.com/jerrf010/jerrf010.github.io/blob/main/Assignments/Website%20Redesign/Media/button_cart.png?raw=true"
+                                    alt="Order Button"></a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="row align-items-stretch justify-content-center rowv1">
+        <div class="row align-items-stretch justify-content-center rowv1"> <!--Repeat of the first row version, just different content-->
             <div class="col-md-4 card bg-my-card-color card1">
-                <div class="card-img-container">
-                    <img class="card-img-top menu_img object-fit-fill border rounded"
-                        src="https://github.com/jerrf010/jerrf010.github.io/blob/main/Assignments/Website%20Redesign/Media/cookie_butter.png?raw=true"
-                        alt="Cookie butter cheesecake">
-                </div>
-                <div class="card-body">
-                    <div class="card_text">
-                        <h3 class="card-title">Cookie butter cheesecake | 13</h3>
-                        <p class="card-text">A graham crust with vanilla bean cheesecake and a cookie butter filling.
-                            Finished with cookie butter ganache and a Biscoff cookie</p>
-                        <a href="https://www.ordernutmegbakeshop.com/"
-                            class="btn cart-btn align-self-center mt-auto"><img
-                                src="https://github.com/jerrf010/jerrf010.github.io/blob/main/Assignments/Website%20Redesign/Media/button_cart.png?raw=true"
-                                alt="Order Button"></a>
+                <div class="row">
+                    <div class="col">
+                        <div class="card-img-container">
+                            <img class="card-img-top menu_img object-fit-fill border rounded"
+                                src="https://github.com/jerrf010/jerrf010.github.io/blob/main/Assignments/Website%20Redesign/Media/cookie_butter.png?raw=true"
+                                alt="Cookie butter cheesecake">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card-body">
+                            <h3 class="card-title">Cookie butter cheesecake | 13</h3>
+                            <p class="card-text">A graham crust with vanilla bean cheesecake and a cookie butter
+                                filling.
+                                Finished with cookie butter ganache and a Biscoff cookie</p>
+                            <a href="https://www.ordernutmegbakeshop.com/"
+                                class="btn cart-btn align-self-center mt-auto"><img
+                                    src="https://github.com/jerrf010/jerrf010.github.io/blob/main/Assignments/Website%20Redesign/Media/button_cart.png?raw=true"
+                                    alt="Order Button"></a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -204,7 +228,8 @@
             <div class="col-md-2 card bg-my-card-color card2">
                 <div class="card-body">
                     <h3 class="card-title">Milk chocolate toffee cruffins | 10</h3>
-                    <p class="card-text">Filled with spices of ginger, cinnamon, and cloves. A melted caramel core with
+                    <p class="card-text">Filled with spices of ginger, cinnamon, and cloves. A melted caramel core
+                        with
                         a hint of ginger garnish. Finished off with glazed toffee and ginger strips.</p>
                     <a href="https://www.ordernutmegbakeshop.com/" class="btn cart-btn align-self-center mt-auto"><img
                             src="https://github.com/jerrf010/jerrf010.github.io/blob/main/Assignments/Website%20Redesign/Media/button_cart.png?raw=true"
@@ -216,36 +241,37 @@
     </div>
 
 
-    <div class="footer TT_hoves">
+    <div class="footer TT_hoves"> <!--Base Footer and define it with the font of TT_hoves-->
         <div class="row">
             <div class="col">
-                <span class="lt Open_sans">
-                    <h2>Let's Talk</h2>
-                </span>
-                <span class="caps">
-                    <h3><strong>follow us on social media</strong></h3>
-                </span>
+                <div class="foot_mar">
+                    <span class="lt Open_sans"> <!--Define the font-->
+                        <h2>Let's Talk</h2>
+                    </span>
+                    <span class="caps"> <!--helps define the captions-->
+                        <h3><strong>follow us on social media</strong></h3>
+                    </span>
 
-                <div class="social_media_icons">
-                    <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/nutmegbakeshop/"><img
-                            src="https://github.com/jerrf010/jerrf010.github.io/blob/main/Assignments/Website%20Redesign/Media/instagram.png?raw=true"
-                            alt="Instagram Icon"></a>
-                    <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/nutmegbakeshop"><img
-                            src="https://github.com/jerrf010/jerrf010.github.io/blob/main/Assignments/Website%20Redesign/Media/facebook.png?raw=true"
-                            alt="Facebook Icon"></a>
+                    <div class="social_media_icons"> <!--helps define the social media icon's positioning-->
+                        <a target="_blank" rel="noopener noreferrer"
+                            href="https://www.instagram.com/nutmegbakeshop/"><img
+                                src="https://github.com/jerrf010/jerrf010.github.io/blob/main/Assignments/Website%20Redesign/Media/instagram.png?raw=true"
+                                alt="Instagram Icon"></a>
+                        <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/nutmegbakeshop"><img
+                                src="https://github.com/jerrf010/jerrf010.github.io/blob/main/Assignments/Website%20Redesign/Media/facebook.png?raw=true"
+                                alt="Facebook Icon"></a>
+                    </div>
                 </div>
             </div>
             <div class="col">
-                <div class="footer_info">
-                    <div class="directions">
+                <div class="footer_info"> <!--Helps containerize the information and set a margin on them-->
+                    <div class="caps"> <!--Text-transform--uppercase them-->
                         <h3><strong>256 Main Street South</strong></h3>
                         <h4>Newmarket ON, L3Y 3Z5</h4>
-                    </div>
-                    <div class="phone_num">
+
                         <h3><strong>phone number</strong></h3>
                         <h4>(289) 796 1802</h4>
-                    </div>
-                    <div class="email">
+
                         <h3><strong>Email Address</strong></h3>
                         <a href="mailto:megan@nutmegbakeshop.com">
                             <h4>megan@nutmegbakeshop.com</h4>
@@ -257,7 +283,7 @@
                 </div>
             </div>
         </div>
-        <div class="footer_logo">
+        <div class="footer_logo"> <!--Separate div class to help with setting margins-->
             <a href="#" class="btn">
                 <h3>nutmeg.</h3>
             </a>
