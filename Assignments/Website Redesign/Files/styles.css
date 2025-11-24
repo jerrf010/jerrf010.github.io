@@ -109,7 +109,7 @@ body {
     font-weight: 500;
 }
 
-.section_1 {
+.section_1{
     background-color: #ff8b8b;
     padding-bottom: 40px;
     padding-top: 40px;
@@ -120,7 +120,7 @@ body {
     font-weight: 400;
 }
 
-.card-img-container{
+.card-img-container {
     padding: 10px;
 }
 
@@ -247,7 +247,7 @@ body {
 }
 
 .foot_mar {
-    margin-left:10%;
+    margin-left: 10%;
 }
 
 .social_media_icons img {
@@ -289,14 +289,6 @@ body {
     font-size: 25px;
 }
 
-.div_line {
-    border: solid black 3px;
-    border-radius: 10px;
-    margin: 0 auto;
-    width: 85%;
-    margin-top: 40px;
-}
-
 #full_menu {
     padding: 0;
 }
@@ -314,8 +306,7 @@ body {
 }
 
 
-#full_menu .card-img-container,
-#about_card img {
+#full_menu .card-img-container {
     width: 300px;
     margin-left: 36px;
 }
@@ -368,29 +359,19 @@ body {
 }
 
 #about_card {
-    margin-top: 27px;
-    margin-bottom: 30px;
-}
-
-#about_card .card-body {
-    padding-left: 37%;
-    margin-top: -21%;
-    margin-bottom: 89px;
-}
-
-#about_card .card {
-    width: 90% !important;
-    margin: 0 auto
+    width: 90%;
+    margin: 0 auto;
+    padding: 35px;
+    padding-right: 70px;
 }
 
 #about_card img {
-    margin-left: -61%;
     height: 300px;
     width: 400px;
     border: black solid 3px !important;
 }
 
-#about_section_1 .card-title {
+#about_section_2 .card-title {
     font-size: 30px;
     font-weight: 400;
 }
