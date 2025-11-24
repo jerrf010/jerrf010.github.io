@@ -289,13 +289,17 @@ body {
     font-size: 25px;
 }
 
-#full_menu {
-    padding: 0;
-}
-
 #full_menu h2 {
     font-size: 50px;
     font-weight: 400;
+}
+
+.div_line {
+    border: solid black 3px;
+    border-radius: 10px;
+    margin: 0 auto;
+    width: 85%;
+    margin-top: 40px;
 }
 
 .secondary_line {
@@ -329,7 +333,7 @@ body {
 .rowv2 .card1,
 .rowv1 .card2 {
     padding-top: 30px;
-    width: 418px;
+    width: 440px;
 }
 
 .rowv1 .card2 {
