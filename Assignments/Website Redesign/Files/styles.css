@@ -351,19 +351,13 @@ body { /*Set defaults for the entire website*/
     height: 260px;
 }
 
-.row {
+.row { /*Create a gap between the rows*/
     padding-top: 10px;
     width: 100%;
     margin-bottom: 30px;
 }
 
-.h2_about_line {
-    width: 50%;
-    margin-bottom: 22px;
-    margin-top: 20px;
-}
-
-#about_card {
+#about_card { /*Create the container for the about section, center it, and make a border*/
     width: 90%;
     margin: 0 auto;
     padding: 35px;
@@ -372,23 +366,23 @@ body { /*Set defaults for the entire website*/
     border-radius: 30px;
 }
 
-#about_card img {
+#about_card img { /*Style the about image*/
     height: 300px;
     width: 400px;
-    border: black solid 3px !important;
+    border: black solid 3px !important; /*Override bootstrap*/
 }
 
-#about_section_2 .card-title {
+#about_section_2 .card-title { /*Change the set card-title to be bigger*/
     font-size: 30px;
     font-weight: 400;
 }
 
-.contact_section1 iframe {
+.contact_section1 iframe { /*set the map to be bigger in size than the default*/
     width: 600px;
     margin: 50px;
 }
 
-.contact_section1 .row {
+.contact_section1 .row { /*Create a background in the each of the row containers*/
     background-color: #ffd4d4;
     width: 90%;
     margin: 0 auto;
@@ -396,37 +390,40 @@ body { /*Set defaults for the entire website*/
     margin-top: 30px;
 }
 
-.contact_section1 .title {
+.contact_section1 .title { /*Create a underline to the "find us" in the contact section*/
     text-decoration: underline;
 }
 
-.contact_section1 .card-body {
+.contact_section1 .card-body { /*Set the information to be lower and have the text align to the left*/
     margin-top: 90px;
     text-align: left;
 }
 
-.contact_section1 .card_title a {
+.contact_section1 .card_title { /*make a larger gap between the informations*/
+    margin-top:20px;
+}
+
+.contact_section1 .card_title a { /*Remove the text decoration and color set by the tag a*/
     text-decoration: none;
     color: black;
 }
 
-.card_title h3 {
+.card_title h3 { /*Set the subheadings to be all uppercase*/
     text-transform: uppercase;
 }
 
-#contact_hours .hours_times h4 {
+#contact_hours .hours_times h4 { /*Change the days and hours of business font style*/
     font-size: 27px;
     text-decoration: none;
     font-weight: 100;
 }
 
-#contact_hours {
+#contact_hours { /*make space between the hours of business column on the top and bottom*/
     margin-bottom: 50px;
-    padding: 20px;
     margin-left: 48px;
 }
 
-.contact_info h3 {
+.contact_info h3 { /*set the contact info to have a different font style and all uppercase*/ 
     font-size: 22px;
     text-align: left;
     text-transform: uppercase;
@@ -434,11 +431,7 @@ body { /*Set defaults for the entire website*/
     margin-top: 20px;
 }
 
-.contact_info {
+.contact_info { /*move it lower to around the center of the container*/
     margin-top: 23%;
-    height: max-content;
 }
 
-.contact_section1 .card_title {
-    margin-top:20px
-}
