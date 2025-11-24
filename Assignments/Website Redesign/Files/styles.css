@@ -18,8 +18,7 @@ body {
 
 .TT_hoves,
 .section_1,
-.section_2,
-.section_3 {
+.section_2 {
     font-family: "Stack Sans Headline", sans-serif !important;
 }
 
@@ -88,11 +87,11 @@ body {
     color: #ff9900;
 }
 
-.title_box {
+.title_section {
     padding: 100px 20px;
 }
 
-.text_border {
+.title_box {
     padding: 40px;
     background-color: rgba(84, 84, 84, 0.75);
     border-radius: 20px;
@@ -100,18 +99,17 @@ body {
     width: 30%;
 }
 
-.text_border h1 {
+.title_box h1 {
     font-size: 600%;
     font-weight: 300;
 }
 
-.text_border h2 {
+.title_box h2 {
     font-size: 30px;
     font-weight: 500;
 }
 
-.section_1,
-.section_3 {
+.section_1 {
     background-color: #ff8b8b;
     padding-bottom: 40px;
     padding-top: 40px;
@@ -149,20 +147,18 @@ body {
 .section_2 iframe {
     padding-left: 5%;
     padding-top: 70px;
-    width: 45%;
+    width: 95%;
 }
 
 .hours {
-    margin-left: 14%;
-    width: 500px !important;
-    margin-top: 4.5% !important;
+    margin-top: 9%;
 }
 
 .hours h2 {
     font-size: 350%;
     text-decoration: underline dashed 5px;
     text-underline-offset: 15px;
-    margin-bottom: 10%;
+    margin-bottom: 5%;
     font-weight: 100;
 }
 
@@ -208,23 +204,18 @@ body {
 }
 
 .story img {
-    width: 26%;
     height: 249px;
     margin-top: 0%;
     margin-left: 11%;
     border-radius: 10px;
-    object-fit: fill;
     border: solid 3px black;
-    padding: 0;
 }
 
 .story p {
     font-size: 130%;
-    margin-top: -17%;
     line-height: 1.6;
-    margin-left: 30%;
     text-align: left;
-    width: 60%;
+    margin-top: 4%;
 }
 
 .bw_btn:hover {
@@ -246,18 +237,18 @@ body {
 
 .lt h2 {
     font-weight: 400;
-    margin-left: 10%;
     font-size: 400%;
-    margin-top: 1%;
-    width: 30%;
     border-bottom: solid black 4px;
 }
 
 .caps h3 {
-    margin-left: 10%;
     text-transform: uppercase;
-    margin-top: 1%;
+    margin-top: 3%;
     font-weight: 600;
+}
+
+.foot_mar {
+    margin-left:10%;
 }
 
 .social_media_icons img {
@@ -267,18 +258,11 @@ body {
     width: 4%;
 }
 
-.social_media_icons {
+.footer_info {
     margin-left: 10%;
 }
 
-.footer_info {
-    margin-right: 10%;
-    margin-left: 60%;
-    margin-top: -14%;
-}
-
 .footer_info h3 {
-    text-transform: uppercase;
     padding-top: 3%;
     font-weight: 800;
 }
@@ -290,8 +274,6 @@ body {
 }
 
 .footer_logo {
-    margin: 0 auto;
-    margin-top: 3%;
     text-align: center;
 }
 
@@ -302,12 +284,7 @@ body {
 }
 
 .hours_times {
-    margin-bottom: 10px;
-}
-
-.story_txt {
-    margin-left: 15%;
-    width: 75%;
+    margin-bottom: 42px;
 }
 
 .menu_titles {
@@ -482,11 +459,10 @@ body {
 }
 
 #contact_hours {
-    width: auto;
     margin-left: 45px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    padding: 36px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    padding: 7px;
 }
 
 #contact_hours .hours_times,
@@ -503,8 +479,7 @@ body {
 }
 
 .contact_info {
-    margin-top: -23% !important;
+    margin-top: 22%;
     height: max-content;
-    margin-left: 45%;
     width: 750px !important;
 }
