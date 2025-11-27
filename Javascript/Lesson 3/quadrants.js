@@ -1,5 +1,5 @@
-let x = Number(prompt());
-let y = Number(prompt());
+const x = Number(prompt("Enter x: "));
+const y = Number(prompt("Enter y: "));
 
 if (x > 0 && y > 0) {
 	console.log("Quadrant 1");
