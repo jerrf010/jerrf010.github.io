@@ -1,4 +1,4 @@
-let date = Number(prompt("What is the date? "));
+let date = Number(prompt("What is the day? "));
 let month = Number(prompt("What is the month? "));
 
 if (month == 2 && date == 18) {
