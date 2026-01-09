@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - App Development</title>
-    <link rel=icon href="https://github.com/jerrf010/basic_html/blob/main/park_with_shades.png?raw=true"
-        type="image/icon type">
+
+    <!-- Favicon -->
+    <link rel="icon"
+          href="https://github.com/jerrf010/basic_html/blob/main/park_with_shades.png?raw=true"
+          type="image/png">
+
+    <!-- Styles -->
     <link rel="stylesheet" href="styles.css">
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -16,42 +22,67 @@
 </head>
 
 <body>
-  <div id="main-page" class="phone">
-    <h1>Sign In</h1>
+    <div id="main-page" class="phone">
+        <h1>Sign In</h1>
 
-    <label>Username/Email Address</label>
-    <input type="text" />
+        <form id="loginForm" novalidate>
+            <label for="email">Username / Email Address</label>
+            <input type="text" id="email" name="email" required>
 
-    <label>Password</label>
-    <input type="password" />
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
 
-    <label>Agree with Our Terms and Conditions</label>
-    <div class="terms-box">
-      <label class="checkbox">
-        <input type="checkbox" />
-        <span>I consent</span>
-      </label>
+            <label>Agree with Our Terms and Conditions</label>
+            <div class="terms-box">
+                <label class="checkbox">
+                    <input type="checkbox" name="consent" required>
+                    <span>I consent</span>
+                </label>
+            </div>
+
+            <div class="mood">
+                <label>How are you feeling?</label>
+                <div class="mood-options">
+                    <button type="button">☹️</button>
+                    <button type="button">🙁</button>
+                    <button type="button">😐</button>
+                    <button type="button">🙂</button>
+                    <button type="button">😁</button>
+                </div>
+            </div>
+            <a href="main-landing.html" style="text-decoration: none;">
+                <button class="submit-btn" type="submit">Submit</button>
+            </a>
+        </form>
+
+        <div class="footer">
+            Your Canva profile name will be shared. Never submit passwords.<br>
+            <a href="#">Learn how we handle your data</a>
+        </div>
     </div>
 
-    <div class="mood">
-      <label>How are you feeling?</label>
-      <div class="mood-options">
-        <button>☹️</button>
-        <button>🙁</button>
-        <button>😐</button>
-        <button>🙂</button>
-        <button>😁</button>
-      </div>
-    </div>
+    <!-- JavaScript -->
+    <script>
+        const form = document.getElementById("loginForm");
+        const emailInput = document.getElementById("email");
 
-    <button class="submit-btn">Submit</button>
+        form.addEventListener("submit", function (event) {
+            const email = emailInput.value.trim();
 
-    <div class="footer">
-      Your Canva profile name will be shared. Never submit passwords.<br />
-      <a href="#">Learn how we handle your data</a>
-    </div>
-  </div>
+            // Standard email validation regex
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!emailPattern.test(email)) {
+                event.preventDefault();
+                alert("Please enter a valid email address.");
+                emailInput.focus();
+                return;
+            }
+
+            if (!form.checkValidity()) {
+                event.preventDefault();
+            }
+        });
+    </script>
 </body>
-</html>
-
 </html>

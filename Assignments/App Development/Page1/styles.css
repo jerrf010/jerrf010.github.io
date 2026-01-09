@@ -15,13 +15,21 @@ body {
 
 /* Phone container */
 .phone {
-  width: 390px;
-  min-height: 780px;
-  padding: 24px;
-  border-radius: 28px;
-  background: linear-gradient(180deg, #a6e28d 0%, #2f7d5b 100%);
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
+    width: 550px;
+    height: 1000px;
+    background: radial-gradient(
+  circle at 0% 0%,
+  #c8ff99 0%,
+  #22604e 100%);    border-radius: 30px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 20%;
 }
+
 
 /* Title */
 h1 {
@@ -32,8 +40,8 @@ h1 {
 /* Labels */
 label {
   display: block;
-  margin-top: 18px;
-  margin-bottom: 6px;
+  margin-top: 19px;
+  margin-bottom: 18px;
   font-weight: 600;
   color: #0b5d57;
 }
