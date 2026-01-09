@@ -1,18 +1,21 @@
 body {
-    background: #f0f0f0;
+    background: white;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin: 0;
     font-family: 'Nunito', 'Sans-serif';
+    margin: 0 auto;
+
 }
 
 .phone {
     width: 550px;
     height: 1000px;
-    background: #fff;
-    border-radius: 30px;
+    background: radial-gradient(
+  circle at 0% 0%,
+  #c8ff99 0%,
+  #22604e 100%);    border-radius: 30px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.2);
     overflow: hidden;
     display: flex;
@@ -27,15 +30,35 @@ body {
 }
 
 .button {
-    width: 200px;
-    height: 60px;
-    background: #4CAF50;
-    border-radius: 30px;
-    color: white;
+    width: 270px;
+    height: 90px;
+    background: #86b499;
+    border-radius: 15px;
+    color: black;
+    border: black 2px solid;
+    font-size: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 20px auto;
-    cursor: pointer;
+    font-family: 'Black Ops One', 'Sans-serif';
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    margin: 0 auto;
+}
+
+.app-icon {
+    margin: 0 auto;
+    padding-top: 50px;
+}
+
+
+#main-page h1{
+    font-size: 80px;
+    margin-top: 0;
+    color: #284a06;
+    margin-bottom: 0;
+}
+
+#main-page h2 {
+    color: #284a06;
+    margin-bottom: 10%;
 }
