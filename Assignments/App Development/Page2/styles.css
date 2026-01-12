@@ -14,28 +14,29 @@ body {
 
 /* Phone container */
 .phone {
-    width: 550px;
-    height: 1000px;
-    background: radial-gradient(
-  circle at 0% 0%,
-  #c8ff99 0%,
-  #22604e 100%);
-    border-radius: 30px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    padding-left: 40px;
-    padding-right: 40px;
-    padding-top: 5%;
+  width: 550px;
+  height: 1000px;
+  background: radial-gradient(
+    circle at 0% 0%,
+    #c8ff99 0%,
+    #22604e 100%
+  );
+  border-radius: 30px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 5%;
 }
-
 
 /* Title */
 h1 {
   margin-top: 0;
+  margin-bottom: 20px;
   color: #0b5d57;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 /* Labels */
@@ -49,6 +50,7 @@ label {
 
 /* Inputs */
 input[type="text"],
+input[type="email"],
 input[type="password"] {
   width: 100%;
   padding: 15px 14px;
@@ -57,6 +59,7 @@ input[type="password"] {
   background: transparent;
   font-size: 16px;
   outline: none;
+  color: #0b5d57;
 }
 
 /* Terms box */
@@ -73,6 +76,11 @@ input[type="password"] {
   gap: 10px;
   color: #0b5d57;
   margin-top: 16px;
+}
+
+.checkbox input {
+  width: 18px;
+  height: 18px;
 }
 
 /* Mood section */

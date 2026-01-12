@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Us - App Development</title>
+
+    <!-- Favicon -->
+    <link rel="icon"
+          href="https://github.com/jerrf010/basic_html/blob/main/park_with_shades.png?raw=true"
+          type="image/png">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Chewy&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Oswald:wght@200..700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div id="main-page" class="phone">
+        <h1>Join Us</h1>
+
+        <form id="signupForm" novalidate>
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+
+            <label>
+                Agree with Our
+                <a href="https://jerrf010.github.io/Assignments/App%20Development/TermsAndConditions/index.html">
+                    Terms and Conditions
+                </a>
+            </label>
+            <div class="terms-box">
+                <label class="checkbox">
+                    <input type="checkbox" id="terms">
+                    <span>I consent</span>
+                </label>
+            </div>
+
+            <div class="mood">
+                <label>How are you feeling?</label>
+                <div class="mood-options">
+                    <button type="button">☹️</button>
+                    <button type="button">🙁</button>
+                    <button type="button">😐</button>
+                    <button type="button">🙂</button>
+                    <button type="button">😁</button>
+                </div>
+            </div>
+
+            <button class="submit-btn" type="submit">Submit</button>
+        </form>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        const form = document.getElementById("signupForm");
+        const emailInput = document.getElementById("email");
+        const passwordInput = document.getElementById("password");
+        const termsCheckbox = document.getElementById("terms");
+
+        function validateEmail(email) {
+            const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return pattern.test(email);
+        }
+
+        function isStrongPassword(password) {
+            return (
+                password.length >= 8 &&
+                /[A-Z]/.test(password) &&
+                /[a-z]/.test(password) &&
+                /[0-9]/.test(password) &&
+                /[^A-Za-z0-9]/.test(password)
+            );
+        }
+
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            if (!validateEmail(emailInput.value.trim())) {
+                alert("Invalid email address.\nPlease enter a valid email.");
+                emailInput.focus();
+                return;
+            }
+
+            if (!isStrongPassword(passwordInput.value)) {
+                alert(
+                    "Weak password.\n\nPassword must contain:\n" +
+                    "• At least 8 characters\n" +
+                    "• Uppercase letter\n" +
+                    "• Lowercase letter\n" +
+                    "• Number\n" +
+                    "• Special character"
+                );
+                passwordInput.focus();
+                return;
+            }
+
+            if (!termsCheckbox.checked) {
+                alert("You must agree to the Terms and Conditions to continue.");
+                termsCheckbox.focus();
+                return;
+            }
+
+            alert("Form submitted successfully!");
+            form.reset();
+        });
+    </script>
+</body>
+</html>
