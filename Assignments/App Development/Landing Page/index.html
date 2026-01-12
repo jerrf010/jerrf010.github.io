@@ -3,23 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App Development Assignments</title>
-    <link rel=icon href="https://github.com/jerrf010/basic_html/blob/main/park_with_shades.png?raw=true" type="image/icon type">
+    <title>Get Started -- App Development</title>
+    <link rel="icon" href="https://github.com/jerrf010/basic_html/blob/main/park_with_shades.png?raw=true" type="image/icon type">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Chewy&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div class="phone Chewy" id="main-page">
-         <img src="Media/Icon.png" alt="App Icon" class="app-icon" style="width: 400px">
-         <h1>Hey, Day...</h1>
-         <h2>Clear the Clouds, Feel Okay.</h2>
-         <a href="https://dalia181.github.io/heyday.html">
-            <div class="button">
-                <h3>GET STARTED</h3>
+    <div class="container">
+        <!-- Decorative Elements -->
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+        <div class="leaf leaf-1"></div>
+        <div class="leaf leaf-2"></div>
+        <div class="leaf leaf-3"></div>
+        
+        <!-- Phone Container -->
+        <div class="phone Chewy" id="main-page">
+            <!-- Phone Notch -->
+            <div class="phone-notch"></div>
+            
+            <!-- Status Bar -->
+            <div class="status-bar">
+                <span>9:41</span>
+                <div class="status-icons">
+                    <i class="fas fa-signal"></i>
+                    <i class="fas fa-wifi"></i>
+                    <i class="fas fa-battery-three-quarters"></i>
+                </div>
             </div>
-         </a>
+            
+            <!-- App Content -->
+            <div class="app-content">
+                <div class="app-icon-container">
+                    <div class="icon-background">
+                        <img src="Media/Icon.png" alt="App Icon" class="app-icon">
+                    </div>
+                    <div class="icon-glow"></div>
+                </div>
+                
+                <h1 class="title">Hey, Day...</h1>
+                <h2 class="subtitle">Clear the Clouds, Feel Okay.</h2>
+                
+                <!-- Compact Features -->
+                <div class="features">
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <p>Mindfulness</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-cloud-sun"></i>
+                        </div>
+                        <p>Mood Track</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <p>Self-Care</p>
+                    </div>
+                </div>
+                
+                <p class="description">
+                    Your gentle companion for mental wellness. 
+                    Breathe, reflect, and grow daily.
+                </p>
+                
+                <!-- Get Started Button -->
+                <a href="https://dalia181.github.io/heyday.html" class="button-link">
+                    <div class="button">
+                        <h3>GET STARTED</h3>
+                        <i class="fas fa-arrow-right button-arrow"></i>
+                    </div>
+                    <p class="button-hint">Tap to begin your journey</p>
+                </a>
+                
+                <!-- Compact Footer -->
+                <div class="footer">
+                    <p><i class="fas fa-lock"></i> Private & Secure</p>
+                    <p class="tagline">Breathe in peace</p>
+                </div>
+            </div>
+            
+            <!-- Home Indicator (for mobile) -->
+            <div class="home-indicator"></div>
+        </div>
     </div>
+    
+    <!-- Animation Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Button hover effect
+            const button = document.querySelector('.button');
+            button.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-3px) scale(1.03)';
+            });
+            button.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+            
+            // Click effect
+            button.addEventListener('mousedown', function() {
+                this.style.transform = 'translateY(0) scale(0.98)';
+            });
+            button.addEventListener('mouseup', function() {
+                this.style.transform = 'translateY(-3px) scale(1.03)';
+            });
+            
+            // Animate features on load
+            const features = document.querySelectorAll('.feature');
+            features.forEach((feature, index) => {
+                setTimeout(() => {
+                    feature.style.opacity = '1';
+                    feature.style.transform = 'translateY(0)';
+                }, 200 + (index * 150));
+            });
+            
+            // Check if content fits
+            const checkFit = () => {
+                const phone = document.querySelector('.phone');
+                const content = document.querySelector('.app-content');
+                const phoneHeight = phone.clientHeight;
+                const contentHeight = content.scrollHeight;
+                
+                if (contentHeight > phoneHeight) {
+                    console.log('Content needs adjustment');
+                    // Further reduce sizes if needed
+                }
+            };
+            
+            window.addEventListener('load', checkFit);
+            window.addEventListener('resize', checkFit);
+        });
+    </script>
 </body>
 </html>
