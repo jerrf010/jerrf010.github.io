@@ -144,12 +144,6 @@ body {
     text-align: center;
 }
 
-/* App Icon */
-.app-icon-container {
-    position: relative;
-    margin: 0 30px;
-}
-
 .icon-background {
     width: 160px;
     height: 160px;
