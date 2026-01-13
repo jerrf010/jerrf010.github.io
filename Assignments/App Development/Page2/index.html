@@ -3,118 +3,246 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Join Us - App Development</title>
-
-    <!-- Favicon -->
-    <link rel="icon"
-          href="https://github.com/jerrf010/basic_html/blob/main/park_with_shades.png?raw=true"
-          type="image/png">
-
-    <!-- Styles -->
+    <title>Join Us -- App Development</title>
+    <link rel="icon" href="https://github.com/jerrf010/basic_html/blob/main/park_with_shades.png?raw=true" type="image/icon type">
     <link rel="stylesheet" href="styles.css">
-
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Chewy&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Oswald:wght@200..700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Chewy&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-
 <body>
-    <div id="main-page" class="phone">
-        <h1>Join Us</h1>
-
-        <form id="signupForm" novalidate>
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username" required>
-
-            <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" required>
-
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" required>
-
-            <label>
-                Agree with Our
-                <a href="https://jerrf010.github.io/Assignments/App%20Development/TermsAndConditions/index.html">
-                    Terms and Conditions
-                </a>
-            </label>
-            <div class="terms-box">
-                <label class="checkbox">
-                    <input type="checkbox" id="terms">
-                    <span>I consent</span>
-                </label>
-            </div>
-
-            <div class="mood">
-                <label>How are you feeling?</label>
-                <div class="mood-options">
-                    <button type="button">☹️</button>
-                    <button type="button">🙁</button>
-                    <button type="button">😐</button>
-                    <button type="button">🙂</button>
-                    <button type="button">😁</button>
+    <div class="container">
+        <!-- Decorative Elements -->
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+        <div class="leaf leaf-1"></div>
+        <div class="leaf leaf-2"></div>
+        <div class="leaf leaf-3"></div>
+        
+        <!-- Phone Container -->
+        <div class="phone Chewy" id="main-page">
+            <!-- Phone Notch -->
+            <div class="phone-notch"></div>
+            
+            <!-- Status Bar -->
+            <div class="status-bar">
+                <span>9:41</span>
+                <div class="status-icons">
+                    <i class="fas fa-signal"></i>
+                    <i class="fas fa-wifi"></i>
+                    <i class="fas fa-battery-three-quarters"></i>
                 </div>
             </div>
-
-            <button class="submit-btn" type="submit">Submit</button>
-        </form>
+            
+            <!-- App Content -->
+            <div class="app-content">                
+                <!-- Title -->
+                <h1 class="title">Join Us</h1>
+                <h2 class="subtitle">Start your wellness journey</h2>
+                
+                <!-- Signup Form -->
+                <div class="form-container">
+                    <form id="signupForm" class="signup-form" novalidate>
+                        <!-- Username Field -->
+                        <div class="form-group">
+                            <label class="form-label">Username</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-user icon-left"></i>
+                                <input type="text" id="username" name="username" placeholder="Enter username" required>
+                            </div>
+                        </div>
+                        
+                        <!-- Email Field -->
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-envelope icon-left"></i>
+                                <input type="email" id="email" name="email" placeholder="Enter email" required>
+                            </div>
+                        </div>
+                        
+                        <!-- Password Field -->
+                        <div class="form-group">
+                            <label class="form-label">Password</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-lock icon-left"></i>
+                                <input type="password" id="password" name="password" placeholder="Create password" required>
+                                <button type="button" class="eye-toggle" id="togglePassword" title="Show password" aria-label="Show password">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <p class="password-hint">Must be 8+ characters with letters, numbers & symbols</p>
+                        </div>
+                        
+                        <!-- Terms and Conditions -->
+                        <div class="terms-section">
+                            <div class="terms-box">
+                                <p class="terms-text">
+                                    Agree with Our 
+                                    <a href="https://jerrf010.github.io/Assignments/App%20Development/TermsAndConditions/index.html" class="terms-link">
+                                        Terms and Conditions
+                                    </a>
+                                </p>
+                                <label class="terms-checkbox">
+                                    <input type="checkbox" name="terms" id="terms" required>
+                                    <span class="checkmark"></span>
+                                    <span>I consent</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Mood Tracker -->
+                        <div class="mood-tracker">
+                            <label class="mood-label">How are you feeling?</label>
+                            <div class="mood-options">
+                                <button type="button" class="mood-btn" data-mood="sad">☹️</button>
+                                <button type="button" class="mood-btn" data-mood="unhappy">🙁</button>
+                                <button type="button" class="mood-btn" data-mood="neutral">😐</button>
+                                <button type="button" class="mood-btn" data-mood="happy">🙂</button>
+                                <button type="button" class="mood-btn" data-mood="excited">😁</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Submit Button -->
+                        <div class="button-container">
+                            <button type="submit" class="button submit-btn" id="submitButton">
+                                <h3>CREATE ACCOUNT</h3>
+                                <i class="fas fa-arrow-right button-arrow"></i>
+                            </button>
+                            <p class="button-hint">Tap to begin your journey</p>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Footer -->
+                <div class="footer">
+                    <p><i class="fas fa-lock"></i> Private & Secure</p>
+                    <p class="tagline">Breathe in peace</p>
+                </div>
+            </div>
+            
+            <!-- Home Indicator -->
+            <div class="home-indicator"></div>
+        </div>
     </div>
-
-    <!-- JavaScript -->
+    
+    <!-- Script -->
     <script>
-        const form = document.getElementById("signupForm");
-        const emailInput = document.getElementById("email");
-        const passwordInput = document.getElementById("password");
-        const termsCheckbox = document.getElementById("terms");
-
-        function validateEmail(email) {
-            const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return pattern.test(email);
-        }
-
-        function isStrongPassword(password) {
-            return (
-                password.length >= 8 &&
-                /[A-Z]/.test(password) &&
-                /[a-z]/.test(password) &&
-                /[0-9]/.test(password) &&
-                /[^A-Za-z0-9]/.test(password)
-            );
-        }
-
-        form.addEventListener("submit", function (event) {
-            event.preventDefault();
-
-            if (!validateEmail(emailInput.value.trim())) {
-                alert("Invalid email address.\nPlease enter a valid email.");
-                emailInput.focus();
-                return;
+        document.addEventListener('DOMContentLoaded', function() {
+            // Make all form elements visible immediately
+            const formElements = document.querySelectorAll('.form-group, .terms-section, .mood-tracker');
+            formElements.forEach((el, index) => {
+                el.style.opacity = '1';
+                el.style.transform = 'translateY(0)';
+            });
+            
+            // Button hover effect
+            const button = document.querySelector('.button');
+            button.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-3px) scale(1.03)';
+            });
+            button.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+            
+            button.addEventListener('mousedown', function() {
+                this.style.transform = 'translateY(0) scale(0.98)';
+            });
+            button.addEventListener('mouseup', function() {
+                this.style.transform = 'translateY(-3px) scale(1.03)';
+            });
+            
+            // Mood selection
+            const moodBtns = document.querySelectorAll('.mood-btn');
+            moodBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    moodBtns.forEach(b => b.classList.remove('selected'));
+                    this.classList.add('selected');
+                });
+            });
+            
+            // Password toggle
+            const togglePassword = document.getElementById('togglePassword');
+            const passwordInput = document.getElementById('password');
+            
+            togglePassword.addEventListener('click', function() {
+                const type = passwordInput.type === 'password' ? 'text' : 'password';
+                passwordInput.type = type;
+                if (type === 'password') {
+                    this.innerHTML = '<i class="fas fa-eye"></i>';
+                    this.title = 'Show password';
+                    this.setAttribute('aria-label', 'Show password');
+                } else {
+                    this.innerHTML = '<i class="fas fa-eye-slash"></i>';
+                    this.title = 'Hide password';
+                    this.setAttribute('aria-label', 'Hide password');
+                }
+            });
+            
+            // Form validation
+            const form = document.getElementById('signupForm');
+            const emailInput = document.getElementById('email');
+            const termsCheckbox = document.getElementById('terms');
+            
+            function validateEmail(email) {
+                const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return pattern.test(email);
             }
-
-            if (!isStrongPassword(passwordInput.value)) {
-                alert(
-                    "Weak password.\n\nPassword must contain:\n" +
-                    "• At least 8 characters\n" +
-                    "• Uppercase letter\n" +
-                    "• Lowercase letter\n" +
-                    "• Number\n" +
-                    "• Special character"
+            
+            function isStrongPassword(password) {
+                return (
+                    password.length >= 8 &&
+                    /[A-Z]/.test(password) &&
+                    /[a-z]/.test(password) &&
+                    /[0-9]/.test(password) &&
+                    /[^A-Za-z0-9]/.test(password)
                 );
-                passwordInput.focus();
-                return;
             }
-
-            if (!termsCheckbox.checked) {
-                alert("You must agree to the Terms and Conditions to continue.");
-                termsCheckbox.focus();
-                return;
-            }
-
-            alert("Form submitted successfully!");
-            form.reset();
+            
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                if (!validateEmail(emailInput.value.trim())) {
+                    alert("Invalid email address.\nPlease enter a valid email.");
+                    emailInput.focus();
+                    return;
+                }
+                
+                if (!isStrongPassword(passwordInput.value)) {
+                    alert(
+                        "Weak password.\n\nPassword must contain:\n" +
+                        "• At least 8 characters\n" +
+                        "• Uppercase letter\n" +
+                        "• Lowercase letter\n" +
+                        "• Number\n" +
+                        "• Special character"
+                    );
+                    passwordInput.focus();
+                    return;
+                }
+                
+                if (!termsCheckbox.checked) {
+                    alert("You must agree to the Terms and Conditions to continue.");
+                    termsCheckbox.focus();
+                    return;
+                }
+                
+                // Success animation
+                const submitBtn = document.getElementById('submitButton');
+                const originalHTML = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<h3>WELCOME!</h3><i class="fas fa-check button-arrow"></i>';
+                submitBtn.style.background = 'linear-gradient(135deg, #06d6a0 0%, #04a97f 100%)';
+                
+                setTimeout(() => {
+                    alert("Account created successfully!");
+                    form.reset();
+                    submitBtn.innerHTML = originalHTML;
+                    submitBtn.style.background = '';
+                    moodBtns.forEach(btn => btn.classList.remove('selected'));
+                }, 1500);
+            });
         });
     </script>
 </body>
