@@ -14,52 +14,6 @@
         href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Chewy&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Oswald:wght@200..700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* Additional validation styles */
-        .error-message {
-            color: #e74c3c;
-            font-size: 13px;
-            margin-top: 5px;
-            font-weight: 600;
-            display: none;
-        }
-
-        .input-error {
-            border-color: #e74c3c !important;
-            background: rgba(231, 76, 60, 0.05) !important;
-        }
-
-        .input-success {
-            border-color: #2ecc71 !important;
-        }
-
-        .validation-icon {
-            position: absolute;
-            right: 50px;
-            top: 50%;
-            transform: translateY(-50%);
-            display: none;
-        }
-
-        .fa-check-circle {
-            color: #2ecc71;
-        }
-
-        .fa-times-circle {
-            color: #e74c3c;
-        }
-
-        .mood-btn.selected {
-            transform: scale(1.2);
-            box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.4);
-            background: rgba(46, 204, 113, 0.1);
-            border-color: #2ecc71;
-        }
-
-        .mood-btn {
-            transition: all 0.2s ease;
-        }
-    </style>
 </head>
 
 <body>
@@ -157,20 +111,19 @@
                         <!-- Terms and Conditions -->
                         <div class="terms-section">
                             <div class="terms-box">
-                                <p class="terms-text">
-                                    Agree with Our
-                                    <a href="https://jerrf010.github.io/Assignments/App%20Development/TermsAndConditions/index.html"
-                                        class="terms-link">
-                                        Terms and Conditions
-                                    </a>
-                                </p>
                                 <label class="terms-checkbox">
                                     <input type="checkbox" name="terms" id="terms" required>
                                     <span class="checkmark"></span>
-                                    <span>I consent</span>
+                                    <span class="terms-text">
+                                        Agree with Our
+                                        <a href="https://jerrf010.github.io/Assignments/App%20Development/TermsAndConditions/index.html"
+                                            class="terms-link">
+                                            Terms and Conditions
+                                        </a>
+                                        &nbsp;I consent
+                                    </span>
                                 </label>
-                                <div class="error-message" id="termsError" style="margin-top: 10px;">You must agree to
-                                    the terms</div>
+                                <div class="error-message" id="termsError">You must agree to the terms</div>
                             </div>
                         </div>
 
