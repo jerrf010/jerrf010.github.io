@@ -10,6 +10,41 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Chewy&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Additional validation styles */
+        .error-message {
+            color: #e74c3c;
+            font-size: 13px;
+            margin-top: 5px;
+            font-weight: 600;
+            display: none;
+        }
+        
+        .input-error {
+            border-color: #e74c3c !important;
+            background: rgba(231, 76, 60, 0.05) !important;
+        }
+        
+        .input-success {
+            border-color: #2ecc71 !important;
+        }
+        
+        .validation-icon {
+            position: absolute;
+            right: 50px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: none;
+        }
+        
+        .fa-check-circle {
+            color: #2ecc71;
+        }
+        
+        .fa-times-circle {
+            color: #e74c3c;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -51,7 +86,10 @@
                             <div class="input-with-icon">
                                 <i class="fas fa-user icon-left"></i>
                                 <input type="text" id="username" name="username" placeholder="Enter username" required>
+                                <i class="fas fa-check-circle validation-icon" id="usernameValidIcon"></i>
+                                <i class="fas fa-times-circle validation-icon" id="usernameErrorIcon"></i>
                             </div>
+                            <div class="error-message" id="usernameError">Username must be 3-20 characters</div>
                         </div>
                         
                         <!-- Email Field -->
@@ -60,7 +98,10 @@
                             <div class="input-with-icon">
                                 <i class="fas fa-envelope icon-left"></i>
                                 <input type="email" id="email" name="email" placeholder="Enter email" required>
+                                <i class="fas fa-check-circle validation-icon" id="emailValidIcon"></i>
+                                <i class="fas fa-times-circle validation-icon" id="emailErrorIcon"></i>
                             </div>
+                            <div class="error-message" id="emailError">Please enter a valid email address</div>
                         </div>
                         
                         <!-- Password Field -->
@@ -69,11 +110,25 @@
                             <div class="input-with-icon">
                                 <i class="fas fa-lock icon-left"></i>
                                 <input type="password" id="password" name="password" placeholder="Create password" required>
+                                <i class="fas fa-check-circle validation-icon" id="passwordValidIcon"></i>
+                                <i class="fas fa-times-circle validation-icon" id="passwordErrorIcon"></i>
                                 <button type="button" class="eye-toggle" id="togglePassword" title="Show password" aria-label="Show password">
                                     <i class="fas fa-eye"></i>
                                 </button>
                             </div>
                             <p class="password-hint">Must be 8+ characters with letters, numbers & symbols</p>
+                            <div class="error-message" id="passwordError">Password must be stronger</div>
+                        </div>
+                        
+                        <!-- Password Strength Indicator -->
+                        <div class="password-strength" style="margin-top: 10px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                <span style="font-size: 12px; color: #2d5a3d; font-weight: 600;">Password Strength:</span>
+                                <span style="font-size: 12px; color: #2d5a3d; font-weight: 600;" id="strengthText">Weak</span>
+                            </div>
+                            <div style="height: 4px; background: #e0e0e0; border-radius: 2px; overflow: hidden;">
+                                <div id="strengthBar" style="height: 100%; width: 0%; background: #e74c3c; transition: width 0.3s, background 0.3s;"></div>
+                            </div>
                         </div>
                         
                         <!-- Terms and Conditions -->
@@ -90,6 +145,7 @@
                                     <span class="checkmark"></span>
                                     <span>I consent</span>
                                 </label>
+                                <div class="error-message" id="termsError" style="margin-top: 10px;">You must agree to the terms</div>
                             </div>
                         </div>
                         
@@ -107,19 +163,23 @@
                         
                         <!-- Submit Button -->
                         <div class="button-container">
-                            <button type="submit" class="button submit-btn" id="submitButton">
+                            <button type="submit" class="button submit-btn" id="submitButton" disabled>
                                 <h3>CREATE ACCOUNT</h3>
                                 <i class="fas fa-arrow-right button-arrow"></i>
                             </button>
-                            <p class="button-hint">Tap to begin your journey</p>
+                            <p class="button-hint">Complete all fields to continue</p>
                         </div>
                     </form>
                 </div>
                 
                 <!-- Footer -->
                 <div class="footer">
-                    <p><i class="fas fa-lock"></i> Private & Secure</p>
                     <p class="tagline">Breathe in peace</p>
+                    <div class="footer-links">
+                        <a href="https://jerrf010.github.io/Assignments/App%20Development/TermsAndConditions/index.html">
+                            <i class="fas fa-book"></i> Read our Terms
+                        </a>
+                    </div>
                 </div>
             </div>
             
@@ -156,10 +216,13 @@
             
             // Mood selection
             const moodBtns = document.querySelectorAll('.mood-btn');
+            let selectedMood = null;
             moodBtns.forEach(btn => {
                 btn.addEventListener('click', function() {
                     moodBtns.forEach(b => b.classList.remove('selected'));
                     this.classList.add('selected');
+                    selectedMood = this.getAttribute('data-mood');
+                    validateForm();
                 });
             });
             
@@ -181,43 +244,169 @@
                 }
             });
             
-            // Form validation
+            // Form elements
             const form = document.getElementById('signupForm');
+            const usernameInput = document.getElementById('username');
             const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
             const termsCheckbox = document.getElementById('terms');
+            const submitButton = document.getElementById('submitButton');
+            
+            // Validation functions
+            function validateUsername(username) {
+                if (username.length < 3 || username.length > 20) {
+                    return { valid: false, message: 'Username must be 3-20 characters' };
+                }
+                if (!/^[a-zA-Z0-9_]+$/.test(username)) {
+                    return { valid: false, message: 'Only letters, numbers, and underscores allowed' };
+                }
+                return { valid: true, message: '' };
+            }
             
             function validateEmail(email) {
                 const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                return pattern.test(email);
+                if (!pattern.test(email)) {
+                    return { valid: false, message: 'Please enter a valid email address' };
+                }
+                return { valid: true, message: '' };
             }
             
             function isStrongPassword(password) {
-                return (
-                    password.length >= 8 &&
-                    /[A-Z]/.test(password) &&
-                    /[a-z]/.test(password) &&
-                    /[0-9]/.test(password) &&
-                    /[^A-Za-z0-9]/.test(password)
-                );
+                const hasMinLength = password.length >= 8;
+                const hasUpperCase = /[A-Z]/.test(password);
+                const hasLowerCase = /[a-z]/.test(password);
+                const hasNumbers = /[0-9]/.test(password);
+                const hasSpecialChar = /[^A-Za-z0-9]/.test(password);
+                
+                let strength = 0;
+                let requirements = [];
+                
+                if (hasMinLength) strength += 20;
+                if (hasUpperCase) strength += 20;
+                if (hasLowerCase) strength += 20;
+                if (hasNumbers) strength += 20;
+                if (hasSpecialChar) strength += 20;
+                
+                if (!hasMinLength) requirements.push('At least 8 characters');
+                if (!hasUpperCase) requirements.push('One uppercase letter');
+                if (!hasLowerCase) requirements.push('One lowercase letter');
+                if (!hasNumbers) requirements.push('One number');
+                if (!hasSpecialChar) requirements.push('One special character');
+                
+                return {
+                    valid: strength === 100,
+                    strength: strength,
+                    requirements: requirements
+                };
             }
             
-            form.addEventListener('submit', function(event) {
+            function updatePasswordStrength(password) {
+                const result = isStrongPassword(password);
+                const strengthBar = document.getElementById('strengthBar');
+                const strengthText = document.getElementById('strengthText');
+                
+                strengthBar.style.width = result.strength + '%';
+                
+                if (result.strength <= 40) {
+                    strengthBar.style.background = '#e74c3c';
+                    strengthText.textContent = 'Weak';
+                    strengthText.style.color = '#e74c3c';
+                } else if (result.strength <= 80) {
+                    strengthBar.style.background = '#f39c12';
+                    strengthText.textContent = 'Medium';
+                    strengthText.style.color = '#f39c12';
+                } else {
+                    strengthBar.style.background = '#2ecc71';
+                    strengthText.textContent = 'Strong';
+                    strengthText.style.color = '#2ecc71';
+                }
+            }
+            
+            function showValidation(elementId, isValid, message = '') {
+                const input = document.getElementById(elementId);
+                const errorElement = document.getElementById(elementId + 'Error');
+                const validIcon = document.getElementById(elementId + 'ValidIcon');
+                const errorIcon = document.getElementById(elementId + 'ErrorIcon');
+                
+                if (isValid) {
+                    input.classList.remove('input-error');
+                    input.classList.add('input-success');
+                    errorElement.style.display = 'none';
+                    validIcon.style.display = 'block';
+                    errorIcon.style.display = 'none';
+                } else {
+                    input.classList.remove('input-success');
+                    input.classList.add('input-error');
+                    errorElement.textContent = message;
+                    errorElement.style.display = 'block';
+                    validIcon.style.display = 'none';
+                    errorIcon.style.display = 'block';
+                }
+            }
+            
+            // Real-time validation
+            usernameInput.addEventListener('input', function() {
+                const result = validateUsername(this.value);
+                showValidation('username', result.valid, result.message);
+                validateForm();
+            });
+            
+            emailInput.addEventListener('input', function() {
+                const result = validateEmail(this.value);
+                showValidation('email', result.valid, result.message);
+                validateForm();
+            });
+            
+            passwordInput.addEventListener('input', function() {
+                const result = isStrongPassword(this.value);
+                showValidation('password', result.valid, 'Password requirements not met');
+                updatePasswordStrength(this.value);
+                validateForm();
+            });
+            
+            termsCheckbox.addEventListener('change', function() {
+                const termsError = document.getElementById('termsError');
+                if (!this.checked) {
+                    termsError.style.display = 'block';
+                } else {
+                    termsError.style.display = 'none';
+                }
+                validateForm();
+            });
+            
+            function validateForm() {
+                const isUsernameValid = validateUsername(usernameInput.value).valid;
+                const isEmailValid = validateEmail(emailInput.value).valid;
+                const isPasswordValid = isStrongPassword(passwordInput.value).valid;
+                const isTermsChecked = termsCheckbox.checked;
+                const isMoodSelected = selectedMood !== null;
+                
+                if (isUsernameValid && isEmailValid && isPasswordValid && isTermsChecked && isMoodSelected) {
+                    submitButton.disabled = false;
+                    submitButton.style.opacity = '1';
+                    submitButton.style.cursor = 'pointer';
+                } else {
+                    submitButton.disabled = true;
+                    submitButton.style.opacity = '0.7';
+                    submitButton.style.cursor = 'not-allowed';
+                }
+            }
+            
+            // Form submission
+            form.addEventListener('submit', async function(event) {
                 event.preventDefault();
                 
-                if (!validateEmail(emailInput.value.trim())) {
+                if (!validateEmail(emailInput.value.trim()).valid) {
                     alert("Invalid email address.\nPlease enter a valid email.");
                     emailInput.focus();
                     return;
                 }
                 
-                if (!isStrongPassword(passwordInput.value)) {
+                if (!isStrongPassword(passwordInput.value).valid) {
+                    const result = isStrongPassword(passwordInput.value);
                     alert(
-                        "Weak password.\n\nPassword must contain:\n" +
-                        "• At least 8 characters\n" +
-                        "• Uppercase letter\n" +
-                        "• Lowercase letter\n" +
-                        "• Number\n" +
-                        "• Special character"
+                        "Weak password.\n\nMissing requirements:\n" +
+                        result.requirements.map(req => "• " + req).join('\n')
                     );
                     passwordInput.focus();
                     return;
@@ -229,20 +418,67 @@
                     return;
                 }
                 
+                // Collect form data
+                const formData = {
+                    username: usernameInput.value.trim(),
+                    email: emailInput.value.trim(),
+                    password: passwordInput.value,
+                    mood: selectedMood,
+                    agreed_to_terms: true,
+                    created_at: new Date().toISOString()
+                };
+                
                 // Success animation
                 const submitBtn = document.getElementById('submitButton');
                 const originalHTML = submitBtn.innerHTML;
-                submitBtn.innerHTML = '<h3>WELCOME!</h3><i class="fas fa-check button-arrow"></i>';
-                submitBtn.style.background = 'linear-gradient(135deg, #06d6a0 0%, #04a97f 100%)';
+                const originalBG = submitBtn.style.background;
+                submitBtn.innerHTML = '<h3>CREATING...</h3><i class="fas fa-spinner fa-spin button-arrow"></i>';
+                submitBtn.style.background = 'linear-gradient(135deg, #f39c12 0%, #e67e22 100%)';
+                submitBtn.disabled = true;
                 
-                setTimeout(() => {
-                    alert("Account created successfully!");
-                    form.reset();
+                try {
+                    // Send data to server
+                    const response = await fetch('http://localhost:5000/api/signup', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(formData)
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (response.ok) {
+                        submitBtn.innerHTML = '<h3>WELCOME!</h3><i class="fas fa-check button-arrow"></i>';
+                        submitBtn.style.background = 'linear-gradient(135deg, #06d6a0 0%, #04a97f 100%)';
+                        
+                        setTimeout(() => {
+                            alert("Account created successfully!\n\nUsername: " + formData.username + "\nEmail: " + formData.email);
+                            form.reset();
+                            submitBtn.innerHTML = originalHTML;
+                            submitBtn.style.background = originalBG;
+                            submitBtn.disabled = false;
+                            moodBtns.forEach(btn => btn.classList.remove('selected'));
+                            selectedMood = null;
+                            document.getElementById('strengthBar').style.width = '0%';
+                            document.getElementById('strengthText').textContent = 'Weak';
+                            document.getElementById('strengthText').style.color = '#2d5a3d';
+                            validateForm();
+                        }, 1500);
+                    } else {
+                        throw new Error(result.error || 'Registration failed');
+                    }
+                } catch (error) {
                     submitBtn.innerHTML = originalHTML;
-                    submitBtn.style.background = '';
-                    moodBtns.forEach(btn => btn.classList.remove('selected'));
-                }, 1500);
+                    submitBtn.style.background = originalBG;
+                    submitBtn.disabled = false;
+                    alert("Registration failed: " + error.message + "\n\nMake sure the server is running at http://localhost:5000");
+                    console.error('Registration error:', error);
+                }
             });
+            
+            // Initial validation
+            validateForm();
         });
     </script>
 </body>
