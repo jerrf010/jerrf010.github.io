@@ -643,107 +643,167 @@
 
     <!-- Script -->
     <script>
-        // User Database Class
-        class UserDatabase {
-            constructor() {
-                this.key = 'heyday_users';
-                this.currentUserKey = 'heyday_current_user';
-                this.initDemoData();
-            }
+        // User Database Class with notification management
+        (function () {
+            if (typeof window.UserDatabase === 'undefined') {
+                window.UserDatabase = class {
+                    constructor() {
+                        this.key = 'heyday_users';
+                        this.currentUserKey = 'heyday_current_user';
+                    }
 
-            initDemoData() {
-                let users = this.getAllUsers();
+                    getAllUsers() {
+                        const users = localStorage.getItem(this.key);
+                        return users ? JSON.parse(users) : [];
+                    }
 
-                if (users.length === 0) {
-                    const demoUsers = [
-                        {
-                            id: 1,
-                            username: 'demo_user',
-                            email: 'test@example.com',
-                            password: 'Demo123!',
-                            mood: 'happy',
-                            createdAt: new Date().toISOString(),
-                            name: 'Demo User',
-                            notifications: {
-                                calendar: 2,
-                                mentalHealth: 3,
-                                henry: 1
-                            }
-                        },
-                        {
-                            id: 2,
-                            username: 'joe_user',
-                            email: 'joe@example.com',
-                            password: 'Test123!',
-                            mood: 'good',
-                            createdAt: new Date().toISOString(),
-                            name: 'Joe',
-                            notifications: {
-                                calendar: 2,
-                                mentalHealth: 3,
-                                henry: 1
+                    saveAllUsers(users) {
+                        localStorage.setItem(this.key, JSON.stringify(users));
+                    }
+
+                    findUser(identifier) {
+                        const users = this.getAllUsers();
+                        return users.find(user =>
+                            user.username.toLowerCase() === identifier.toLowerCase() ||
+                            user.email.toLowerCase() === identifier.toLowerCase()
+                        );
+                    }
+
+                    authenticate(identifier, password) {
+                        const user = this.findUser(identifier);
+                        if (!user) {
+                            return { success: false, message: 'User not found. Please sign up first.' };
+                        }
+
+                        if (user.password !== password) {
+                            return { success: false, message: 'Incorrect password.' };
+                        }
+
+                        return { success: true, user };
+                    }
+
+                    setCurrentUser(user) {
+                        const { password, ...safeUser } = user;
+                        localStorage.setItem(this.currentUserKey, JSON.stringify(safeUser));
+                        localStorage.setItem('heyday_logged_in', 'true');
+                    }
+
+                    getCurrentUser() {
+                        const user = localStorage.getItem(this.currentUserKey);
+                        return user ? JSON.parse(user) : null;
+                    }
+
+                    isLoggedIn() {
+                        return localStorage.getItem('heyday_logged_in') === 'true';
+                    }
+
+                    logout() {
+                        localStorage.removeItem(this.currentUserKey);
+                        localStorage.removeItem('heyday_logged_in');
+                    }
+
+                    updateUserMood(userId, mood) {
+                        const users = this.getAllUsers();
+                        const userIndex = users.findIndex(u => u.id === userId);
+                        if (userIndex !== -1) {
+                            users[userIndex].mood = mood;
+                            this.saveAllUsers(users);
+
+                            const currentUser = this.getCurrentUser();
+                            if (currentUser && currentUser.id === userId) {
+                                currentUser.mood = mood;
+                                localStorage.setItem(this.currentUserKey, JSON.stringify(currentUser));
                             }
                         }
-                    ];
-
-                    localStorage.setItem(this.key, JSON.stringify(demoUsers));
-                }
-            }
-
-            getAllUsers() {
-                const users = localStorage.getItem(this.key);
-                return users ? JSON.parse(users) : [];
-            }
-
-            saveAllUsers(users) {
-                localStorage.setItem(this.key, JSON.stringify(users));
-            }
-
-            findUser(identifier) {
-                const users = this.getAllUsers();
-                return users.find(user =>
-                    user.username.toLowerCase() === identifier.toLowerCase() ||
-                    user.email.toLowerCase() === identifier.toLowerCase()
-                );
-            }
-
-            getCurrentUser() {
-                const user = localStorage.getItem(this.currentUserKey);
-                return user ? JSON.parse(user) : null;
-            }
-
-            isLoggedIn() {
-                return localStorage.getItem('heyday_logged_in') === 'true';
-            }
-
-            logout() {
-                localStorage.removeItem(this.currentUserKey);
-                localStorage.removeItem('heyday_logged_in');
-            }
-
-            updateUserMood(userId, mood) {
-                const users = this.getAllUsers();
-                const userIndex = users.findIndex(u => u.id === userId);
-                if (userIndex !== -1) {
-                    users[userIndex].mood = mood;
-                    this.saveAllUsers(users);
-
-                    // Also update current user in session
-                    const currentUser = this.getCurrentUser();
-                    if (currentUser && currentUser.id === userId) {
-                        currentUser.mood = mood;
-                        localStorage.setItem(this.currentUserKey, JSON.stringify(currentUser));
                     }
-                }
+
+                    // NOTIFICATION MANAGEMENT METHODS
+                    getNotifications(userId) {
+                        const users = this.getAllUsers();
+                        const user = users.find(u => u.id === userId);
+                        return user ? (user.notifications || {
+                            calendar: 2,
+                            mentalHealth: 3,
+                            henry: 1,
+                            system: 1
+                        }) : {};
+                    }
+
+                    updateNotifications(userId, newNotifications) {
+                        const users = this.getAllUsers();
+                        const userIndex = users.findIndex(u => u.id === userId);
+                        if (userIndex !== -1) {
+                            users[userIndex].notifications = newNotifications;
+                            this.saveAllUsers(users);
+
+                            const currentUser = this.getCurrentUser();
+                            if (currentUser && currentUser.id === userId) {
+                                currentUser.notifications = newNotifications;
+                                localStorage.setItem(this.currentUserKey, JSON.stringify(currentUser));
+                            }
+                            return true;
+                        }
+                        return false;
+                    }
+
+                    markAllNotificationsRead(userId) {
+                        const currentNotifications = this.getNotifications(userId);
+                        const updatedNotifications = {};
+
+                        Object.keys(currentNotifications).forEach(key => {
+                            updatedNotifications[key] = 0;
+                        });
+
+                        this.updateNotifications(userId, updatedNotifications);
+                        return updatedNotifications;
+                    }
+
+                    markNotificationTypeRead(userId, type) {
+                        const currentNotifications = this.getNotifications(userId);
+                        if (currentNotifications[type] !== undefined) {
+                            currentNotifications[type] = Math.max(0, currentNotifications[type] - 1);
+                            this.updateNotifications(userId, currentNotifications);
+                        }
+                        return currentNotifications;
+                    }
+
+                    getTotalUnreadNotifications(userId) {
+                        const notifications = this.getNotifications(userId);
+                        return Object.values(notifications).reduce((sum, count) => sum + count, 0);
+                    }
+
+                    // Initialize default notifications for new users
+                    initializeDefaultNotifications(userId) {
+                        const defaultNotifications = {
+                            calendar: 2,
+                            mentalHealth: 3,
+                            henry: 1,
+                            system: 1
+                        };
+
+                        const users = this.getAllUsers();
+                        const userIndex = users.findIndex(u => u.id === userId);
+                        if (userIndex !== -1 && !users[userIndex].notifications) {
+                            users[userIndex].notifications = defaultNotifications;
+                            this.saveAllUsers(users);
+
+                            const currentUser = this.getCurrentUser();
+                            if (currentUser && currentUser.id === userId) {
+                                currentUser.notifications = defaultNotifications;
+                                localStorage.setItem(this.currentUserKey, JSON.stringify(currentUser));
+                            }
+                        }
+                        return defaultNotifications;
+                    }
+                };
             }
-        }
+        })();
 
         document.addEventListener('DOMContentLoaded', function () {
-            const userDB = new UserDatabase();
+            const userDB = new window.UserDatabase();
 
             // Check if user is logged in
             if (!userDB.isLoggedIn()) {
-                // Redirect to login if not logged in
                 window.location.href = 'login.html';
                 return;
             }
@@ -752,10 +812,16 @@
             const currentUser = userDB.getCurrentUser();
 
             if (!currentUser) {
-                // If no current user, redirect to login
                 userDB.logout();
                 window.location.href = 'login.html';
                 return;
+            }
+
+            // Initialize notifications if not exists
+            if (!currentUser.notifications) {
+                userDB.initializeDefaultNotifications(currentUser.id);
+                // Refresh user data
+                currentUser.notifications = userDB.getNotifications(currentUser.id);
             }
 
             // Update welcome message with user's name
@@ -770,67 +836,116 @@
                 greetingSub.textContent = 'Ready for another mindful day?';
             }
 
-            // Update notification counts from user data
-            if (currentUser.notifications) {
+            /* ---------- UPDATE DASHBOARD NOTIFICATION COUNTS ---------- */
+            function updateDashboardNotifications() {
+                if (!currentUser) return;
+
+                const notifications = currentUser.notifications || {};
+
+                // Update card notification counts
                 const calendarCount = document.querySelector('.nav-card:nth-child(1) .notification-count');
                 const mentalHealthCount = document.querySelector('.nav-card:nth-child(2) .notification-count');
                 const henryCount = document.querySelector('.nav-card:nth-child(3) .notification-count');
 
-                if (calendarCount && currentUser.notifications.calendar) {
-                    calendarCount.textContent = currentUser.notifications.calendar;
+                if (calendarCount && notifications.calendar !== undefined) {
+                    calendarCount.textContent = notifications.calendar;
+                    calendarCount.style.background = notifications.calendar > 0 ?
+                        'linear-gradient(135deg, #86b499 0%, #6a9c7d 100%)' :
+                        'rgba(34, 96, 78, 0.3)';
                 }
 
-                if (mentalHealthCount && currentUser.notifications.mentalHealth) {
-                    mentalHealthCount.textContent = currentUser.notifications.mentalHealth;
+                if (mentalHealthCount && notifications.mentalHealth !== undefined) {
+                    mentalHealthCount.textContent = notifications.mentalHealth;
+                    mentalHealthCount.style.background = notifications.mentalHealth > 0 ?
+                        'linear-gradient(135deg, #86b499 0%, #6a9c7d 100%)' :
+                        'rgba(34, 96, 78, 0.3)';
                 }
 
-                if (henryCount && currentUser.notifications.henry) {
-                    henryCount.textContent = currentUser.notifications.henry;
+                if (henryCount && notifications.henry !== undefined) {
+                    henryCount.textContent = notifications.henry;
+                    henryCount.style.background = notifications.henry > 0 ?
+                        'linear-gradient(135deg, #86b499 0%, #6a9c7d 100%)' :
+                        'rgba(34, 96, 78, 0.3)';
                 }
 
                 // Update total notifications badge
-                const totalNotifications = Object.values(currentUser.notifications).reduce((sum, count) => sum + count, 0);
+                const totalNotifications = userDB.getTotalUnreadNotifications(currentUser.id) || 0;
                 const notificationsBadge = document.querySelector('.notifications-badge');
+
                 if (notificationsBadge) {
                     const badgeText = notificationsBadge.querySelector('span') || notificationsBadge;
-                    badgeText.innerHTML = `<i class="fas fa-bell"></i> You have ${totalNotifications} new notifications`;
+                    if (totalNotifications > 0) {
+                        badgeText.innerHTML = `<i class="fas fa-bell"></i> You have ${totalNotifications} new notifications`;
+                        notificationsBadge.style.background = 'linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%)';
+                    } else {
+                        badgeText.innerHTML = `<i class="fas fa-check-circle"></i> All caught up!`;
+                        notificationsBadge.style.background = 'linear-gradient(135deg, #86b499 0%, #6a9c7d 100%)';
+                    }
                 }
 
                 // Update bottom nav badge
                 const navBadge = document.querySelector('.nav-badge');
-                if (navBadge && totalNotifications > 0) {
+                if (navBadge) {
                     navBadge.textContent = totalNotifications;
+                    if (totalNotifications === 0) {
+                        navBadge.style.background = 'rgba(34, 96, 78, 0.3)';
+                        navBadge.classList.remove('pulse-animation');
+                    } else {
+                        navBadge.style.background = 'linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%)';
+                        navBadge.classList.add('pulse-animation');
+                    }
                 }
             }
 
-            // Set current mood
+            // Initial notification update
+            updateDashboardNotifications();
+
+            /* ---------- FIXED MOOD SELECTION - NO DEFAULT SELECTION ---------- */
+            const moodOptions = document.querySelectorAll('.mood-option');
+
+            // Clear any default selected states (remove hardcoded "selected" from HTML)
+            moodOptions.forEach(option => {
+                option.classList.remove('selected');
+                option.style.transform = 'translateY(0)';
+            });
+
+            // Set current mood based on user data ONLY if user has a mood saved
             if (currentUser.mood) {
-                const moodOptions = document.querySelectorAll('.mood-option');
                 const moodMap = {
                     'sad': 'Stressed',
                     'unhappy': 'Down',
                     'neutral': 'Neutral',
                     'happy': 'Good',
+                    'good': 'Good',
                     'excited': 'Great!'
                 };
 
+                // Find the correct mood option
                 moodOptions.forEach(option => {
                     const label = option.querySelector('.mood-label').textContent;
                     const moodValue = Object.keys(moodMap).find(key => moodMap[key] === label);
 
                     if (moodValue === currentUser.mood) {
                         option.classList.add('selected');
+                        option.style.transform = 'translateY(-2px)';
                     }
                 });
             }
 
-            // Mood selection
-            const moodOptions = document.querySelectorAll('.mood-option');
+            /* ---------- MOOD SELECTION HANDLER ---------- */
             moodOptions.forEach(option => {
                 option.addEventListener('click', function () {
-                    moodOptions.forEach(opt => opt.classList.remove('selected'));
-                    this.classList.add('selected');
+                    // Remove selected class from ALL options first
+                    moodOptions.forEach(opt => {
+                        opt.classList.remove('selected');
+                        opt.style.transform = 'translateY(0)';
+                    });
 
+                    // Add selected to clicked option
+                    this.classList.add('selected');
+                    this.style.transform = 'translateY(-2px)';
+
+                    // Get mood value
                     const moodLabel = this.querySelector('.mood-label').textContent;
                     const moodMap = {
                         'Stressed': 'sad',
@@ -846,7 +961,7 @@
 
                         // Show feedback
                         const moodEmoji = this.querySelector('.mood-emoji').textContent;
-                        showFeedback(`Mood updated to ${moodLabel} ${moodEmoji}`);
+                        showFeedback(`Mood updated to ${moodLabel} ${moodEmoji}`, 'success');
                     }
                 });
             });
@@ -860,6 +975,27 @@
 
                 card.addEventListener('mouseleave', function () {
                     this.style.transform = 'translateY(0) scale(1)';
+                });
+
+                // Click to navigate
+                card.addEventListener('click', function (e) {
+                    const href = this.getAttribute('href');
+                    if (href && !e.target.classList.contains('notification-count')) {
+                        // Update notification count before navigating
+                        const cardType = this.querySelector('.card-title').textContent;
+                        const notificationMap = {
+                            'Calendar': 'calendar',
+                            'Mental Health': 'mentalHealth',
+                            'Henry': 'henry'
+                        };
+
+                        const notificationType = notificationMap[cardType];
+                        if (notificationType && currentUser.notifications[notificationType] > 0) {
+                            userDB.markNotificationTypeRead(currentUser.id, notificationType);
+                            currentUser.notifications = userDB.getNotifications(currentUser.id);
+                            updateDashboardNotifications();
+                        }
+                    }
                 });
             });
 
@@ -895,10 +1031,6 @@
                     // Add active to clicked
                     this.classList.add('active');
 
-                    // Show loading feedback
-                    const label = this.querySelector('.nav-label').textContent;
-                    showFeedback(`Navigating to ${label}...`);
-
                     // Navigate after delay
                     const href = this.getAttribute('href');
                     if (href && href !== 'dashboard.html') {
@@ -907,6 +1039,13 @@
                         }, 300);
                     }
                 });
+            });
+
+            // Set active nav item
+            navItems.forEach(item => {
+                if (item.getAttribute('href') === 'dashboard.html') {
+                    item.classList.add('active');
+                }
             });
 
             // Helper function for feedback
@@ -982,21 +1121,67 @@
                 }
             }
             
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.05); }
+                100% { transform: scale(1); }
+            }
+            
+            .pulse-animation {
+                animation: pulse 2s infinite;
+            }
+            
             .fade-in {
                 animation: fadeIn 0.5s ease forwards;
                 opacity: 0;
             }
             
             .nav-item {
-                transition: all 0.3s ease;
+                transition: all 0.3s ease !important;
             }
             
             .action-btn {
-                transition: all 0.3s ease;
+                transition: all 0.3s ease !important;
             }
             
             .action-btn:hover {
                 transform: translateY(-5px) scale(1.1);
+            }
+            
+            /* Mood option styles */
+            .mood-option {
+                transition: all 0.3s ease;
+            }
+            
+            .mood-option:hover {
+                background: rgba(255, 255, 255, 0.3);
+                transform: translateY(-2px);
+            }
+            
+            .mood-option.selected {
+                background: rgba(34, 96, 78, 0.2);
+                border-color: #22604e;
+                transform: translateY(-2px);
+            }
+            
+            .mood-option.selected:hover {
+                background: rgba(34, 96, 78, 0.3);
+            }
+            
+            .nav-card {
+                transition: all 0.3s ease;
+            }
+            
+            .nav-card:hover {
+                transform: translateY(-5px);
+            }
+            
+            .button {
+                transition: all 0.3s ease !important;
+            }
+            
+            .button:hover {
+                transform: translateY(-5px) scale(1.05) !important;
             }
         `;
             document.head.appendChild(style);
@@ -1008,6 +1193,27 @@
                     el.style.opacity = '1';
                     el.style.transform = 'translateY(0)';
                 }, index * 100);
+            });
+
+            // Update notifications when page becomes visible (user returns from notifications page)
+            document.addEventListener('visibilitychange', function () {
+                if (!document.hidden) {
+                    // Refresh user data
+                    const updatedUser = userDB.getCurrentUser();
+                    if (updatedUser) {
+                        currentUser.notifications = updatedUser.notifications;
+                        updateDashboardNotifications();
+                    }
+                }
+            });
+
+            // Also update when window gains focus
+            window.addEventListener('focus', function () {
+                const updatedUser = userDB.getCurrentUser();
+                if (updatedUser) {
+                    currentUser.notifications = updatedUser.notifications;
+                    updateDashboardNotifications();
+                }
             });
 
             // Check content fit
@@ -1024,56 +1230,6 @@
 
             window.addEventListener('load', checkFit);
             window.addEventListener('resize', checkFit);
-
-            // Logout functionality (optional - add logout button if needed)
-            function setupLogout() {
-                const logoutBtn = document.createElement('button');
-                logoutBtn.innerHTML = '<i class="fas fa-sign-out-alt"></i>';
-                logoutBtn.style.cssText = `
-                position: absolute;
-                top: 20px;
-                right: 20px;
-                background: rgba(231, 76, 60, 0.2);
-                border: 2px solid rgba(231, 76, 60, 0.3);
-                color: #e74c3c;
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                z-index: 10;
-            `;
-                logoutBtn.title = 'Logout';
-
-                logoutBtn.addEventListener('mouseenter', () => {
-                    logoutBtn.style.background = 'rgba(231, 76, 60, 0.3)';
-                    logoutBtn.style.transform = 'scale(1.1)';
-                });
-
-                logoutBtn.addEventListener('mouseleave', () => {
-                    logoutBtn.style.background = 'rgba(231, 76, 60, 0.2)';
-                    logoutBtn.style.transform = 'scale(1)';
-                });
-
-                logoutBtn.addEventListener('click', () => {
-                    if (confirm('Are you sure you want to logout?')) {
-                        userDB.logout();
-                        window.location.href = 'login.html';
-                    }
-                });
-
-                // Add logout button to phone container
-                const phone = document.querySelector('.phone');
-                if (phone) {
-                    phone.appendChild(logoutBtn);
-                }
-            }
-
-            // Uncomment to enable logout button
-            setupLogout();
         });
     </script>
 </body>
