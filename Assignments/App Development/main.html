@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hey, Day -- Dashboard</title>
+    <link rel="icon" href="https://github.com/jerrf010/basic_html/blob/main/park_with_shades.png?raw=true" type="image/icon type">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Chewy&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Dashboard Specific Styles */
+        .dashboard-header {
+            width: 100%;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        
+        .greeting-section {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 25px;
+            padding: 20px;
+            margin-bottom: 15px;
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .greeting-main {
+            font-family: 'Chewy', cursive;
+            font-size: 32px;
+            color: #1a3c27;
+            margin-bottom: 5px;
+            line-height: 1.2;
+        }
+        
+        .greeting-sub {
+            font-family: 'Nunito', sans-serif;
+            font-size: 16px;
+            color: #2d5a3d;
+            font-weight: 600;
+        }
+        
+        .notifications-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%);
+            color: white;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 800;
+            font-size: 13px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            margin-top: 8px;
+            box-shadow: 0 4px 12px rgba(255, 82, 82, 0.4);
+            width: fit-content;
+            gap: 6px;
+        }
+        
+        .notifications-badge i {
+            font-size: 12px;
+        }
+        
+        /* Navigation Cards */
+        .nav-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+            width: 100%;
+        }
+        
+        .nav-card {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(34, 96, 78, 0.2);
+            border-radius: 20px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+            text-decoration: none;
+            display: block;
+        }
+        
+        .nav-card:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+            border-color: rgba(34, 96, 78, 0.4);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #ffffff 0%, #e8f5e9 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-icon i {
+            font-size: 22px;
+            color: #22604e;
+        }
+        
+        .card-title {
+            font-family: 'Nunito', sans-serif;
+            font-size: 18px;
+            color: #1a3c27;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .card-subtitle {
+            font-family: 'Nunito', sans-serif;
+            font-size: 13px;
+            color: #2d5a3d;
+            font-weight: 600;
+            opacity: 0.9;
+        }
+        
+        .notification-count {
+            background: linear-gradient(135deg, #86b499 0%, #6a9c7d 100%);
+            color: white;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 800;
+            font-size: 12px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Today's Mood Section */
+        .todays-mood {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 20px;
+            margin: 20px 0;
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(34, 96, 78, 0.2);
+        }
+        
+        .mood-title {
+            font-family: 'Nunito', sans-serif;
+            font-size: 18px;
+            color: #1a3c27;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .mood-options {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        
+        .mood-option {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 5px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(34, 96, 78, 0.2);
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .mood-option:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .mood-option.selected {
+            background: rgba(34, 96, 78, 0.2);
+            border-color: #22604e;
+            transform: translateY(-2px);
+        }
+        
+        .mood-emoji {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+        
+        .mood-label {
+            font-family: 'Nunito', sans-serif;
+            font-size: 11px;
+            color: #2d5a3d;
+            font-weight: 600;
+        }
+        
+        /* Quick Actions */
+        .quick-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 25px 0;
+        }
+        
+        .action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #ffffff 0%, #e8f5e9 100%);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .action-icon {
+            font-size: 24px;
+            color: #22604e;
+            margin-bottom: 6px;
+        }
+        
+        .action-label {
+            font-family: 'Nunito', sans-serif;
+            font-size: 10px;
+            color: #1a3c27;
+            font-weight: 700;
+            text-align: center;
+        }
+        
+        /* Recent Activity */
+        .recent-activity {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 25px;
+            padding: 20px;
+            margin-top: 15px;
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .activity-title {
+            font-family: 'Nunito', sans-serif;
+            font-size: 16px;
+            color: #1a3c27;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .activity-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(5px);
+        }
+        
+        .activity-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #ffffff 0%, #e8f5e9 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .activity-icon i {
+            font-size: 16px;
+            color: #22604e;
+        }
+        
+        .activity-content {
+            flex: 1;
+        }
+        
+        .activity-main {
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            color: #1a3c27;
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+        
+        .activity-time {
+            font-family: 'Nunito', sans-serif;
+            font-size: 11px;
+            color: #2d5a3d;
+            font-weight: 600;
+        }
+        
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: absolute;
+            bottom: 0px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-around;
+            padding: 0 30px;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-item.active {
+            background: rgba(34, 96, 78, 0.3);
+            border-color: rgba(34, 96, 78, 0.4);
+            transform: translateY(-5px);
+        }
+        
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-3px);
+        }
+        
+        .nav-icon {
+            font-size: 20px;
+            color: #22604e;
+            margin-bottom: 4px;
+        }
+        
+        .nav-label {
+            font-family: 'Nunito', sans-serif;
+            font-size: 10px;
+            color: #1a3c27;
+            font-weight: 700;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        /* Responsive */
+        @media (max-width: 600px) {
+            .greeting-main {
+                font-size: 28px;
+            }
+            
+            .nav-cards {
+                gap: 12px;
+            }
+            
+            .nav-card {
+                padding: 15px;
+            }
+            
+            .card-icon {
+                width: 45px;
+                height: 45px;
+            }
+            
+            .card-icon i {
+                font-size: 20px;
+            }
+            
+            .mood-emoji {
+                font-size: 24px;
+            }
+            
+            .action-btn {
+                width: 65px;
+                height: 65px;
+            }
+            
+            .bottom-nav {
+                padding: 0 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Decorative Elements -->
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+        <div class="leaf leaf-1"></div>
+        <div class="leaf leaf-2"></div>
+        <div class="leaf leaf-3"></div>
+        
+        <!-- Phone Container -->
+        <div class="phone" id="main-page">
+            <!-- Phone Notch -->
+            <div class="phone-notch"></div>
+            
+            <!-- Status Bar -->
+            <div class="status-bar">
+                <span>9:41</span>
+                <div class="status-icons">
+                    <i class="fas fa-signal"></i>
+                    <i class="fas fa-wifi"></i>
+                    <i class="fas fa-battery-three-quarters"></i>
+                </div>
+            </div>
+            
+            <!-- App Content -->
+            <div class="app-content">
+                <!-- Greeting Section -->
+                <div class="dashboard-header">
+                    <div class="greeting-section fade-in">
+                        <div class="greeting-main">
+                            Welcome back, Joe!!
+                        </div>
+                        <div class="greeting-sub">
+                            Ready for another mindful day?
+                        </div>
+                        <div class="notifications-badge">
+                            <i class="fas fa-bell"></i>
+                            You have 6 new notifications
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Navigation Cards (like your image) -->
+                <div class="nav-cards">
+                    <!-- Calendar Card -->
+                    <a href="calendar.html" class="nav-card fade-in" style="animation-delay: 0.1s; position: relative;">
+                        <div class="notification-count">2</div>
+                        <div class="card-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="card-title">Calendar</div>
+                        <div class="card-subtitle">2 new notifications</div>
+                    </a>
+                    
+                    <!-- Mental Health Card -->
+                    <a href="mental-health.html" class="nav-card fade-in" style="animation-delay: 0.2s; position: relative;">
+                        <div class="notification-count">3</div>
+                        <div class="card-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="card-title">Mental Health</div>
+                        <div class="card-subtitle">3 new notifications</div>
+                    </a>
+                    
+                    <!-- Henry Card -->
+                    <a href="messages.html" class="nav-card fade-in" style="animation-delay: 0.3s; position: relative;">
+                        <div class="notification-count">1</div>
+                        <div class="card-icon">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
+                        <div class="card-title">Henry</div>
+                        <div class="card-subtitle">1 new notification</div>
+                    </a>
+                    
+                    <!-- Journal Card -->
+                    <a href="journal.html" class="nav-card fade-in" style="animation-delay: 0.4s;">
+                        <div class="card-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="card-title">Daily Journal</div>
+                        <div class="card-subtitle">Write your thoughts</div>
+                    </a>
+                </div>
+                
+                <!-- Today's Mood Section -->
+                <div class="todays-mood fade-in" style="animation-delay: 0.5s;">
+                    <div class="mood-title">How are you feeling today?</div>
+                    <div class="mood-options">
+                        <div class="mood-option">
+                            <div class="mood-emoji">☹️</div>
+                            <div class="mood-label">Stressed</div>
+                        </div>
+                        <div class="mood-option">
+                            <div class="mood-emoji">🙁</div>
+                            <div class="mood-label">Down</div>
+                        </div>
+                        <div class="mood-option">
+                            <div class="mood-emoji">😐</div>
+                            <div class="mood-label">Neutral</div>
+                        </div>
+                        <div class="mood-option selected">
+                            <div class="mood-emoji">🙂</div>
+                            <div class="mood-label">Good</div>
+                        </div>
+                        <div class="mood-option">
+                            <div class="mood-emoji">😁</div>
+                            <div class="mood-label">Great!</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Actions -->
+                <div class="quick-actions fade-in" style="animation-delay: 0.6s;">
+                    <a href="meditation.html" class="action-btn">
+                        <div class="action-icon">
+                            <i class="fas fa-spa"></i>
+                        </div>
+                        <div class="action-label">Meditate</div>
+                    </a>
+                    <a href="breathing.html" class="action-btn">
+                        <div class="action-icon">
+                            <i class="fas fa-wind"></i>
+                        </div>
+                        <div class="action-label">Breathe</div>
+                    </a>
+                    <a href="mood-track.html" class="action-btn">
+                        <div class="action-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="action-label">Track</div>
+                    </a>
+                    <a href="goals.html" class="action-btn">
+                        <div class="action-icon">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <div class="action-label">Goals</div>
+                    </a>
+                </div>
+                
+                <!-- Recent Activity -->
+                <div class="recent-activity fade-in" style="animation-delay: 0.7s;">
+                    <div class="activity-title">
+                        <span>Recent Activity</span>
+                        <span style="font-size: 12px; color: #22604e;">View All</span>
+                    </div>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-main">Morning Meditation Completed</div>
+                                <div class="activity-time">Today · 8:30 AM</div>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-heartbeat"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-main">Mood Logged: Feeling Good</div>
+                                <div class="activity-time">Yesterday · 6:00 PM</div>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div class="activity-content">
+                                <div class="activity-main">Journal Entry Added</div>
+                                <div class="activity-time">Yesterday · 9:15 PM</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bottom Navigation -->
+                <div class="bottom-nav">
+                    <a href="dashboard.html" class="nav-item active">
+                        <div class="nav-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="nav-label">Home</div>
+                    </a>
+                    <a href="explore.html" class="nav-item">
+                        <div class="nav-icon">
+                            <i class="fas fa-compass"></i>
+                        </div>
+                        <div class="nav-label">Explore</div>
+                    </a>
+                    <a href="notifications.html" class="nav-item">
+                        <div class="nav-icon">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <div class="nav-label">
+                            <span style="color: #ff6b6b;">Alerts</span>
+                        </div>
+                    </a>
+                    <a href="profile.html" class="nav-item">
+                        <div class="nav-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="nav-label">Profile</div>
+                    </a>
+                </div>
+                
+                <!-- Spacer for bottom nav -->
+                <div style="height: 100px;"></div>
+            </div>
+            
+            <!-- Home Indicator -->
+            <div class="home-indicator"></div>
+        </div>
+    </div>
+    
+    <!-- Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mood selection
+            const moodOptions = document.querySelectorAll('.mood-option');
+            moodOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    moodOptions.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                    
+                    // Get mood value
+                    const moodLabel = this.querySelector('.mood-label').textContent;
+                    console.log('Selected mood:', moodLabel);
+                    
+                    // Show feedback
+                    const moodEmoji = this.querySelector('.mood-emoji').textContent;
+                    showFeedback(`Mood set to ${moodLabel} ${moodEmoji}`);
+                });
+            });
+            
+            // Card hover effects
+            const cards = document.querySelectorAll('.nav-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px) scale(1.03)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+            
+            // Action button effects
+            const actionBtns = document.querySelectorAll('.action-btn');
+            actionBtns.forEach(btn => {
+                btn.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px) scale(1.15)';
+                });
+                
+                btn.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(-5px) scale(1.1)';
+                });
+                
+                btn.addEventListener('mousedown', function() {
+                    this.style.transform = 'translateY(-2px) scale(1.05)';
+                });
+                
+                btn.addEventListener('mouseup', function() {
+                    this.style.transform = 'translateY(-8px) scale(1.15)';
+                });
+            });
+            
+            // Navigation item effects
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    if (!this.classList.contains('active')) {
+                        this.style.transform = 'translateY(-5px)';
+                    }
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    if (!this.classList.contains('active')) {
+                        this.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+            
+            // Activity item click
+            const activityItems = document.querySelectorAll('.activity-item');
+            activityItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const activityText = this.querySelector('.activity-main').textContent;
+                    console.log('Viewing activity:', activityText);
+                });
+            });
+            
+            // Notification badge click
+            const notificationBadge = document.querySelector('.notifications-badge');
+            notificationBadge.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.location.href = 'notifications.html';
+            });
+            
+            // Helper function for feedback
+            function showFeedback(message) {
+                // Create feedback element
+                const feedback = document.createElement('div');
+                feedback.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: rgba(34, 96, 78, 0.95);
+                    color: white;
+                    padding: 12px 24px;
+                    border-radius: 25px;
+                    font-family: 'Nunito', sans-serif;
+                    font-weight: 600;
+                    font-size: 14px;
+                    z-index: 1000;
+                    animation: slideDown 0.3s ease;
+                    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+                    max-width: 80%;
+                    text-align: center;
+                `;
+                feedback.textContent = message;
+                document.body.appendChild(feedback);
+                
+                // Remove after 2 seconds
+                setTimeout(() => {
+                    feedback.style.animation = 'slideUp 0.3s ease forwards';
+                    setTimeout(() => feedback.remove(), 300);
+                }, 2000);
+            }
+            
+            // Add animation styles
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideDown {
+                    from {
+                        top: -50px;
+                        opacity: 0;
+                    }
+                    to {
+                        top: 20px;
+                        opacity: 1;
+                    }
+                }
+                
+                @keyframes slideUp {
+                    from {
+                        top: 20px;
+                        opacity: 1;
+                    }
+                    to {
+                        top: -50px;
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Simulate loading animation
+            const fadeElements = document.querySelectorAll('.fade-in');
+            fadeElements.forEach((el, index) => {
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>
