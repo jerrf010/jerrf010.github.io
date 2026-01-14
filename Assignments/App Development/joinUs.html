@@ -14,6 +14,7 @@
         href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Chewy&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Oswald:wght@200..700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="userDatabase.js"></script>
     <style>
         /* Additional validation styles */
         .error-message {
@@ -59,7 +60,97 @@
         .mood-btn {
             transition: all 0.2s ease;
         }
-        
+
+        /* Password Strength Styles */
+        .password-strength-container {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(34, 96, 78, 0.1);
+        }
+
+        .strength-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .strength-label {
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            color: #2d5a3d;
+            font-weight: 700;
+        }
+
+        .strength-status {
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            font-weight: 800;
+            padding: 4px 12px;
+            border-radius: 12px;
+            background: #e74c3c;
+            color: white;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .strength-status.weak {
+            background: #e74c3c;
+        }
+
+        .strength-status.good {
+            background: #f39c12;
+        }
+
+        .strength-status.strong {
+            background: #27ae60;
+            box-shadow: 0 0 10px rgba(39, 174, 96, 0.4);
+        }
+
+        .strength-bar {
+            height: 8px;
+            background: rgba(224, 224, 224, 0.5);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .strength-fill {
+            height: 100%;
+            width: 0%;
+            background: #e74c3c;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .strength-rules {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .strength-rule {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 12px;
+            color: #2d5a3d;
+        }
+
+        .rule-icon {
+            color: #e74c3c;
+            font-size: 14px;
+        }
+
+        .rule-icon.valid {
+            color: #27ae60;
+        }
+
         /* Success animation */
         .success-animation {
             position: fixed;
@@ -74,7 +165,7 @@
             z-index: 1000;
             animation: fadeIn 0.3s ease;
         }
-        
+
         .success-content {
             text-align: center;
             color: white;
@@ -85,26 +176,26 @@
             backdrop-filter: blur(20px);
             border: 2px solid rgba(255, 255, 255, 0.2);
         }
-        
+
         .success-icon {
             font-size: 80px;
             margin-bottom: 20px;
             color: #86b499;
             animation: bounce 1s ease infinite;
         }
-        
+
         .success-text {
             font-family: 'Chewy', cursive;
             font-size: 36px;
             margin-bottom: 15px;
         }
-        
+
         .success-subtext {
             font-family: 'Nunito', sans-serif;
             font-size: 18px;
             opacity: 0.9;
         }
-        
+
         .loading-spinner {
             display: none;
             width: 40px;
@@ -115,19 +206,33 @@
             animation: spin 1s linear infinite;
             margin: 20px auto;
         }
-        
+
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
-        
+
         @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
         }
-        
+
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
     </style>
 </head>
@@ -215,23 +320,40 @@
                                     aria-label="Show password">
                                     <i class="fas fa-eye"></i>
                                 </button>
-
                             </div>
                             <p class="password-hint">Must be 8+ characters with letters, numbers & symbols</p>
                             <div class="error-message" id="passwordError">Password must be stronger</div>
-                        </div>
 
-                        <!-- Password Strength Indicator -->
-                        <div class="password-strength" style="margin-top: 10px;">
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                                <span style="font-size: 12px; color: #2d5a3d; font-weight: 600;">Password
-                                    Strength:</span>
-                                <span style="font-size: 12px; color: #2d5a3d; font-weight: 600;"
-                                    id="strengthText">Weak</span>
-                            </div>
-                            <div style="height: 4px; background: #e0e0e0; border-radius: 2px; overflow: hidden;">
-                                <div id="strengthBar"
-                                    style="height: 100%; width: 0%; background: #e74c3c; transition: width 0.3s, background 0.3s;">
+                            <!-- Password Strength Indicator -->
+                            <div class="password-strength-container">
+                                <div class="strength-header">
+                                    <span class="strength-label">Password Strength</span>
+                                    <span class="strength-status weak" id="strengthStatus">Weak</span>
+                                </div>
+                                <div class="strength-bar">
+                                    <div class="strength-fill" id="strengthBar"></div>
+                                </div>
+                                <div class="strength-rules">
+                                    <div class="strength-rule">
+                                        <i class="fas fa-times-circle rule-icon" id="ruleLength"></i>
+                                        <span>8+ characters</span>
+                                    </div>
+                                    <div class="strength-rule">
+                                        <i class="fas fa-times-circle rule-icon" id="ruleUpper"></i>
+                                        <span>Uppercase letter</span>
+                                    </div>
+                                    <div class="strength-rule">
+                                        <i class="fas fa-times-circle rule-icon" id="ruleLower"></i>
+                                        <span>Lowercase letter</span>
+                                    </div>
+                                    <div class="strength-rule">
+                                        <i class="fas fa-times-circle rule-icon" id="ruleNumber"></i>
+                                        <span>Number</span>
+                                    </div>
+                                    <div class="strength-rule">
+                                        <i class="fas fa-times-circle rule-icon" id="ruleSpecial"></i>
+                                        <span>Special character</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -243,11 +365,10 @@
                                     <label class="terms-label">
                                         <input type="checkbox" name="terms" id="terms" required>
                                         <span class="checkmark"></span>
-                                        <span class="consent-text">I consent to agree with Our</span>
+                                        <span class="consent-text">I consent to agree with our</span>
                                     </label>
-                                    <a href="https://jerrf010.github.io/Assignments/App%20Development/TermsAndConditions/index.html"
-                                        class="terms-link">
-                                        Terms and Conditions
+                                    <a href="https://jerrf010.github.io/Assignments/App%20Development/termsConditions.html"
+                                        class="terms-link">Terms and Conditions
                                     </a>
                                 </div>
                                 <div class="error-message" id="termsError" style="margin-top: 10px;">You must agree to
@@ -295,6 +416,7 @@
     </div>
 
     <!-- Script -->
+    <!-- Replace the entire <script> section in joinUs.html with this: -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const emailInput = document.getElementById("email");
@@ -309,6 +431,113 @@
             const successOverlay = document.getElementById("successOverlay");
             const loadingSpinner = document.getElementById("loadingSpinner");
             let selectedMood = null;
+
+            /* ---------- USER DATABASE CLASS ---------- */
+            class UserDatabase {
+                constructor() {
+                    this.key = 'heyday_users';
+                    this.currentUserKey = 'heyday_current_user';
+                    this.initDemoData();
+                }
+
+                initDemoData() {
+                    let users = this.getAllUsers();
+
+                    if (users.length === 0) {
+                        const demoUsers = [
+                            {
+                                id: 1,
+                                username: 'demo_user',
+                                email: 'test@example.com',
+                                password: 'Demo123!',
+                                mood: 'happy',
+                                createdAt: new Date().toISOString(),
+                                name: 'Demo User'
+                            },
+                            {
+                                id: 2,
+                                username: 'joe_user',
+                                email: 'joe@example.com',
+                                password: 'Test123!',
+                                mood: 'good',
+                                createdAt: new Date().toISOString(),
+                                name: 'Joe'
+                            }
+                        ];
+
+                        localStorage.setItem(this.key, JSON.stringify(demoUsers));
+                    }
+                }
+
+                getAllUsers() {
+                    const users = localStorage.getItem(this.key);
+                    return users ? JSON.parse(users) : [];
+                }
+
+                saveAllUsers(users) {
+                    localStorage.setItem(this.key, JSON.stringify(users));
+                }
+
+                findUser(identifier) {
+                    const users = this.getAllUsers();
+                    return users.find(user =>
+                        user.username.toLowerCase() === identifier.toLowerCase() ||
+                        user.email.toLowerCase() === identifier.toLowerCase()
+                    );
+                }
+
+                addUser(userData) {
+                    const users = this.getAllUsers();
+
+                    // Check if user already exists
+                    const existingUser = this.findUser(userData.username) || this.findUser(userData.email);
+                    if (existingUser) {
+                        return { success: false, message: 'User already exists' };
+                    }
+
+                    const newUser = {
+                        id: users.length + 1,
+                        ...userData,
+                        createdAt: new Date().toISOString()
+                    };
+                    users.push(newUser);
+                    this.saveAllUsers(users);
+                    return { success: true, user: newUser };
+                }
+
+                authenticate(identifier, password) {
+                    const user = this.findUser(identifier);
+                    if (!user) {
+                        return { success: false, message: 'User not found' };
+                    }
+
+                    if (user.password !== password) {
+                        return { success: false, message: 'Incorrect password' };
+                    }
+
+                    return { success: true, user };
+                }
+
+                setCurrentUser(user) {
+                    const { password, ...safeUser } = user;
+                    localStorage.setItem(this.currentUserKey, JSON.stringify(safeUser));
+                    localStorage.setItem('heyday_logged_in', 'true');
+                }
+
+                getCurrentUser() {
+                    const user = localStorage.getItem(this.currentUserKey);
+                    return user ? JSON.parse(user) : null;
+                }
+
+                isLoggedIn() {
+                    return localStorage.getItem('heyday_logged_in') === 'true';
+                }
+
+                logout() {
+                    localStorage.removeItem(this.currentUserKey);
+                    localStorage.removeItem('heyday_logged_in');
+                }
+            }
 
             /* ---------- MOOD SELECTION TOGGLE ---------- */
             moodButtons.forEach(button => {
@@ -381,31 +610,53 @@
             function updatePasswordStrength(password) {
                 const rules = validatePassword(password);
                 const strengthBar = document.getElementById("strengthBar");
-                const strengthText = document.getElementById("strengthText");
-                
+                const strengthStatus = document.getElementById("strengthStatus");
+
                 let strength = 0;
                 let totalRules = 5;
-                
+
                 Object.values(rules).forEach(isValid => {
                     if (isValid) strength++;
                 });
-                
+
                 const percentage = (strength / totalRules) * 100;
                 strengthBar.style.width = percentage + "%";
-                
-                // Update color and text based on strength
+
+                // Update rules icons
+                const ruleIcons = {
+                    length: document.getElementById("ruleLength"),
+                    upper: document.getElementById("ruleUpper"),
+                    lower: document.getElementById("ruleLower"),
+                    number: document.getElementById("ruleNumber"),
+                    special: document.getElementById("ruleSpecial")
+                };
+
+                // Update each rule icon
+                ruleIcons.length.classList.toggle("valid", rules.length);
+                ruleIcons.upper.classList.toggle("valid", rules.upper);
+                ruleIcons.lower.classList.toggle("valid", rules.lower);
+                ruleIcons.number.classList.toggle("valid", rules.number);
+                ruleIcons.special.classList.toggle("valid", rules.special);
+
+                // Update icon classes
+                Object.values(ruleIcons).forEach(icon => {
+                    icon.classList.toggle("fa-times-circle", !icon.classList.contains("valid"));
+                    icon.classList.toggle("fa-check-circle", icon.classList.contains("valid"));
+                });
+
+                // Update status text, color, and style
                 if (strength <= 2) {
                     strengthBar.style.background = "#e74c3c";
-                    strengthText.textContent = "Weak";
-                    strengthText.style.color = "#e74c3c";
+                    strengthStatus.textContent = "Weak";
+                    strengthStatus.className = "strength-status weak";
                 } else if (strength === 3 || strength === 4) {
                     strengthBar.style.background = "#f39c12";
-                    strengthText.textContent = "Good";
-                    strengthText.style.color = "#f39c12";
+                    strengthStatus.textContent = "Good";
+                    strengthStatus.className = "strength-status good";
                 } else {
-                    strengthBar.style.background = "#2ecc71";
-                    strengthText.textContent = "Strong";
-                    strengthText.style.color = "#2ecc71";
+                    strengthBar.style.background = "#27ae60";
+                    strengthStatus.textContent = "Strong";
+                    strengthStatus.className = "strength-status strong";
                 }
             }
 
@@ -430,6 +681,43 @@
                     validIcon.style.display = "none";
                     errorIcon.style.display = "block";
                 }
+            }
+
+            /* ---------- FEEDBACK MESSAGE ---------- */
+            function showFeedback(message, type = "info") {
+                // Remove existing feedback
+                const existingFeedback = document.querySelector('.feedback-message');
+                if (existingFeedback) existingFeedback.remove();
+
+                // Create feedback element
+                const feedback = document.createElement('div');
+                feedback.className = `feedback-message feedback-${type}`;
+                feedback.style.cssText = `
+                position: fixed;
+                top: 100px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: ${type === 'error' ? 'rgba(231, 76, 60, 0.95)' : type === 'success' ? 'rgba(46, 204, 113, 0.95)' : 'rgba(52, 152, 219, 0.95)'};
+                color: white;
+                padding: 12px 24px;
+                border-radius: 25px;
+                font-family: 'Nunito', sans-serif;
+                font-weight: 600;
+                font-size: 14px;
+                z-index: 1000;
+                animation: slideDown 0.3s ease;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+                max-width: 80%;
+                text-align: center;
+            `;
+                feedback.textContent = message;
+                document.body.appendChild(feedback);
+
+                // Remove after 3 seconds
+                setTimeout(() => {
+                    feedback.style.animation = "slideUp 0.3s ease forwards";
+                    setTimeout(() => feedback.remove(), 300);
+                }, 3000);
             }
 
             /* ---------- LIVE USERNAME CHECK ---------- */
@@ -475,11 +763,11 @@
 
                 // All fields must be valid
                 const formValid = usernameValid && emailValid && passwordValid && termsValid && moodSelected;
-                
+
                 submitButton.disabled = !formValid;
                 submitButton.style.opacity = formValid ? "1" : "0.6";
                 submitButton.style.cursor = formValid ? "pointer" : "not-allowed";
-                
+
                 // Update button hint
                 const hint = document.querySelector(".button-hint");
                 if (hint) {
@@ -490,7 +778,7 @@
             /* ---------- FORM SUBMISSION ---------- */
             signupForm.addEventListener("submit", async (e) => {
                 e.preventDefault();
-                
+
                 // Final validation check
                 const usernameValid = validateUsername(usernameInput.value.trim());
                 const emailValid = validateEmail(emailInput.value.trim());
@@ -499,7 +787,7 @@
                 const moodSelected = selectedMood !== null;
 
                 if (!usernameValid || !emailValid || !passwordValid || !termsValid || !moodSelected) {
-                    alert("Please fix all errors before submitting.");
+                    showFeedback("Please fix all errors before submitting.", "error");
                     return;
                 }
 
@@ -509,37 +797,100 @@
 
                 // Simulate account creation process
                 setTimeout(() => {
-                    // Store user data (in a real app, this would be sent to a server)
+                    // Create user data
                     const userData = {
                         username: usernameInput.value.trim(),
                         email: emailInput.value.trim(),
-                        mood: selectedMood ? selectedMood.getAttribute("data-mood") : "neutral",
-                        createdAt: new Date().toISOString()
+                        password: passwordInput.value, // In real app, this would be hashed
+                        mood: selectedMood.getAttribute("data-mood"),
+                        name: usernameInput.value.trim()
                     };
-                    
-                    // Save to localStorage (for demo purposes)
-                    localStorage.setItem("heyday_user", JSON.stringify(userData));
-                    localStorage.setItem("heyday_logged_in", "true");
 
-                    // Update success message
-                    const successText = document.querySelector(".success-text");
-                    const successSubtext = document.querySelector(".success-subtext");
-                    
-                    if (successText && successSubtext) {
-                        successText.textContent = "Account Created!";
-                        successSubtext.textContent = "Redirecting to your dashboard...";
+                    // Add to database
+                    try {
+                        const userDB = new UserDatabase();
+                        const result = userDB.addUser(userData);
+
+                        if (!result.success) {
+                            // Hide overlay
+                            successOverlay.style.display = "none";
+                            loadingSpinner.style.display = "none";
+
+                            // Show error
+                            showFeedback(result.message, "error");
+                            return;
+                        }
+
+                        // Set as current user
+                        userDB.setCurrentUser(result.user);
+
+                        // Update success message
+                        const successText = document.querySelector(".success-text");
+                        const successSubtext = document.querySelector(".success-subtext");
+
+                        if (successText && successSubtext) {
+                            successText.textContent = "Account Created!";
+                            successSubtext.textContent = "Welcome to Hey, Day!";
+                        }
+
+                        // Redirect to dashboard after 2 seconds
+                        setTimeout(() => {
+                            window.location.href = "dashboard.html";
+                        }, 2000);
+
+                    } catch (error) {
+                        console.error("Error creating account:", error);
+                        // Hide overlay
+                        successOverlay.style.display = "none";
+                        loadingSpinner.style.display = "none";
+
+                        showFeedback("Error creating account. Please try again.", "error");
                     }
-
-                    // Redirect to dashboard after 2 seconds
-                    setTimeout(() => {
-                        window.location.href = "dashboard.html";
-                    }, 2000);
 
                 }, 1500);
             });
 
             /* ---------- INITIAL VALIDATION UPDATE ---------- */
             updateSubmitState();
+
+            /* ---------- ADD ANIMATION STYLES ---------- */
+            const style = document.createElement('style');
+            style.textContent = `
+            @keyframes slideDown {
+                from {
+                    top: 80px;
+                    opacity: 0;
+                }
+                to {
+                    top: 100px;
+                    opacity: 1;
+                }
+            }
+            
+            @keyframes slideUp {
+                from {
+                    top: 100px;
+                    opacity: 1;
+                }
+                to {
+                    top: 80px;
+                    opacity: 0;
+                }
+            }
+            
+            .button {
+                transition: all 0.3s ease;
+            }
+            
+            .button:hover {
+                transform: translateY(-5px) scale(1.05);
+            }
+            
+            .button:active {
+                transform: translateY(0) scale(0.98);
+            }
+        `;
+            document.head.appendChild(style);
         });
     </script>
 

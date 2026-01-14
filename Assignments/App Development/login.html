@@ -1,16 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login -- App Development</title>
-    <link rel="icon" href="https://github.com/jerrf010/basic_html/blob/main/park_with_shades.png?raw=true" type="image/icon type">
+    <title>Login -- Hey, Day</title>
+    <link rel="icon" href="https://github.com/jerrf010/basic_html/blob/main/park_with_shades.png?raw=true"
+        type="image/icon type">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Chewy&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Chewy&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Oswald:wght@200..700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="userDatabase.js"></script>
+    <style>
+        /* Demo Notice */
+        .demo-notice {
+            background: rgba(255, 193, 7, 0.2);
+            border: 2px solid #ffc107;
+            border-radius: 15px;
+            padding: 12px;
+            margin: 15px 0 25px 0;
+            text-align: center;
+            font-family: 'Nunito', sans-serif;
+            color: #856404;
+            font-size: 13px;
+            display: none;
+        }
+
+        .demo-notice i {
+            margin-right: 8px;
+            color: #ffc107;
+        }
+
+        /* Login Error Styles */
+        .login-error {
+            color: #e74c3c;
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+            margin: 15px 0;
+            padding: 12px;
+            background: rgba(231, 76, 60, 0.1);
+            border-radius: 12px;
+            border: 2px solid rgba(231, 76, 60, 0.2);
+            display: none;
+        }
+
+        .login-error i {
+            margin-right: 8px;
+        }
+
+        /* Success Animation */
+        .success-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 60, 39, 0.95);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .success-content {
+            text-align: center;
+            color: white;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .success-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            color: #86b499;
+            animation: bounce 1s ease infinite;
+        }
+
+        .success-text {
+            font-family: 'Chewy', cursive;
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .success-subtext {
+            font-family: 'Nunito', sans-serif;
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .loading-spinner {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #86b499;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Input validation states */
+        .input-valid {
+            border-color: #2ecc71 !important;
+            background: rgba(46, 204, 113, 0.05) !important;
+        }
+
+        .input-invalid {
+            border-color: #e74c3c !important;
+            background: rgba(231, 76, 60, 0.05) !important;
+        }
+    </style>
 </head>
+
 <body>
     <div class="container">
         <!-- Decorative Elements -->
@@ -20,12 +160,24 @@
         <div class="leaf leaf-1"></div>
         <div class="leaf leaf-2"></div>
         <div class="leaf leaf-3"></div>
-        
+
+        <!-- Success Animation Overlay -->
+        <div class="success-animation" id="successOverlay">
+            <div class="success-content">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="success-text">Welcome Back!</div>
+                <div class="success-subtext">Signing you in...</div>
+                <div class="loading-spinner" id="loadingSpinner"></div>
+            </div>
+        </div>
+
         <!-- Phone Container -->
         <div class="phone Chewy" id="main-page">
             <!-- Phone Notch -->
             <div class="phone-notch"></div>
-            
+
             <!-- Status Bar -->
             <div class="status-bar">
                 <span>9:41</span>
@@ -35,47 +187,63 @@
                     <i class="fas fa-battery-three-quarters"></i>
                 </div>
             </div>
-            
+
             <!-- App Content -->
-            <div class="app-content">                
+            <div class="app-content">
                 <!-- Title -->
                 <h1 class="title">Welcome Back</h1>
                 <h2 class="subtitle">Sign in to continue your journey</h2>
-                
+
+                <!-- Demo Notice -->
+                <div class="demo-notice" id="demoNotice">
+                    <i class="fas fa-info-circle"></i>
+                    <strong>Demo Mode:</strong> This prototype uses browser storage. Create an account first if needed.
+                </div>
+
+                <!-- Login Error Message -->
+                <div class="login-error" id="loginError">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span id="errorMessage">Invalid credentials. Please try again.</span>
+                </div>
+
                 <!-- Login Form -->
                 <div class="form-container">
                     <form id="loginForm" class="login-form" novalidate>
-                        <!-- Email Field -->
+                        <!-- Email/Username Field -->
                         <div class="input-group">
                             <div class="input-with-icon">
-                                <i class="fas fa-envelope icon-left"></i>
-                                <input type="text" id="email" name="email" placeholder="Username / Email Address" required>
+                                <i class="fas fa-user icon-left"></i>
+                                <input type="text" id="identifier" name="identifier" placeholder="Username or Email"
+                                    required>
                             </div>
                         </div>
-                        
+
                         <!-- Password Field -->
                         <div class="input-group">
                             <div class="input-with-icon">
                                 <i class="fas fa-lock icon-left"></i>
                                 <input type="password" id="password" name="password" placeholder="Password" required>
-                                <button type="button" class="eye-toggle" id="togglePassword" aria-label="Toggle password visibility" title="Toggle password visibility">
+                                <button type="button" class="eye-toggle" id="togglePassword"
+                                    aria-label="Toggle password visibility" title="Toggle password visibility">
                                     <i class="fas fa-eye"></i>
                                 </button>
                             </div>
                         </div>
-                        
+
                         <!-- Terms and Conditions -->
                         <div class="terms-section">
                             <div class="terms-box">
                                 <label class="terms-label">
                                     <input type="checkbox" name="consent" id="consent" required>
                                     <span class="checkmark"></span>
-                                    <span>I agree with our <a href="https://jerrf010.github.io/Assignments/App%20Development/TermsAndConditions/index.html" class="terms-link">Terms and Conditions</a></span>
+                                    <span>I agree with our <a
+                                            href="https://jerrf010.github.io/Assignments/App%20Development/termsConditions.html"
+                                            class="terms-link"> Terms and Conditions</a></span>
                                 </label>
                             </div>
                             <p class="terms-note"><i class="fas fa-lock"></i> Your data is private and secure</p>
                         </div>
-                        
+
                         <!-- Mood Tracker -->
                         <div class="mood-tracker">
                             <label class="mood-label">How are you feeling?</label>
@@ -87,125 +255,428 @@
                                 <button type="button" class="mood-btn" data-mood="excited">😁</button>
                             </div>
                         </div>
-                        
+
                         <!-- Submit Button -->
-                        <a href="main-landing.html" class="button-link">
-                            <div class="button">
-                                <h3>SIGN IN</h3>
-                                <i class="fas fa-arrow-right button-arrow"></i>
-                            </div>
-                            <p class="button-hint">Tap to continue your journey</p>
-                        </a>
+                        <button type="submit" class="button" id="loginButton">
+                            <h3>SIGN IN</h3>
+                            <i class="fas fa-arrow-right button-arrow"></i>
+                        </button>
+                        <p class="button-hint">Don't have an account? <a href="joinUs.html"
+                                style="color: #22604e; font-weight: 700;">Sign up here</a></p>
                     </form>
                 </div>
-                
+
                 <!-- Footer -->
                 <div class="footer">
                     <p class="tagline">Breathe in peace</p>
                     <div class="footer-links">
-                        <a href="https://jerrf010.github.io/Assignments/App%20Development/TermsAndConditions/index.html">
+                        <a href="https://jerrf010.github.io/Assignments/App%20Development/TermsConditions.html">
                             <i class="fas fa-book"></i> Read our Terms
                         </a>
                     </div>
                 </div>
             </div>
-            
+
             <!-- Home Indicator -->
             <div class="home-indicator"></div>
         </div>
     </div>
-    
+
     <!-- Script -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Button hover effect (same as original)
-            const button = document.querySelector('.button');
-            button.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-3px) scale(1.03)';
-            });
-            button.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1)';
-            });
-            
-            button.addEventListener('mousedown', function() {
-                this.style.transform = 'translateY(0) scale(0.98)';
-            });
-            button.addEventListener('mouseup', function() {
-                this.style.transform = 'translateY(-3px) scale(1.03)';
-            });
-            
-            // Animate form elements on load
-            const formElements = document.querySelectorAll('.input-group, .terms-section, .mood-tracker');
-            formElements.forEach((el, index) => {
-                setTimeout(() => {
-                    el.style.opacity = '1';
-                    el.style.transform = 'translateY(0)';
-                }, 200 + (index * 150));
-            });
-            
-            // Mood selection
-            const moodOptions = document.querySelectorAll('.mood-option');
-            moodOptions.forEach(option => {
-                option.addEventListener('click', function() {
-                    moodOptions.forEach(opt => {
-                        opt.classList.remove('selected');
-                        opt.style.transform = 'scale(1)';
+        // Wrap in IIFE to prevent redeclaration conflicts
+        (function () {
+            // Check if UserDatabase exists globally, if not, define it
+            if (typeof window.UserDatabase === 'undefined') {
+                window.UserDatabase = class {
+                    constructor() {
+                        this.key = 'heyday_users';
+                        this.currentUserKey = 'heyday_current_user';
+                    }
+
+                    getAllUsers() {
+                        const users = localStorage.getItem(this.key);
+                        return users ? JSON.parse(users) : [];
+                    }
+
+                    saveAllUsers(users) {
+                        localStorage.setItem(this.key, JSON.stringify(users));
+                    }
+
+                    findUser(identifier) {
+                        const users = this.getAllUsers();
+                        return users.find(user =>
+                            user.username.toLowerCase() === identifier.toLowerCase() ||
+                            user.email.toLowerCase() === identifier.toLowerCase()
+                        );
+                    }
+
+                    authenticate(identifier, password) {
+                        const user = this.findUser(identifier);
+                        if (!user) {
+                            return { success: false, message: 'User not found. Please sign up first.' };
+                        }
+
+                        if (user.password !== password) {
+                            return { success: false, message: 'Incorrect password.' };
+                        }
+
+                        return { success: true, user };
+                    }
+
+                    setCurrentUser(user) {
+                        const { password, ...safeUser } = user;
+                        localStorage.setItem(this.currentUserKey, JSON.stringify(safeUser));
+                        localStorage.setItem('heyday_logged_in', 'true');
+                    }
+
+                    getCurrentUser() {
+                        const user = localStorage.getItem(this.currentUserKey);
+                        return user ? JSON.parse(user) : null;
+                    }
+
+                    isLoggedIn() {
+                        return localStorage.getItem('heyday_logged_in') === 'true';
+                    }
+
+                    logout() {
+                        localStorage.removeItem(this.currentUserKey);
+                        localStorage.removeItem('heyday_logged_in');
+                    }
+
+                    updateUserMood(userId, mood) {
+                        const users = this.getAllUsers();
+                        const userIndex = users.findIndex(u => u.id === userId);
+                        if (userIndex !== -1) {
+                            users[userIndex].mood = mood;
+                            this.saveAllUsers(users);
+
+                            // Also update current user in session
+                            const currentUser = this.getCurrentUser();
+                            if (currentUser && currentUser.id === userId) {
+                                currentUser.mood = mood;
+                                localStorage.setItem(this.currentUserKey, JSON.stringify(currentUser));
+                            }
+                        }
+                    }
+                };
+            }
+
+            // Now the rest of your code
+            document.addEventListener('DOMContentLoaded', function () {
+                // Initialize database using the global version
+                const userDB = new window.UserDatabase();
+
+                // Elements
+                const loginForm = document.getElementById('loginForm');
+                const identifierInput = document.getElementById('identifier');
+                const passwordInput = document.getElementById('password');
+                const loginButton = document.getElementById('loginButton');
+                const loginError = document.getElementById('loginError');
+                const errorMessage = document.getElementById('errorMessage');
+                const successOverlay = document.getElementById('successOverlay');
+                const loadingSpinner = document.getElementById('loadingSpinner');
+                const consentCheckbox = document.getElementById('consent');
+                const moodButtons = document.querySelectorAll('.mood-btn');
+                const togglePasswordBtn = document.getElementById('togglePassword');
+                const demoNotice = document.getElementById('demoNotice');
+                const testCredentials = document.getElementById('testCredentials');
+
+                // Hide demo elements
+                if (demoNotice) demoNotice.style.display = 'none';
+                if (testCredentials) testCredentials.style.display = 'none';
+
+                let selectedMood = null;
+
+                /* ---------- MOOD SELECTION ---------- */
+                moodButtons.forEach(button => {
+                    button.addEventListener("click", () => {
+                        // If clicking the same mood, deselect it
+                        if (button === selectedMood) {
+                            button.classList.remove("selected");
+                            selectedMood = null;
+                        } else {
+                            // Remove selected class from all buttons
+                            moodButtons.forEach(btn => btn.classList.remove("selected"));
+
+                            // Add selected class to clicked button
+                            button.classList.add("selected");
+                            selectedMood = button;
+                        }
                     });
-                    this.classList.add('selected');
-                    this.style.transform = 'scale(1.1)';
                 });
-            });
-            
-            // Password toggle
-            const togglePassword = document.getElementById('togglePassword');
-            const passwordInput = document.getElementById('password');
-            
-            togglePassword.addEventListener('click', function() {
-                const type = passwordInput.type === 'password' ? 'text' : 'password';
-                passwordInput.type = type;
-                this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
-            });
-            
-            // Form validation
-            const form = document.getElementById('loginForm');
-            const emailInput = document.getElementById('email');
-            
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const email = emailInput.value.trim();
-                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                
-                if (!emailPattern.test(email)) {
-                    alert("Please enter a valid email address.");
-                    emailInput.focus();
-                    return false;
+
+                /* ---------- PASSWORD VISIBILITY TOGGLE ---------- */
+                togglePasswordBtn.addEventListener('click', function () {
+                    const type = passwordInput.type === 'password' ? 'text' : 'password';
+                    passwordInput.type = type;
+                    const icon = this.querySelector('i');
+                    if (icon) {
+                        icon.className = type === 'password' ? 'fas fa-eye' : 'fas fa-eye-slash';
+                    }
+                });
+
+                /* ---------- INPUT VALIDATION ---------- */
+                function validateInput(input) {
+                    const value = input.value.trim();
+                    if (value.length === 0) {
+                        input.classList.remove('input-valid');
+                        input.classList.add('input-invalid');
+                        return false;
+                    } else {
+                        input.classList.remove('input-invalid');
+                        input.classList.add('input-valid');
+                        return true;
+                    }
+                }
+
+                // Real-time validation
+                identifierInput.addEventListener('input', () => validateInput(identifierInput));
+                passwordInput.addEventListener('input', () => validateInput(passwordInput));
+
+                /* ---------- FORM SUBMISSION ---------- */
+                loginForm.addEventListener('submit', function (e) {
+                    e.preventDefault();
+
+                    // Hide previous errors
+                    if (loginError) loginError.style.display = 'none';
+
+                    // Validate inputs
+                    const isIdentifierValid = validateInput(identifierInput);
+                    const isPasswordValid = validateInput(passwordInput);
+                    const isConsentValid = consentCheckbox.checked;
+
+                    if (!isIdentifierValid || !isPasswordValid) {
+                        showError('Please fill in all required fields.');
+                        return;
+                    }
+
+                    if (!isConsentValid) {
+                        showError('Please agree to the Terms and Conditions.');
+                        return;
+                    }
+
+                    if (!selectedMood) {
+                        showError('Please select how you are feeling.');
+                        return;
+                    }
+
+                    // Authenticate user
+                    const identifier = identifierInput.value.trim();
+                    const password = passwordInput.value.trim();
+
+                    const authResult = userDB.authenticate(identifier, password);
+
+                    if (!authResult.success) {
+                        showError(authResult.message);
+                        return;
+                    }
+
+                    // Get user and update mood
+                    const user = authResult.user;
+                    const moodValue = selectedMood.getAttribute('data-mood');
+
+                    // Update user's mood in database
+                    userDB.updateUserMood(user.id, moodValue);
+
+                    // Set as current user (with updated mood)
+                    user.mood = moodValue;
+                    userDB.setCurrentUser(user);
+
+                    // Show success animation
+                    if (successOverlay) {
+                        successOverlay.style.display = 'flex';
+                        if (loadingSpinner) loadingSpinner.style.display = 'block';
+                    }
+
+                    // Redirect to dashboard after delay
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html';
+                    }, 1500);
+                });
+
+                /* ---------- ERROR HANDLING ---------- */
+                function showError(message) {
+                    if (errorMessage) {
+                        errorMessage.textContent = message;
+                    }
+                    if (loginError) {
+                        loginError.style.display = 'block';
+
+                        // Shake animation for error
+                        loginError.style.animation = 'none';
+                        setTimeout(() => {
+                            loginError.style.animation = 'shake 0.5s ease';
+                        }, 10);
+                    }
+                }
+
+                /* ---------- ANIMATION STYLES ---------- */
+                const style = document.createElement('style');
+                style.textContent = `
+                @keyframes shake {
+                    0%, 100% { transform: translateX(0); }
+                    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+                    20%, 40%, 60%, 80% { transform: translateX(5px); }
                 }
                 
-                if (!form.checkValidity()) {
-                    alert("Please fill in all required fields and agree to the terms.");
-                    return false;
+                @keyframes slideDown {
+                    from {
+                        top: 80px;
+                        opacity: 0;
+                    }
+                    to {
+                        top: 100px;
+                        opacity: 1;
+                    }
                 }
                 
-                // If validation passes, allow the link to work
-                return true;
+                @keyframes slideUp {
+                    from {
+                        top: 100px;
+                        opacity: 1;
+                    }
+                    to {
+                        top: 80px;
+                        opacity: 0;
+                    }
+                }
+                
+                @keyframes fadeIn {
+                    from {
+                        opacity: 0;
+                        transform: translateY(10px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+                
+                .button {
+                    transition: all 0.3s ease !important;
+                }
+                
+                .button:hover {
+                    transform: translateY(-5px) scale(1.05) !important;
+                }
+                
+                .button:active {
+                    transform: translateY(0) scale(0.98) !important;
+                }
+                
+                .mood-btn {
+                    transition: all 0.2s ease !important;
+                }
+                
+                .mood-btn.selected {
+                    transform: scale(1.2) !important;
+                    box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.4) !important;
+                    background: rgba(46, 204, 113, 0.1) !important;
+                    border-color: #2ecc71 !important;
+                }
+                
+                .input-with-icon input {
+                    transition: all 0.3s ease !important;
+                }
+                
+                .input-valid {
+                    border-color: #2ecc71 !important;
+                    background: rgba(46, 204, 113, 0.05) !important;
+                }
+                
+                .input-invalid {
+                    border-color: #e74c3c !important;
+                    background: rgba(231, 76, 60, 0.05) !important;
+                }
+                
+                .nav-item {
+                    transition: all 0.3s ease !important;
+                }
+                
+                .fade-in {
+                    animation: fadeIn 0.5s ease forwards;
+                    opacity: 0;
+                }
+            `;
+                document.head.appendChild(style);
+
+                /* ---------- BUTTON HOVER EFFECTS ---------- */
+                if (loginButton) {
+                    loginButton.addEventListener('mouseenter', function () {
+                        this.style.transform = 'translateY(-3px) scale(1.03)';
+                    });
+
+                    loginButton.addEventListener('mouseleave', function () {
+                        this.style.transform = 'translateY(0) scale(1)';
+                    });
+
+                    loginButton.addEventListener('mousedown', function () {
+                        this.style.transform = 'translateY(0) scale(0.98)';
+                    });
+
+                    loginButton.addEventListener('mouseup', function () {
+                        this.style.transform = 'translateY(-3px) scale(1.03)';
+                    });
+                }
+
+                /* ---------- ANIMATE FORM ELEMENTS ON LOAD ---------- */
+                const formElements = document.querySelectorAll('.input-group, .terms-section, .mood-tracker');
+                formElements.forEach((el, index) => {
+                    setTimeout(() => {
+                        el.style.opacity = '1';
+                        el.style.transform = 'translateY(0)';
+                    }, 200 + (index * 150));
+                });
+
+                // Animate button
+                if (loginButton) {
+                    setTimeout(() => {
+                        loginButton.style.opacity = '1';
+                        loginButton.style.transform = 'translateY(0)';
+                    }, 500);
+                }
+
+                /* ---------- CHECK FOR EXISTING USERS ---------- */
+                function checkForExistingUsers() {
+                    const users = userDB.getAllUsers();
+                    if (users.length === 0) {
+                        // Show message if no users exist
+                        const formContainer = document.querySelector('.form-container');
+                        if (formContainer) {
+                            const noUsersMsg = document.createElement('div');
+                            noUsersMsg.className = 'no-users-message';
+                            noUsersMsg.style.cssText = `
+                            background: rgba(52, 152, 219, 0.1);
+                            border: 2px solid rgba(52, 152, 219, 0.2);
+                            border-radius: 15px;
+                            padding: 15px;
+                            margin: 15px 0;
+                            text-align: center;
+                            font-family: 'Nunito', sans-serif;
+                            font-size: 14px;
+                            color: #2c3e50;
+                        `;
+                            noUsersMsg.innerHTML = `
+                            <i class="fas fa-info-circle" style="color: #3498db; margin-right: 8px;"></i>
+                            <strong>No accounts found.</strong> Please <a href="joinUs.html" style="color: #22604e; font-weight: 700;">sign up</a> first.
+                        `;
+                            formContainer.insertBefore(noUsersMsg, formContainer.firstChild);
+                        }
+                    }
+                }
+
+                // Check for users on load
+                checkForExistingUsers();
+
+                // Check if already logged in
+                if (userDB.isLoggedIn() && window.location.pathname.includes('login.html')) {
+                    // Optional: Uncomment to auto-redirect
+                    // window.location.href = 'dashboard.html';
+                }
             });
-            
-            // Check content fit
-            const checkFit = () => {
-                const phone = document.querySelector('.phone');
-                const content = document.querySelector('.app-content');
-                const phoneHeight = phone.clientHeight;
-                const contentHeight = content.scrollHeight;
-                
-                if (contentHeight > phoneHeight) {
-                    console.log('Content may need adjustment');
-                }
-            };
-            
-            window.addEventListener('load', checkFit);
-            window.addEventListener('resize', checkFit);
-        });
+        })();
     </script>
 </body>
+
 </html>

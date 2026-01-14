@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hey, Day -- Dashboard</title>
-    <link rel="icon" href="https://github.com/jerrf010/basic_html/blob/main/park_with_shades.png?raw=true" type="image/icon type">
+    <link rel="icon" href="https://github.com/jerrf010/basic_html/blob/main/park_with_shades.png?raw=true"
+        type="image/icon type">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Chewy&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Chewy&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Oswald:wght@200..700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Dashboard Specific Styles */
@@ -17,7 +21,7 @@
             margin-bottom: 10px;
             position: relative;
         }
-        
+
         .greeting-section {
             background: rgba(255, 255, 255, 0.15);
             border-radius: 25px;
@@ -27,7 +31,7 @@
             backdrop-filter: blur(10px);
             border: 2px solid rgba(255, 255, 255, 0.2);
         }
-        
+
         .greeting-main {
             font-family: 'Chewy', cursive;
             font-size: 32px;
@@ -35,14 +39,14 @@
             margin-bottom: 5px;
             line-height: 1.2;
         }
-        
+
         .greeting-sub {
             font-family: 'Nunito', sans-serif;
             font-size: 16px;
             color: #2d5a3d;
             font-weight: 600;
         }
-        
+
         .notifications-badge {
             display: inline-flex;
             align-items: center;
@@ -59,11 +63,11 @@
             width: fit-content;
             gap: 6px;
         }
-        
+
         .notifications-badge i {
             font-size: 12px;
         }
-        
+
         /* Navigation Cards */
         .nav-cards {
             display: grid;
@@ -72,7 +76,7 @@
             margin: 20px 0;
             width: 100%;
         }
-        
+
         .nav-card {
             background: rgba(255, 255, 255, 0.2);
             border: 2px solid rgba(34, 96, 78, 0.2);
@@ -85,14 +89,14 @@
             text-decoration: none;
             display: block;
         }
-        
+
         .nav-card:hover {
             background: rgba(255, 255, 255, 0.3);
             transform: translateY(-3px);
             border-color: rgba(34, 96, 78, 0.4);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         }
-        
+
         .card-icon {
             width: 50px;
             height: 50px;
@@ -104,12 +108,12 @@
             margin-bottom: 12px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
-        
+
         .card-icon i {
             font-size: 22px;
             color: #22604e;
         }
-        
+
         .card-title {
             font-family: 'Nunito', sans-serif;
             font-size: 18px;
@@ -117,7 +121,7 @@
             font-weight: 700;
             margin-bottom: 5px;
         }
-        
+
         .card-subtitle {
             font-family: 'Nunito', sans-serif;
             font-size: 13px;
@@ -125,7 +129,7 @@
             font-weight: 600;
             opacity: 0.9;
         }
-        
+
         .notification-count {
             background: linear-gradient(135deg, #86b499 0%, #6a9c7d 100%);
             color: white;
@@ -143,7 +147,7 @@
             right: 15px;
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
         }
-        
+
         /* Today's Mood Section */
         .todays-mood {
             background: rgba(255, 255, 255, 0.2);
@@ -154,7 +158,7 @@
             backdrop-filter: blur(5px);
             border: 2px solid rgba(34, 96, 78, 0.2);
         }
-        
+
         .mood-title {
             font-family: 'Nunito', sans-serif;
             font-size: 18px;
@@ -163,13 +167,13 @@
             margin-bottom: 15px;
             text-align: center;
         }
-        
+
         .mood-options {
             display: flex;
             justify-content: space-between;
             gap: 10px;
         }
-        
+
         .mood-option {
             flex: 1;
             display: flex;
@@ -183,41 +187,42 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        
+
         .mood-option:hover {
             background: rgba(255, 255, 255, 0.3);
             transform: translateY(-2px);
         }
-        
+
         .mood-option.selected {
             background: rgba(34, 96, 78, 0.2);
             border-color: #22604e;
             transform: translateY(-2px);
         }
-        
+
         .mood-emoji {
             font-size: 28px;
             margin-bottom: 8px;
         }
-        
+
         .mood-label {
             font-family: 'Nunito', sans-serif;
             font-size: 11px;
             color: #2d5a3d;
             font-weight: 600;
         }
-        
+
         /* Recent Activity */
         .recent-activity {
             background: rgba(255, 255, 255, 0.15);
             border-radius: 25px;
             padding: 20px;
-            margin: 20px 0 100px 0; /* Extra margin for bottom nav */
+            margin: 20px 0 100px 0;
+            /* Extra margin for bottom nav */
             -webkit-backdrop-filter: blur(5px);
             backdrop-filter: blur(5px);
             border: 2px solid rgba(255, 255, 255, 0.1);
         }
-        
+
         .activity-title {
             font-family: 'Nunito', sans-serif;
             font-size: 18px;
@@ -226,13 +231,13 @@
             margin-bottom: 15px;
             text-align: center;
         }
-        
+
         .activity-list {
             display: flex;
             flex-direction: column;
             gap: 12px;
         }
-        
+
         .activity-item {
             display: flex;
             align-items: center;
@@ -242,12 +247,12 @@
             border-radius: 15px;
             transition: all 0.3s ease;
         }
-        
+
         .activity-item:hover {
             background: rgba(255, 255, 255, 0.2);
             transform: translateX(5px);
         }
-        
+
         .activity-icon {
             width: 36px;
             height: 36px;
@@ -257,16 +262,16 @@
             align-items: center;
             justify-content: center;
         }
-        
+
         .activity-icon i {
             font-size: 16px;
             color: #22604e;
         }
-        
+
         .activity-content {
             flex: 1;
         }
-        
+
         .activity-main {
             font-family: 'Nunito', sans-serif;
             font-size: 14px;
@@ -274,14 +279,14 @@
             font-weight: 600;
             margin-bottom: 3px;
         }
-        
+
         .activity-time {
             font-family: 'Nunito', sans-serif;
             font-size: 11px;
             color: #2d5a3d;
             font-weight: 600;
         }
-        
+
         /* Bottom Navigation - Inside Phone Container */
         .bottom-nav-container {
             position: absolute;
@@ -290,7 +295,7 @@
             right: 0;
             width: 100%;
         }
-        
+
         .bottom-nav {
             display: flex;
             justify-content: space-around;
@@ -304,7 +309,7 @@
             border: 2px solid rgba(34, 96, 78, 0.2);
             box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
         }
-        
+
         .nav-item {
             display: flex;
             flex-direction: column;
@@ -318,41 +323,41 @@
             position: relative;
             border-radius: 18px;
         }
-        
+
         .nav-item.active {
             background: rgba(34, 96, 78, 0.15);
             transform: translateY(-10px);
         }
-        
+
         .nav-item:hover:not(.active) {
             background: rgba(255, 255, 255, 0.3);
             transform: translateY(-5px);
         }
-        
+
         .nav-icon {
             font-size: 22px;
             color: #22604e;
             margin-bottom: 5px;
             transition: all 0.3s ease;
         }
-        
+
         .nav-item.active .nav-icon {
             color: #1a3c27;
             transform: scale(1.1);
         }
-        
+
         .nav-label {
             font-family: 'Nunito', sans-serif;
             font-size: 10px;
             color: #1a3c27;
             font-weight: 700;
         }
-        
+
         .nav-item.active .nav-label {
             color: #22604e;
             font-weight: 800;
         }
-        
+
         .nav-badge {
             position: absolute;
             top: 5px;
@@ -370,94 +375,97 @@
             justify-content: center;
             box-shadow: 0 3px 8px rgba(255, 82, 82, 0.4);
         }
-        
+
         /* Phone Container Adjustments for Bottom Nav */
         .phone {
             position: relative;
             overflow: hidden;
         }
-        
+
         .app-content {
             height: calc(100% - 40px);
             overflow-y: auto;
-            padding-bottom: 120px; /* Space for bottom nav */
+            padding-bottom: 120px;
+            /* Space for bottom nav */
         }
-        
+
         /* Animations */
         @keyframes fadeIn {
             from {
                 opacity: 0;
                 transform: translateY(10px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-        
+
         .fade-in {
             animation: fadeIn 0.5s ease forwards;
             opacity: 0;
         }
-        
+
         /* Custom scrollbar for app content */
         .app-content::-webkit-scrollbar {
             width: 6px;
         }
-        
+
         .app-content::-webkit-scrollbar-track {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
         }
-        
+
         .app-content::-webkit-scrollbar-thumb {
             background: #22604e;
             border-radius: 10px;
         }
-        
+
         /* Responsive */
         @media (max-width: 600px) {
             .greeting-main {
                 font-size: 28px;
             }
-            
+
             .nav-cards {
                 gap: 12px;
             }
-            
+
             .nav-card {
                 padding: 15px;
             }
-            
+
             .card-icon {
                 width: 45px;
                 height: 45px;
             }
-            
+
             .card-icon i {
                 font-size: 20px;
             }
-            
+
             .mood-emoji {
                 font-size: 24px;
             }
-            
+
             .bottom-nav {
                 margin: 0 20px;
                 padding: 12px 8px;
             }
-            
+
             .nav-item {
                 width: 60px;
                 height: 60px;
             }
-            
+
             .nav-icon {
                 font-size: 20px;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <!-- Decorative Elements -->
@@ -467,12 +475,12 @@
         <div class="leaf leaf-1"></div>
         <div class="leaf leaf-2"></div>
         <div class="leaf leaf-3"></div>
-        
+
         <!-- Phone Container -->
         <div class="phone" id="main-page">
             <!-- Phone Notch -->
             <div class="phone-notch"></div>
-            
+
             <!-- Status Bar -->
             <div class="status-bar">
                 <span>9:41</span>
@@ -482,7 +490,7 @@
                     <i class="fas fa-battery-three-quarters"></i>
                 </div>
             </div>
-            
+
             <!-- App Content -->
             <div class="app-content">
                 <!-- Greeting Section -->
@@ -500,7 +508,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Navigation Cards (like your image) -->
                 <div class="nav-cards">
                     <!-- Calendar Card -->
@@ -512,9 +520,10 @@
                         <div class="card-title">Calendar</div>
                         <div class="card-subtitle">2 new notifications</div>
                     </a>
-                    
+
                     <!-- Mental Health Card -->
-                    <a href="mental-health.html" class="nav-card fade-in" style="animation-delay: 0.2s; position: relative;">
+                    <a href="mental-health.html" class="nav-card fade-in"
+                        style="animation-delay: 0.2s; position: relative;">
                         <div class="notification-count">3</div>
                         <div class="card-icon">
                             <i class="fas fa-brain"></i>
@@ -522,7 +531,7 @@
                         <div class="card-title">Mental Health</div>
                         <div class="card-subtitle">3 new notifications</div>
                     </a>
-                    
+
                     <!-- Henry Card -->
                     <a href="messages.html" class="nav-card fade-in" style="animation-delay: 0.3s; position: relative;">
                         <div class="notification-count">1</div>
@@ -532,7 +541,7 @@
                         <div class="card-title">Henry</div>
                         <div class="card-subtitle">1 new notification</div>
                     </a>
-                    
+
                     <!-- Journal Card -->
                     <a href="journal.html" class="nav-card fade-in" style="animation-delay: 0.4s;">
                         <div class="card-icon">
@@ -542,7 +551,7 @@
                         <div class="card-subtitle">Write your thoughts</div>
                     </a>
                 </div>
-                
+
                 <!-- Today's Mood Section -->
                 <div class="todays-mood fade-in" style="animation-delay: 0.5s;">
                     <div class="mood-title">How are you feeling today?</div>
@@ -569,7 +578,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Recent Activity -->
                 <div class="recent-activity fade-in" style="animation-delay: 0.6s;">
                     <div class="activity-title">Recent Activity</div>
@@ -595,7 +604,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Bottom Navigation Container -->
             <div class="bottom-nav-container">
                 <div class="bottom-nav">
@@ -626,139 +635,372 @@
                     </a>
                 </div>
             </div>
-            
+
             <!-- Home Indicator -->
             <div class="home-indicator"></div>
         </div>
     </div>
-    
+
     <!-- Script -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        // User Database Class
+        class UserDatabase {
+            constructor() {
+                this.key = 'heyday_users';
+                this.currentUserKey = 'heyday_current_user';
+                this.initDemoData();
+            }
+
+            initDemoData() {
+                let users = this.getAllUsers();
+
+                if (users.length === 0) {
+                    const demoUsers = [
+                        {
+                            id: 1,
+                            username: 'demo_user',
+                            email: 'test@example.com',
+                            password: 'Demo123!',
+                            mood: 'happy',
+                            createdAt: new Date().toISOString(),
+                            name: 'Demo User',
+                            notifications: {
+                                calendar: 2,
+                                mentalHealth: 3,
+                                henry: 1
+                            }
+                        },
+                        {
+                            id: 2,
+                            username: 'joe_user',
+                            email: 'joe@example.com',
+                            password: 'Test123!',
+                            mood: 'good',
+                            createdAt: new Date().toISOString(),
+                            name: 'Joe',
+                            notifications: {
+                                calendar: 2,
+                                mentalHealth: 3,
+                                henry: 1
+                            }
+                        }
+                    ];
+
+                    localStorage.setItem(this.key, JSON.stringify(demoUsers));
+                }
+            }
+
+            getAllUsers() {
+                const users = localStorage.getItem(this.key);
+                return users ? JSON.parse(users) : [];
+            }
+
+            saveAllUsers(users) {
+                localStorage.setItem(this.key, JSON.stringify(users));
+            }
+
+            findUser(identifier) {
+                const users = this.getAllUsers();
+                return users.find(user =>
+                    user.username.toLowerCase() === identifier.toLowerCase() ||
+                    user.email.toLowerCase() === identifier.toLowerCase()
+                );
+            }
+
+            getCurrentUser() {
+                const user = localStorage.getItem(this.currentUserKey);
+                return user ? JSON.parse(user) : null;
+            }
+
+            isLoggedIn() {
+                return localStorage.getItem('heyday_logged_in') === 'true';
+            }
+
+            logout() {
+                localStorage.removeItem(this.currentUserKey);
+                localStorage.removeItem('heyday_logged_in');
+            }
+
+            updateUserMood(userId, mood) {
+                const users = this.getAllUsers();
+                const userIndex = users.findIndex(u => u.id === userId);
+                if (userIndex !== -1) {
+                    users[userIndex].mood = mood;
+                    this.saveAllUsers(users);
+
+                    // Also update current user in session
+                    const currentUser = this.getCurrentUser();
+                    if (currentUser && currentUser.id === userId) {
+                        currentUser.mood = mood;
+                        localStorage.setItem(this.currentUserKey, JSON.stringify(currentUser));
+                    }
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const userDB = new UserDatabase();
+
+            // Check if user is logged in
+            if (!userDB.isLoggedIn()) {
+                // Redirect to login if not logged in
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Get current user
+            const currentUser = userDB.getCurrentUser();
+
+            if (!currentUser) {
+                // If no current user, redirect to login
+                userDB.logout();
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Update welcome message with user's name
+            const greetingMain = document.querySelector('.greeting-main');
+            const greetingSub = document.querySelector('.greeting-sub');
+
+            if (greetingMain) {
+                greetingMain.textContent = `Welcome back, ${currentUser.name || currentUser.username || 'Friend'}!`;
+            }
+
+            if (greetingSub) {
+                greetingSub.textContent = 'Ready for another mindful day?';
+            }
+
+            // Update notification counts from user data
+            if (currentUser.notifications) {
+                const calendarCount = document.querySelector('.nav-card:nth-child(1) .notification-count');
+                const mentalHealthCount = document.querySelector('.nav-card:nth-child(2) .notification-count');
+                const henryCount = document.querySelector('.nav-card:nth-child(3) .notification-count');
+
+                if (calendarCount && currentUser.notifications.calendar) {
+                    calendarCount.textContent = currentUser.notifications.calendar;
+                }
+
+                if (mentalHealthCount && currentUser.notifications.mentalHealth) {
+                    mentalHealthCount.textContent = currentUser.notifications.mentalHealth;
+                }
+
+                if (henryCount && currentUser.notifications.henry) {
+                    henryCount.textContent = currentUser.notifications.henry;
+                }
+
+                // Update total notifications badge
+                const totalNotifications = Object.values(currentUser.notifications).reduce((sum, count) => sum + count, 0);
+                const notificationsBadge = document.querySelector('.notifications-badge');
+                if (notificationsBadge) {
+                    const badgeText = notificationsBadge.querySelector('span') || notificationsBadge;
+                    badgeText.innerHTML = `<i class="fas fa-bell"></i> You have ${totalNotifications} new notifications`;
+                }
+
+                // Update bottom nav badge
+                const navBadge = document.querySelector('.nav-badge');
+                if (navBadge && totalNotifications > 0) {
+                    navBadge.textContent = totalNotifications;
+                }
+            }
+
+            // Set current mood
+            if (currentUser.mood) {
+                const moodOptions = document.querySelectorAll('.mood-option');
+                const moodMap = {
+                    'sad': 'Stressed',
+                    'unhappy': 'Down',
+                    'neutral': 'Neutral',
+                    'happy': 'Good',
+                    'excited': 'Great!'
+                };
+
+                moodOptions.forEach(option => {
+                    const label = option.querySelector('.mood-label').textContent;
+                    const moodValue = Object.keys(moodMap).find(key => moodMap[key] === label);
+
+                    if (moodValue === currentUser.mood) {
+                        option.classList.add('selected');
+                    }
+                });
+            }
+
             // Mood selection
             const moodOptions = document.querySelectorAll('.mood-option');
             moodOptions.forEach(option => {
-                option.addEventListener('click', function() {
+                option.addEventListener('click', function () {
                     moodOptions.forEach(opt => opt.classList.remove('selected'));
                     this.classList.add('selected');
-                    
-                    // Get mood value
+
                     const moodLabel = this.querySelector('.mood-label').textContent;
-                    console.log('Selected mood:', moodLabel);
-                    
-                    // Show feedback
-                    const moodEmoji = this.querySelector('.mood-emoji').textContent;
-                    showFeedback(`Mood set to ${moodLabel} ${moodEmoji}`);
+                    const moodMap = {
+                        'Stressed': 'sad',
+                        'Down': 'unhappy',
+                        'Neutral': 'neutral',
+                        'Good': 'happy',
+                        'Great!': 'excited'
+                    };
+
+                    const moodValue = moodMap[moodLabel];
+                    if (moodValue && currentUser) {
+                        userDB.updateUserMood(currentUser.id, moodValue);
+
+                        // Show feedback
+                        const moodEmoji = this.querySelector('.mood-emoji').textContent;
+                        showFeedback(`Mood updated to ${moodLabel} ${moodEmoji}`);
+                    }
                 });
             });
-            
+
             // Card hover effects
             const cards = document.querySelectorAll('.nav-card');
             cards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
+                card.addEventListener('mouseenter', function () {
                     this.style.transform = 'translateY(-5px) scale(1.03)';
                 });
-                
-                card.addEventListener('mouseleave', function() {
+
+                card.addEventListener('mouseleave', function () {
                     this.style.transform = 'translateY(0) scale(1)';
                 });
             });
-            
+
             // Activity item click
             const activityItems = document.querySelectorAll('.activity-item');
             activityItems.forEach(item => {
-                item.addEventListener('click', function() {
+                item.addEventListener('click', function () {
                     const activityText = this.querySelector('.activity-main').textContent;
-                    console.log('Viewing activity:', activityText);
+                    showFeedback(`Viewing: ${activityText}`);
                 });
             });
-            
+
             // Notification badge click
             const notificationBadge = document.querySelector('.notifications-badge');
-            notificationBadge.addEventListener('click', function(e) {
-                e.preventDefault();
-                window.location.href = 'notifications.html';
-            });
-            
+            if (notificationBadge) {
+                notificationBadge.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    window.location.href = 'notifications.html';
+                });
+            }
+
             // Navigation item clicks
             const navItems = document.querySelectorAll('.nav-item');
             navItems.forEach(item => {
-                item.addEventListener('click', function(e) {
+                item.addEventListener('click', function (e) {
                     if (this.classList.contains('active')) {
                         e.preventDefault();
                         return;
                     }
-                    
+
                     // Remove active class from all
                     navItems.forEach(nav => nav.classList.remove('active'));
                     // Add active to clicked
                     this.classList.add('active');
-                    
+
                     // Show loading feedback
                     const label = this.querySelector('.nav-label').textContent;
                     showFeedback(`Navigating to ${label}...`);
+
+                    // Navigate after delay
+                    const href = this.getAttribute('href');
+                    if (href && href !== 'dashboard.html') {
+                        setTimeout(() => {
+                            window.location.href = href;
+                        }, 300);
+                    }
                 });
             });
-            
+
             // Helper function for feedback
-            function showFeedback(message) {
+            function showFeedback(message, type = 'info') {
+                // Remove existing feedback
+                const existingFeedback = document.querySelector('.feedback-message');
+                if (existingFeedback) existingFeedback.remove();
+
                 // Create feedback element
                 const feedback = document.createElement('div');
+                feedback.className = `feedback-message feedback-${type}`;
                 feedback.style.cssText = `
-                    position: absolute;
-                    top: 100px;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    background: rgba(34, 96, 78, 0.95);
-                    color: white;
-                    padding: 12px 24px;
-                    border-radius: 25px;
-                    font-family: 'Nunito', sans-serif;
-                    font-weight: 600;
-                    font-size: 14px;
-                    z-index: 1000;
-                    animation: slideDown 0.3s ease;
-                    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-                    max-width: 80%;
-                    text-align: center;
-                `;
+                position: fixed;
+                top: 100px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: ${type === 'error' ? 'rgba(231, 76, 60, 0.95)' : 'rgba(34, 96, 78, 0.95)'};
+                color: white;
+                padding: 12px 24px;
+                border-radius: 25px;
+                font-family: 'Nunito', sans-serif;
+                font-weight: 600;
+                font-size: 14px;
+                z-index: 1000;
+                animation: slideDown 0.3s ease;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+                max-width: 80%;
+                text-align: center;
+            `;
                 feedback.textContent = message;
-                document.querySelector('.app-content').appendChild(feedback);
-                
+                document.body.appendChild(feedback);
+
                 // Remove after 2 seconds
                 setTimeout(() => {
                     feedback.style.animation = 'slideUp 0.3s ease forwards';
                     setTimeout(() => feedback.remove(), 300);
                 }, 2000);
             }
-            
+
             // Add animation styles
             const style = document.createElement('style');
             style.textContent = `
-                @keyframes slideDown {
-                    from {
-                        top: 80px;
-                        opacity: 0;
-                    }
-                    to {
-                        top: 100px;
-                        opacity: 1;
-                    }
+            @keyframes slideDown {
+                from {
+                    top: 80px;
+                    opacity: 0;
                 }
-                
-                @keyframes slideUp {
-                    from {
-                        top: 100px;
-                        opacity: 1;
-                    }
-                    to {
-                        top: 80px;
-                        opacity: 0;
-                    }
+                to {
+                    top: 100px;
+                    opacity: 1;
                 }
-            `;
-            document.head.appendChild(style);
+            }
             
+            @keyframes slideUp {
+                from {
+                    top: 100px;
+                    opacity: 1;
+                }
+                to {
+                    top: 80px;
+                    opacity: 0;
+                }
+            }
+            
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(10px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            
+            .fade-in {
+                animation: fadeIn 0.5s ease forwards;
+                opacity: 0;
+            }
+            
+            .nav-item {
+                transition: all 0.3s ease;
+            }
+            
+            .action-btn {
+                transition: all 0.3s ease;
+            }
+            
+            .action-btn:hover {
+                transform: translateY(-5px) scale(1.1);
+            }
+        `;
+            document.head.appendChild(style);
+
             // Simulate loading animation
             const fadeElements = document.querySelectorAll('.fade-in');
             fadeElements.forEach((el, index) => {
@@ -767,12 +1009,73 @@
                     el.style.transform = 'translateY(0)';
                 }, index * 100);
             });
-            
-            // Make app content scrollable
-            const appContent = document.querySelector('.app-content');
-            appContent.style.overflowY = 'auto';
-            appContent.style.height = 'calc(100% - 40px)'; // Adjust for status bar
+
+            // Check content fit
+            const checkFit = () => {
+                const phone = document.querySelector('.phone');
+                const content = document.querySelector('.app-content');
+                const phoneHeight = phone.clientHeight;
+                const contentHeight = content.scrollHeight;
+
+                if (contentHeight > phoneHeight) {
+                    console.log('Dashboard content fits perfectly!');
+                }
+            };
+
+            window.addEventListener('load', checkFit);
+            window.addEventListener('resize', checkFit);
+
+            // Logout functionality (optional - add logout button if needed)
+            function setupLogout() {
+                const logoutBtn = document.createElement('button');
+                logoutBtn.innerHTML = '<i class="fas fa-sign-out-alt"></i>';
+                logoutBtn.style.cssText = `
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                background: rgba(231, 76, 60, 0.2);
+                border: 2px solid rgba(231, 76, 60, 0.3);
+                color: #e74c3c;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                z-index: 10;
+            `;
+                logoutBtn.title = 'Logout';
+
+                logoutBtn.addEventListener('mouseenter', () => {
+                    logoutBtn.style.background = 'rgba(231, 76, 60, 0.3)';
+                    logoutBtn.style.transform = 'scale(1.1)';
+                });
+
+                logoutBtn.addEventListener('mouseleave', () => {
+                    logoutBtn.style.background = 'rgba(231, 76, 60, 0.2)';
+                    logoutBtn.style.transform = 'scale(1)';
+                });
+
+                logoutBtn.addEventListener('click', () => {
+                    if (confirm('Are you sure you want to logout?')) {
+                        userDB.logout();
+                        window.location.href = 'login.html';
+                    }
+                });
+
+                // Add logout button to phone container
+                const phone = document.querySelector('.phone');
+                if (phone) {
+                    phone.appendChild(logoutBtn);
+                }
+            }
+
+            // Uncomment to enable logout button
+            setupLogout();
         });
     </script>
 </body>
+
 </html>
