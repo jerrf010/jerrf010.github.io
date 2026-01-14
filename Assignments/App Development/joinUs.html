@@ -139,39 +139,18 @@
                             <div class="error-message" id="passwordError">Password must be stronger</div>
                         </div>
 
-                        <!-- Password Strength Indicator -->
-                        <div class="password-strength" style="margin-top: 10px;">
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                                <span style="font-size: 12px; color: #2d5a3d; font-weight: 600;">Password
-                                    Strength:</span>
-                                <span style="font-size: 12px; color: #2d5a3d; font-weight: 600;"
-                                    id="strengthText">Weak</span>
-                            </div>
-                            <div style="height: 4px; background: #e0e0e0; border-radius: 2px; overflow: hidden;">
-                                <div id="strengthBar"
-                                    style="height: 100%; width: 0%; background: #e74c3c; transition: width 0.3s, background 0.3s;">
-                                </div>
-                            </div>
-                        </div>
-
                         <!-- Terms and Conditions -->
                         <div class="terms-section">
                             <div class="terms-box">
-                                <div class="terms-line">
-                                    <label class="terms-label">
-                                        <input type="checkbox" name="terms" id="terms" required>
-                                        <span class="checkmark"></span>
-                                        <span class="consent-text">I consent to agree with Our</span>
-                                    </label>
-                                    <a href="https://jerrf010.github.io/Assignments/App%20Development/TermsAndConditions/index.html"
-                                        class="terms-link">
-                                        Terms and Conditions
-                                    </a>
-                                </div>
-                                <div class="error-message" id="termsError" style="margin-top: 10px;">You must agree to
-                                    the terms</div>
+                                <label class="terms-label">
+                                    <input type="checkbox" name="consent" id="consent" required>
+                                    <span class="checkmark"></span>
+                                    <span>I agree with our <a href="https://jerrf010.github.io/Assignments/App%20Development/TermsAndConditions/index.html" class="terms-link">Terms and Conditions</a></span>
+                                </label>
                             </div>
+                            <p class="terms-note"><i class="fas fa-lock"></i> Your data is private and secure</p>
                         </div>
+                        
                         <!-- Mood Tracker -->
                         <div class="mood-tracker">
                             <label class="mood-label">How are you feeling?</label>

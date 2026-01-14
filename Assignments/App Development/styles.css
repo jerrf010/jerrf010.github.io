@@ -711,7 +711,6 @@ body {
 
 /* Footer - Universal */
 .footer {
-    margin-top: 25px;
     padding-top: 20px;
     text-align: center;
     width: 100%;
@@ -728,7 +727,6 @@ body {
     font-size: 14px;
     color: rgba(255, 255, 255, 0.9);
     font-style: italic;
-    margin-top: 5px;
 }
 
 .footer i {
@@ -973,7 +971,6 @@ body {
     font-size: 15px;
     transition: color 0.3s ease;
     flex-shrink: 0;
-    margin-left: -5px;
 }
 
 .terms-link:hover {
