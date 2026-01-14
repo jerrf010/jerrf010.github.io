@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications -- Hey, Day</title>
+    <link rel="icon" href="https://github.com/jerrf010/basic_html/blob/main/park_with_shades.png?raw=true" type="image/icon type">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Chewy&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Notifications Page Styles */
+        .notifications-header {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+            padding-top: 10px;
+        }
+        
+        .notifications-title {
+            font-family: 'Chewy', cursive;
+            font-size: 40px;
+            color: #1a3c27;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .notifications-subtitle {
+            font-family: 'Nunito', sans-serif;
+            font-size: 16px;
+            color: #2d5a3d;
+            font-weight: 600;
+            opacity: 0.9;
+        }
+        
+        .greeting-text {
+            font-family: 'Nunito', sans-serif;
+            font-size: 20px;
+            color: #1a3c27;
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px 25px;
+            border-radius: 20px;
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .greeting-text span {
+            color: #22604e;
+            font-weight: 800;
+        }
+        
+        /* Notifications Sections */
+        .notifications-section {
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s ease forwards;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(34, 96, 78, 0.2);
+        }
+        
+        .section-title {
+            font-family: 'Nunito', sans-serif;
+            font-size: 22px;
+            color: #1a3c27;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #ffffff 0%, #e8f5e9 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-icon i {
+            font-size: 20px;
+            color: #22604e;
+        }
+        
+        .notification-count {
+            background: linear-gradient(135deg, #86b499 0%, #6a9c7d 100%);
+            color: white;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 800;
+            font-size: 16px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Notification Items */
+        .notification-item {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(34, 96, 78, 0.1);
+            border-radius: 18px;
+            padding: 18px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+            position: relative;
+        }
+        
+        .notification-item:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+            border-color: rgba(34, 96, 78, 0.3);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .notification-item.unread {
+            background: rgba(134, 180, 153, 0.2);
+            border-color: rgba(134, 180, 153, 0.4);
+        }
+        
+        .notification-item.unread::before {
+            content: '';
+            position: absolute;
+            left: -2px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            background: linear-gradient(135deg, #86b499 0%, #6a9c7d 100%);
+            border-radius: 50%;
+        }
+        
+        .notification-content {
+            font-family: 'Nunito', sans-serif;
+            font-size: 16px;
+            color: #2d5a3d;
+            line-height: 1.5;
+            padding-left: 10px;
+        }
+        
+        .notification-content strong {
+            color: #1a3c27;
+        }
+        
+        .notification-time {
+            font-family: 'Nunito', sans-serif;
+            font-size: 13px;
+            color: rgba(34, 96, 78, 0.7);
+            margin-top: 8px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding-left: 10px;
+        }
+        
+        .notification-time i {
+            font-size: 12px;
+        }
+        
+        /* Action Buttons */
+        .actions-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 25px 0;
+        }
+        
+        .action-button {
+            flex: 1;
+            max-width: 200px;
+            height: 60px;
+            background: linear-gradient(135deg, #ffffff 0%, #e8f5e9 100%);
+            border: 2px solid rgba(34, 96, 78, 0.2);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Nunito', sans-serif;
+            font-size: 16px;
+            color: #1a3c27;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .action-button:hover {
+            background: linear-gradient(135deg, #ffffff 0%, #d4edda 100%);
+            transform: translateY(-3px);
+            border-color: rgba(34, 96, 78, 0.4);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .action-button i {
+            font-size: 20px;
+            color: #22604e;
+        }
+        
+        /* Bottom Navigation - Inside Phone Container */
+        .bottom-nav-container {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            width: 100%;
+        }
+        
+        .bottom-nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 25px;
+            padding: 15px 10px;
+            margin: 0 30px;
+            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(34, 96, 78, 0.2);
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 65px;
+            height: 65px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            position: relative;
+            border-radius: 18px;
+        }
+        
+        .nav-item.active {
+            background: rgba(34, 96, 78, 0.15);
+            transform: translateY(-10px);
+        }
+        
+        .nav-item:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-5px);
+        }
+        
+        .nav-icon {
+            font-size: 22px;
+            color: #22604e;
+            margin-bottom: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-item.active .nav-icon {
+            color: #1a3c27;
+            transform: scale(1.1);
+        }
+        
+        .nav-label {
+            font-family: 'Nunito', sans-serif;
+            font-size: 10px;
+            color: #1a3c27;
+            font-weight: 700;
+        }
+        
+        .nav-item.active .nav-label {
+            color: #22604e;
+            font-weight: 800;
+        }
+        
+        .nav-badge {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%);
+            color: white;
+            font-family: 'Nunito', sans-serif;
+            font-size: 10px;
+            font-weight: 800;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 8px rgba(255, 82, 82, 0.4);
+        }
+        
+        /* Phone Container Adjustments */
+        .phone {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .app-content {
+            height: calc(100% - 40px);
+            overflow-y: auto;
+            padding-bottom: 120px; /* Space for bottom nav */
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        
+        /* Custom scrollbar for app content */
+        .app-content::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .app-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        
+        .app-content::-webkit-scrollbar-thumb {
+            background: #22604e;
+            border-radius: 10px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 600px) {
+            .notifications-title {
+                font-size: 34px;
+            }
+            
+            .greeting-text {
+                font-size: 18px;
+                padding: 12px 20px;
+            }
+            
+            .section-title {
+                font-size: 20px;
+            }
+            
+            .notification-content {
+                font-size: 15px;
+            }
+            
+            .actions-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .action-button {
+                width: 100%;
+                max-width: 250px;
+            }
+            
+            .bottom-nav {
+                margin: 0 20px;
+                padding: 12px 8px;
+            }
+            
+            .nav-item {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .nav-icon {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Decorative Elements -->
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+        <div class="leaf leaf-1"></div>
+        <div class="leaf leaf-2"></div>
+        <div class="leaf leaf-3"></div>
+        
+        <!-- Phone Container -->
+        <div class="phone" id="main-page">
+            <!-- Phone Notch -->
+            <div class="phone-notch"></div>
+            
+            <!-- Status Bar -->
+            <div class="status-bar">
+                <span>9:41</span>
+                <div class="status-icons">
+                    <i class="fas fa-signal"></i>
+                    <i class="fas fa-wifi"></i>
+                    <i class="fas fa-battery-three-quarters"></i>
+                </div>
+            </div>
+            
+            <!-- App Content -->
+            <div class="app-content">
+                <!-- Header -->
+                <div class="notifications-header">
+                    <h1 class="notifications-title">Notifications</h1>
+                    <p class="notifications-subtitle">Your latest updates</p>
+                </div>
+                
+                <!-- Greeting -->
+                <div class="greeting-text">
+                    Welcome back, <span>Joe!!</span>
+                </div>
+                
+                <!-- Notifications Container -->
+                <div class="notifications-container">
+                    <!-- Calendar Notifications -->
+                    <div class="notifications-section" style="animation-delay: 0.1s;">
+                        <div class="section-header">
+                            <div class="section-title">
+                                <div class="section-icon">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </div>
+                                Calendar
+                            </div>
+                            <div class="notification-count">2</div>
+                        </div>
+                        
+                        <div class="notification-item unread">
+                            <div class="notification-content">
+                                <strong>Morning Meditation Reminder</strong><br>
+                                Your daily meditation session starts in 15 minutes.
+                            </div>
+                            <div class="notification-time">
+                                <i class="far fa-clock"></i>
+                                9:15 AM · Today
+                            </div>
+                        </div>
+                        
+                        <div class="notification-item unread">
+                            <div class="notification-content">
+                                <strong>Weekly Check-in Scheduled</strong><br>
+                                Don't forget your weekly wellness check-in tomorrow at 10 AM.
+                            </div>
+                            <div class="notification-time">
+                                <i class="far fa-clock"></i>
+                                8:30 AM · Today
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Mental Health Notifications -->
+                    <div class="notifications-section" style="animation-delay: 0.2s;">
+                        <div class="section-header">
+                            <div class="section-title">
+                                <div class="section-icon">
+                                    <i class="fas fa-brain"></i>
+                                </div>
+                                Mental Health
+                            </div>
+                            <div class="notification-count">3</div>
+                        </div>
+                        
+                        <div class="notification-item unread">
+                            <div class="notification-content">
+                                <strong>Mood Trend Alert</strong><br>
+                                We've noticed positive changes in your mood patterns this week!
+                            </div>
+                            <div class="notification-time">
+                                <i class="far fa-clock"></i>
+                                2 hours ago
+                            </div>
+                        </div>
+                        
+                        <div class="notification-item">
+                            <div class="notification-content">
+                                <strong>New Breathing Exercise Available</strong><br>
+                                Try our new 5-minute stress relief breathing exercise.
+                            </div>
+                            <div class="notification-time">
+                                <i class="far fa-clock"></i>
+                                Yesterday
+                            </div>
+                        </div>
+                        
+                        <div class="notification-item unread">
+                            <div class="notification-content">
+                                <strong>Daily Journal Prompt</strong><br>
+                                "What are three things you're grateful for today?"
+                            </div>
+                            <div class="notification-time">
+                                <i class="far fa-clock"></i>
+                                1 day ago
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Henry's Notification -->
+                    <div class="notifications-section" style="animation-delay: 0.3s;">
+                        <div class="section-header">
+                            <div class="section-title">
+                                <div class="section-icon">
+                                    <i class="fas fa-user-friends"></i>
+                                </div>
+                                Henry
+                            </div>
+                            <div class="notification-count">1</div>
+                        </div>
+                        
+                        <div class="notification-item unread">
+                            <div class="notification-content">
+                                <strong>Henry sent you a message</strong><br>
+                                "Hey Joe! How's your mindfulness practice going? I tried that breathing exercise you recommended!"
+                            </div>
+                            <div class="notification-time">
+                                <i class="far fa-clock"></i>
+                                45 minutes ago
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="actions-container">
+                    <a href="#" class="action-button" id="markAllRead">
+                        <i class="fas fa-check-double"></i>
+                        Mark All as Read
+                    </a>
+                    <a href="dashboard.html" class="action-button" id="goToHome">
+                        <i class="fas fa-home"></i>
+                        Back to Home
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Bottom Navigation Container -->
+            <div class="bottom-nav-container">
+                <div class="bottom-nav">
+                    <a href="dashboard.html" class="nav-item">
+                        <div class="nav-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="nav-label">Home</div>
+                    </a>
+                    <a href="explore.html" class="nav-item">
+                        <div class="nav-icon">
+                            <i class="fas fa-compass"></i>
+                        </div>
+                        <div class="nav-label">Explore</div>
+                    </a>
+                    <a href="notifications.html" class="nav-item active">
+                        <div class="nav-icon">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <div class="nav-label">Alerts</div>
+                        <div class="nav-badge pulse-animation">6</div>
+                    </a>
+                    <a href="profile.html" class="nav-item">
+                        <div class="nav-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="nav-label">Profile</div>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Home Indicator -->
+            <div class="home-indicator"></div>
+        </div>
+    </div>
+    
+    <!-- Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mark all as read functionality
+            const markAllReadBtn = document.getElementById('markAllRead');
+            const notificationItems = document.querySelectorAll('.notification-item.unread');
+            const navBadge = document.querySelector('.nav-badge');
+            
+            markAllReadBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                let count = 0;
+                notificationItems.forEach(item => {
+                    item.classList.remove('unread');
+                    item.style.opacity = '0.8';
+                    count++;
+                });
+                
+                // Update notification counts
+                document.querySelectorAll('.notification-count').forEach(countElement => {
+                    countElement.textContent = '0';
+                    countElement.style.background = 'rgba(34, 96, 78, 0.3)';
+                });
+                
+                // Update nav badge
+                navBadge.textContent = '0';
+                navBadge.style.background = 'rgba(34, 96, 78, 0.3)';
+                navBadge.classList.remove('pulse-animation');
+                
+                // Show confirmation
+                showFeedback(`Marked ${count} notifications as read!`);
+                
+                // Update button text
+                markAllReadBtn.innerHTML = '<i class="fas fa-check"></i> All Read';
+                markAllReadBtn.style.background = 'linear-gradient(135deg, #86b499 0%, #6a9c7d 100%)';
+                markAllReadBtn.style.color = 'white';
+                markAllReadBtn.style.cursor = 'default';
+                markAllReadBtn.style.opacity = '0.8';
+                markAllReadBtn.removeEventListener('click', arguments.callee);
+            });
+            
+            // Notification item click functionality
+            document.querySelectorAll('.notification-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const wasUnread = this.classList.contains('unread');
+                    this.classList.remove('unread');
+                    
+                    // Update the corresponding section count
+                    const section = this.closest('.notifications-section');
+                    if (section && wasUnread) {
+                        const countElement = section.querySelector('.notification-count');
+                        let currentCount = parseInt(countElement.textContent);
+                        
+                        if (currentCount > 0) {
+                            currentCount--;
+                            countElement.textContent = currentCount;
+                            
+                            if (currentCount === 0) {
+                                countElement.style.background = 'rgba(34, 96, 78, 0.3)';
+                            }
+                        }
+                        
+                        // Update nav badge
+                        updateNavBadge();
+                    }
+                    
+                    // Visual feedback
+                    this.style.transform = 'translateY(-3px) scale(1.02)';
+                    setTimeout(() => {
+                        this.style.transform = 'translateY(-3px)';
+                    }, 150);
+                });
+            });
+            
+            // Update navigation badge count
+            function updateNavBadge() {
+                const totalCount = Array.from(document.querySelectorAll('.notification-count'))
+                    .reduce((sum, el) => sum + parseInt(el.textContent), 0);
+                
+                navBadge.textContent = totalCount;
+                
+                if (totalCount === 0) {
+                    navBadge.style.background = 'rgba(34, 96, 78, 0.3)';
+                    navBadge.classList.remove('pulse-animation');
+                } else {
+                    navBadge.style.background = 'linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%)';
+                    navBadge.classList.add('pulse-animation');
+                }
+            }
+            
+            // Button hover effects
+            const actionButtons = document.querySelectorAll('.action-button');
+            actionButtons.forEach(button => {
+                if (!button.id.includes('markAllRead')) {
+                    button.addEventListener('mouseenter', function() {
+                        this.style.transform = 'translateY(-3px)';
+                    });
+                    
+                    button.addEventListener('mouseleave', function() {
+                        this.style.transform = 'translateY(0)';
+                    });
+                }
+            });
+            
+            // Animate notification sections on load
+            const sections = document.querySelectorAll('.notifications-section');
+            sections.forEach((section, index) => {
+                setTimeout(() => {
+                    section.style.animation = 'fadeInUp 0.5s ease forwards';
+                }, index * 100);
+            });
+            
+            // Navigation item clicks
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    if (this.classList.contains('active')) {
+                        e.preventDefault();
+                        return;
+                    }
+                    
+                    // Remove active class from all
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    // Add active to clicked
+                    this.classList.add('active');
+                    
+                    // If not the current page, navigate
+                    if (!this.href.includes('notifications.html')) {
+                        setTimeout(() => {
+                            window.location.href = this.href;
+                        }, 300);
+                    }
+                });
+            });
+            
+            // Helper function for feedback
+            function showFeedback(message) {
+                // Create feedback element
+                const feedback = document.createElement('div');
+                feedback.style.cssText = `
+                    position: absolute;
+                    top: 150px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: rgba(34, 96, 78, 0.95);
+                    color: white;
+                    padding: 12px 24px;
+                    border-radius: 25px;
+                    font-family: 'Nunito', sans-serif;
+                    font-weight: 600;
+                    font-size: 14px;
+                    z-index: 1000;
+                    animation: slideDown 0.3s ease;
+                    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+                    max-width: 80%;
+                    text-align: center;
+                `;
+                feedback.textContent = message;
+                document.querySelector('.app-content').appendChild(feedback);
+                
+                // Remove after 2 seconds
+                setTimeout(() => {
+                    feedback.style.animation = 'slideUp 0.3s ease forwards';
+                    setTimeout(() => feedback.remove(), 300);
+                }, 2000);
+            }
+            
+            // Add animation styles
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideDown {
+                    from {
+                        top: 130px;
+                        opacity: 0;
+                    }
+                    to {
+                        top: 150px;
+                        opacity: 1;
+                    }
+                }
+                
+                @keyframes slideUp {
+                    from {
+                        top: 150px;
+                        opacity: 1;
+                    }
+                    to {
+                        top: 130px;
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Make app content scrollable
+            const appContent = document.querySelector('.app-content');
+            appContent.style.overflowY = 'auto';
+            appContent.style.height = 'calc(100% - 40px)';
+        });
+    </script>
+</body>
+</html>

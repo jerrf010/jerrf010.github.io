@@ -207,54 +207,12 @@
             font-weight: 600;
         }
         
-        /* Quick Actions */
-        .quick-actions {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin: 25px 0;
-        }
-        
-        .action-btn {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, #ffffff 0%, #e8f5e9 100%);
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        .action-btn:hover {
-            transform: translateY(-5px) scale(1.1);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
-        }
-        
-        .action-icon {
-            font-size: 24px;
-            color: #22604e;
-            margin-bottom: 6px;
-        }
-        
-        .action-label {
-            font-family: 'Nunito', sans-serif;
-            font-size: 10px;
-            color: #1a3c27;
-            font-weight: 700;
-            text-align: center;
-        }
-        
         /* Recent Activity */
         .recent-activity {
             background: rgba(255, 255, 255, 0.15);
             border-radius: 25px;
             padding: 20px;
-            margin-top: 15px;
+            margin: 20px 0 100px 0; /* Extra margin for bottom nav */
             -webkit-backdrop-filter: blur(5px);
             backdrop-filter: blur(5px);
             border: 2px solid rgba(255, 255, 255, 0.1);
@@ -262,13 +220,11 @@
         
         .activity-title {
             font-family: 'Nunito', sans-serif;
-            font-size: 16px;
+            font-size: 18px;
             color: #1a3c27;
             font-weight: 700;
             margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            text-align: center;
         }
         
         .activity-list {
@@ -326,15 +282,27 @@
             font-weight: 600;
         }
         
-        /* Bottom Navigation */
-        .bottom-nav {
+        /* Bottom Navigation - Inside Phone Container */
+        .bottom-nav-container {
             position: absolute;
-            bottom: 0px;
+            bottom: 20px;
             left: 0;
             right: 0;
+            width: 100%;
+        }
+        
+        .bottom-nav {
             display: flex;
             justify-content: space-around;
-            padding: 0 30px;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 25px;
+            padding: 15px 10px;
+            margin: 20px 30px;
+            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(34, 96, 78, 0.2);
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
         }
         
         .nav-item {
@@ -342,33 +310,35 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            width: 60px;
-            height: 60px;
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 20px;
+            width: 65px;
+            height: 65px;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
-            -webkit-backdrop-filter: blur(5px);
-            backdrop-filter: blur(5px);
-            border: 2px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            border-radius: 18px;
         }
         
         .nav-item.active {
-            background: rgba(34, 96, 78, 0.3);
-            border-color: rgba(34, 96, 78, 0.4);
+            background: rgba(34, 96, 78, 0.15);
+            transform: translateY(-10px);
+        }
+        
+        .nav-item:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.3);
             transform: translateY(-5px);
         }
         
-        .nav-item:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-3px);
+        .nav-icon {
+            font-size: 22px;
+            color: #22604e;
+            margin-bottom: 5px;
+            transition: all 0.3s ease;
         }
         
-        .nav-icon {
-            font-size: 20px;
-            color: #22604e;
-            margin-bottom: 4px;
+        .nav-item.active .nav-icon {
+            color: #1a3c27;
+            transform: scale(1.1);
         }
         
         .nav-label {
@@ -376,6 +346,41 @@
             font-size: 10px;
             color: #1a3c27;
             font-weight: 700;
+        }
+        
+        .nav-item.active .nav-label {
+            color: #22604e;
+            font-weight: 800;
+        }
+        
+        .nav-badge {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%);
+            color: white;
+            font-family: 'Nunito', sans-serif;
+            font-size: 10px;
+            font-weight: 800;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 8px rgba(255, 82, 82, 0.4);
+        }
+        
+        /* Phone Container Adjustments for Bottom Nav */
+        .phone {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .app-content {
+            height: calc(100% - 40px);
+            overflow-y: auto;
+            padding-bottom: 120px; /* Space for bottom nav */
         }
         
         /* Animations */
@@ -392,6 +397,22 @@
         
         .fade-in {
             animation: fadeIn 0.5s ease forwards;
+            opacity: 0;
+        }
+        
+        /* Custom scrollbar for app content */
+        .app-content::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .app-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        
+        .app-content::-webkit-scrollbar-thumb {
+            background: #22604e;
+            border-radius: 10px;
         }
         
         /* Responsive */
@@ -421,13 +442,18 @@
                 font-size: 24px;
             }
             
-            .action-btn {
-                width: 65px;
-                height: 65px;
+            .bottom-nav {
+                margin: 0 20px;
+                padding: 12px 8px;
             }
             
-            .bottom-nav {
-                padding: 0 20px;
+            .nav-item {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .nav-icon {
+                font-size: 20px;
             }
         }
     </style>
@@ -544,44 +570,13 @@
                     </div>
                 </div>
                 
-                <!-- Quick Actions -->
-                <div class="quick-actions fade-in" style="animation-delay: 0.6s;">
-                    <a href="meditation.html" class="action-btn">
-                        <div class="action-icon">
-                            <i class="fas fa-spa"></i>
-                        </div>
-                        <div class="action-label">Meditate</div>
-                    </a>
-                    <a href="breathing.html" class="action-btn">
-                        <div class="action-icon">
-                            <i class="fas fa-wind"></i>
-                        </div>
-                        <div class="action-label">Breathe</div>
-                    </a>
-                    <a href="mood-track.html" class="action-btn">
-                        <div class="action-icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <div class="action-label">Track</div>
-                    </a>
-                    <a href="goals.html" class="action-btn">
-                        <div class="action-icon">
-                            <i class="fas fa-bullseye"></i>
-                        </div>
-                        <div class="action-label">Goals</div>
-                    </a>
-                </div>
-                
                 <!-- Recent Activity -->
-                <div class="recent-activity fade-in" style="animation-delay: 0.7s;">
-                    <div class="activity-title">
-                        <span>Recent Activity</span>
-                        <span style="font-size: 12px; color: #22604e;">View All</span>
-                    </div>
+                <div class="recent-activity fade-in" style="animation-delay: 0.6s;">
+                    <div class="activity-title">Recent Activity</div>
                     <div class="activity-list">
                         <div class="activity-item">
                             <div class="activity-icon">
-                                <i class="fas fa-brain"></i>
+                                <i class="fas fa-spa"></i>
                             </div>
                             <div class="activity-content">
                                 <div class="activity-main">Morning Meditation Completed</div>
@@ -597,19 +592,12 @@
                                 <div class="activity-time">Yesterday · 6:00 PM</div>
                             </div>
                         </div>
-                        <div class="activity-item">
-                            <div class="activity-icon">
-                                <i class="fas fa-book"></i>
-                            </div>
-                            <div class="activity-content">
-                                <div class="activity-main">Journal Entry Added</div>
-                                <div class="activity-time">Yesterday · 9:15 PM</div>
-                            </div>
-                        </div>
                     </div>
                 </div>
-                
-                <!-- Bottom Navigation -->
+            </div>
+            
+            <!-- Bottom Navigation Container -->
+            <div class="bottom-nav-container">
                 <div class="bottom-nav">
                     <a href="dashboard.html" class="nav-item active">
                         <div class="nav-icon">
@@ -627,9 +615,8 @@
                         <div class="nav-icon">
                             <i class="fas fa-bell"></i>
                         </div>
-                        <div class="nav-label">
-                            <span style="color: #ff6b6b;">Alerts</span>
-                        </div>
+                        <div class="nav-label">Alerts</div>
+                        <div class="nav-badge">6</div>
                     </a>
                     <a href="profile.html" class="nav-item">
                         <div class="nav-icon">
@@ -638,9 +625,6 @@
                         <div class="nav-label">Profile</div>
                     </a>
                 </div>
-                
-                <!-- Spacer for bottom nav -->
-                <div style="height: 100px;"></div>
             </div>
             
             <!-- Home Indicator -->
@@ -680,42 +664,6 @@
                 });
             });
             
-            // Action button effects
-            const actionBtns = document.querySelectorAll('.action-btn');
-            actionBtns.forEach(btn => {
-                btn.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-8px) scale(1.15)';
-                });
-                
-                btn.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(-5px) scale(1.1)';
-                });
-                
-                btn.addEventListener('mousedown', function() {
-                    this.style.transform = 'translateY(-2px) scale(1.05)';
-                });
-                
-                btn.addEventListener('mouseup', function() {
-                    this.style.transform = 'translateY(-8px) scale(1.15)';
-                });
-            });
-            
-            // Navigation item effects
-            const navItems = document.querySelectorAll('.nav-item');
-            navItems.forEach(item => {
-                item.addEventListener('mouseenter', function() {
-                    if (!this.classList.contains('active')) {
-                        this.style.transform = 'translateY(-5px)';
-                    }
-                });
-                
-                item.addEventListener('mouseleave', function() {
-                    if (!this.classList.contains('active')) {
-                        this.style.transform = 'translateY(0)';
-                    }
-                });
-            });
-            
             // Activity item click
             const activityItems = document.querySelectorAll('.activity-item');
             activityItems.forEach(item => {
@@ -732,13 +680,33 @@
                 window.location.href = 'notifications.html';
             });
             
+            // Navigation item clicks
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    if (this.classList.contains('active')) {
+                        e.preventDefault();
+                        return;
+                    }
+                    
+                    // Remove active class from all
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    // Add active to clicked
+                    this.classList.add('active');
+                    
+                    // Show loading feedback
+                    const label = this.querySelector('.nav-label').textContent;
+                    showFeedback(`Navigating to ${label}...`);
+                });
+            });
+            
             // Helper function for feedback
             function showFeedback(message) {
                 // Create feedback element
                 const feedback = document.createElement('div');
                 feedback.style.cssText = `
-                    position: fixed;
-                    top: 20px;
+                    position: absolute;
+                    top: 100px;
                     left: 50%;
                     transform: translateX(-50%);
                     background: rgba(34, 96, 78, 0.95);
@@ -755,7 +723,7 @@
                     text-align: center;
                 `;
                 feedback.textContent = message;
-                document.body.appendChild(feedback);
+                document.querySelector('.app-content').appendChild(feedback);
                 
                 // Remove after 2 seconds
                 setTimeout(() => {
@@ -769,22 +737,22 @@
             style.textContent = `
                 @keyframes slideDown {
                     from {
-                        top: -50px;
+                        top: 80px;
                         opacity: 0;
                     }
                     to {
-                        top: 20px;
+                        top: 100px;
                         opacity: 1;
                     }
                 }
                 
                 @keyframes slideUp {
                     from {
-                        top: 20px;
+                        top: 100px;
                         opacity: 1;
                     }
                     to {
-                        top: -50px;
+                        top: 80px;
                         opacity: 0;
                     }
                 }
@@ -799,6 +767,11 @@
                     el.style.transform = 'translateY(0)';
                 }, index * 100);
             });
+            
+            // Make app content scrollable
+            const appContent = document.querySelector('.app-content');
+            appContent.style.overflowY = 'auto';
+            appContent.style.height = 'calc(100% - 40px)'; // Adjust for status bar
         });
     </script>
 </body>
