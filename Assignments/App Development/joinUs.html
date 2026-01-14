@@ -59,6 +59,76 @@
         .mood-btn {
             transition: all 0.2s ease;
         }
+        
+        /* Success animation */
+        .success-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 60, 39, 0.95);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .success-content {
+            text-align: center;
+            color: white;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .success-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            color: #86b499;
+            animation: bounce 1s ease infinite;
+        }
+        
+        .success-text {
+            font-family: 'Chewy', cursive;
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+        
+        .success-subtext {
+            font-family: 'Nunito', sans-serif;
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        
+        .loading-spinner {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #86b499;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
 
@@ -71,6 +141,18 @@
         <div class="leaf leaf-1"></div>
         <div class="leaf leaf-2"></div>
         <div class="leaf leaf-3"></div>
+
+        <!-- Success Animation Overlay -->
+        <div class="success-animation" id="successOverlay">
+            <div class="success-content">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="success-text">Welcome to Hey, Day!</div>
+                <div class="success-subtext">Creating your account...</div>
+                <div class="loading-spinner" id="loadingSpinner"></div>
+            </div>
+        </div>
 
         <!-- Phone Container -->
         <div class="phone Chewy" id="main-page">
@@ -139,18 +221,39 @@
                             <div class="error-message" id="passwordError">Password must be stronger</div>
                         </div>
 
+                        <!-- Password Strength Indicator -->
+                        <div class="password-strength" style="margin-top: 10px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                <span style="font-size: 12px; color: #2d5a3d; font-weight: 600;">Password
+                                    Strength:</span>
+                                <span style="font-size: 12px; color: #2d5a3d; font-weight: 600;"
+                                    id="strengthText">Weak</span>
+                            </div>
+                            <div style="height: 4px; background: #e0e0e0; border-radius: 2px; overflow: hidden;">
+                                <div id="strengthBar"
+                                    style="height: 100%; width: 0%; background: #e74c3c; transition: width 0.3s, background 0.3s;">
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Terms and Conditions -->
                         <div class="terms-section">
                             <div class="terms-box">
-                                <label class="terms-label">
-                                    <input type="checkbox" name="consent" id="consent" required>
-                                    <span class="checkmark"></span>
-                                    <span>I agree with our <a href="https://jerrf010.github.io/Assignments/App%20Development/TermsAndConditions/index.html" class="terms-link">Terms and Conditions</a></span>
-                                </label>
+                                <div class="terms-line">
+                                    <label class="terms-label">
+                                        <input type="checkbox" name="terms" id="terms" required>
+                                        <span class="checkmark"></span>
+                                        <span class="consent-text">I consent to agree with Our</span>
+                                    </label>
+                                    <a href="https://jerrf010.github.io/Assignments/App%20Development/TermsAndConditions/index.html"
+                                        class="terms-link">
+                                        Terms and Conditions
+                                    </a>
+                                </div>
+                                <div class="error-message" id="termsError" style="margin-top: 10px;">You must agree to
+                                    the terms</div>
                             </div>
-                            <p class="terms-note"><i class="fas fa-lock"></i> Your data is private and secure</p>
                         </div>
-                        
                         <!-- Mood Tracker -->
                         <div class="mood-tracker">
                             <label class="mood-label">How are you feeling?</label>
@@ -192,16 +295,19 @@
     </div>
 
     <!-- Script -->
-    <!-- Script -->
-    <!-- Script -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const emailInput = document.getElementById("email");
             const passwordInput = document.getElementById("password");
+            const usernameInput = document.getElementById("username");
+            const termsCheckbox = document.getElementById("terms");
             const submitButton = document.getElementById("submitButton");
             const togglePasswordBtn = document.getElementById("togglePassword");
             const toggleIcon = togglePasswordBtn.querySelector("i");
             const moodButtons = document.querySelectorAll(".mood-btn");
+            const signupForm = document.getElementById("signupForm");
+            const successOverlay = document.getElementById("successOverlay");
+            const loadingSpinner = document.getElementById("loadingSpinner");
             let selectedMood = null;
 
             /* ---------- MOOD SELECTION TOGGLE ---------- */
@@ -219,9 +325,8 @@
                         button.classList.add("selected");
                         selectedMood = button;
 
-                        // Optional: Log the selected mood
-                        const mood = button.getAttribute("data-mood");
-                        console.log("Selected mood:", mood);
+                        // Update form validation
+                        updateSubmitState();
                     }
                 });
             });
@@ -244,6 +349,12 @@
                 );
             });
 
+            /* ---------- USERNAME VALIDATION ---------- */
+            function validateUsername(username) {
+                const regex = /^[a-zA-Z0-9_]{3,20}$/;
+                return regex.test(username);
+            }
+
             /* ---------- EMAIL VALIDATION ---------- */
             function validateEmail(email) {
                 const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -264,6 +375,38 @@
             function isPasswordStrong(password) {
                 const rules = validatePassword(password);
                 return Object.values(rules).every(Boolean);
+            }
+
+            /* ---------- PASSWORD STRENGTH INDICATOR ---------- */
+            function updatePasswordStrength(password) {
+                const rules = validatePassword(password);
+                const strengthBar = document.getElementById("strengthBar");
+                const strengthText = document.getElementById("strengthText");
+                
+                let strength = 0;
+                let totalRules = 5;
+                
+                Object.values(rules).forEach(isValid => {
+                    if (isValid) strength++;
+                });
+                
+                const percentage = (strength / totalRules) * 100;
+                strengthBar.style.width = percentage + "%";
+                
+                // Update color and text based on strength
+                if (strength <= 2) {
+                    strengthBar.style.background = "#e74c3c";
+                    strengthText.textContent = "Weak";
+                    strengthText.style.color = "#e74c3c";
+                } else if (strength === 3 || strength === 4) {
+                    strengthBar.style.background = "#f39c12";
+                    strengthText.textContent = "Good";
+                    strengthText.style.color = "#f39c12";
+                } else {
+                    strengthBar.style.background = "#2ecc71";
+                    strengthText.textContent = "Strong";
+                    strengthText.style.color = "#2ecc71";
+                }
             }
 
             /* ---------- UI FEEDBACK ---------- */
@@ -289,6 +432,13 @@
                 }
             }
 
+            /* ---------- LIVE USERNAME CHECK ---------- */
+            usernameInput.addEventListener("input", () => {
+                const valid = validateUsername(usernameInput.value.trim());
+                showValidation("username", valid, "Username must be 3-20 characters (letters, numbers, underscore)");
+                updateSubmitState();
+            });
+
             /* ---------- LIVE EMAIL CHECK ---------- */
             emailInput.addEventListener("input", () => {
                 const valid = validateEmail(emailInput.value.trim());
@@ -299,18 +449,97 @@
             /* ---------- LIVE PASSWORD CHECK ---------- */
             passwordInput.addEventListener("input", () => {
                 const strong = isPasswordStrong(passwordInput.value);
-                showValidation("password", strong, "Password does not meet requirements");
+                showValidation("password", strong, "Password must be 8+ characters with letters, numbers & symbols");
+                updatePasswordStrength(passwordInput.value);
+                updateSubmitState();
+            });
+
+            /* ---------- TERMS CHECKBOX VALIDATION ---------- */
+            termsCheckbox.addEventListener("change", () => {
+                const error = document.getElementById("termsError");
+                if (termsCheckbox.checked) {
+                    error.style.display = "none";
+                } else {
+                    error.style.display = "block";
+                }
                 updateSubmitState();
             });
 
             /* ---------- FORM BUTTON ENABLE ---------- */
             function updateSubmitState() {
+                const usernameValid = validateUsername(usernameInput.value.trim());
                 const emailValid = validateEmail(emailInput.value.trim());
                 const passwordValid = isPasswordStrong(passwordInput.value);
+                const termsValid = termsCheckbox.checked;
+                const moodSelected = selectedMood !== null;
 
-                submitButton.disabled = !(emailValid && passwordValid);
-                submitButton.style.opacity = submitButton.disabled ? "0.6" : "1";
+                // All fields must be valid
+                const formValid = usernameValid && emailValid && passwordValid && termsValid && moodSelected;
+                
+                submitButton.disabled = !formValid;
+                submitButton.style.opacity = formValid ? "1" : "0.6";
+                submitButton.style.cursor = formValid ? "pointer" : "not-allowed";
+                
+                // Update button hint
+                const hint = document.querySelector(".button-hint");
+                if (hint) {
+                    hint.textContent = formValid ? "Ready to create your account!" : "Complete all fields to continue";
+                }
             }
+
+            /* ---------- FORM SUBMISSION ---------- */
+            signupForm.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                
+                // Final validation check
+                const usernameValid = validateUsername(usernameInput.value.trim());
+                const emailValid = validateEmail(emailInput.value.trim());
+                const passwordValid = isPasswordStrong(passwordInput.value);
+                const termsValid = termsCheckbox.checked;
+                const moodSelected = selectedMood !== null;
+
+                if (!usernameValid || !emailValid || !passwordValid || !termsValid || !moodSelected) {
+                    alert("Please fix all errors before submitting.");
+                    return;
+                }
+
+                // Show success animation
+                successOverlay.style.display = "flex";
+                loadingSpinner.style.display = "block";
+
+                // Simulate account creation process
+                setTimeout(() => {
+                    // Store user data (in a real app, this would be sent to a server)
+                    const userData = {
+                        username: usernameInput.value.trim(),
+                        email: emailInput.value.trim(),
+                        mood: selectedMood ? selectedMood.getAttribute("data-mood") : "neutral",
+                        createdAt: new Date().toISOString()
+                    };
+                    
+                    // Save to localStorage (for demo purposes)
+                    localStorage.setItem("heyday_user", JSON.stringify(userData));
+                    localStorage.setItem("heyday_logged_in", "true");
+
+                    // Update success message
+                    const successText = document.querySelector(".success-text");
+                    const successSubtext = document.querySelector(".success-subtext");
+                    
+                    if (successText && successSubtext) {
+                        successText.textContent = "Account Created!";
+                        successSubtext.textContent = "Redirecting to your dashboard...";
+                    }
+
+                    // Redirect to dashboard after 2 seconds
+                    setTimeout(() => {
+                        window.location.href = "dashboard.html";
+                    }, 2000);
+
+                }, 1500);
+            });
+
+            /* ---------- INITIAL VALIDATION UPDATE ---------- */
+            updateSubmitState();
         });
     </script>
 
