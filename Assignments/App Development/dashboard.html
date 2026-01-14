@@ -22,6 +22,74 @@
             position: relative;
         }
 
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #86b499 0%, #6a9c7d 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .user-name {
+            font-family: 'Nunito', sans-serif;
+            font-size: 20px;
+            color: #1a3c27;
+            font-weight: 700;
+        }
+
+        .user-email {
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            color: #2d5a3d;
+            font-weight: 600;
+            opacity: 0.8;
+        }
+
+        /* Logout Button */
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(231, 76, 60, 0.3);
+            border-radius: 15px;
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            color: #e74c3c;
+            font-weight: 700;
+        }
+
+        .logout-btn:hover {
+            background: rgba(231, 76, 60, 0.1);
+            transform: translateY(-3px);
+            border-color: rgba(231, 76, 60, 0.5);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.2);
+        }
+
         .greeting-section {
             background: rgba(255, 255, 255, 0.15);
             border-radius: 25px;
@@ -62,6 +130,7 @@
             box-shadow: 0 4px 12px rgba(255, 82, 82, 0.4);
             width: fit-content;
             gap: 6px;
+            cursor: pointer;
         }
 
         .notifications-badge i {
@@ -88,6 +157,7 @@
             backdrop-filter: blur(5px);
             text-decoration: none;
             display: block;
+            position: relative;
         }
 
         .nav-card:hover {
@@ -422,6 +492,95 @@
             border-radius: 10px;
         }
 
+        /* Logout Confirmation Modal */
+        .logout-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .logout-modal-content {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 30px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            border: 3px solid rgba(34, 96, 78, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
+        }
+
+        .logout-modal-icon {
+            font-size: 60px;
+            color: #e74c3c;
+            margin-bottom: 20px;
+        }
+
+        .logout-modal-title {
+            font-family: 'Nunito', sans-serif;
+            font-size: 24px;
+            color: #1a3c27;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .logout-modal-message {
+            font-family: 'Nunito', sans-serif;
+            font-size: 16px;
+            color: #2d5a3d;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .logout-modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .logout-modal-btn {
+            padding: 15px 30px;
+            border-radius: 20px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .logout-modal-cancel {
+            background: rgba(52, 152, 219, 0.1);
+            color: #3498db;
+            border-color: rgba(52, 152, 219, 0.3);
+        }
+
+        .logout-modal-cancel:hover {
+            background: rgba(52, 152, 219, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .logout-modal-confirm {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            border: none;
+        }
+
+        .logout-modal-confirm:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+        }
+
         /* Responsive */
         @media (max-width: 600px) {
             .greeting-main {
@@ -462,6 +621,34 @@
             .nav-icon {
                 font-size: 20px;
             }
+
+            .logout-btn {
+                padding: 10px 15px;
+                font-size: 12px;
+            }
+
+            .user-avatar {
+                width: 45px;
+                height: 45px;
+                font-size: 20px;
+            }
+
+            .user-name {
+                font-size: 18px;
+            }
+
+            .logout-modal-content {
+                padding: 20px;
+            }
+
+            .logout-modal-buttons {
+                flex-direction: column;
+            }
+
+            .logout-modal-btn {
+                padding: 12px;
+                font-size: 14px;
+            }
         }
     </style>
 </head>
@@ -475,6 +662,27 @@
         <div class="leaf leaf-1"></div>
         <div class="leaf leaf-2"></div>
         <div class="leaf leaf-3"></div>
+
+        <!-- Logout Confirmation Modal -->
+        <div class="logout-modal" id="logoutModal">
+            <div class="logout-modal-content">
+                <div class="logout-modal-icon">
+                    <i class="fas fa-sign-out-alt"></i>
+                </div>
+                <div class="logout-modal-title">Log Out</div>
+                <div class="logout-modal-message" id="logoutUserName">
+                    Are you sure you want to log out? You'll need to sign in again to access your data.
+                </div>
+                <div class="logout-modal-buttons">
+                    <button class="logout-modal-btn logout-modal-cancel" id="cancelLogout">
+                        Cancel
+                    </button>
+                    <button class="logout-modal-btn logout-modal-confirm" id="confirmLogout">
+                        Yes, Log Out
+                    </button>
+                </div>
+            </div>
+        </div>
 
         <!-- Phone Container -->
         <div class="phone" id="main-page">
@@ -493,10 +701,26 @@
 
             <!-- App Content -->
             <div class="app-content">
-                <!-- Greeting Section -->
-                <div class="dashboard-header">
-                    <div class="greeting-section fade-in">
-                        <div class="greeting-main">
+                <!-- Dashboard Header with User Info and Logout -->
+                <div class="dashboard-header fade-in">
+                    <div class="header-top">
+                        <div class="user-info">
+                            <div class="user-avatar" id="userAvatar">
+                                J
+                            </div>
+                            <div>
+                                <div class="user-name" id="userName">Joe!!</div>
+                                <div class="user-email" id="userEmail">joe@example.com</div>
+                            </div>
+                        </div>
+                        <button class="logout-btn" id="logoutButton">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Log Out
+                        </button>
+                    </div>
+
+                    <div class="greeting-section">
+                        <div class="greeting-main" id="greetingText">
                             Welcome back, Joe!!
                         </div>
                         <div class="greeting-sub">
@@ -700,6 +924,7 @@
                     logout() {
                         localStorage.removeItem(this.currentUserKey);
                         localStorage.removeItem('heyday_logged_in');
+                        return true;
                     }
 
                     updateUserMood(userId, mood) {
@@ -824,17 +1049,39 @@
                 currentUser.notifications = userDB.getNotifications(currentUser.id);
             }
 
-            // Update welcome message with user's name
-            const greetingMain = document.querySelector('.greeting-main');
-            const greetingSub = document.querySelector('.greeting-sub');
+            /* ---------- UPDATE USER INTERFACE ---------- */
+            function updateUserInterface() {
+                // Update user info
+                const userNameElement = document.getElementById('userName');
+                const userEmailElement = document.getElementById('userEmail');
+                const userAvatarElement = document.getElementById('userAvatar');
+                const greetingTextElement = document.getElementById('greetingText');
+                const logoutUserNameElement = document.getElementById('logoutUserName');
 
-            if (greetingMain) {
-                greetingMain.textContent = `Welcome back, ${currentUser.name || currentUser.username || 'Friend'}!`;
+                if (userNameElement) {
+                    userNameElement.textContent = currentUser.name || currentUser.username || 'User';
+                }
+
+                if (userEmailElement) {
+                    userEmailElement.textContent = currentUser.email || 'user@example.com';
+                }
+
+                if (userAvatarElement) {
+                    const name = currentUser.name || currentUser.username || 'User';
+                    userAvatarElement.textContent = name.charAt(0).toUpperCase();
+                }
+
+                if (greetingTextElement) {
+                    greetingTextElement.textContent = `Welcome back, ${currentUser.name || currentUser.username || 'Friend'}!`;
+                }
+
+                if (logoutUserNameElement) {
+                    logoutUserNameElement.innerHTML = `Are you sure you want to log out, <strong>${currentUser.name || currentUser.username || 'User'}</strong>? You'll need to sign in again to access your data.`;
+                }
             }
 
-            if (greetingSub) {
-                greetingSub.textContent = 'Ready for another mindful day?';
-            }
+            // Initial UI update
+            updateUserInterface();
 
             /* ---------- UPDATE DASHBOARD NOTIFICATION COUNTS ---------- */
             function updateDashboardNotifications() {
@@ -899,6 +1146,56 @@
 
             // Initial notification update
             updateDashboardNotifications();
+
+            /* ---------- LOGOUT FUNCTIONALITY ---------- */
+            const logoutButton = document.getElementById('logoutButton');
+            const logoutModal = document.getElementById('logoutModal');
+            const cancelLogoutButton = document.getElementById('cancelLogout');
+            const confirmLogoutButton = document.getElementById('confirmLogout');
+
+            // Show logout confirmation modal
+            if (logoutButton) {
+                logoutButton.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    if (logoutModal) {
+                        logoutModal.style.display = 'flex';
+                    }
+                });
+            }
+
+            // Cancel logout
+            if (cancelLogoutButton) {
+                cancelLogoutButton.addEventListener('click', function () {
+                    if (logoutModal) {
+                        logoutModal.style.display = 'none';
+                    }
+                });
+            }
+
+            // Confirm logout
+            if (confirmLogoutButton) {
+                confirmLogoutButton.addEventListener('click', function () {
+                    // Use UserDatabase to log out
+                    userDB.logout();
+                    
+                    // Show feedback
+                    showFeedback('Logging out...', 'info');
+                    
+                    // Redirect to login page after delay
+                    setTimeout(() => {
+                        window.location.href = 'login.html';
+                    }, 1000);
+                });
+            }
+
+            // Close modal when clicking outside
+            if (logoutModal) {
+                logoutModal.addEventListener('click', function (e) {
+                    if (e.target === logoutModal) {
+                        logoutModal.style.display = 'none';
+                    }
+                });
+            }
 
             /* ---------- FIXED MOOD SELECTION - NO DEFAULT SELECTION ---------- */
             const moodOptions = document.querySelectorAll('.mood-option');
@@ -1062,7 +1359,9 @@
                 top: 100px;
                 left: 50%;
                 transform: translateX(-50%);
-                background: ${type === 'error' ? 'rgba(231, 76, 60, 0.95)' : 'rgba(34, 96, 78, 0.95)'};
+                background: ${type === 'error' ? 'rgba(231, 76, 60, 0.95)' : 
+                         type === 'success' ? 'rgba(46, 204, 113, 0.95)' : 
+                         'rgba(34, 96, 78, 0.95)'};
                 color: white;
                 padding: 12px 24px;
                 border-radius: 25px;
@@ -1182,6 +1481,15 @@
             
             .button:hover {
                 transform: translateY(-5px) scale(1.05) !important;
+            }
+            
+            /* Logout button hover */
+            .logout-btn {
+                transition: all 0.3s ease !important;
+            }
+            
+            .logout-btn:hover {
+                transform: translateY(-3px);
             }
         `;
             document.head.appendChild(style);

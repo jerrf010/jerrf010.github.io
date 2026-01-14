@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore -- Hey, Day</title>
+    <link rel="icon" href="https://github.com/jerrf010/basic_html/blob/main/park_with_shades.png?raw=true" type="image/icon type">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Chewy&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Explore Page Specific Styles Only */
+        .explore-header {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+            padding-top: 10px;
+        }
+        
+        .explore-title {
+            font-family: 'Chewy', cursive;
+            font-size: 40px;
+            color: #1a3c27;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .explore-subtitle {
+            font-family: 'Nunito', sans-serif;
+            font-size: 16px;
+            color: #2d5a3d;
+            font-weight: 600;
+            opacity: 0.9;
+        }
+        
+        /* Search Bar */
+        .search-container {
+            width: 100%;
+            margin: 20px 0;
+        }
+        
+        .search-bar {
+            position: relative;
+            width: 100%;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 18px 20px 18px 55px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid rgba(34, 96, 78, 0.2);
+            border-radius: 20px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 16px;
+            color: #1a3c27;
+            outline: none;
+            transition: all 0.3s ease;
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+        }
+        
+        .search-input:focus {
+            border-color: #22604e;
+            box-shadow: 0 0 0 3px rgba(34, 96, 78, 0.1);
+            background: rgba(255, 255, 255, 0.95);
+        }
+        
+        .search-input::placeholder {
+            color: rgba(34, 96, 78, 0.5);
+            font-family: 'Nunito', sans-serif;
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #22604e;
+            font-size: 20px;
+            z-index: 2;
+        }
+        
+        /* Categories */
+        .categories-title {
+            font-family: 'Nunito', sans-serif;
+            font-size: 22px;
+            color: #1a3c27;
+            font-weight: 700;
+            margin: 25px 0 15px 0;
+            text-align: center;
+        }
+        
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .category-card {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(34, 96, 78, 0.2);
+            border-radius: 20px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+        
+        .category-card:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-5px);
+            border-color: rgba(34, 96, 78, 0.4);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .category-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #ffffff 0%, #e8f5e9 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px auto;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .category-icon i {
+            font-size: 26px;
+            color: #22604e;
+        }
+        
+        .category-name {
+            font-family: 'Nunito', sans-serif;
+            font-size: 18px;
+            color: #1a3c27;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .category-desc {
+            font-family: 'Nunito', sans-serif;
+            font-size: 13px;
+            color: #2d5a3d;
+            font-weight: 600;
+            opacity: 0.9;
+        }
+        
+        /* Section Title */
+        .section-title {
+            font-family: 'Nunito', sans-serif;
+            font-size: 22px;
+            color: #1a3c27;
+            font-weight: 700;
+            margin: 30px 0 15px 0;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .section-title i {
+            font-size: 20px;
+            color: #22604e;
+        }
+        
+        /* News Section */
+        .news-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .news-card {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(34, 96, 78, 0.2);
+            border-radius: 20px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+            cursor: pointer;
+        }
+        
+        .news-card:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-5px);
+            border-color: rgba(34, 96, 78, 0.4);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .news-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        
+        .news-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #ffeb3b 0%, #fbc02d 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .news-icon i {
+            font-size: 22px;
+            color: #1a3c27;
+        }
+        
+        .news-title {
+            font-family: 'Nunito', sans-serif;
+            font-size: 18px;
+            color: #1a3c27;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .news-date {
+            font-family: 'Nunito', sans-serif;
+            font-size: 12px;
+            color: #2d5a3d;
+            font-weight: 600;
+        }
+        
+        .news-content {
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            color: #2d5a3d;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        
+        .news-tag {
+            display: inline-block;
+            background: rgba(34, 96, 78, 0.2);
+            color: #22604e;
+            font-family: 'Nunito', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 12px;
+            margin-right: 8px;
+        }
+        
+        /* Mental Health Section */
+        .mental-health-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .mental-health-card {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(34, 96, 78, 0.2);
+            border-radius: 20px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+            cursor: pointer;
+            text-align: center;
+        }
+        
+        .mental-health-card:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-5px);
+            border-color: rgba(34, 96, 78, 0.4);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .mh-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #bbdefb 0%, #90caf9 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px auto;
+        }
+        
+        .mh-icon i {
+            font-size: 26px;
+            color: #1565c0;
+        }
+        
+        .mh-title {
+            font-family: 'Nunito', sans-serif;
+            font-size: 16px;
+            color: #1a3c27;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .mh-stats {
+            font-family: 'Nunito', sans-serif;
+            font-size: 12px;
+            color: #2d5a3d;
+            font-weight: 600;
+        }
+        
+        /* Quick Access Cards Grid */
+        .quick-access-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .quick-access-card {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(34, 96, 78, 0.2);
+            border-radius: 20px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+        
+        .quick-access-card:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-5px);
+            border-color: rgba(34, 96, 78, 0.4);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .qa-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px auto;
+        }
+        
+        .qa-icon.calendar {
+            background: linear-gradient(135deg, #a5d6a7 0%, #81c784 100%);
+        }
+        
+        .qa-icon.henry {
+            background: linear-gradient(135deg, #ffccbc 0%, #ffab91 100%);
+        }
+        
+        .qa-icon i {
+            font-size: 26px;
+            color: #1a3c27;
+        }
+        
+        .qa-title {
+            font-family: 'Nunito', sans-serif;
+            font-size: 18px;
+            color: #1a3c27;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .qa-desc {
+            font-family: 'Nunito', sans-serif;
+            font-size: 13px;
+            color: #2d5a3d;
+            font-weight: 600;
+            opacity: 0.9;
+        }
+        
+        /* Daily Tip */
+        .daily-tip {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 20px;
+            margin: 30px 0 20px 0;
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(34, 96, 78, 0.2);
+        }
+        
+        .tip-title {
+            font-family: 'Nunito', sans-serif;
+            font-size: 18px;
+            color: #1a3c27;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .tip-content {
+            font-family: 'Nunito', sans-serif;
+            font-size: 15px;
+            color: #2d5a3d;
+            text-align: center;
+            line-height: 1.6;
+            padding: 10px;
+        }
+        
+        .tip-content i {
+            color: #f39c12;
+            margin-right: 8px;
+        }
+        
+        .tip-content strong {
+            color: #1a3c27;
+        }
+        
+        /* Bottom Navigation - Inside Phone Container */
+        .bottom-nav-container {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            width: 100%;
+        }
+        
+        .bottom-nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 25px;
+            padding: 15px 10px;
+            margin: 0 30px;
+            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(34, 96, 78, 0.2);
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 65px;
+            height: 65px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            position: relative;
+            border-radius: 18px;
+        }
+        
+        .nav-item.active {
+            background: rgba(34, 96, 78, 0.15);
+            transform: translateY(-10px);
+        }
+        
+        .nav-item:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-5px);
+        }
+        
+        .nav-icon {
+            font-size: 22px;
+            color: #22604e;
+            margin-bottom: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-item.active .nav-icon {
+            color: #1a3c27;
+            transform: scale(1.1);
+        }
+        
+        .nav-label {
+            font-family: 'Nunito', sans-serif;
+            font-size: 10px;
+            color: #1a3c27;
+            font-weight: 700;
+        }
+        
+        .nav-item.active .nav-label {
+            color: #22604e;
+            font-weight: 800;
+        }
+        
+        .nav-badge {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%);
+            color: white;
+            font-family: 'Nunito', sans-serif;
+            font-size: 10px;
+            font-weight: 800;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 8px rgba(255, 82, 82, 0.4);
+        }
+        
+        /* App Content Adjustments for Explore Page */
+        .app-content {
+            height: calc(100% - 40px);
+            overflow-y: auto;
+            padding-bottom: 120px; /* Space for bottom nav */
+        }
+        
+        /* Custom scrollbar for app content */
+        .app-content::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .app-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        
+        .app-content::-webkit-scrollbar-thumb {
+            background: #22604e;
+            border-radius: 10px;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+            opacity: 0;
+        }
+        
+        /* Responsive */
+        @media (max-width: 600px) {
+            .explore-title {
+                font-size: 34px;
+            }
+            
+            .categories-grid,
+            .mental-health-grid,
+            .quick-access-grid {
+                gap: 12px;
+            }
+            
+            .category-card,
+            .mental-health-card,
+            .quick-access-card {
+                padding: 15px;
+            }
+            
+            .category-icon,
+            .mh-icon,
+            .qa-icon {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .category-icon i,
+            .mh-icon i,
+            .qa-icon i {
+                font-size: 22px;
+            }
+            
+            .bottom-nav {
+                margin: 0 20px;
+                padding: 12px 8px;
+            }
+            
+            .nav-item {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .nav-icon {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Decorative Elements (from styles.css) -->
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+        <div class="leaf leaf-1"></div>
+        <div class="leaf leaf-2"></div>
+        <div class="leaf leaf-3"></div>
+        
+        <!-- Phone Container (from styles.css) -->
+        <div class="phone" id="main-page">
+            <!-- Phone Notch (from styles.css) -->
+            <div class="phone-notch"></div>
+            
+            <!-- Status Bar (from styles.css) -->
+            <div class="status-bar">
+                <span>9:41</span>
+                <div class="status-icons">
+                    <i class="fas fa-signal"></i>
+                    <i class="fas fa-wifi"></i>
+                    <i class="fas fa-battery-three-quarters"></i>
+                </div>
+            </div>
+            
+            <!-- App Content (modified for Explore page) -->
+            <div class="app-content">
+                <!-- Explore Header -->
+                <div class="explore-header">
+                    <h1 class="explore-title">Explore</h1>
+                    <p class="explore-subtitle">Discover wellness resources</p>
+                </div>
+                
+                <!-- Search Bar -->
+                <div class="search-container fade-in" style="animation-delay: 0.1s;">
+                    <div class="search-bar">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" class="search-input" placeholder="Search meditations, exercises, articles...">
+                    </div>
+                </div>
+                
+                <!-- Categories -->
+                <h2 class="categories-title fade-in" style="animation-delay: 0.2s;">Categories</h2>
+                <div class="categories-grid">
+                    <a href="#" class="category-card fade-in" style="animation-delay: 0.3s;">
+                        <div class="category-icon">
+                            <i class="fas fa-spa"></i>
+                        </div>
+                        <div class="category-name">Meditation</div>
+                        <div class="category-desc">Guided sessions</div>
+                    </a>
+                    
+                    <a href="#" class="category-card fade-in" style="animation-delay: 0.4s;">
+                        <div class="category-icon">
+                            <i class="fas fa-wind"></i>
+                        </div>
+                        <div class="category-name">Breathing</div>
+                        <div class="category-desc">Calm exercises</div>
+                    </a>
+                    
+                    <a href="#" class="category-card fade-in" style="animation-delay: 0.5s;">
+                        <div class="category-icon">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <div class="category-name">Sleep</div>
+                        <div class="category-desc">Better rest</div>
+                    </a>
+                    
+                    <a href="#" class="category-card fade-in" style="animation-delay: 0.6s;">
+                        <div class="category-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="category-name">Focus</div>
+                        <div class="category-desc">Concentration</div>
+                    </a>
+                    
+                    <a href="#" class="category-card fade-in" style="animation-delay: 0.7s;">
+                        <div class="category-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="category-name">Journaling</div>
+                        <div class="category-desc">Reflection prompts</div>
+                    </a>
+                    
+                    <a href="#" class="category-card fade-in" style="animation-delay: 0.8s;">
+                        <div class="category-icon">
+                            <i class="fas fa-music"></i>
+                        </div>
+                        <div class="category-name">Sounds</div>
+                        <div class="category-desc">Nature & music</div>
+                    </a>
+                </div>
+                
+                <!-- News & Updates Section -->
+                <h2 class="section-title fade-in" style="animation-delay: 0.9s;">
+                    <i class="fas fa-newspaper"></i> News & Updates
+                </h2>
+                <div class="news-grid">
+                    <div class="news-card fade-in" style="animation-delay: 1.0s;">
+                        <div class="news-header">
+                            <div class="news-icon">
+                                <i class="fas fa-bullhorn"></i>
+                            </div>
+                            <div>
+                                <div class="news-title">New Meditation Series</div>
+                                <div class="news-date">Today • 2 hours ago</div>
+                            </div>
+                        </div>
+                        <div class="news-content">
+                            We've just launched "Mindful Mornings" - a 7-day meditation series designed to start your day with clarity and intention.
+                        </div>
+                        <div>
+                            <span class="news-tag">New</span>
+                            <span class="news-tag">Meditation</span>
+                        </div>
+                    </div>
+                    
+                    <div class="news-card fade-in" style="animation-delay: 1.1s;">
+                        <div class="news-header">
+                            <div class="news-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div>
+                                <div class="news-title">App Update v2.1</div>
+                                <div class="news-date">Yesterday • 1 day ago</div>
+                            </div>
+                        </div>
+                        <div class="news-content">
+                            Improved performance, new breathing exercises, and enhanced sleep tracking features. Update now for the best experience!
+                        </div>
+                        <div>
+                            <span class="news-tag">Update</span>
+                            <span class="news-tag">Features</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mental Health Section -->
+                <h2 class="section-title fade-in" style="animation-delay: 1.2s;">
+                    <i class="fas fa-brain"></i> Mental Health
+                </h2>
+                <div class="mental-health-grid">
+                    <div class="mental-health-card fade-in" style="animation-delay: 1.3s;">
+                        <div class="mh-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="mh-title">Weekly Mood</div>
+                        <div class="mh-stats">↑ 15% Improvement</div>
+                    </div>
+                    
+                    <div class="mental-health-card fade-in" style="animation-delay: 1.4s;">
+                        <div class="mh-icon">
+                            <i class="fas fa-moon"></i>
+                        </div>
+                        <div class="mh-title">Sleep Quality</div>
+                        <div class="mh-stats">7.5/10 Avg Score</div>
+                    </div>
+                    
+                    <div class="mental-health-card fade-in" style="animation-delay: 1.5s;">
+                        <div class="mh-icon">
+                            <i class="fas fa-dumbbell"></i>
+                        </div>
+                        <div class="mh-title">Mindfulness</div>
+                        <div class="mh-stats">12 Days Streak</div>
+                    </div>
+                    
+                    <div class="mental-health-card fade-in" style="animation-delay: 1.6s;">
+                        <div class="mh-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="mh-title">Stress Level</div>
+                        <div class="mh-stats">Low • Good Job!</div>
+                    </div>
+                </div>
+                
+                <!-- Quick Access Cards -->
+                <h2 class="section-title fade-in" style="animation-delay: 1.7s;">
+                    <i class="fas fa-rocket"></i> Quick Access
+                </h2>
+                <div class="quick-access-grid">
+                    <!-- Calendar Card -->
+                    <a href="calendar.html" class="quick-access-card fade-in" style="animation-delay: 1.8s;">
+                        <div class="qa-icon calendar">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="qa-title">Calendar</div>
+                        <div class="qa-desc">View schedule & events</div>
+                    </a>
+                    
+                    <!-- Henry Card -->
+                    <a href="henry.html" class="quick-access-card fade-in" style="animation-delay: 1.9s;">
+                        <div class="qa-icon henry">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="qa-title">Henry</div>
+                        <div class="qa-desc">AI Wellness Companion</div>
+                    </a>
+                </div>
+                
+                <!-- Daily Tip -->
+                <div class="daily-tip fade-in" style="animation-delay: 2.0s;">
+                    <div class="tip-title">Daily Wellness Tip</div>
+                    <div class="tip-content">
+                        <i class="fas fa-lightbulb"></i>
+                        <strong>Hydration Reminder:</strong> Drink a glass of water when you wake up to kickstart your metabolism and improve focus throughout the day.
+                    </div>
+                </div>
+                
+                <!-- Extra spacing for bottom nav -->
+                <div style="height: 40px;"></div>
+            </div>
+            
+            <!-- Bottom Navigation Container -->
+            <div class="bottom-nav-container">
+                <div class="bottom-nav">
+                    <a href="dashboard.html" class="nav-item">
+                        <div class="nav-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="nav-label">Home</div>
+                    </a>
+                    <a href="explore.html" class="nav-item active">
+                        <div class="nav-icon">
+                            <i class="fas fa-compass"></i>
+                        </div>
+                        <div class="nav-label">Explore</div>
+                    </a>
+                    <a href="notifications.html" class="nav-item">
+                        <div class="nav-icon">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <div class="nav-label">Alerts</div>
+                        <div class="nav-badge">6</div>
+                    </a>
+                    <a href="profile.html" class="nav-item">
+                        <div class="nav-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="nav-label">Profile</div>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Home Indicator (from styles.css) -->
+            <div class="home-indicator"></div>
+        </div>
+    </div>
+    
+    <!-- Script -->
+    <script>
+        // User Database Class (simplified version)
+        (function() {
+            if (typeof window.UserDatabase === 'undefined') {
+                window.UserDatabase = class {
+                    constructor() {
+                        this.key = 'heyday_users';
+                        this.currentUserKey = 'heyday_current_user';
+                    }
+                    
+                    getCurrentUser() {
+                        const user = localStorage.getItem(this.currentUserKey);
+                        return user ? JSON.parse(user) : null;
+                    }
+                    
+                    isLoggedIn() {
+                        return localStorage.getItem('heyday_logged_in') === 'true';
+                    }
+                    
+                    getTotalUnreadNotifications(userId) {
+                        const user = this.getCurrentUser();
+                        if (user && user.notifications) {
+                            return Object.values(user.notifications).reduce((sum, count) => sum + count, 0);
+                        }
+                        return 6; // Default count
+                    }
+                };
+            }
+        })();
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const userDB = new window.UserDatabase();
+            
+            // Check if user is logged in
+            if (!userDB.isLoggedIn()) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Get current user
+            const currentUser = userDB.getCurrentUser();
+            if (!currentUser) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Update notification badge
+            const totalUnread = userDB.getTotalUnreadNotifications(currentUser.id);
+            const navBadge = document.querySelector('.nav-badge');
+            if (navBadge && totalUnread > 0) {
+                navBadge.textContent = totalUnread;
+                if (totalUnread === 0) {
+                    navBadge.style.background = 'rgba(34, 96, 78, 0.3)';
+                    navBadge.classList.remove('pulse-animation');
+                } else {
+                    navBadge.style.background = 'linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%)';
+                    navBadge.classList.add('pulse-animation');
+                }
+            }
+            
+            // Elements
+            const searchInput = document.querySelector('.search-input');
+            const categoryCards = document.querySelectorAll('.category-card');
+            const newsCards = document.querySelectorAll('.news-card');
+            const mentalHealthCards = document.querySelectorAll('.mental-health-card');
+            const quickAccessCards = document.querySelectorAll('.quick-access-card');
+            const navItems = document.querySelectorAll('.nav-item');
+            
+            /* ---------- SEARCH FUNCTIONALITY ---------- */
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    const searchTerm = this.value.toLowerCase().trim();
+                    
+                    if (searchTerm.length > 0) {
+                        // Filter categories
+                        categoryCards.forEach(card => {
+                            const name = card.querySelector('.category-name').textContent.toLowerCase();
+                            const desc = card.querySelector('.category-desc').textContent.toLowerCase();
+                            
+                            if (name.includes(searchTerm) || desc.includes(searchTerm)) {
+                                card.style.display = 'block';
+                                card.style.animation = 'fadeIn 0.3s ease';
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        });
+                        
+                        // Filter news cards
+                        newsCards.forEach(card => {
+                            const title = card.querySelector('.news-title').textContent.toLowerCase();
+                            const content = card.querySelector('.news-content').textContent.toLowerCase();
+                            
+                            if (title.includes(searchTerm) || content.includes(searchTerm)) {
+                                card.style.display = 'block';
+                                card.style.animation = 'fadeIn 0.3s ease';
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        });
+                        
+                        // Filter mental health cards
+                        mentalHealthCards.forEach(card => {
+                            const title = card.querySelector('.mh-title').textContent.toLowerCase();
+                            const stats = card.querySelector('.mh-stats').textContent.toLowerCase();
+                            
+                            if (title.includes(searchTerm) || stats.includes(searchTerm)) {
+                                card.style.display = 'block';
+                                card.style.animation = 'fadeIn 0.3s ease';
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        });
+                        
+                        // Filter quick access cards
+                        quickAccessCards.forEach(card => {
+                            const title = card.querySelector('.qa-title').textContent.toLowerCase();
+                            const desc = card.querySelector('.qa-desc').textContent.toLowerCase();
+                            
+                            if (title.includes(searchTerm) || desc.includes(searchTerm)) {
+                                card.style.display = 'block';
+                                card.style.animation = 'fadeIn 0.3s ease';
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        });
+                    } else {
+                        // Show all when search is cleared
+                        categoryCards.forEach(card => {
+                            card.style.display = 'block';
+                            card.style.animation = 'fadeIn 0.3s ease';
+                        });
+                        
+                        newsCards.forEach(card => {
+                            card.style.display = 'block';
+                            card.style.animation = 'fadeIn 0.3s ease';
+                        });
+                        
+                        mentalHealthCards.forEach(card => {
+                            card.style.display = 'block';
+                            card.style.animation = 'fadeIn 0.3s ease';
+                        });
+                        
+                        quickAccessCards.forEach(card => {
+                            card.style.display = 'block';
+                            card.style.animation = 'fadeIn 0.3s ease';
+                        });
+                    }
+                });
+            }
+            
+            /* ---------- CARD CLICK HANDLERS ---------- */
+            // Category cards
+            categoryCards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const categoryName = this.querySelector('.category-name').textContent;
+                    
+                    // Show loading feedback
+                    showFeedback(`Loading ${categoryName} content...`);
+                    
+                    // Simulate loading
+                    this.style.transform = 'translateY(-3px) scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = 'translateY(-5px)';
+                    }, 150);
+                });
+            });
+            
+            // News cards
+            newsCards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const newsTitle = this.querySelector('.news-title').textContent;
+                    
+                    // Show feedback
+                    showFeedback(`Opening: ${newsTitle}`);
+                    
+                    // Visual feedback
+                    this.style.transform = 'translateY(-3px) scale(0.98)';
+                    this.style.boxShadow = '0 5px 15px rgba(34, 96, 78, 0.3)';
+                    
+                    setTimeout(() => {
+                        this.style.transform = 'translateY(-5px)';
+                        this.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.1)';
+                    }, 200);
+                });
+            });
+            
+            // Mental health cards
+            mentalHealthCards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const mhTitle = this.querySelector('.mh-title').textContent;
+                    
+                    // Show feedback
+                    showFeedback(`Viewing ${mhTitle} details...`);
+                    
+                    // Visual feedback
+                    this.style.transform = 'translateY(-3px) scale(0.98)';
+                    this.style.boxShadow = '0 5px 15px rgba(34, 96, 78, 0.3)';
+                    
+                    setTimeout(() => {
+                        this.style.transform = 'translateY(-5px)';
+                        this.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.1)';
+                    }, 200);
+                });
+            });
+            
+            // Quick access cards (these have actual hrefs, so just visual feedback)
+            quickAccessCards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    // Visual feedback
+                    this.style.transform = 'translateY(-3px) scale(0.98)';
+                    this.style.boxShadow = '0 5px 15px rgba(34, 96, 78, 0.3)';
+                    
+                    setTimeout(() => {
+                        this.style.transform = 'translateY(-5px)';
+                        this.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.1)';
+                    }, 200);
+                });
+            });
+            
+            /* ---------- NAVIGATION ---------- */
+            navItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    if (this.classList.contains('active')) {
+                        e.preventDefault();
+                        return;
+                    }
+                    
+                    // Remove active class from all
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    // Add active to clicked
+                    this.classList.add('active');
+                    
+                    // Show loading feedback
+                    const label = this.querySelector('.nav-label').textContent;
+                    showFeedback(`Navigating to ${label}...`);
+                    
+                    // Navigate after delay
+                    const href = this.getAttribute('href');
+                    if (href && href !== 'explore.html') {
+                        setTimeout(() => {
+                            window.location.href = href;
+                        }, 300);
+                    }
+                });
+            });
+            
+            /* ---------- HELPER FUNCTIONS ---------- */
+            function showFeedback(message, type = "info") {
+                // Remove existing feedback
+                const existingFeedback = document.querySelector('.feedback-message');
+                if (existingFeedback) existingFeedback.remove();
+                
+                // Create feedback element
+                const feedback = document.createElement('div');
+                feedback.className = `feedback-message feedback-${type}`;
+                feedback.style.cssText = `
+                    position: fixed;
+                    top: 100px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: ${type === 'error' ? 'rgba(231, 76, 60, 0.95)' : 'rgba(34, 96, 78, 0.95)'};
+                    color: white;
+                    padding: 12px 24px;
+                    border-radius: 25px;
+                    font-family: 'Nunito', sans-serif;
+                    font-weight: 600;
+                    font-size: 14px;
+                    z-index: 1000;
+                    animation: slideDown 0.3s ease;
+                    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+                    max-width: 80%;
+                    text-align: center;
+                `;
+                feedback.textContent = message;
+                document.body.appendChild(feedback);
+                
+                // Remove after 2 seconds
+                setTimeout(() => {
+                    feedback.style.animation = "slideUp 0.3s ease forwards";
+                    setTimeout(() => feedback.remove(), 300);
+                }, 2000);
+            }
+            
+            /* ---------- ANIMATION STYLES ---------- */
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideDown {
+                    from {
+                        top: 80px;
+                        opacity: 0;
+                    }
+                    to {
+                        top: 100px;
+                        opacity: 1;
+                    }
+                }
+                
+                @keyframes slideUp {
+                    from {
+                        top: 100px;
+                        opacity: 1;
+                    }
+                    to {
+                        top: 80px;
+                        opacity: 0;
+                    }
+                }
+                
+                @keyframes fadeIn {
+                    from {
+                        opacity: 0;
+                        transform: translateY(10px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+                
+                @keyframes pulse {
+                    0% { transform: scale(1); }
+                    50% { transform: scale(1.05); }
+                    100% { transform: scale(1); }
+                }
+                
+                .pulse-animation {
+                    animation: pulse 2s infinite;
+                }
+                
+                .category-card,
+                .news-card,
+                .mental-health-card,
+                .quick-access-card {
+                    transition: all 0.3s ease !important;
+                }
+                
+                .nav-item {
+                    transition: all 0.3s ease !important;
+                }
+                
+                .fade-in {
+                    animation: fadeIn 0.5s ease forwards;
+                    opacity: 0;
+                }
+                
+                .search-input {
+                    transition: all 0.3s ease !important;
+                }
+            `;
+            document.head.appendChild(style);
+            
+            /* ---------- INITIAL ANIMATIONS ---------- */
+            const fadeElements = document.querySelectorAll('.fade-in');
+            fadeElements.forEach((el, index) => {
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>
