@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hey, Day -- Calendar</title>
-    <link rel="icon" href="https://github.com/jerrf010/basic_html/blob/main/park_with_shades.png?raw=true" type="image/icon type">
+    <link rel="icon" href="https://github.com/jerrf010/basic_html/blob/main/park_with_shades.png?raw=true"
+        type="image/icon type">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Chewy&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Chewy&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Oswald:wght@200..700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="study-scheduler.js"></script>
     <style>
         /* Calendar Specific Styles - WIDER VERSION */
         .calendar-header {
@@ -215,27 +220,9 @@
             background: #ff6b6b;
             border-radius: 50%;
             position: absolute;
-            bottom: 12px;
-        }
-
-        .assignment-indicator {
-            width: 8px;
-            height: 8px;
-            background: #3498db;
-            border-radius: 50%;
-            position: absolute;
-            bottom: 12px;
-            right: 12px;
-        }
-
-        .study-indicator {
-            width: 8px;
-            height: 8px;
-            background: #2ecc71;
-            border-radius: 50%;
-            position: absolute;
-            bottom: 12px;
-            left: 12px;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         /* Today Section - WIDER */
@@ -862,7 +849,8 @@
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
-            display: none; /* Hide by default; JS will set inline style to 'flex' when needed */
+            display: none;
+            /* Hide by default; JS will set inline style to 'flex' when needed */
             align-items: center;
             justify-content: center;
             gap: 10px;
@@ -1319,6 +1307,7 @@
                 opacity: 0;
                 transform: translateY(10px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -1326,15 +1315,40 @@
         }
 
         @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-            20%, 40%, 60%, 80% { transform: translateX(5px); }
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            10%,
+            30%,
+            50%,
+            70%,
+            90% {
+                transform: translateX(-5px);
+            }
+
+            20%,
+            40%,
+            60%,
+            80% {
+                transform: translateX(5px);
+            }
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
         }
 
         .fade-in {
@@ -1381,68 +1395,86 @@
             border-radius: 10px;
         }
 
+        /* Modal animations */
+        .add-modal,
+        .schedule-modal,
+        .delete-modal,
+        .google-modal {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .add-modal[style*="display: flex"],
+        .schedule-modal[style*="display: flex"],
+        .delete-modal[style*="display: flex"],
+        .google-modal[style*="display: flex"] {
+            opacity: 1;
+            visibility: visible;
+        }
+
         /* Responsive - Adjusted for wider layout */
         @media (max-width: 600px) {
             .calendar-title {
                 font-size: 40px;
             }
-            
+
             .current-month {
                 font-size: 22px;
             }
-            
+
             .action-buttons {
                 grid-template-columns: 1fr;
                 gap: 15px;
             }
-            
+
             .action-btn {
                 padding: 20px;
             }
-            
+
             .btn-icon {
                 width: 50px;
                 height: 50px;
                 font-size: 22px;
             }
-            
+
             .day-cell {
                 height: 70px;
             }
-            
+
             .day-number {
                 font-size: 20px;
             }
-            
+
             .bottom-nav {
                 margin: 0 25px;
                 padding: 15px 10px;
             }
-            
+
             .nav-item {
                 width: 65px;
                 height: 65px;
             }
-            
+
             .nav-icon {
                 font-size: 22px;
             }
-            
+
             .days-header {
                 gap: 3px;
             }
-            
+
             .day-header {
                 font-size: 16px;
                 padding: 12px 0;
             }
-            
+
             .today-btn {
                 height: 50px;
                 padding: 0 15px;
                 font-size: 14px;
             }
-            
+
             .nav-btn {
                 width: 50px;
                 height: 50px;
@@ -1550,8 +1582,23 @@
             border: 3px solid white;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
+
+        .event-date {
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 4px 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            border: 1px solid rgba(34, 96, 78, 0.2);
+        }
+
+        .event-item:hover .event-date {
+            background: rgba(255, 255, 255, 0.3);
+        }
     </style>
 </head>
+
 <body>
     <div class="container">
         <!-- Decorative Elements -->
@@ -1572,11 +1619,11 @@
                 <div class="schedule-modal-subtitle" id="scheduleModalSubtitle">
                     Based on your assignment details, we've created an optimal study plan:
                 </div>
-                
+
                 <div class="schedule-list" id="scheduleList">
                     <!-- Schedule items will be populated here -->
                 </div>
-                
+
                 <div class="schedule-modal-buttons">
                     <button class="schedule-modal-btn cancel" id="cancelSchedule">
                         Edit Schedule
@@ -1598,7 +1645,7 @@
                 <div class="delete-modal-subtitle" id="deleteModalSubtitle">
                     Are you sure you want to delete this event? This action cannot be undone.
                 </div>
-                
+
                 <div class="delete-modal-buttons">
                     <button class="delete-modal-btn cancel" id="cancelDelete">
                         Cancel
@@ -1620,7 +1667,7 @@
                 <div class="google-modal-subtitle">
                     Sync your Google Classroom or Calendar to automatically import assignments and events
                 </div>
-                
+
                 <div class="integration-options">
                     <div class="integration-option" id="googleConnect">
                         <div class="integration-icon google">
@@ -1631,7 +1678,7 @@
                             <div class="desc">Connect your Google account to sync assignments and events</div>
                         </div>
                     </div>
-                    
+
                     <div class="integration-option" id="iCalConnect">
                         <div class="integration-icon ical">
                             <i class="fas fa-calendar-alt"></i>
@@ -1642,7 +1689,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="google-modal-buttons">
                     <button class="modal-btn cancel" id="cancelGoogle">
                         Cancel
@@ -1661,28 +1708,29 @@
                     <i class="fas fa-calendar-plus"></i>
                 </div>
                 <div class="add-modal-title" id="addModalTitle">Add New Assignment</div>
-                
+
                 <form class="add-form" id="addForm">
                     <div class="form-group">
                         <label class="form-label" for="eventTitle">Assignment Title*</label>
-                        <input type="text" id="eventTitle" class="form-input" placeholder="e.g., Math Homework Chapter 5" required>
+                        <input type="text" id="eventTitle" class="form-input"
+                            placeholder="e.g., Math Homework Chapter 5" required>
                     </div>
-                    
+
                     <div class="form-group">
                         <label class="form-label" for="courseName">Course/Subject*</label>
                         <input type="text" id="courseName" class="form-input" placeholder="e.g., Calculus 101" required>
                     </div>
-                    
+
                     <div class="form-group">
                         <label class="form-label" for="eventDate">Due Date*</label>
                         <input type="date" id="eventDate" class="form-input" required>
                     </div>
-                    
+
                     <div class="form-group">
                         <label class="form-label" for="dueTime">Due Time (Optional)</label>
                         <input type="time" id="dueTime" class="form-input">
                     </div>
-                    
+
                     <div class="form-group">
                         <label class="form-label" for="importance">Importance (Weight/Percentage)*</label>
                         <div class="slider-container">
@@ -1696,7 +1744,7 @@
                             <div class="slider-value" id="importanceValue">15% of final grade</div>
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label class="form-label" for="difficulty">Course Difficulty*</label>
                         <div class="slider-container">
@@ -1711,17 +1759,19 @@
                             <div class="slider-value" id="difficultyValue">Medium Difficulty</div>
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label class="form-label" for="currentGrade">Current Grade in Course (Optional)</label>
-                        <input type="number" id="currentGrade" class="form-input" placeholder="e.g., 85" min="0" max="100" step="0.1">
+                        <input type="number" id="currentGrade" class="form-input" placeholder="e.g., 85" min="0"
+                            max="100" step="0.1">
                     </div>
-                    
+
                     <div class="form-group">
                         <label class="form-label" for="targetGrade">Target Grade (Optional)</label>
-                        <input type="number" id="targetGrade" class="form-input" placeholder="e.g., 90" min="0" max="100" step="0.1">
+                        <input type="number" id="targetGrade" class="form-input" placeholder="e.g., 90" min="0"
+                            max="100" step="0.1">
                     </div>
-                    
+
                     <div class="form-group">
                         <label class="form-label" for="estimatedHours">Estimated Hours to Complete*</label>
                         <div class="slider-container">
@@ -1736,18 +1786,20 @@
                             <div class="slider-value" id="estimatedHoursValue">5 hours estimated</div>
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label class="form-label" for="eventDescription">Description (Optional)</label>
-                        <input type="text" id="eventDescription" class="form-input" placeholder="e.g., Problems 1-20, show all work">
+                        <input type="text" id="eventDescription" class="form-input"
+                            placeholder="e.g., Problems 1-20, show all work">
                     </div>
-                    
+
                     <div class="form-checkbox">
                         <input type="checkbox" id="autoSchedule" checked>
-                        <label class="form-checkbox-label" for="autoSchedule">Automatically schedule study sessions</label>
+                        <label class="form-checkbox-label" for="autoSchedule">Automatically schedule study
+                            sessions</label>
                     </div>
                 </form>
-                
+
                 <div class="google-modal-buttons">
                     <button class="modal-btn cancel" id="cancelAdd">
                         Cancel
@@ -1814,7 +1866,7 @@
                         <div class="day-header">F</div>
                         <div class="day-header">S</div>
                     </div>
-                    
+
                     <div class="days-grid" id="calendarDays">
                         <!-- Calendar days will be populated by JavaScript -->
                     </div>
@@ -1826,7 +1878,7 @@
                         <div class="today-title">Today's Itinerary</div>
                         <div class="today-date" id="todayDate">February 11</div>
                     </div>
-                    
+
                     <div class="events-list" id="todayEvents">
                         <!-- Today's events will be populated by JavaScript -->
                     </div>
@@ -1849,7 +1901,7 @@
                             <div class="btn-desc">Create with AI study schedule</div>
                         </div>
                     </a>
-                    
+
                     <a href="#" class="action-btn" id="addEventBtn">
                         <div class="btn-icon">
                             <i class="far fa-calendar-plus"></i>
@@ -1859,7 +1911,7 @@
                             <div class="btn-desc">Schedule regular event</div>
                         </div>
                     </a>
-                    
+
                     <a href="#" class="action-btn" id="viewItineraryBtn">
                         <div class="btn-icon">
                             <i class="fas fa-list-alt"></i>
@@ -1869,7 +1921,7 @@
                             <div class="btn-desc">Today's schedule</div>
                         </div>
                     </a>
-                    
+
                     <a href="#" class="action-btn" id="googleIntegrationBtn">
                         <div class="btn-icon">
                             <i class="fab fa-google"></i>
@@ -1894,11 +1946,12 @@
 
                 <!-- Upcoming Events -->
                 <div class="events-section">
+                    <!-- Change the section title in the HTML -->
                     <div class="section-title">
                         <i class="fas fa-calendar-day"></i>
-                        Upcoming Events
+                        Upcoming Events (Next 14 Days)
                     </div>
-                    
+
                     <div class="events-list" id="upcomingEvents">
                         <!-- Upcoming events will be populated by JavaScript -->
                     </div>
@@ -1948,6 +2001,7 @@
     </div>
 
     <!-- Script -->
+    <script src="calendar-db.js"></script>
     <script>
         // Import the UserDatabase class from profile.html
         (function () {
@@ -2136,6 +2190,7 @@
 
         document.addEventListener('DOMContentLoaded', function () {
             const userDB = new window.UserDatabase();
+            const calendarDB = new CalendarDatabase();
 
             // Check if user is logged in
             if (!userDB.isLoggedIn()) {
@@ -2164,7 +2219,7 @@
 
                 const totalUnread = userDB.getTotalUnreadNotifications(currentUser.id);
                 const bottomNavBadge = document.getElementById('bottomNavBadge');
-                
+
                 if (bottomNavBadge) {
                     if (totalUnread > 0) {
                         bottomNavBadge.textContent = totalUnread > 9 ? '9+' : totalUnread;
@@ -2183,55 +2238,9 @@
                 }
             }
 
-            // Calendar Data with unique IDs for each event
+            // Calendar State
             const calendarData = {
-                currentDate: new Date(2026, 1, 11), // February 11, 2026
-                events: {
-                    '2026-02-11': [
-                        { 
-                            id: 'event_1',
-                            time: '4:00 PM - 5:00 PM', 
-                            title: 'Study for English Test', 
-                            subtitle: 'Review chapters 5-7',
-                            type: 'study',
-                            course: 'English Literature',
-                            importance: 'high',
-                            difficulty: 'medium'
-                        },
-                        { 
-                            id: 'event_2',
-                            time: '6:00 PM - 8:00 PM', 
-                            title: 'Practice Math', 
-                            subtitle: 'Algebra problems set',
-                            type: 'study',
-                            course: 'Mathematics',
-                            importance: 'medium',
-                            difficulty: 'hard'
-                        }
-                    ],
-                    '2026-02-12': [
-                        { 
-                            id: 'event_3',
-                            time: 'All day', 
-                            title: 'Math Exam', 
-                            subtitle: 'Room 204, 9:00 AM',
-                            type: 'exam',
-                            course: 'Calculus 101',
-                            importance: 'high',
-                            difficulty: 'very hard'
-                        },
-                        { 
-                            id: 'event_4',
-                            time: 'All day', 
-                            title: 'History Essay Due', 
-                            subtitle: 'Submit online by 11:59 PM',
-                            type: 'assignment',
-                            course: 'World History',
-                            importance: 'medium',
-                            difficulty: 'medium'
-                        }
-                    ]
-                }
+                currentDate: new Date(2026, 1, 11) // February 11, 2026
             };
 
             // State variables
@@ -2292,7 +2301,7 @@
             const todayDate = document.getElementById('todayDate');
             const todayEvents = document.getElementById('todayEvents');
             const upcomingEvents = document.getElementById('upcomingEvents');
-            
+
             // Today Button
             const todayBtn = document.getElementById('todayBtn');
 
@@ -2301,53 +2310,57 @@
                 updateCalendar();
                 updateTodaySection();
                 updateUpcomingEvents();
-                
+
                 // Make sure today is selected on init
                 const today = new Date(2026, 1, 11);
                 selectDay(today);
-                
+
                 // Update notification badge
                 updateNotificationBadge();
-                
+
                 // Initialize slider value displays
                 updateSliderValues();
             }
 
             // Update slider value displays
             function updateSliderValues() {
-                // Importance slider
-                const importance = parseInt(importanceSlider.value);
-                importanceValue.textContent = `${importance}% of final grade`;
-                
-                // Difficulty slider
-                const difficulty = parseInt(difficultySlider.value);
-                const difficultyLabels = ['Very Easy', 'Easy', 'Medium', 'Hard', 'Very Hard'];
-                difficultyValue.textContent = `${difficultyLabels[difficulty - 1]} Difficulty`;
-                
-                // Estimated hours slider
-                const hours = parseInt(estimatedHoursSlider.value);
-                estimatedHoursValue.textContent = `${hours} ${hours === 1 ? 'hour' : 'hours'} estimated`;
+                // Only update if sliders exist (for assignment modal)
+                if (importanceSlider && importanceValue) {
+                    const importance = parseInt(importanceSlider.value);
+                    importanceValue.textContent = `${importance}% of final grade`;
+                }
+
+                if (difficultySlider && difficultyValue) {
+                    const difficulty = parseInt(difficultySlider.value);
+                    const difficultyLabels = ['Very Easy', 'Easy', 'Medium', 'Hard', 'Very Hard'];
+                    difficultyValue.textContent = `${difficultyLabels[difficulty - 1]} Difficulty`;
+                }
+
+                if (estimatedHoursSlider && estimatedHoursValue) {
+                    const hours = parseInt(estimatedHoursSlider.value);
+                    estimatedHoursValue.textContent = `${hours} ${hours === 1 ? 'hour' : 'hours'} estimated`;
+                }
             }
 
             // Update Calendar Display
             function updateCalendar() {
                 const year = calendarData.currentDate.getFullYear();
                 const month = calendarData.currentDate.getMonth();
-                
+
                 // Update month display
                 const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-                                   'July', 'August', 'September', 'October', 'November', 'December'];
+                    'July', 'August', 'September', 'October', 'November', 'December'];
                 currentMonth.textContent = `${monthNames[month]} ${year}`;
-                
+
                 // Clear previous days
                 calendarDays.innerHTML = '';
-                
+
                 // Get first day of month and total days
                 const firstDay = new Date(year, month, 1);
                 const lastDay = new Date(year, month + 1, 0);
                 const totalDays = lastDay.getDate();
                 const firstDayIndex = firstDay.getDay();
-                
+
                 // Previous month days
                 const prevMonthLastDay = new Date(year, month, 0).getDate();
                 for (let i = firstDayIndex - 1; i >= 0; i--) {
@@ -2355,22 +2368,22 @@
                     const dayElement = createDayElement(day, 'other-month');
                     calendarDays.appendChild(dayElement);
                 }
-                
+
                 // Current month days
                 const today = new Date(2026, 1, 11); // Fixed to February 11, 2026
                 const isCurrentMonth = today.getFullYear() === year && today.getMonth() === month;
-                
+
                 for (let day = 1; day <= totalDays; day++) {
                     const date = new Date(year, month, day);
                     const dateString = formatDate(date);
-                    const events = calendarData.events[dateString] || [];
+                    const events = calendarDB.getEventsForDate(dateString);
                     const hasEvents = events.length > 0;
                     const isToday = isCurrentMonth && day === today.getDate();
-                    
+
                     const dayElement = createDayElement(day, 'current-month', events, isToday, date);
                     calendarDays.appendChild(dayElement);
                 }
-                
+
                 // Next month days
                 const totalCells = 42; // 6 weeks * 7 days
                 const remainingCells = totalCells - (firstDayIndex + totalDays);
@@ -2385,42 +2398,40 @@
                 const dayElement = document.createElement('div');
                 dayElement.className = `day-cell ${className}`;
                 if (isToday) dayElement.classList.add('today');
-                
+
                 const dayNumber = document.createElement('div');
                 dayNumber.className = 'day-number';
                 dayNumber.textContent = day;
                 dayElement.appendChild(dayNumber);
-                
-                // Add indicators for different event types
+
+                // Add ONE red dot indicator in the center for any events
                 if (events.length > 0) {
-                    // Check for assignment due dates
-                    const hasAssignment = events.some(e => e.type === 'assignment' || e.type === 'exam');
-                    const hasStudySession = events.some(e => e.type === 'study');
-                    
-                    if (hasAssignment) {
-                        const assignmentIndicator = document.createElement('div');
-                        assignmentIndicator.className = 'assignment-indicator';
-                        dayElement.appendChild(assignmentIndicator);
-                    }
-                    
-                    if (hasStudySession) {
-                        const studyIndicator = document.createElement('div');
-                        studyIndicator.className = 'study-indicator';
-                        dayElement.appendChild(studyIndicator);
-                    }
-                    
-                    // Regular event indicator
+                    // Clear any existing indicators first
+                    const existingIndicators = dayElement.querySelectorAll('.event-indicator');
+                    existingIndicators.forEach(ind => ind.remove());
+
+                    // Create single red dot in center
                     const eventIndicator = document.createElement('div');
                     eventIndicator.className = 'event-indicator';
+                    eventIndicator.style.cssText = `
+                    width: 8px;
+                    height: 8px;
+                    background: #ff6b6b;
+                    border-radius: 50%;
+                    position: absolute;
+                    bottom: 10px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                `;
                     dayElement.appendChild(eventIndicator);
                 }
-                
+
                 if (date) {
-                    dayElement.addEventListener('click', function() {
+                    dayElement.addEventListener('click', function () {
                         selectDay(date);
                     });
                 }
-                
+
                 return dayElement;
             }
 
@@ -2430,20 +2441,20 @@
                 document.querySelectorAll('.day-cell').forEach(cell => {
                     cell.classList.remove('selected');
                 });
-                
+
                 // Add selected class to clicked day
                 const dayElements = document.querySelectorAll('.day-cell');
                 const dayIndex = Array.from(dayElements).findIndex(cell => {
-                    return cell.querySelector('.day-number').textContent == date.getDate() && 
-                           cell.classList.contains('current-month');
+                    return cell.querySelector('.day-number').textContent == date.getDate() &&
+                        cell.classList.contains('current-month');
                 });
-                
+
                 if (dayIndex !== -1) {
                     dayElements[dayIndex].classList.add('selected');
-                    
+
                     // Show events for selected day
                     const dateString = formatDate(date);
-                    const events = calendarData.events[dateString] || [];
+                    const events = calendarDB.getEventsForDate(dateString);
                     showDayEvents(date, events);
                 }
             }
@@ -2452,139 +2463,152 @@
             function showDayEvents(date, events) {
                 const dateString = formatDate(date);
                 const dateDisplay = formatDateDisplay(date);
-                
+
                 // Update today section
                 todayDate.textContent = dateDisplay;
-                
+
                 // Clear current events
                 todayEvents.innerHTML = '';
-                
+
                 if (events.length === 0) {
                     const noEvents = document.createElement('div');
                     noEvents.className = 'event-item';
                     noEvents.innerHTML = `
-                        <div class="event-title">No events scheduled</div>
-                        <div class="event-subtitle">Click "Add Event" to schedule something</div>
-                    `;
+                    <div class="event-title">No events scheduled</div>
+                    <div class="event-subtitle">Click "Add Event" to schedule something</div>
+                `;
                     todayEvents.appendChild(noEvents);
                     deleteAllTodayBtn.style.display = 'none';
                 } else {
                     events.forEach(event => {
-                        const eventItem = createEventItem(event, dateString);
+                        const eventItem = createEventItem(event, dateString, false); // Don't show date for today's section
                         todayEvents.appendChild(eventItem);
                     });
                     deleteAllTodayBtn.style.display = 'flex';
                 }
-                
+
                 showFeedback(`Showing events for ${dateDisplay}`, 'info');
             }
 
+            // Get relative date text (Today, Tomorrow, or formatted date)
+            function getRelativeDate(dateString) {
+                const today = new Date(2026, 1, 11);
+                const tomorrow = new Date(today);
+                tomorrow.setDate(today.getDate() + 1);
+
+                if (dateString === formatDate(today)) {
+                    return 'Today';
+                } else if (dateString === formatDate(tomorrow)) {
+                    return 'Tomorrow';
+                } else {
+                    const date = parseDateFromString(dateString);
+                    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                    const month = monthNames[date.getMonth()];
+                    const day = date.getDate();
+                    return `${month} ${day}`;
+                }
+            }
+
             // Create Event Item with delete functionality
-            function createEventItem(event, dateString) {
+            function createEventItem(event, dateString, showDate = false) {
                 const eventItem = document.createElement('div');
                 eventItem.className = `event-item selectable ${event.type} ${event.completed ? 'completed' : ''}`;
                 eventItem.dataset.id = event.id;
                 eventItem.dataset.date = dateString;
-                
+
                 // Swipe overlay for delete
                 const swipeOverlay = document.createElement('div');
                 swipeOverlay.className = 'swipe-overlay';
                 swipeOverlay.innerHTML = `
-                    <i class="fas fa-trash-alt"></i>
-                    Swipe to Delete
-                `;
+                <i class="fas fa-trash-alt"></i>
+                Swipe to Delete
+            `;
                 eventItem.appendChild(swipeOverlay);
-                
-                // Determine importance class
-                let importanceClass = 'importance-medium';
-                if (event.importance === 'high') importanceClass = 'importance-high';
-                if (event.importance === 'low') importanceClass = 'importance-low';
-                
-                // Determine difficulty text
-                let difficultyText = '';
-                if (event.difficulty === 'very easy') difficultyText = 'Very Easy';
-                if (event.difficulty === 'easy') difficultyText = 'Easy';
-                if (event.difficulty === 'medium') difficultyText = 'Medium';
-                if (event.difficulty === 'hard') difficultyText = 'Hard';
-                if (event.difficulty === 'very hard') difficultyText = 'Very Hard';
-                
+
+                // Format date for display if needed
+                let dateDisplay = '';
+                if (showDate) {
+                    const relativeDate = getRelativeDate(dateString);
+
+                    // Set color based on date
+                    let color = '#2d5a3d'; // Default
+                    if (relativeDate === 'Today') color = '#2ecc71';
+                    if (relativeDate === 'Tomorrow') color = '#3498db';
+
+                    dateDisplay = `<div class="event-date" style="color: ${color};">${relativeDate}</div>`;
+                }
+
                 // Event content
                 const eventContent = document.createElement('div');
-                
-                let metaHTML = '';
-                if (event.course) {
-                    metaHTML += `<span class="event-tag course"><i class="fas fa-book"></i> ${event.course}</span>`;
-                }
-                if (event.importance) {
-                    metaHTML += `<span class="event-tag ${importanceClass}"><i class="fas fa-weight-hanging"></i> ${event.importance.toUpperCase()}</span>`;
-                }
-                if (event.difficulty) {
-                    metaHTML += `<span class="event-tag difficulty"><i class="fas fa-brain"></i> ${difficultyText}</span>`;
-                }
-                
+
                 eventContent.innerHTML = `
-                    <div class="event-time">
-                        <i class="far fa-clock"></i>
-                        ${event.time}
-                        ${event.completed ? '<span style="color: #2ecc71; margin-left: 10px;"><i class="fas fa-check-circle"></i> Completed</span>' : ''}
+                <div class="event-time">
+                    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <i class="far fa-clock"></i>
+                            ${event.time}
+                        </div>
+                        ${dateDisplay}
                     </div>
-                    <div class="event-title">${event.title}</div>
-                    <div class="event-subtitle">${event.subtitle}</div>
-                    ${metaHTML ? `<div class="event-meta">${metaHTML}</div>` : ''}
-                    <div class="event-actions">
-                        ${!event.completed && (event.type === 'assignment' || event.type === 'study') ? 
-                            `<button class="event-btn complete" data-id="${event.id}">
-                                <i class="fas fa-check-circle"></i>
-                                Mark Complete
-                            </button>` : ''
-                        }
-                        <button class="event-btn edit" data-id="${event.id}">
-                            <i class="fas fa-edit"></i>
-                            Edit
-                        </button>
-                        <button class="event-btn delete" data-id="${event.id}">
-                            <i class="fas fa-trash-alt"></i>
-                            Delete
-                        </button>
-                    </div>
-                `;
+                    ${event.completed ? '<span style="color: #2ecc71; margin-left: 10px;"><i class="fas fa-check-circle"></i> Completed</span>' : ''}
+                </div>
+                <div class="event-title">${event.title}</div>
+                <div class="event-subtitle">${event.subtitle}</div>
+                <div class="event-actions">
+                    ${!event.completed && (event.type === 'assignment' || event.type === 'study') ?
+                        `<button class="event-btn complete" data-id="${event.id}">
+                            <i class="fas fa-check-circle"></i>
+                            Mark Complete
+                        </button>` : ''
+                    }
+                    <button class="event-btn edit" data-id="${event.id}">
+                        <i class="fas fa-edit"></i>
+                        Edit
+                    </button>
+                    <button class="event-btn delete" data-id="${event.id}">
+                        <i class="fas fa-trash-alt"></i>
+                        Delete
+                    </button>
+                </div>
+            `;
                 eventItem.appendChild(eventContent);
-                
+
                 // Add event listeners
                 const editBtn = eventItem.querySelector('.event-btn.edit');
                 const deleteBtn = eventItem.querySelector('.event-btn.delete');
                 const completeBtn = eventItem.querySelector('.event-btn.complete');
-                
-                editBtn.addEventListener('click', function(e) {
+
+                editBtn.addEventListener('click', function (e) {
                     e.stopPropagation();
                     openEditModal(event, dateString);
                 });
-                
-                deleteBtn.addEventListener('click', function(e) {
+
+                deleteBtn.addEventListener('click', function (e) {
                     e.stopPropagation();
                     openDeleteModal(event, dateString, 'single');
                 });
-                
+
                 if (completeBtn) {
-                    completeBtn.addEventListener('click', function(e) {
+                    completeBtn.addEventListener('click', function (e) {
                         e.stopPropagation();
                         markEventComplete(event.id, dateString);
                     });
                 }
-                
+
                 // Touch events for swipe and long press
                 eventItem.addEventListener('touchstart', handleTouchStart);
                 eventItem.addEventListener('touchmove', handleTouchMove);
                 eventItem.addEventListener('touchend', handleTouchEnd);
-                eventItem.addEventListener('click', function(e) {
+                eventItem.addEventListener('click', function (e) {
                     if (isSelectionMode) {
                         toggleEventSelection(event.id);
                         e.stopPropagation();
                     }
                 });
-                
+
                 // Long press for selection mode
-                eventItem.addEventListener('touchstart', function(e) {
+                eventItem.addEventListener('touchstart', function (e) {
                     longPressTimer = setTimeout(() => {
                         if (!isSelectionMode) {
                             enableSelectionMode();
@@ -2592,26 +2616,28 @@
                         toggleEventSelection(event.id);
                     }, 800); // 800ms for long press
                 });
-                
-                eventItem.addEventListener('touchend', function() {
+
+                eventItem.addEventListener('touchend', function () {
                     clearTimeout(longPressTimer);
                 });
-                
+
                 return eventItem;
             }
 
             // Mark event as complete
             function markEventComplete(eventId, dateString) {
-                const event = findEventById(dateString, eventId);
+                const events = calendarDB.getEventsForDate(dateString);
+                const event = events.find(e => e.id === eventId);
                 if (event) {
                     event.completed = true;
                     event.time = 'Completed';
-                    
+                    calendarDB.saveEvent(dateString, event);
+
                     // Update UI
                     updateCalendar();
                     updateTodaySection();
                     updateUpcomingEvents();
-                    
+
                     // Show completion animation
                     const eventElement = document.querySelector(`[data-id="${eventId}"]`);
                     if (eventElement) {
@@ -2621,9 +2647,9 @@
                             eventElement.style.animation = '';
                         }, 500);
                     }
-                    
+
                     showFeedback(`"${event.title}" marked as complete!`, 'success');
-                    
+
                     // If it's a study session for an assignment, check if all sessions are complete
                     if (event.assignmentId) {
                         checkAssignmentCompletion(event.assignmentId);
@@ -2633,24 +2659,21 @@
 
             // Check if all study sessions for an assignment are complete
             function checkAssignmentCompletion(assignmentId) {
+                const allEvents = calendarDB.getAllEventsWithDates();
                 let allComplete = true;
                 let assignmentTitle = '';
-                
-                // Check all events in calendar
-                for (const date in calendarData.events) {
-                    const events = calendarData.events[date];
-                    for (const event of events) {
-                        if (event.assignmentId === assignmentId && event.type === 'study') {
-                            if (!event.completed) {
-                                allComplete = false;
-                            }
-                            if (!assignmentTitle && event.assignmentTitle) {
-                                assignmentTitle = event.assignmentTitle;
-                            }
+
+                allEvents.forEach(eventData => {
+                    if (eventData.assignmentId === assignmentId && eventData.type === 'study') {
+                        if (!eventData.completed) {
+                            allComplete = false;
+                        }
+                        if (!assignmentTitle && eventData.assignmentTitle) {
+                            assignmentTitle = eventData.assignmentTitle;
                         }
                     }
-                }
-                
+                });
+
                 if (allComplete && assignmentTitle) {
                     showFeedback(`All study sessions for "${assignmentTitle}" are complete! Great job! 🎉`, 'success');
                 }
@@ -2664,13 +2687,13 @@
 
             function handleTouchMove(e) {
                 if (!touchStartX || !touchStartY) return;
-                
+
                 touchEndX = e.touches[0].clientX;
                 touchEndY = e.touches[0].clientY;
-                
+
                 const diffX = touchStartX - touchEndX;
                 const diffY = touchStartY - touchEndY;
-                
+
                 // Only trigger swipe if horizontal movement is greater than vertical
                 if (Math.abs(diffX) > Math.abs(diffY) && diffX > 50) {
                     e.currentTarget.classList.add('swiping');
@@ -2680,21 +2703,22 @@
 
             function handleTouchEnd(e) {
                 if (!touchStartX || !touchStartY) return;
-                
+
                 const diffX = touchStartX - touchEndX;
-                
+
                 // If swiped left enough, show delete confirmation
                 if (diffX > 100) {
                     const eventItem = e.currentTarget;
                     const eventId = eventItem.dataset.id;
                     const dateString = eventItem.dataset.date;
-                    const event = findEventById(dateString, eventId);
-                    
+                    const events = calendarDB.getEventsForDate(dateString);
+                    const event = events.find(e => e.id === eventId);
+
                     if (event) {
                         openDeleteModal(event, dateString, 'single');
                     }
                 }
-                
+
                 // Reset swipe state
                 e.currentTarget.classList.remove('swiping');
                 touchStartX = 0;
@@ -2703,24 +2727,22 @@
                 touchEndY = 0;
             }
 
-            // Find event by ID
-            function findEventById(dateString, eventId) {
-                if (!calendarData.events[dateString]) return null;
-                return calendarData.events[dateString].find(e => e.id === eventId);
-            }
-
             /* ---------- AI STUDY SCHEDULER ---------- */
             function generateStudySchedule(assignment) {
                 const schedule = [];
                 const today = new Date(2026, 1, 11); // February 11, 2026
-                const dueDate = new Date(assignment.dueDate);
-                
+                const dueDate = parseDateFromString(assignment.dueDate);
+
                 // Calculate days until due date
                 const daysUntilDue = Math.ceil((dueDate - today) / (1000 * 60 * 60 * 24));
-                
+                if (daysUntilDue < 0) {
+                    showFeedback('Due date cannot be in the past', 'error');
+                    return null;
+                }
+
                 // Calculate total study hours needed
                 let totalHours = assignment.estimatedHours;
-                
+
                 // Adjust based on difficulty
                 const difficultyMultiplier = {
                     1: 0.7,  // Very Easy
@@ -2730,11 +2752,11 @@
                     5: 1.5   // Very Hard
                 };
                 totalHours *= difficultyMultiplier[assignment.difficulty] || 1.0;
-                
+
                 // Adjust based on importance
                 const importanceMultiplier = assignment.importance / 15; // 15% is baseline
                 totalHours *= importanceMultiplier;
-                
+
                 // Adjust based on grade pressure
                 if (assignment.currentGrade && assignment.targetGrade) {
                     const gradeGap = assignment.targetGrade - assignment.currentGrade;
@@ -2742,13 +2764,13 @@
                         totalHours *= (1 + (gradeGap / 100));
                     }
                 }
-                
+
                 totalHours = Math.max(1, Math.min(20, Math.round(totalHours)));
-                
+
                 // Determine session length (1-3 hours based on difficulty)
                 const sessionLength = Math.min(3, Math.max(1, Math.ceil(assignment.difficulty / 2)));
                 const totalSessions = Math.ceil(totalHours / sessionLength);
-                
+
                 // Determine session distribution
                 let sessionDistribution = [];
                 if (daysUntilDue >= 7) {
@@ -2785,28 +2807,28 @@
                         }
                     }
                 }
-                
+
                 // Sort by date
                 sessionDistribution.sort((a, b) => a.daysFromNow - b.daysFromNow);
-                
+
                 // Create schedule items
                 sessionDistribution.forEach((session, index) => {
                     const sessionDate = new Date(today);
                     sessionDate.setDate(today.getDate() + session.daysFromNow);
                     const dateString = formatDate(sessionDate);
-                    
+
                     // Determine session focus based on progress
                     let focus = '';
                     if (index === 0) focus = 'Introduction & Planning';
                     else if (index === sessionDistribution.length - 1) focus = 'Final Review & Practice';
                     else if (index < sessionDistribution.length / 2) focus = 'Core Concepts';
                     else focus = 'Application & Problem Solving';
-                    
+
                     // Determine priority
                     let priority = 'medium';
                     if (session.daysFromNow <= 2) priority = 'high';
                     if (session.daysFromNow >= daysUntilDue - 1) priority = 'high';
-                    
+
                     schedule.push({
                         date: sessionDate,
                         dateString: dateString,
@@ -2818,7 +2840,7 @@
                         assignmentTitle: assignment.title
                     });
                 });
-                
+
                 return {
                     schedule: schedule,
                     totalHours: totalHours,
@@ -2830,57 +2852,151 @@
             // Display generated schedule
             function displaySchedule(scheduleData) {
                 scheduleList.innerHTML = '';
-                
+
+                if (!scheduleData || !scheduleData.schedule) {
+                    scheduleList.innerHTML = `
+            <div class="schedule-item">
+                <div class="schedule-item-title">Unable to generate schedule</div>
+                <div class="schedule-item-desc">Please check your assignment details and try again.</div>
+            </div>
+        `;
+                    return;
+                }
+
+                // Calculate daily workload
+                const scheduler = new StudyScheduler();
+                const dailyWorkload = scheduler.calculateDailyWorkload(scheduleData.schedule);
+                const adjustments = scheduler.suggestBalanceAdjustments(scheduleData.schedule);
+
+                // Display schedule items
                 scheduleData.schedule.forEach((session, index) => {
                     const scheduleItem = document.createElement('div');
                     scheduleItem.className = 'schedule-item';
-                    
-                    const priorityText = session.priority === 'high' ? 'High Priority' : 'Normal Priority';
-                    
+
+                    const priorityText = session.priority === 'high' ? 'High Priority' :
+                        session.priority === 'medium' ? 'Medium Priority' : 'Normal Priority';
+
+                    const dayType = session.isWeekend ? 'Weekend' : 'Weekday';
+                    const breakDuration = scheduler.calculateBreakDuration(session.length);
+
                     scheduleItem.innerHTML = `
-                        <div class="schedule-item-date">
-                            <i class="far fa-calendar"></i>
-                            ${formatDateDisplay(session.date)} • ${session.length} ${session.length === 1 ? 'hour' : 'hours'}
-                        </div>
-                        <div class="schedule-item-title">${session.title}</div>
-                        <div class="schedule-item-desc">${session.description}</div>
-                        <div class="schedule-item-tags">
-                            <span class="schedule-tag duration">
-                                <i class="far fa-clock"></i> ${session.length}h
-                            </span>
-                            <span class="schedule-tag priority">
-                                <i class="fas fa-exclamation-circle"></i> ${priorityText}
-                            </span>
-                            <span class="schedule-tag">
-                                <i class="fas fa-layer-group"></i> Session ${index + 1}
-                            </span>
-                        </div>
-                    `;
-                    
+            <div class="schedule-item-date">
+                <i class="far fa-calendar"></i>
+                ${formatDateDisplay(session.date)} • ${session.length} ${session.length === 1 ? 'hour' : 'hours'}
+                <span class="schedule-tag" style="margin-left: 8px; background: ${session.isWeekend ? 'rgba(155, 89, 182, 0.1)' : 'rgba(52, 152, 219, 0.1)'}; color: ${session.isWeekend ? '#9b59b6' : '#3498db'};">
+                    <i class="fas ${session.isWeekend ? 'fa-umbrella-beach' : 'fa-briefcase'}"></i> ${dayType}
+                </span>
+            </div>
+            <div class="schedule-item-title">${session.title}</div>
+            <div class="schedule-item-desc">${session.description}</div>
+            <div class="schedule-item-tags">
+                <span class="schedule-tag duration">
+                    <i class="far fa-clock"></i> ${session.length}h
+                </span>
+                <span class="schedule-tag priority">
+                    <i class="fas fa-exclamation-circle"></i> ${priorityText}
+                </span>
+                <span class="schedule-tag">
+                    <i class="fas fa-layer-group"></i> Session ${index + 1}
+                </span>
+                <span class="schedule-tag">
+                    <i class="fas fa-coffee"></i> ${breakDuration}m break
+                </span>
+            </div>
+            <div class="schedule-item-desc" style="margin-top: 8px; font-size: 12px;">
+                <i class="fas fa-lightbulb"></i> ${session.optimalTime} • Focus: ${session.focus}
+            </div>
+        `;
+
                     scheduleList.appendChild(scheduleItem);
                 });
-                
+
+                // Add workload summary
+                const summaryItem = document.createElement('div');
+                summaryItem.className = 'schedule-item';
+                summaryItem.style.marginTop = '20px';
+                summaryItem.style.background = 'rgba(52, 152, 219, 0.05)';
+
+                const weekendSessions = scheduleData.schedule.filter(s => s.isWeekend).length;
+                const weekdaySessions = scheduleData.schedule.length - weekendSessions;
+
+                summaryItem.innerHTML = `
+        <div class="schedule-item-title">📊 Workload Summary</div>
+        <div class="schedule-item-desc">
+            • Total: ${scheduleData.totalSessions} sessions over ${scheduleData.studyDays} study days<br>
+            • Weekdays: ${weekdaySessions} sessions (${Math.round(weekdaySessions / scheduleData.totalSessions * 100)}%)<br>
+            • Weekends: ${weekendSessions} sessions (${Math.round(weekendSessions / scheduleData.totalSessions * 100)}%)<br>
+            • Average daily workload: ${(scheduleData.totalHours / scheduleData.studyDays).toFixed(1)} hours/day<br>
+            • Total study time: ${scheduleData.totalHours} hours
+        </div>
+    `;
+                scheduleList.appendChild(summaryItem);
+
+                // Add study tips section
+                if (currentAssignment) {
+                    const tips = scheduler.generateStudyTips(currentAssignment);
+                    if (tips.length > 0) {
+                        const tipsSection = document.createElement('div');
+                        tipsSection.className = 'schedule-item';
+                        tipsSection.style.marginTop = '20px';
+                        tipsSection.style.background = 'rgba(46, 204, 113, 0.05)';
+                        tipsSection.innerHTML = `
+                <div class="schedule-item-title">💡 Study Tips</div>
+                <div class="schedule-item-desc">
+                    <ul style="text-align: left; margin: 10px 0; padding-left: 20px;">
+                        ${tips.map(tip => `<li>${tip}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+                        scheduleList.appendChild(tipsSection);
+                    }
+                }
+
+                // Add balance suggestions if needed
+                if (adjustments.length > 0) {
+                    const balanceSection = document.createElement('div');
+                    balanceSection.className = 'schedule-item';
+                    balanceSection.style.marginTop = '20px';
+                    balanceSection.style.background = 'rgba(243, 156, 18, 0.05)';
+
+                    let balanceHTML = '<div class="schedule-item-title">⚖️ Balance Suggestions</div>';
+                    balanceHTML += '<div class="schedule-item-desc">';
+                    adjustments.forEach(adj => {
+                        balanceHTML += `• ${adj.date}: ${adj.suggestion || adj.note}<br>`;
+                    });
+                    balanceHTML += '</div>';
+
+                    balanceSection.innerHTML = balanceHTML;
+                    scheduleList.appendChild(balanceSection);
+                }
+
                 scheduleModalSubtitle.innerHTML = `
-                    Based on your assignment details, we've created an optimal study plan:<br>
-                    <strong>${scheduleData.totalSessions} sessions</strong> over <strong>${scheduleData.daysUntilDue} days</strong>, 
-                    totaling <strong>${scheduleData.totalHours} hours</strong>.
-                `;
-                
+        We've created a balanced study plan that prioritizes weekdays and avoids overloading:<br>
+        <strong>${scheduleData.totalSessions} balanced sessions</strong> over <strong>${scheduleData.studyDays} study days</strong>, 
+        totaling <strong>${scheduleData.totalHours} hours</strong>.
+        ${scheduleData.daysUntilDue < 3 ? '<br><em>⚠️ Due date is approaching soon! Starting immediately is recommended.</em>' : ''}
+    `;
+
                 scheduleModal.style.display = 'flex';
             }
-
             // Add schedule to calendar
             function addScheduleToCalendar(scheduleData) {
                 scheduleData.schedule.forEach(session => {
                     const dateString = session.dateString;
-                    
+
                     // Determine session time (morning, afternoon, evening)
                     let time = '';
                     const hour = 9 + (session.priority === 'high' ? 0 : 3); // High priority = morning
-                    time = `${hour}:00 AM - ${hour + session.length}:00 PM`;
-                    
+                    const endHour = hour + session.length;
+                    const ampmStart = hour >= 12 ? 'PM' : 'AM';
+                    const ampmEnd = endHour >= 12 ? 'PM' : 'AM';
+                    const displayHourStart = hour % 12 || 12;
+                    const displayHourEnd = endHour % 12 || 12;
+
+                    time = `${displayHourStart}:00 ${ampmStart} - ${displayHourEnd}:00 ${ampmEnd}`;
+
                     const event = {
-                        id: generateEventId(),
+                        id: calendarDB.generateEventId(),
                         time: time,
                         title: session.title,
                         subtitle: session.description,
@@ -2892,15 +3008,12 @@
                         assignmentTitle: currentAssignment.title,
                         priority: session.priority
                     };
-                    
-                    if (!calendarData.events[dateString]) {
-                        calendarData.events[dateString] = [];
-                    }
-                    calendarData.events[dateString].push(event);
+
+                    calendarDB.saveEvent(dateString, event);
                 });
-                
+
                 // Add the assignment due date event
-                const dueDateString = formatDate(new Date(currentAssignment.dueDate));
+                const dueDateString = currentAssignment.dueDate;
                 let dueTime = 'All day';
                 if (currentAssignment.dueTime) {
                     const [hours, minutes] = currentAssignment.dueTime.split(':');
@@ -2909,7 +3022,7 @@
                     hour = hour % 12 || 12;
                     dueTime = `Due at ${hour}:${minutes} ${ampm}`;
                 }
-                
+
                 const assignmentEvent = {
                     id: currentAssignment.id,
                     time: dueTime,
@@ -2920,17 +3033,14 @@
                     importance: getImportanceLevel(currentAssignment.importance),
                     difficulty: getDifficultyLevel(currentAssignment.difficulty)
                 };
-                
-                if (!calendarData.events[dueDateString]) {
-                    calendarData.events[dueDateString] = [];
-                }
-                calendarData.events[dueDateString].push(assignmentEvent);
-                
+
+                calendarDB.saveEvent(dueDateString, assignmentEvent);
+
                 // Update UI
                 updateCalendar();
                 updateTodaySection();
                 updateUpcomingEvents();
-                
+
                 showFeedback(`Added ${scheduleData.totalSessions} study sessions and assignment to calendar!`, 'success');
                 closeScheduleModal();
             }
@@ -2950,55 +3060,21 @@
             // Open Edit Modal
             function openEditModal(event, dateString) {
                 selectedEventForEditing = { event, dateString };
-                addModalTitle.textContent = 'Edit Event';
-                
-                // Parse date
-                const [year, month, day] = dateString.split('-').map(Number);
-                const eventDate = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-                
-                // Parse time if available
-                let eventTime = '';
-                if (event.time !== 'All day' && !event.time.includes('Completed')) {
-                    const timeMatch = event.time.match(/(\d{1,2}:\d{2})\s*[AP]M/);
-                    if (timeMatch) {
-                        eventTime = timeMatch[1];
-                        // Convert to 24-hour format if needed
-                        if (event.time.includes('PM') && !eventTime.startsWith('12')) {
-                            const [hours, minutes] = eventTime.split(':');
-                            eventTime = `${parseInt(hours) + 12}:${minutes}`;
-                        }
-                    }
+
+                // Check if it's a regular event or assignment
+                if (event.type === 'assignment' || event.type === 'exam' || event.type === 'study') {
+                    addModalTitle.textContent = 'Edit Assignment';
+                    openAddModal(true, event, dateString);
+                } else {
+                    addModalTitle.textContent = 'Edit Event';
+                    openAddModal(false, event, dateString);
                 }
-                
-                // Fill form
-                document.getElementById('eventTitle').value = event.title;
-                document.getElementById('courseName').value = event.course || '';
-                document.getElementById('eventDate').value = eventDate;
-                document.getElementById('dueTime').value = eventTime;
-                document.getElementById('eventDescription').value = event.subtitle || '';
-                
-                // Set sliders based on event data
-                if (event.importance === 'high') importanceSlider.value = 30;
-                else if (event.importance === 'medium') importanceSlider.value = 15;
-                else importanceSlider.value = 5;
-                
-                if (event.difficulty === 'very hard') difficultySlider.value = 5;
-                else if (event.difficulty === 'hard') difficultySlider.value = 4;
-                else if (event.difficulty === 'medium') difficultySlider.value = 3;
-                else if (event.difficulty === 'easy') difficultySlider.value = 2;
-                else difficultySlider.value = 1;
-                
-                estimatedHoursSlider.value = 5;
-                
-                updateSliderValues();
-                
-                addEventModal.style.display = 'flex';
             }
 
             // Open Delete Modal
             function openDeleteModal(event, dateString, mode = 'single') {
                 selectedEventForDeletion = { event, dateString, mode };
-                
+
                 if (mode === 'single') {
                     deleteModalTitle.textContent = 'Delete Event';
                     deleteModalSubtitle.textContent = `Are you sure you want to delete "${event.title}"? This action cannot be undone.`;
@@ -3012,7 +3088,7 @@
                     deleteModalTitle.textContent = 'Delete Selected Events';
                     deleteModalSubtitle.textContent = `Are you sure you want to delete ${selectedEvents.size} selected events? This action cannot be undone.`;
                 }
-                
+
                 deleteModal.style.display = 'flex';
             }
 
@@ -3032,76 +3108,50 @@
             // Delete Event
             function deleteEvent() {
                 if (!selectedEventForDeletion) return;
-                
+
                 const { event, dateString, mode } = selectedEventForDeletion;
-                
+
                 if (mode === 'single') {
                     // Delete single event
-                    const eventIndex = calendarData.events[dateString].findIndex(e => e.id === event.id);
-                    if (eventIndex !== -1) {
-                        calendarData.events[dateString].splice(eventIndex, 1);
-                        
-                        // If no more events on this date, remove the date entry
-                        if (calendarData.events[dateString].length === 0) {
-                            delete calendarData.events[dateString];
-                        }
-                        
-                        showFeedback(`Event "${event.title}" deleted successfully`, 'success');
-                    }
+                    calendarDB.deleteEvent(dateString, event.id);
+                    showFeedback(`Event "${event.title}" deleted successfully`, 'success');
                 } else if (mode === 'all_today') {
                     // Delete all events for today
                     const today = new Date(2026, 1, 11);
                     const todayString = formatDate(today);
-                    const count = calendarData.events[todayString] ? calendarData.events[todayString].length : 0;
-                    
-                    delete calendarData.events[todayString];
-                    showFeedback(`Deleted ${count} events for today`, 'success');
+                    calendarDB.deleteAllEventsForDate(todayString);
+                    showFeedback(`Deleted all events for today`, 'success');
                 } else if (mode === 'all_upcoming') {
                     // Delete all upcoming events (next 14 days)
                     const today = new Date(2026, 1, 11);
-                    let totalDeleted = 0;
-                    
+                    const dateStrings = [];
                     for (let i = 0; i < 14; i++) {
                         const date = new Date(today);
                         date.setDate(today.getDate() + i);
-                        const dateString = formatDate(date);
-                        
-                        if (calendarData.events[dateString]) {
-                            totalDeleted += calendarData.events[dateString].length;
-                            delete calendarData.events[dateString];
-                        }
+                        dateStrings.push(formatDate(date));
                     }
-                    
-                    showFeedback(`Deleted ${totalDeleted} upcoming events`, 'success');
+                    calendarDB.deleteAllEventsForDates(dateStrings);
+                    showFeedback(`Deleted all upcoming events`, 'success');
                 } else if (mode === 'multiple') {
                     // Delete multiple selected events
                     let totalDeleted = 0;
-                    
+
                     selectedEvents.forEach(eventId => {
                         const [dateString, id] = eventId.split('_');
-                        if (calendarData.events[dateString]) {
-                            const eventIndex = calendarData.events[dateString].findIndex(e => e.id === id);
-                            if (eventIndex !== -1) {
-                                calendarData.events[dateString].splice(eventIndex, 1);
-                                totalDeleted++;
-                                
-                                // If no more events on this date, remove the date entry
-                                if (calendarData.events[dateString].length === 0) {
-                                    delete calendarData.events[dateString];
-                                }
-                            }
+                        if (calendarDB.deleteEvent(dateString, id)) {
+                            totalDeleted++;
                         }
                     });
-                    
+
                     showFeedback(`Deleted ${totalDeleted} selected events`, 'success');
                     disableSelectionMode();
                 }
-                
+
                 // Update UI
                 updateCalendar();
                 updateTodaySection();
                 updateUpcomingEvents();
-                
+
                 // Close modal
                 closeDeleteModal();
             }
@@ -3110,65 +3160,65 @@
             function enableSelectionMode() {
                 isSelectionMode = true;
                 selectedEvents.clear();
-                
+
                 // Add selection mode styles
                 document.querySelectorAll('.event-item').forEach(item => {
                     item.classList.add('selectable');
                 });
-                
+
                 // Show selection header in today section
                 const todayHeader = document.querySelector('.today-header');
                 const selectionHeader = document.createElement('div');
                 selectionHeader.className = 'selection-header';
                 selectionHeader.innerHTML = `
-                    <div class="selection-count">0 selected</div>
-                    <div class="selection-actions">
-                        <button class="selection-btn cancel" id="cancelSelection">
-                            Cancel
-                        </button>
-                        <button class="selection-btn delete" id="deleteSelected">
-                            Delete
-                        </button>
-                    </div>
-                `;
-                
+                <div class="selection-count">0 selected</div>
+                <div class="selection-actions">
+                    <button class="selection-btn cancel" id="cancelSelection">
+                        Cancel
+                    </button>
+                    <button class="selection-btn delete" id="deleteSelected">
+                        Delete
+                    </button>
+                </div>
+            `;
+
                 // Insert selection header
                 todayHeader.parentNode.insertBefore(selectionHeader, todayHeader.nextSibling);
-                
+
                 // Add event listeners for selection buttons
                 document.getElementById('cancelSelection').addEventListener('click', disableSelectionMode);
-                document.getElementById('deleteSelected').addEventListener('click', function() {
+                document.getElementById('deleteSelected').addEventListener('click', function () {
                     if (selectedEvents.size > 0) {
                         openDeleteModal(null, null, 'multiple');
                     }
                 });
-                
+
                 showFeedback('Selection mode enabled. Tap events to select them.', 'info');
             }
 
             function disableSelectionMode() {
                 isSelectionMode = false;
                 selectedEvents.clear();
-                
+
                 // Remove selection mode styles
                 document.querySelectorAll('.event-item').forEach(item => {
                     item.classList.remove('selected');
                     item.classList.remove('selectable');
                 });
-                
+
                 // Remove selection header
                 const selectionHeader = document.querySelector('.selection-header');
                 if (selectionHeader) {
                     selectionHeader.remove();
                 }
-                
+
                 showFeedback('Selection mode disabled', 'info');
             }
 
             function toggleEventSelection(eventId) {
                 const dateString = document.querySelector(`[data-id="${eventId}"]`).dataset.date;
                 const fullId = `${dateString}_${eventId}`;
-                
+
                 if (selectedEvents.has(fullId)) {
                     selectedEvents.delete(fullId);
                     document.querySelector(`[data-id="${eventId}"]`).classList.remove('selected');
@@ -3176,7 +3226,7 @@
                     selectedEvents.add(fullId);
                     document.querySelector(`[data-id="${eventId}"]`).classList.add('selected');
                 }
-                
+
                 // Update selection count
                 const selectionCount = document.querySelector('.selection-count');
                 if (selectionCount) {
@@ -3188,25 +3238,25 @@
             function updateTodaySection() {
                 const today = new Date(2026, 1, 11); // Fixed to February 11, 2026
                 const dateString = formatDate(today);
-                const events = calendarData.events[dateString] || [];
-                
+                const events = calendarDB.getEventsForDate(dateString);
+
                 todayDate.textContent = formatDateDisplay(today);
-                
+
                 // Clear current events
                 todayEvents.innerHTML = '';
-                
+
                 if (events.length === 0) {
                     const noEvents = document.createElement('div');
                     noEvents.className = 'event-item';
                     noEvents.innerHTML = `
-                        <div class="event-title">No events scheduled</div>
-                        <div class="event-subtitle">Click "Add Event" to schedule something</div>
-                    `;
+                    <div class="event-title">No events scheduled</div>
+                    <div class="event-subtitle">Click "Add Event" to schedule something</div>
+                `;
                     todayEvents.appendChild(noEvents);
                     deleteAllTodayBtn.style.display = 'none';
                 } else {
                     events.forEach(event => {
-                        const eventItem = createEventItem(event, dateString);
+                        const eventItem = createEventItem(event, dateString, false); // Don't show date for today's section
                         todayEvents.appendChild(eventItem);
                     });
                     deleteAllTodayBtn.style.display = 'flex';
@@ -3215,47 +3265,28 @@
 
             // Update Upcoming Events
             function updateUpcomingEvents() {
-                // Get all upcoming events (next 14 days)
-                const today = new Date(2026, 1, 11);
-                const upcoming = [];
-                
-                for (let i = 0; i < 14; i++) {
-                    const date = new Date(today);
-                    date.setDate(today.getDate() + i);
-                    const dateString = formatDate(date);
-                    
-                    if (calendarData.events[dateString]) {
-                        calendarData.events[dateString].forEach(event => {
-                            upcoming.push({
-                                date: date,
-                                dateString: dateString,
-                                ...event
-                            });
-                        });
-                    }
-                }
-                
-                // Sort by date
-                upcoming.sort((a, b) => a.date - b.date);
-                
+                // Get upcoming events from database
+                const upcoming = calendarDB.getUpcomingEvents(14);
+
                 // Clear current events
                 upcomingEvents.innerHTML = '';
-                
+
                 // Show up to 5 upcoming events
                 const eventsToShow = upcoming.slice(0, 5);
-                
+
                 if (eventsToShow.length === 0) {
                     const noEvents = document.createElement('div');
                     noEvents.className = 'event-item';
                     noEvents.innerHTML = `
-                        <div class="event-title">No upcoming events</div>
-                        <div class="event-subtitle">Add events to see them here</div>
-                    `;
+                    <div class="event-title">No upcoming events</div>
+                    <div class="event-subtitle">Add events to see them here</div>
+                `;
                     upcomingEvents.appendChild(noEvents);
                     deleteAllUpcomingBtn.style.display = 'none';
                 } else {
                     eventsToShow.forEach(eventData => {
-                        const eventItem = createEventItem(eventData, eventData.dateString);
+                        // Pass true to showDate parameter for upcoming events
+                        const eventItem = createEventItem(eventData, eventData.dateString, true);
                         upcomingEvents.appendChild(eventItem);
                     });
                     deleteAllUpcomingBtn.style.display = 'flex';
@@ -3270,18 +3301,19 @@
                 return `${year}-${month}-${day}`;
             }
 
+            // Parse date string to Date object
+            function parseDateFromString(dateString) {
+                const [year, month, day] = dateString.split('-').map(Number);
+                return new Date(year, month - 1, day);
+            }
+
             // Format Date for Display
             function formatDateDisplay(date) {
                 const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-                                   'July', 'August', 'September', 'October', 'November', 'December'];
+                    'July', 'August', 'September', 'October', 'November', 'December'];
                 const month = monthNames[date.getMonth()];
                 const day = date.getDate();
                 return `${month} ${day}`;
-            }
-
-            // Generate unique ID for events
-            function generateEventId() {
-                return 'event_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
             }
 
             // Show Feedback Message
@@ -3289,35 +3321,35 @@
                 // Remove existing feedback
                 const existingFeedback = document.querySelector('.feedback-message');
                 if (existingFeedback) existingFeedback.remove();
-                
+
                 // Create feedback element
                 const feedback = document.createElement('div');
                 feedback.className = `feedback-message feedback-${type}`;
                 feedback.style.cssText = `
-                    position: absolute;
-                    top: 120px;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    background: ${type === 'error' ? 'rgba(231, 76, 60, 0.95)' : 
-                                type === 'success' ? 'rgba(46, 204, 113, 0.95)' : 
-                                type === 'info' ? 'rgba(52, 152, 219, 0.95)' : 
+                position: absolute;
+                top: 120px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: ${type === 'error' ? 'rgba(231, 76, 60, 0.95)' :
+                        type === 'success' ? 'rgba(46, 204, 113, 0.95)' :
+                            type === 'info' ? 'rgba(52, 152, 219, 0.95)' :
                                 'rgba(34, 96, 78, 0.95)'};
-                    color: white;
-                    padding: 12px 25px;
-                    border-radius: 25px;
-                    font-family: 'Nunito', sans-serif;
-                    font-weight: 600;
-                    font-size: 14px;
-                    z-index: 3000;
-                    animation: slideDown 0.3s ease;
-                    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-                    max-width: 80%;
-                    text-align: center;
-                    width: auto;
-                `;
+                color: white;
+                padding: 12px 25px;
+                border-radius: 25px;
+                font-family: 'Nunito', sans-serif;
+                font-weight: 600;
+                font-size: 14px;
+                z-index: 3000;
+                animation: slideDown 0.3s ease;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+                max-width: 80%;
+                text-align: center;
+                width: auto;
+            `;
                 feedback.textContent = message;
                 document.querySelector('.phone').appendChild(feedback);
-                
+
                 // Remove after 2 seconds
                 setTimeout(() => {
                     feedback.style.animation = 'slideUp 0.3s ease forwards';
@@ -3334,54 +3366,267 @@
                 googleModal.style.display = 'none';
             }
 
-            function openAddModal(isAssignment = false) {
-                selectedEventForEditing = null;
-                
+            function openAddModal(isAssignment = false, existingEvent = null, dateString = null) {
+                selectedEventForEditing = existingEvent ? { event: existingEvent, dateString } : null;
+
                 if (isAssignment) {
-                    addModalTitle.textContent = 'Add New Assignment';
-                    document.getElementById('autoSchedule').checked = true;
+                    addModalTitle.textContent = existingEvent ? 'Edit Assignment' : 'Add New Assignment';
+                    // Show assignment form
+                    document.getElementById('addForm').innerHTML = `
+                    <div class="form-group">
+                        <label class="form-label" for="eventTitle">Assignment Title*</label>
+                        <input type="text" id="eventTitle" class="form-input" placeholder="e.g., Math Homework Chapter 5" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="courseName">Course/Subject*</label>
+                        <input type="text" id="courseName" class="form-input" placeholder="e.g., Calculus 101" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="eventDate">Due Date*</label>
+                        <input type="date" id="eventDate" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="dueTime">Due Time (Optional)</label>
+                        <input type="time" id="dueTime" class="form-input">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="importance">Importance (Weight/Percentage)*</label>
+                        <div class="slider-container">
+                            <input type="range" min="5" max="50" value="15" class="slider" id="importance">
+                            <div class="slider-labels">
+                                <span>5% (Low)</span>
+                                <span>15%</span>
+                                <span>30%</span>
+                                <span>50% (High)</span>
+                            </div>
+                            <div class="slider-value" id="importanceValue">15% of final grade</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="difficulty">Course Difficulty*</label>
+                        <div class="slider-container">
+                            <input type="range" min="1" max="5" value="3" class="slider" id="difficulty">
+                            <div class="slider-labels">
+                                <span>Very Easy</span>
+                                <span>Easy</span>
+                                <span>Medium</span>
+                                <span>Hard</span>
+                                <span>Very Hard</span>
+                            </div>
+                            <div class="slider-value" id="difficultyValue">Medium Difficulty</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="currentGrade">Current Grade in Course (Optional)</label>
+                        <input type="number" id="currentGrade" class="form-input" placeholder="e.g., 85" min="0" max="100" step="0.1">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="targetGrade">Target Grade (Optional)</label>
+                        <input type="number" id="targetGrade" class="form-input" placeholder="e.g., 90" min="0" max="100" step="0.1">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="estimatedHours">Estimated Hours to Complete*</label>
+                        <div class="slider-container">
+                            <input type="range" min="1" max="20" value="5" class="slider" id="estimatedHours">
+                            <div class="slider-labels">
+                                <span>1 hour</span>
+                                <span>5 hours</span>
+                                <span>10 hours</span>
+                                <span>15 hours</span>
+                                <span>20+ hours</span>
+                            </div>
+                            <div class="slider-value" id="estimatedHoursValue">5 hours estimated</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="eventDescription">Description (Optional)</label>
+                        <input type="text" id="eventDescription" class="form-input" placeholder="e.g., Problems 1-20, show all work">
+                    </div>
+                    
+                    <div class="form-checkbox">
+                        <input type="checkbox" id="autoSchedule" checked>
+                        <label class="form-checkbox-label" for="autoSchedule">Automatically schedule study sessions</label>
+                    </div>
+                `;
+
+                    // Set default date to selected date or today
+                    let dateValue = '';
+                    if (existingEvent && dateString) {
+                        const [year, month, day] = dateString.split('-').map(Number);
+                        dateValue = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                    } else {
+                        const selectedDate = document.querySelector('.day-cell.selected');
+                        if (selectedDate) {
+                            const day = selectedDate.querySelector('.day-number').textContent;
+                            const month = calendarData.currentDate.getMonth() + 1;
+                            const year = calendarData.currentDate.getFullYear();
+                            dateValue = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                        } else {
+                            const today = new Date(2026, 1, 11);
+                            const futureDate = new Date(today);
+                            futureDate.setDate(today.getDate() + 7); // Default to 1 week from today
+                            dateValue = formatDate(futureDate);
+                        }
+                    }
+
+                    // Fill form with existing event data if editing
+                    if (existingEvent) {
+                        document.getElementById('eventTitle').value = existingEvent.title.replace('📝 ', '').replace(' DUE', '');
+                        document.getElementById('courseName').value = existingEvent.course || '';
+                        document.getElementById('eventDate').value = dateValue;
+                        document.getElementById('eventDescription').value = existingEvent.subtitle || '';
+
+                        // Parse time if available
+                        if (existingEvent.time !== 'All day' && !existingEvent.time.includes('Completed')) {
+                            const timeMatch = existingEvent.time.match(/(\d{1,2}:\d{2})\s*[AP]M/);
+                            if (timeMatch) {
+                                let hours = timeMatch[1];
+                                // Convert to 24-hour format
+                                if (existingEvent.time.includes('PM') && !hours.startsWith('12')) {
+                                    const [h, m] = hours.split(':');
+                                    hours = `${parseInt(h) + 12}:${m}`;
+                                } else if (existingEvent.time.includes('AM') && hours.startsWith('12')) {
+                                    hours = `00:${hours.split(':')[1]}`;
+                                }
+                                document.getElementById('dueTime').value = hours;
+                            }
+                        }
+
+                        // Set sliders based on event data
+                        if (existingEvent.importance === 'high') document.getElementById('importance').value = 30;
+                        else if (existingEvent.importance === 'medium') document.getElementById('importance').value = 15;
+                        else document.getElementById('importance').value = 5;
+
+                        if (existingEvent.difficulty === 'very hard') document.getElementById('difficulty').value = 5;
+                        else if (existingEvent.difficulty === 'hard') document.getElementById('difficulty').value = 4;
+                        else if (existingEvent.difficulty === 'medium') document.getElementById('difficulty').value = 3;
+                        else if (existingEvent.difficulty === 'easy') document.getElementById('difficulty').value = 2;
+                        else document.getElementById('difficulty').value = 1;
+
+                        document.getElementById('estimatedHours').value = 5;
+
+                        // Re-initialize sliders
+                        initializeSliders();
+                    } else {
+                        // Set default values for new assignment
+                        document.getElementById('eventDate').value = dateValue;
+                        document.getElementById('dueTime').value = '23:59';
+                        document.getElementById('currentGrade').value = '';
+                        document.getElementById('targetGrade').value = '';
+                        document.getElementById('eventDescription').value = '';
+
+                        // Reset sliders to default values
+                        document.getElementById('importance').value = 15;
+                        document.getElementById('difficulty').value = 3;
+                        document.getElementById('estimatedHours').value = 5;
+                        document.getElementById('autoSchedule').checked = true;
+
+                        // Re-initialize sliders
+                        initializeSliders();
+                    }
                 } else {
-                    addModalTitle.textContent = 'Add New Event';
-                    document.getElementById('autoSchedule').checked = false;
+                    // REGULAR EVENT - SIMPLE FORM
+                    addModalTitle.textContent = existingEvent ? 'Edit Event' : 'Add New Event';
+                    // Show simple event form
+                    document.getElementById('addForm').innerHTML = `
+                    <div class="form-group">
+                        <label class="form-label" for="eventTitle">Event Title*</label>
+                        <input type="text" id="eventTitle" class="form-input" placeholder="e.g., Team Meeting, Doctor Appointment" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="eventDate">Date*</label>
+                        <input type="date" id="eventDate" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="eventDescription">Description (Optional)</label>
+                        <input type="text" id="eventDescription" class="form-input" placeholder="e.g., Weekly team sync, Bring notes">
+                    </div>
+                `;
+
+                    // Set default date to selected date or today
+                    let dateValue = '';
+                    if (existingEvent && dateString) {
+                        const [year, month, day] = dateString.split('-').map(Number);
+                        dateValue = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                    } else {
+                        const selectedDate = document.querySelector('.day-cell.selected');
+                        if (selectedDate) {
+                            const day = selectedDate.querySelector('.day-number').textContent;
+                            const month = calendarData.currentDate.getMonth() + 1;
+                            const year = calendarData.currentDate.getFullYear();
+                            dateValue = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                        } else {
+                            const today = new Date(2026, 1, 11);
+                            const futureDate = new Date(today);
+                            futureDate.setDate(today.getDate() + 7); // Default to 1 week from today
+                            dateValue = formatDate(futureDate);
+                        }
+                    }
+
+                    // Fill form with existing event data if editing
+                    if (existingEvent) {
+                        document.getElementById('eventTitle').value = existingEvent.title;
+                        document.getElementById('eventDate').value = dateValue;
+                        document.getElementById('eventDescription').value = existingEvent.subtitle || '';
+                    } else {
+                        // Set default values for new event
+                        document.getElementById('eventTitle').value = '';
+                        document.getElementById('eventDate').value = dateValue;
+                        document.getElementById('eventDescription').value = '';
+                    }
                 }
-                
-                // Set default date to selected date or today
-                const selectedDate = document.querySelector('.day-cell.selected');
-                let dateValue = '';
-                
-                if (selectedDate) {
-                    const day = selectedDate.querySelector('.day-number').textContent;
-                    const month = calendarData.currentDate.getMonth() + 1;
-                    const year = calendarData.currentDate.getFullYear();
-                    dateValue = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-                } else {
-                    const today = new Date(2026, 1, 11);
-                    const futureDate = new Date(today);
-                    futureDate.setDate(today.getDate() + 7); // Default to 1 week from today
-                    dateValue = formatDate(futureDate);
-                }
-                
-                document.getElementById('eventDate').value = dateValue;
-                document.getElementById('eventTitle').value = '';
-                document.getElementById('courseName').value = '';
-                document.getElementById('dueTime').value = '23:59';
-                document.getElementById('currentGrade').value = '';
-                document.getElementById('targetGrade').value = '';
-                document.getElementById('eventDescription').value = '';
-                
-                // Reset sliders to default values
-                importanceSlider.value = 15;
-                difficultySlider.value = 3;
-                estimatedHoursSlider.value = 5;
-                
-                updateSliderValues();
-                
+
                 addEventModal.style.display = 'flex';
             }
 
             function closeAddModal() {
                 addEventModal.style.display = 'none';
+                addEventModal.style.opacity = '0';
+                addEventModal.style.visibility = 'hidden';
                 selectedEventForEditing = null;
+            }
+
+            // Initialize sliders for assignment form
+            function initializeSliders() {
+                const importanceSlider = document.getElementById('importance');
+                const importanceValue = document.getElementById('importanceValue');
+                const difficultySlider = document.getElementById('difficulty');
+                const difficultyValue = document.getElementById('difficultyValue');
+                const estimatedHoursSlider = document.getElementById('estimatedHours');
+                const estimatedHoursValue = document.getElementById('estimatedHoursValue');
+
+                if (importanceSlider && importanceValue) {
+                    importanceSlider.addEventListener('input', function () {
+                        const importance = parseInt(this.value);
+                        importanceValue.textContent = `${importance}% of final grade`;
+                    });
+                }
+
+                if (difficultySlider && difficultyValue) {
+                    difficultySlider.addEventListener('input', function () {
+                        const difficulty = parseInt(this.value);
+                        const difficultyLabels = ['Very Easy', 'Easy', 'Medium', 'Hard', 'Very Hard'];
+                        difficultyValue.textContent = `${difficultyLabels[difficulty - 1]} Difficulty`;
+                    });
+                }
+
+                if (estimatedHoursSlider && estimatedHoursValue) {
+                    estimatedHoursSlider.addEventListener('input', function () {
+                        const hours = parseInt(this.value);
+                        estimatedHoursValue.textContent = `${hours} ${hours === 1 ? 'hour' : 'hours'} estimated`;
+                    });
+                }
             }
 
             // Save Assignment with AI scheduling
@@ -3391,31 +3636,31 @@
                 const course = document.getElementById('courseName').value;
                 const dueDate = document.getElementById('eventDate').value;
                 const dueTime = document.getElementById('dueTime').value;
-                const importance = parseInt(importanceSlider.value);
-                const difficulty = parseInt(difficultySlider.value);
+                const importance = parseInt(document.getElementById('importance').value);
+                const difficulty = parseInt(document.getElementById('difficulty').value);
                 const currentGrade = document.getElementById('currentGrade').value;
                 const targetGrade = document.getElementById('targetGrade').value;
-                const estimatedHours = parseInt(estimatedHoursSlider.value);
+                const estimatedHours = parseInt(document.getElementById('estimatedHours').value);
                 const description = document.getElementById('eventDescription').value;
                 const autoSchedule = document.getElementById('autoSchedule').checked;
-                
+
                 // Validation
                 if (!title || !course || !dueDate) {
                     showFeedback('Please fill in all required fields', 'error');
                     return;
                 }
-                
+
                 // Check if due date is in the past
                 const today = new Date(2026, 1, 11);
-                const due = new Date(dueDate);
+                const due = parseDateFromString(dueDate);
                 if (due < today) {
                     showFeedback('Due date cannot be in the past', 'error');
                     return;
                 }
-                
+
                 // Create assignment object
                 currentAssignment = {
-                    id: generateEventId(),
+                    id: selectedEventForEditing ? selectedEventForEditing.event.id : calendarDB.generateEventId(),
                     title: title,
                     course: course,
                     dueDate: dueDate,
@@ -3427,14 +3672,23 @@
                     estimatedHours: estimatedHours,
                     description: description
                 };
-                
+
                 if (autoSchedule) {
                     // Generate and display schedule
                     generatedSchedule = generateStudySchedule(currentAssignment);
-                    displaySchedule(generatedSchedule);
+                    if (generatedSchedule) {
+                        // Close the add modal first
+                        closeAddModal();
+                        // Then show the schedule modal after a brief delay
+                        setTimeout(() => {
+                            displaySchedule(generatedSchedule);
+                        }, 300);
+                    } else {
+                        showFeedback('Failed to generate schedule. Please check your assignment details.', 'error');
+                    }
                 } else {
                     // Just add the assignment without study sessions
-                    const dueDateString = formatDate(new Date(dueDate));
+                    const dueDateString = dueDate;
                     let dueTimeText = 'All day';
                     if (dueTime) {
                         const [hours, minutes] = dueTime.split(':');
@@ -3443,7 +3697,7 @@
                         hour = hour % 12 || 12;
                         dueTimeText = `Due at ${hour}:${minutes} ${ampm}`;
                     }
-                    
+
                     const assignmentEvent = {
                         id: currentAssignment.id,
                         time: dueTimeText,
@@ -3454,72 +3708,63 @@
                         importance: getImportanceLevel(importance),
                         difficulty: getDifficultyLevel(difficulty)
                     };
-                    
-                    if (!calendarData.events[dueDateString]) {
-                        calendarData.events[dueDateString] = [];
+
+                    // If editing, delete old event first
+                    if (selectedEventForEditing) {
+                        calendarDB.deleteEvent(selectedEventForEditing.dateString, selectedEventForEditing.event.id);
                     }
-                    calendarData.events[dueDateString].push(assignmentEvent);
-                    
+
+                    calendarDB.saveEvent(dueDateString, assignmentEvent);
+
                     // Update UI
                     updateCalendar();
                     updateTodaySection();
                     updateUpcomingEvents();
-                    
-                    showFeedback(`Assignment "${title}" added to calendar!`, 'success');
+
+                    showFeedback(`Assignment "${title}" ${selectedEventForEditing ? 'updated' : 'added'} to calendar!`, 'success');
                     closeAddModal();
                 }
             }
-
             // Save regular event
             function saveEvent() {
                 // This is for regular events (non-assignments)
                 const title = document.getElementById('eventTitle').value;
-                const type = 'event';
                 const date = document.getElementById('eventDate').value;
-                const time = document.getElementById('dueTime').value;
                 const description = document.getElementById('eventDescription').value;
-                
+
                 if (!title || !date) {
                     showFeedback('Please fill in all required fields', 'error');
                     return;
                 }
-                
+
                 // Parse date
-                const [year, month, day] = date.split('-').map(Number);
-                const eventDate = new Date(year, month - 1, day);
+                const eventDate = parseDateFromString(date);
                 const dateString = formatDate(eventDate);
-                
+
                 // Create event object
-                let eventTime = 'All day';
-                if (time) {
-                    const [hours, minutes] = time.split(':');
-                    let hour = parseInt(hours);
-                    const ampm = hour >= 12 ? 'PM' : 'AM';
-                    hour = hour % 12 || 12;
-                    eventTime = `${hour}:${minutes} ${ampm}`;
-                }
-                
                 const newEvent = {
-                    id: generateEventId(),
-                    time: eventTime,
+                    id: selectedEventForEditing ? selectedEventForEditing.event.id : calendarDB.generateEventId(),
+                    time: 'All day',
                     title: title,
                     subtitle: description || 'Event',
-                    type: type
+                    type: 'event'
                 };
-                
-                // Add to events
-                if (!calendarData.events[dateString]) {
-                    calendarData.events[dateString] = [];
+
+                // If editing, delete old event first
+                if (selectedEventForEditing) {
+                    calendarDB.deleteEvent(selectedEventForEditing.dateString, selectedEventForEditing.event.id);
                 }
-                calendarData.events[dateString].push(newEvent);
-                
+
+                // Add to database
+                calendarDB.saveEvent(dateString, newEvent);
+
                 // Update calendar
                 updateCalendar();
                 updateTodaySection();
                 updateUpcomingEvents();
-                
-                showFeedback(`Event "${title}" added successfully!`, 'success');
-                
+
+                showFeedback(`Event "${title}" ${selectedEventForEditing ? 'updated' : 'added'} successfully!`, 'success');
+
                 // Close modal
                 closeAddModal();
             }
@@ -3527,44 +3772,41 @@
             // Google Integration
             function connectToGoogle() {
                 showFeedback('Connecting to Google...', 'info');
-                
+
                 // Simulate connection process
                 setTimeout(() => {
                     showFeedback('Successfully connected to Google Calendar!', 'success');
                     closeGoogleModal();
-                    
+
                     // Simulate importing events
                     setTimeout(() => {
                         // Add some sample Google events
                         const sampleEvents = [
-                            { 
-                                id: generateEventId(),
-                                date: '2026-02-14', 
-                                time: 'All day', 
-                                title: 'Valentine\'s Day', 
+                            {
+                                id: calendarDB.generateEventId(),
+                                date: '2026-02-14',
+                                time: 'All day',
+                                title: 'Valentine\'s Day',
                                 subtitle: 'Google Calendar',
                                 type: 'event'
                             },
-                            { 
-                                id: generateEventId(),
-                                date: '2026-02-16', 
-                                time: '10:00 AM - 11:00 AM', 
-                                title: 'Team Meeting', 
+                            {
+                                id: calendarDB.generateEventId(),
+                                date: '2026-02-16',
+                                time: '10:00 AM - 11:00 AM',
+                                title: 'Team Meeting',
                                 subtitle: 'Google Calendar',
                                 type: 'meeting'
                             }
                         ];
-                        
+
                         sampleEvents.forEach(event => {
                             const dateString = event.date;
                             delete event.date;
-                            
-                            if (!calendarData.events[dateString]) {
-                                calendarData.events[dateString] = [];
-                            }
-                            calendarData.events[dateString].push(event);
+
+                            calendarDB.saveEvent(dateString, event);
                         });
-                        
+
                         updateCalendar();
                         updateUpcomingEvents();
                         showFeedback('Imported events from Google Calendar', 'success');
@@ -3579,67 +3821,63 @@
 
             // Event Listeners
             // Modal buttons
-            addAssignmentBtn.addEventListener('click', function(e) {
+            addAssignmentBtn.addEventListener('click', function (e) {
                 e.preventDefault();
                 openAddModal(true);
             });
-            
-            addEventBtn.addEventListener('click', function(e) {
+
+            addEventBtn.addEventListener('click', function (e) {
                 e.preventDefault();
                 openAddModal(false);
             });
-            
-            manageEventsBtn.addEventListener('click', function(e) {
+
+            manageEventsBtn.addEventListener('click', function (e) {
                 e.preventDefault();
                 enableSelectionMode();
             });
-            
-            googleIntegrationBtn.addEventListener('click', function(e) {
+
+            googleIntegrationBtn.addEventListener('click', function (e) {
                 e.preventDefault();
                 openGoogleModal();
             });
-            
-            viewItineraryBtn.addEventListener('click', function(e) {
+
+            viewItineraryBtn.addEventListener('click', function (e) {
                 e.preventDefault();
                 // Scroll to today's section
                 document.querySelector('.today-section').scrollIntoView({ behavior: 'smooth' });
                 showFeedback('Showing today\'s itinerary', 'info');
             });
-            
+
             // Delete All buttons
-            deleteAllTodayBtn.addEventListener('click', function() {
+            deleteAllTodayBtn.addEventListener('click', function () {
                 openDeleteModal(null, null, 'all_today');
             });
-            
-            deleteAllUpcomingBtn.addEventListener('click', function() {
+
+            deleteAllUpcomingBtn.addEventListener('click', function () {
                 openDeleteModal(null, null, 'all_upcoming');
             });
-            
+
             // Today button event listener
-            todayBtn.addEventListener('click', function() {
+            todayBtn.addEventListener('click', function () {
                 // Set current date to today
                 calendarData.currentDate = new Date(2026, 1, 11); // February 11, 2026
-                
+
                 // Update calendar
                 updateCalendar();
-                
+
                 // Select today
                 selectDay(calendarData.currentDate);
-                
+
                 // Show feedback
                 showFeedback('Returned to today', 'info');
             });
-            
-            // Slider event listeners
-            importanceSlider.addEventListener('input', updateSliderValues);
-            difficultySlider.addEventListener('input', updateSliderValues);
-            estimatedHoursSlider.addEventListener('input', updateSliderValues);
-            
+
             // Modal button listeners
             cancelGoogle.addEventListener('click', closeGoogleModal);
             connectGoogle.addEventListener('click', connectToGoogle);
             cancelAdd.addEventListener('click', closeAddModal);
-            saveAdd.addEventListener('click', function() {
+            saveAdd.addEventListener('click', function (e) {
+                e.preventDefault(); // Prevent form submission
                 if (addModalTitle.textContent.includes('Assignment')) {
                     saveAssignment();
                 } else {
@@ -3649,13 +3887,13 @@
             cancelDelete.addEventListener('click', closeDeleteModal);
             confirmDelete.addEventListener('click', deleteEvent);
             cancelSchedule.addEventListener('click', closeScheduleModal);
-            confirmSchedule.addEventListener('click', function() {
+            confirmSchedule.addEventListener('click', function () {
                 if (generatedSchedule && currentAssignment) {
                     addScheduleToCalendar(generatedSchedule);
                 }
             });
-            
-            googleConnect.addEventListener('click', function() {
+
+            googleConnect.addEventListener('click', function () {
                 document.querySelectorAll('.integration-option').forEach(opt => {
                     opt.style.borderColor = 'rgba(34, 96, 78, 0.1)';
                 });
@@ -3663,8 +3901,8 @@
                 connectGoogle.textContent = 'Connect with Google';
                 connectGoogle.onclick = connectToGoogle;
             });
-            
-            iCalConnect.addEventListener('click', function() {
+
+            iCalConnect.addEventListener('click', function () {
                 document.querySelectorAll('.integration-option').forEach(opt => {
                     opt.style.borderColor = 'rgba(34, 96, 78, 0.1)';
                 });
@@ -3672,20 +3910,20 @@
                 connectGoogle.textContent = 'Import iCal';
                 connectGoogle.onclick = connectToICal;
             });
-            
+
             // Calendar navigation
-            prevMonthBtn.addEventListener('click', function() {
+            prevMonthBtn.addEventListener('click', function () {
                 calendarData.currentDate.setMonth(calendarData.currentDate.getMonth() - 1);
                 updateCalendar();
             });
-            
-            nextMonthBtn.addEventListener('click', function() {
+
+            nextMonthBtn.addEventListener('click', function () {
                 calendarData.currentDate.setMonth(calendarData.currentDate.getMonth() + 1);
                 updateCalendar();
             });
-            
+
             // Close modals when clicking outside
-            window.addEventListener('click', function(e) {
+            window.addEventListener('click', function (e) {
                 if (e.target === googleModal) {
                     closeGoogleModal();
                 }
@@ -3699,14 +3937,14 @@
                     closeScheduleModal();
                 }
             });
-            
+
             // Navigation
             const navItems = document.querySelectorAll('.nav-item');
             navItems.forEach(item => {
-                item.addEventListener('click', function(e) {
+                item.addEventListener('click', function (e) {
                     // Remove active class from all
                     navItems.forEach(nav => nav.classList.remove('active'));
-                    
+
                     const href = this.getAttribute('href');
                     if (href && href !== '#') {
                         setTimeout(() => {
@@ -3717,7 +3955,7 @@
             });
 
             // Update notification badge when page becomes visible
-            document.addEventListener('visibilitychange', function() {
+            document.addEventListener('visibilitychange', function () {
                 if (!document.hidden) {
                     const updatedUser = userDB.getCurrentUser();
                     if (updatedUser) {
@@ -3727,49 +3965,137 @@
                 }
             });
 
+            // Initialize with sample data if empty
+            function initializeSampleData() {
+                const events = calendarDB.getAllEvents();
+                if (Object.keys(events).length === 0) {
+                    // Add sample events
+                    const sampleEvents = {
+                        '2026-02-11': [
+                            {
+                                id: 'event_1',
+                                time: '4:00 PM - 5:00 PM',
+                                title: 'Study for English Test',
+                                subtitle: 'Review chapters 5-7',
+                                type: 'study',
+                                course: 'English Literature',
+                                importance: 'high',
+                                difficulty: 'medium'
+                            },
+                            {
+                                id: 'event_2',
+                                time: '6:00 PM - 8:00 PM',
+                                title: 'Practice Math',
+                                subtitle: 'Algebra problems set',
+                                type: 'study',
+                                course: 'Mathematics',
+                                importance: 'medium',
+                                difficulty: 'hard'
+                            }
+                        ],
+                        '2026-02-12': [
+                            {
+                                id: 'event_3',
+                                time: 'All day',
+                                title: 'Math Exam',
+                                subtitle: 'Room 204, 9:00 AM',
+                                type: 'exam',
+                                course: 'Calculus 101',
+                                importance: 'high',
+                                difficulty: 'very hard'
+                            },
+                            {
+                                id: 'event_4',
+                                time: 'All day',
+                                title: 'History Essay Due',
+                                subtitle: 'Submit online by 11:59 PM',
+                                type: 'assignment',
+                                course: 'World History',
+                                importance: 'medium',
+                                difficulty: 'medium'
+                            }
+                        ]
+                    };
+
+                    for (const dateString in sampleEvents) {
+                        sampleEvents[dateString].forEach(event => {
+                            calendarDB.saveEvent(dateString, event);
+                        });
+                    }
+                }
+            }
+
             // Initialize
+            initializeSampleData();
             initCalendar();
-            
+
             // Add animation styles
             const style = document.createElement('style');
             style.textContent = `
-                @keyframes slideDown {
-                    from { top: 80px; opacity: 0; }
-                    to { top: 120px; opacity: 1; }
-                }
-                
-                @keyframes slideUp {
-                    from { top: 120px; opacity: 1; }
-                    to { top: 80px; opacity: 0; }
-                }
-                
-                @keyframes fadeIn {
-                    from { opacity: 0; transform: translateY(10px); }
-                    to { opacity: 1; transform: translateY(0); }
-                }
-                
-                @keyframes shake {
-                    0%, 100% { transform: translateX(0); }
-                    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-                    20%, 40%, 60%, 80% { transform: translateX(5px); }
-                }
-                
-                .fade-in {
-                    animation: fadeIn 0.5s ease forwards;
-                    opacity: 0;
-                }
+            @keyframes slideDown {
+                from { top: 80px; opacity: 0; }
+                to { top: 120px; opacity: 1; }
+            }
+            
+            @keyframes slideUp {
+                from { top: 120px; opacity: 1; }
+                to { top: 80px; opacity: 0; }
+            }
+            
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+                20%, 40%, 60%, 80% { transform: translateX(5px); }
+            }
+            
+            .fade-in {
+                animation: fadeIn 0.5s ease forwards;
+                opacity: 0;
+            }
 
-                /* Ensure nav badge is completely hidden when empty */
-                .nav-badge:empty,
-                .nav-badge.hidden {
-                    display: none !important;
-                    visibility: hidden !important;
-                    opacity: 0 !important;
-                    background: none !important;
-                    box-shadow: none !important;
-                    transform: scale(0) !important;
-                }
-            `;
+            /* Ensure nav badge is completely hidden when empty */
+            .nav-badge:empty,
+            .nav-badge.hidden {
+                display: none !important;
+                visibility: hidden !important;
+                opacity: 0 !important;
+                background: none !important;
+                box-shadow: none !important;
+                transform: scale(0) !important;
+            }
+
+            /* Event date styling */
+            .event-date {
+                font-family: 'Nunito', sans-serif;
+                font-size: 14px;
+                font-weight: 700;
+                padding: 4px 10px;
+                background: rgba(255, 255, 255, 0.2);
+                border-radius: 12px;
+                border: 1px solid rgba(34, 96, 78, 0.2);
+            }
+
+            .event-item:hover .event-date {
+                background: rgba(255, 255, 255, 0.3);
+            }
+
+            /* Single red dot in center */
+            .event-indicator {
+                width: 8px;
+                height: 8px;
+                background: #ff6b6b;
+                border-radius: 50%;
+                position: absolute;
+                bottom: 10px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        `;
             document.head.appendChild(style);
 
             // Force hide badge on load to ensure it starts at correct state
@@ -3779,4 +4105,5 @@
         });
     </script>
 </body>
+
 </html>
