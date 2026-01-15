@@ -16,25 +16,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="userDatabase.js"></script>
     <style>
-        /* Demo Notice */
-        .demo-notice {
-            background: rgba(255, 193, 7, 0.2);
-            border: 2px solid #ffc107;
-            border-radius: 15px;
-            padding: 12px;
-            margin: 15px 0 25px 0;
-            text-align: center;
-            font-family: 'Nunito', sans-serif;
-            color: #856404;
-            font-size: 13px;
-            display: none;
-        }
-
-        .demo-notice i {
-            margin-right: 8px;
-            color: #ffc107;
-        }
-
         /* Login Error Styles */
         .login-error {
             color: #e74c3c;
@@ -148,6 +129,33 @@
             border-color: #e74c3c !important;
             background: rgba(231, 76, 60, 0.05) !important;
         }
+
+        /* Utility link styles moved from inline attributes */
+        .signup-link {
+            color: #22604e;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .signup-link:hover {
+            text-decoration: underline;
+        }
+
+        /* No users message styles */
+        .no-users-message {
+            background: rgba(52, 152, 219, 0.1);
+            border: 2px solid rgba(52, 152, 219, 0.2);
+            border-radius: 15px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            color: #2c3e50;
+        }
+        .no-users-icon {
+            color: #3498db;
+            margin-right: 8px;
+        }
     </style>
 </head>
 
@@ -193,12 +201,6 @@
                 <!-- Title -->
                 <h1 class="title">Welcome Back</h1>
                 <h2 class="subtitle">Sign in to continue your journey</h2>
-
-                <!-- Demo Notice -->
-                <div class="demo-notice" id="demoNotice">
-                    <i class="fas fa-info-circle"></i>
-                    <strong>Demo Mode:</strong> This prototype uses browser storage. Create an account first if needed.
-                </div>
 
                 <!-- Login Error Message -->
                 <div class="login-error" id="loginError">
@@ -261,8 +263,7 @@
                             <h3>SIGN IN</h3>
                             <i class="fas fa-arrow-right button-arrow"></i>
                         </button>
-                        <p class="button-hint">Don't have an account? <a href="joinUs.html"
-                                style="color: #22604e; font-weight: 700;">Sign up here</a></p>
+                        <p class="button-hint">Don't have an account? <a href="joinUs.html" class="signup-link">Sign up here</a></p>
                     </form>
                 </div>
 
@@ -646,20 +647,9 @@
                         if (formContainer) {
                             const noUsersMsg = document.createElement('div');
                             noUsersMsg.className = 'no-users-message';
-                            noUsersMsg.style.cssText = `
-                            background: rgba(52, 152, 219, 0.1);
-                            border: 2px solid rgba(52, 152, 219, 0.2);
-                            border-radius: 15px;
-                            padding: 15px;
-                            margin: 15px 0;
-                            text-align: center;
-                            font-family: 'Nunito', sans-serif;
-                            font-size: 14px;
-                            color: #2c3e50;
-                        `;
                             noUsersMsg.innerHTML = `
-                            <i class="fas fa-info-circle" style="color: #3498db; margin-right: 8px;"></i>
-                            <strong>No accounts found.</strong> Please <a href="joinUs.html" style="color: #22604e; font-weight: 700;">sign up</a> first.
+                            <i class="fas fa-info-circle no-users-icon"></i>
+                            <strong>No accounts found.</strong> Please <a href="joinUs.html" class="signup-link">sign up</a> first.
                         `;
                             formContainer.insertBefore(noUsersMsg, formContainer.firstChild);
                         }

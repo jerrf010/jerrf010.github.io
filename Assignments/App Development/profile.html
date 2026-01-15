@@ -1,0 +1,1900 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile -- Hey, Day</title>
+    <link rel="icon" href="https://github.com/jerrf010/basic_html/blob/main/park_with_shades.png?raw=true"
+        type="image/icon type">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Chewy&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Oswald:wght@200..700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Profile Page Specific Styles */
+        .profile-header {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+            padding-top: 10px;
+        }
+
+        .profile-title {
+            font-family: 'Chewy', cursive;
+            font-size: 40px;
+            color: #1a3c27;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-subtitle {
+            font-family: 'Nunito', sans-serif;
+            font-size: 16px;
+            color: #2d5a3d;
+            font-weight: 600;
+            opacity: 0.9;
+        }
+
+        /* Profile Card - WIDER */
+        .profile-card {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            padding: 30px;
+            margin-bottom: 25px;
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            position: relative;
+            width: 100%;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .profile-avatar {
+            width: 140px;
+            height: 140px;
+            background: linear-gradient(135deg, #86b499 0%, #6a9c7d 100%);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 60px;
+            font-weight: bold;
+            margin: 0 auto 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .profile-avatar.has-google {
+            background: linear-gradient(135deg, #4285F4 0%, #34A853 33%, #FBBC05 66%, #EA4335 100%);
+        }
+
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 26px;
+        }
+
+        .profile-avatar::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        .profile-name {
+            font-family: 'Nunito', sans-serif;
+            font-size: 32px;
+            color: #1a3c27;
+            font-weight: 800;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+
+        .profile-email {
+            font-family: 'Nunito', sans-serif;
+            font-size: 16px;
+            color: #2d5a3d;
+            font-weight: 600;
+            margin-bottom: 20px;
+            opacity: 0.9;
+            word-break: break-word;
+        }
+
+        .account-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(34, 96, 78, 0.3);
+            border-radius: 20px;
+            padding: 8px 20px;
+            margin-bottom: 15px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            color: #1a3c27;
+            font-weight: 600;
+        }
+
+        .account-badge.google {
+            background: rgba(66, 133, 244, 0.1);
+            border-color: rgba(66, 133, 244, 0.3);
+            color: #4285F4;
+        }
+
+        .account-badge.local {
+            background: rgba(134, 180, 153, 0.1);
+            border-color: rgba(134, 180, 153, 0.3);
+            color: #2d5a3d;
+        }
+
+        .account-badge i {
+            font-size: 16px;
+        }
+
+        .profile-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #86b499 0%, #6a9c7d 100%);
+            color: white;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            padding: 10px 24px;
+            border-radius: 20px;
+            margin-top: 10px;
+            box-shadow: 0 4px 12px rgba(134, 180, 153, 0.4);
+        }
+
+        .profile-badge i {
+            margin-right: 8px;
+        }
+
+        /* Stats Section - WIDER CARDS */
+        .stats-section {
+            margin-bottom: 25px;
+            width: 100%;
+        }
+
+        .stats-title {
+            font-family: 'Nunito', sans-serif;
+            font-size: 22px;
+            color: #1a3c27;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(34, 96, 78, 0.2);
+            border-radius: 25px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+            min-height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .stat-card:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-5px);
+            border-color: rgba(34, 96, 78, 0.4);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #ffffff 0%, #e8f5e9 100%);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-icon i {
+            font-size: 26px;
+            color: #22604e;
+        }
+
+        .stat-value {
+            font-family: 'Nunito', sans-serif;
+            font-size: 36px;
+            color: #1a3c27;
+            font-weight: 800;
+            margin-bottom: 5px;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            color: #2d5a3d;
+            font-weight: 600;
+        }
+
+        /* Current Mood */
+        .current-mood {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 25px;
+            margin-bottom: 25px;
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(34, 96, 78, 0.2);
+            text-align: center;
+            width: 100%;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .mood-display {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 15px;
+        }
+
+        .mood-emoji-large {
+            font-size: 70px;
+            animation: floatEmoji 3s infinite ease-in-out;
+            min-width: 80px;
+        }
+
+        .mood-text {
+            font-family: 'Nunito', sans-serif;
+            font-size: 28px;
+            color: #1a3c27;
+            font-weight: 700;
+            text-align: left;
+            margin-bottom: 5px;
+        }
+
+        .mood-subtext {
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            color: #2d5a3d;
+            font-weight: 600;
+        }
+
+        /* Settings Section - WIDER with Notification Integration */
+        .settings-section {
+            margin-bottom: 25px;
+            width: 100%;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .settings-title {
+            font-family: 'Nunito', sans-serif;
+            font-size: 22px;
+            color: #1a3c27;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .settings-list {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 25px;
+            padding: 20px;
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .setting-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 18px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .setting-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(8px);
+        }
+
+        .setting-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .setting-content {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex: 1;
+        }
+
+        .setting-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #ffffff 0%, #e8f5e9 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .setting-icon i {
+            font-size: 22px;
+            color: #22604e;
+        }
+
+        .setting-text {
+            font-family: 'Nunito', sans-serif;
+            font-size: 17px;
+            color: #1a3c27;
+            font-weight: 700;
+        }
+
+        .setting-subtext {
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            color: #2d5a3d;
+            font-weight: 600;
+            margin-top: 3px;
+        }
+
+        .setting-arrow {
+            color: #22604e;
+            font-size: 18px;
+        }
+
+        /* Toggle Switch - Updated for notification types */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 64px;
+            height: 34px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(34, 96, 78, 0.3);
+            border-radius: 34px;
+            transition: .4s;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            border-radius: 50%;
+            transition: .4s;
+        }
+
+        input:checked + .toggle-slider {
+            background-color: #22604e;
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(30px);
+        }
+
+        /* Notification Settings Section */
+        .notification-settings {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 25px;
+            padding: 20px;
+            margin-bottom: 20px;
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .notification-type {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .notification-type:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .notification-type:last-child {
+            margin-bottom: 0;
+        }
+
+        .notification-type-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .notification-type-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #ffffff 0%, #e8f5e9 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .notification-type-icon i {
+            font-size: 18px;
+            color: #22604e;
+        }
+
+        .notification-type-text {
+            font-family: 'Nunito', sans-serif;
+            font-size: 16px;
+            color: #1a3c27;
+            font-weight: 600;
+        }
+
+        .notification-type-subtext {
+            font-family: 'Nunito', sans-serif;
+            font-size: 13px;
+            color: #2d5a3d;
+            font-weight: 600;
+        }
+
+        .notification-count-badge {
+            background: linear-gradient(135deg, #86b499 0%, #6a9c7d 100%);
+            color: white;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            font-size: 12px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+        }
+
+        /* Action Buttons - WIDER */
+        .actions-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 25px auto;
+            width: 100%;
+            max-width: 480px;
+        }
+
+        .action-button {
+            width: 100%;
+            height: 65px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(34, 96, 78, 0.2);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Nunito', sans-serif;
+            font-size: 18px;
+            color: #1a3c27;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            padding: 0 25px;
+            border: none;
+            outline: none;
+        }
+
+        .action-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-5px);
+            border-color: rgba(34, 96, 78, 0.4);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .action-button.logout {
+            background: rgba(231, 76, 60, 0.1);
+            border-color: rgba(231, 76, 60, 0.3);
+            color: #e74c3c;
+        }
+
+        .action-button.logout:hover {
+            background: rgba(231, 76, 60, 0.2);
+            border-color: rgba(231, 76, 60, 0.5);
+        }
+
+        .action-button.notification-action {
+            background: rgba(52, 152, 219, 0.1);
+            border-color: rgba(52, 152, 219, 0.3);
+            color: #3498db;
+        }
+
+        .action-button.notification-action:hover {
+            background: rgba(52, 152, 219, 0.2);
+            border-color: rgba(52, 152, 219, 0.5);
+        }
+
+        .action-button i {
+            font-size: 22px;
+        }
+
+        /* FAKE Google Sign In Button */
+        .fake-google-button {
+            width: 100%;
+            height: 65px;
+            background: white;
+            border: 2px solid #dadce0;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Roboto', 'Nunito', sans-serif;
+            font-size: 16px;
+            color: #3c4043;
+            font-weight: 500;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 0 25px;
+            margin: 10px 0;
+        }
+
+        .fake-google-button:hover {
+            background: #f8f9fa;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .fake-google-button:active {
+            transform: translateY(0);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .fake-google-button .google-icon {
+            width: 24px;
+            height: 24px;
+            background: conic-gradient(from -45deg, #ea4335 110deg, #4285f4 90deg 180deg, #34a853 180deg 270deg, #fbbc05 270deg);
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .fake-google-button .google-icon::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 8px;
+            height: 8px;
+            background: #4285f4;
+            border-radius: 50%;
+        }
+
+        /* Bottom Navigation - Inside Phone Container */
+        .bottom-nav-container {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            width: 100%;
+        }
+
+        .bottom-nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 25px;
+            padding: 15px 10px;
+            margin: 0 30px;
+            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(34, 96, 78, 0.2);
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 65px;
+            height: 65px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            position: relative;
+            border-radius: 18px;
+        }
+
+        .nav-item.active {
+            background: rgba(34, 96, 78, 0.15);
+            transform: translateY(-10px);
+        }
+
+        .nav-item:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .nav-icon {
+            font-size: 22px;
+            color: #22604e;
+            margin-bottom: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item.active .nav-icon {
+            color: #1a3c27;
+            transform: scale(1.1);
+        }
+
+        .nav-label {
+            font-family: 'Nunito', sans-serif;
+            font-size: 10px;
+            color: #1a3c27;
+            font-weight: 700;
+        }
+
+        .nav-item.active .nav-label {
+            color: #22604e;
+            font-weight: 800;
+        }
+
+        .nav-badge {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%);
+            color: white;
+            font-family: 'Nunito', sans-serif;
+            font-size: 10px;
+            font-weight: 800;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 8px rgba(255, 82, 82, 0.4);
+        }
+
+        /* Animations */
+        @keyframes shine {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 200%;
+            }
+        }
+
+        @keyframes floatEmoji {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.5s ease forwards;
+            opacity: 0;
+        }
+
+        /* App Content Adjustments */
+        .app-content {
+            height: calc(100% - 40px);
+            overflow-y: auto;
+            padding-bottom: 120px;
+        }
+
+        /* Custom scrollbar */
+        .app-content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .app-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .app-content::-webkit-scrollbar-thumb {
+            background: #22604e;
+            border-radius: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .profile-title {
+                font-size: 34px;
+            }
+
+            .profile-avatar {
+                width: 120px;
+                height: 120px;
+                font-size: 50px;
+            }
+
+            .profile-name {
+                font-size: 28px;
+            }
+
+            .profile-card,
+            .stats-grid,
+            .current-mood,
+            .settings-section,
+            .actions-container {
+                max-width: 420px;
+            }
+
+            .stat-card {
+                padding: 20px;
+                min-height: 120px;
+            }
+
+            .stat-icon {
+                width: 50px;
+                height: 50px;
+            }
+
+            .stat-icon i {
+                font-size: 22px;
+            }
+
+            .stat-value {
+                font-size: 32px;
+            }
+
+            .mood-emoji-large {
+                font-size: 60px;
+            }
+
+            .mood-text {
+                font-size: 24px;
+            }
+
+            .bottom-nav {
+                margin: 0 20px;
+                padding: 12px 8px;
+            }
+
+            .nav-item {
+                width: 60px;
+                height: 60px;
+            }
+
+            .nav-icon {
+                font-size: 20px;
+            }
+        }
+
+        /* Utility classes to replace inline styles */
+        .hidden { display: none !important; }
+        .notification-controls { display: flex; align-items: center; gap: 10px; }
+        .fade-in.delay-01 { animation-delay: 0.1s; }
+        .fade-in.delay-02 { animation-delay: 0.2s; }
+        .fade-in.delay-03 { animation-delay: 0.3s; }
+        .fade-in.delay-035 { animation-delay: 0.35s; }
+        .fade-in.delay-04 { animation-delay: 0.4s; }
+        .fade-in.delay-05 { animation-delay: 0.5s; }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Decorative Elements -->
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+        <div class="leaf leaf-1"></div>
+        <div class="leaf leaf-2"></div>
+        <div class="leaf leaf-3"></div>
+
+        <!-- Phone Container -->
+        <div class="phone" id="main-page">
+            <!-- Phone Notch -->
+            <div class="phone-notch"></div>
+
+            <!-- Status Bar -->
+            <div class="status-bar">
+                <span>9:41</span>
+                <div class="status-icons">
+                    <i class="fas fa-signal"></i>
+                    <i class="fas fa-wifi"></i>
+                    <i class="fas fa-battery-three-quarters"></i>
+                </div>
+            </div>
+
+            <!-- App Content -->
+            <div class="app-content">
+                <!-- Header -->
+                <div class="profile-header">
+                    <h1 class="profile-title">Profile</h1>
+                    <p class="profile-subtitle">Your personal wellness journey</p>
+                </div>
+
+                <!-- Profile Card -->
+                <div class="profile-card fade-in delay-01">
+                    <div class="profile-avatar" id="profileAvatar">
+                        <div id="avatarText">J</div>
+                        <img id="googleAvatar" class="hidden">
+                    </div>
+                    <div class="profile-name" id="profileName">Joe!!</div>
+                    <div class="profile-email" id="profileEmail">joe@example.com</div>
+                    <div class="account-badge local" id="accountBadge">
+                        <i class="fas fa-user-circle"></i>
+                        Local Account
+                    </div>
+                    <div class="profile-badge" id="notificationBadge">
+                        <i class="fas fa-bell"></i>
+                        <span id="unreadCount">6</span> Unread Notifications
+                    </div>
+                </div>
+
+                <!-- Stats Section -->
+                <div class="stats-section fade-in delay-02">
+                    <div class="stats-title">Your Wellness Stats</div>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <div class="stat-value">85%</div>
+                            <div class="stat-label">Mindfulness</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-heartbeat"></i>
+                            </div>
+                            <div class="stat-value">30</div>
+                            <div class="stat-label">Days Active</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-spa"></i>
+                            </div>
+                            <div class="stat-value">42</div>
+                            <div class="stat-label">Sessions</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="stat-value">7.5</div>
+                            <div class="stat-label">Avg Mood</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Current Mood -->
+                <div class="current-mood fade-in delay-03">
+                    <div class="stats-title">Current Mood</div>
+                    <div class="mood-display">
+                        <div class="mood-emoji-large" id="currentMoodEmoji">🙂</div>
+                        <div>
+                            <div class="mood-text" id="currentMoodText">Feeling Good</div>
+                            <div class="mood-subtext">Updated just now</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notification Settings Section -->
+                <div class="settings-section fade-in delay-035">
+                    <div class="settings-title">Notification Settings</div>
+                    <div class="notification-settings">
+                        <div class="notification-type">
+                            <div class="notification-type-content">
+                                <div class="notification-type-icon">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </div>
+                                <div>
+                                    <div class="notification-type-text">Calendar Notifications</div>
+                                    <div class="notification-type-subtext">Events, reminders, schedules</div>
+                                </div>
+                            </div>
+                            <div class="notification-controls">
+                                <span class="notification-count-badge" id="calendarCount">2</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="calendarToggle" checked data-type="calendar" aria-label="Enable calendar notifications" title="Enable calendar notifications">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="notification-type">
+                            <div class="notification-type-content">
+                                <div class="notification-type-icon">
+                                    <i class="fas fa-brain"></i>
+                                </div>
+                                <div>
+                                    <div class="notification-type-text">Mental Health Notifications</div>
+                                    <div class="notification-type-subtext">Mood tracking, exercises, prompts</div>
+                                </div>
+                            </div>
+                            <div class="notification-controls">
+                                <span class="notification-count-badge" id="mentalHealthCount">3</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="mentalHealthToggle" checked data-type="mentalHealth" aria-label="Enable mental health notifications" title="Enable mental health notifications">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="notification-type">
+                            <div class="notification-type-content">
+                                <div class="notification-type-icon">
+                                    <i class="fas fa-user-friends"></i>
+                                </div>
+                                <div>
+                                    <div class="notification-type-text">Social Notifications</div>
+                                    <div class="notification-type-subtext">Messages, connections, Henry</div>
+                                </div>
+                            </div>
+                            <div class="notification-controls">
+                                <span class="notification-count-badge" id="henryCount">1</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="henryToggle" checked data-type="henry" aria-label="Enable social notifications" title="Enable social notifications">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="notification-type">
+                            <div class="notification-type-content">
+                                <div class="notification-type-icon">
+                                    <i class="fas fa-cog"></i>
+                                </div>
+                                <div>
+                                    <div class="notification-type-text">System Notifications</div>
+                                    <div class="notification-type-subtext">App updates, maintenance, tips</div>
+                                </div>
+                            </div>
+                            <div class="notification-controls">
+                                <span class="notification-count-badge" id="systemCount">1</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="systemToggle" checked data-type="system" aria-label="Enable system notifications" title="Enable system notifications">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings Section -->
+                <div class="settings-section fade-in delay-04">
+                    <div class="settings-title">Settings</div>
+                    <div class="settings-list">
+                        <div class="setting-item" id="notificationsSetting">
+                            <div class="setting-content">
+                                <div class="setting-icon">
+                                    <i class="fas fa-bell"></i>
+                                </div>
+                                <div>
+                                    <div class="setting-text">Notifications</div>
+                                    <div class="setting-subtext">Manage your alerts</div>
+                                </div>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked id="globalNotificationsToggle" aria-label="Enable all notifications" title="Enable or disable all notifications">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="setting-item" id="privacySetting">
+                            <div class="setting-content">
+                                <div class="setting-icon">
+                                    <i class="fas fa-lock"></i>
+                                </div>
+                                <div>
+                                    <div class="setting-text">Privacy</div>
+                                    <div class="setting-subtext">Control your data</div>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-right setting-arrow"></i>
+                        </div>
+                        <div class="setting-item" id="helpSetting">
+                            <div class="setting-content">
+                                <div class="setting-icon">
+                                    <i class="fas fa-question-circle"></i>
+                                </div>
+                                <div>
+                                    <div class="setting-text">Help & Support</div>
+                                    <div class="setting-subtext">Get assistance</div>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-right setting-arrow"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Google Account Integration -->
+                <div class="actions-container fade-in delay-05">
+                    <!-- Fake Google Sign-In Button -->
+                    <div id="googleSignInContainer" class="hidden">
+                        <button class="fake-google-button" id="fakeGoogleSignIn">
+                            <div class="google-icon"></div>
+                            Sign in with Google
+                        </button>
+                    </div>
+                    
+                    <button class="action-button" id="connectGoogleButton">
+                        <i class="fab fa-google"></i>
+                        Connect Google Account
+                    </button>
+                    
+                    <button class="action-button google-disconnect hidden" id="disconnectGoogleButton">
+                        <i class="fab fa-google"></i>
+                        Disconnect Google Account
+                    </button>
+                    
+                    <button class="action-button notification-action" id="markAllNotificationsRead">
+                        <i class="fas fa-check-double"></i>
+                        Mark All Notifications Read
+                    </button>
+                    
+                    <a href="edit-profile.html" class="action-button">
+                        <i class="fas fa-user-edit"></i>
+                        Edit Profile
+                    </a>
+                    
+                    <button class="action-button logout" id="logoutButton">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Log Out
+                    </button>
+                </div>
+            </div>
+
+            <!-- Bottom Navigation Container -->
+            <div class="bottom-nav-container">
+                <div class="bottom-nav">
+                    <a href="dashboard.html" class="nav-item">
+                        <div class="nav-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="nav-label">Home</div>
+                    </a>
+                    <a href="explore.html" class="nav-item">
+                        <div class="nav-icon">
+                            <i class="fas fa-compass"></i>
+                        </div>
+                        <div class="nav-label">Explore</div>
+                    </a>
+                    <a href="notifications.html" class="nav-item">
+                        <div class="nav-icon">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <div class="nav-label">Alerts</div>
+                        <div class="nav-badge" id="bottomNavBadge">6</div>
+                    </a>
+                    <a href="profile.html" class="nav-item active">
+                        <div class="nav-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="nav-label">Profile</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Home Indicator -->
+            <div class="home-indicator"></div>
+        </div>
+    </div>
+
+    <!-- Script -->
+    <script>
+        // User Database Class with notification management
+        (function () {
+            if (typeof window.UserDatabase === 'undefined') {
+                window.UserDatabase = class {
+                    constructor() {
+                        this.key = 'heyday_users';
+                        this.currentUserKey = 'heyday_current_user';
+                        this.googleUserKey = 'heyday_google_user';
+                        this.notificationSettingsKey = 'heyday_notification_settings';
+                    }
+
+                    getCurrentUser() {
+                        const user = localStorage.getItem(this.currentUserKey);
+                        return user ? JSON.parse(user) : null;
+                    }
+
+                    isLoggedIn() {
+                        return localStorage.getItem('heyday_logged_in') === 'true';
+                    }
+
+                    logout() {
+                        localStorage.removeItem(this.currentUserKey);
+                        localStorage.removeItem('heyday_logged_in');
+                        localStorage.removeItem(this.googleUserKey);
+                        return true;
+                    }
+
+                    saveGoogleUser(googleUser) {
+                        localStorage.setItem(this.googleUserKey, JSON.stringify(googleUser));
+                    }
+
+                    getGoogleUser() {
+                        const user = localStorage.getItem(this.googleUserKey);
+                        return user ? JSON.parse(user) : null;
+                    }
+
+                    disconnectGoogle() {
+                        localStorage.removeItem(this.googleUserKey);
+                        return true;
+                    }
+
+                    linkGoogleAccount(userId, googleData) {
+                        const users = JSON.parse(localStorage.getItem(this.key) || '[]');
+                        const userIndex = users.findIndex(u => u.id === userId);
+                        
+                        if (userIndex !== -1) {
+                            users[userIndex].googleAccount = {
+                                id: googleData.id,
+                                email: googleData.email,
+                                name: googleData.name,
+                                picture: googleData.picture,
+                                linkedAt: new Date().toISOString()
+                            };
+                            
+                            localStorage.setItem(this.key, JSON.stringify(users));
+                            
+                            const currentUser = this.getCurrentUser();
+                            if (currentUser && currentUser.id === userId) {
+                                currentUser.googleAccount = users[userIndex].googleAccount;
+                                localStorage.setItem(this.currentUserKey, JSON.stringify(currentUser));
+                            }
+                            
+                            return true;
+                        }
+                        return false;
+                    }
+
+                    // NOTIFICATION MANAGEMENT METHODS (from notifications.html)
+                    getNotifications(userId) {
+                        const users = this.getAllUsers();
+                        const user = users.find(u => u.id === userId);
+                        return user ? (user.notifications || {
+                            calendar: 2,
+                            mentalHealth: 3,
+                            henry: 1,
+                            system: 1
+                        }) : {};
+                    }
+
+                    getAllUsers() {
+                        const users = localStorage.getItem(this.key);
+                        return users ? JSON.parse(users) : [];
+                    }
+
+                    saveAllUsers(users) {
+                        localStorage.setItem(this.key, JSON.stringify(users));
+                    }
+
+                    updateNotifications(userId, newNotifications) {
+                        const users = this.getAllUsers();
+                        const userIndex = users.findIndex(u => u.id === userId);
+                        if (userIndex !== -1) {
+                            users[userIndex].notifications = newNotifications;
+                            this.saveAllUsers(users);
+
+                            const currentUser = this.getCurrentUser();
+                            if (currentUser && currentUser.id === userId) {
+                                currentUser.notifications = newNotifications;
+                                localStorage.setItem(this.currentUserKey, JSON.stringify(currentUser));
+                            }
+                            return true;
+                        }
+                        return false;
+                    }
+
+                    markAllNotificationsRead(userId) {
+                        const currentNotifications = this.getNotifications(userId);
+                        const updatedNotifications = {};
+                        
+                        Object.keys(currentNotifications).forEach(key => {
+                            updatedNotifications[key] = 0;
+                        });
+                        
+                        this.updateNotifications(userId, updatedNotifications);
+                        return updatedNotifications;
+                    }
+
+                    markNotificationTypeRead(userId, type) {
+                        const currentNotifications = this.getNotifications(userId);
+                        if (currentNotifications[type] !== undefined) {
+                            currentNotifications[type] = Math.max(0, currentNotifications[type] - 1);
+                            this.updateNotifications(userId, currentNotifications);
+                        }
+                        return currentNotifications;
+                    }
+
+                    getTotalUnreadNotifications(userId) {
+                        const notifications = this.getNotifications(userId);
+                        return Object.values(notifications).reduce((sum, count) => sum + count, 0);
+                    }
+
+                    initializeDefaultNotifications(userId) {
+                        const defaultNotifications = {
+                            calendar: 2,
+                            mentalHealth: 3,
+                            henry: 1,
+                            system: 1
+                        };
+                        
+                        const users = this.getAllUsers();
+                        const userIndex = users.findIndex(u => u.id === userId);
+                        if (userIndex !== -1 && !users[userIndex].notifications) {
+                            users[userIndex].notifications = defaultNotifications;
+                            this.saveAllUsers(users);
+                            
+                            const currentUser = this.getCurrentUser();
+                            if (currentUser && currentUser.id === userId) {
+                                currentUser.notifications = defaultNotifications;
+                                localStorage.setItem(this.currentUserKey, JSON.stringify(currentUser));
+                            }
+                        }
+                        return defaultNotifications;
+                    }
+
+                    // NOTIFICATION SETTINGS MANAGEMENT
+                    getNotificationSettings(userId) {
+                        const settings = localStorage.getItem(this.notificationSettingsKey);
+                        const allSettings = settings ? JSON.parse(settings) : {};
+                        return allSettings[userId] || {
+                            enabled: true,
+                            calendar: true,
+                            mentalHealth: true,
+                            henry: true,
+                            system: true,
+                            sound: true,
+                            vibration: true
+                        };
+                    }
+
+                    saveNotificationSettings(userId, settings) {
+                        const allSettings = JSON.parse(localStorage.getItem(this.notificationSettingsKey) || '{}');
+                        allSettings[userId] = settings;
+                        localStorage.setItem(this.notificationSettingsKey, JSON.stringify(allSettings));
+                        return true;
+                    }
+
+                    updateNotificationSetting(userId, settingKey, value) {
+                        const settings = this.getNotificationSettings(userId);
+                        settings[settingKey] = value;
+                        return this.saveNotificationSettings(userId, settings);
+                    }
+                };
+            }
+        })();
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const userDB = new window.UserDatabase();
+
+            // Check if user is logged in
+            if (!userDB.isLoggedIn()) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Get current user
+            const currentUser = userDB.getCurrentUser();
+            const googleUser = userDB.getGoogleUser();
+
+            if (!currentUser) {
+                userDB.logout();
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Initialize notifications if not exists
+            if (!currentUser.notifications) {
+                userDB.initializeDefaultNotifications(currentUser.id);
+                // Refresh user data
+                currentUser.notifications = userDB.getNotifications(currentUser.id);
+            }
+
+            /* ---------- UPDATE PROFILE INTERFACE ---------- */
+            function updateProfileInterface() {
+                // Update profile info
+                const profileAvatar = document.getElementById('profileAvatar');
+                const avatarText = document.getElementById('avatarText');
+                const googleAvatar = document.getElementById('googleAvatar');
+                const profileName = document.getElementById('profileName');
+                const profileEmail = document.getElementById('profileEmail');
+                const accountBadge = document.getElementById('accountBadge');
+                const currentMoodEmoji = document.getElementById('currentMoodEmoji');
+                const currentMoodText = document.getElementById('currentMoodText');
+                const connectGoogleButton = document.getElementById('connectGoogleButton');
+                const disconnectGoogleButton = document.getElementById('disconnectGoogleButton');
+                const googleSignInContainer = document.getElementById('googleSignInContainer');
+
+                // Check if user has Google account linked
+                const hasGoogleAccount = currentUser.googleAccount || googleUser;
+
+                if (hasGoogleAccount) {
+                    const googleData = currentUser.googleAccount || googleUser;
+                    
+                    // Update avatar with Google picture
+                    avatarText.style.display = 'none';
+                    googleAvatar.style.display = 'block';
+                    
+                    // Use a placeholder Google avatar if no picture
+                    if (googleData.picture) {
+                        googleAvatar.src = googleData.picture;
+                    } else {
+                        googleAvatar.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(googleData.name || currentUser.name)}&background=4285F4&color=fff&size=140&bold=true`;
+                    }
+                    
+                    profileAvatar.classList.add('has-google');
+                    
+                    // Update name and email from Google
+                    if (profileName) profileName.textContent = googleData.name || currentUser.name || 'User';
+                    if (profileEmail) profileEmail.textContent = googleData.email || currentUser.email || 'user@example.com';
+                    
+                    // Update account badge
+                    if (accountBadge) {
+                        accountBadge.innerHTML = '<i class="fab fa-google"></i> Google Account';
+                        accountBadge.className = 'account-badge google';
+                    }
+                    
+                    // Show disconnect button, hide connect button and sign-in container
+                    if (connectGoogleButton) connectGoogleButton.style.display = 'none';
+                    if (disconnectGoogleButton) disconnectGoogleButton.style.display = 'block';
+                    if (googleSignInContainer) googleSignInContainer.style.display = 'none';
+                } else {
+                    // Local account
+                    if (profileAvatar) {
+                        const name = currentUser.name || currentUser.username || 'User';
+                        avatarText.textContent = name.charAt(0).toUpperCase();
+                        avatarText.style.display = 'block';
+                        googleAvatar.style.display = 'none';
+                        profileAvatar.classList.remove('has-google');
+                    }
+                    
+                    if (profileName) {
+                        profileName.textContent = currentUser.name || currentUser.username || 'User';
+                    }
+                    
+                    if (profileEmail) {
+                        profileEmail.textContent = currentUser.email || 'user@example.com';
+                    }
+                    
+                    if (accountBadge) {
+                        accountBadge.innerHTML = '<i class="fas fa-user-circle"></i> Local Account';
+                        accountBadge.className = 'account-badge local';
+                    }
+                    
+                    // Show connect button, hide disconnect button and sign-in container
+                    if (connectGoogleButton) connectGoogleButton.style.display = 'block';
+                    if (disconnectGoogleButton) disconnectGoogleButton.style.display = 'none';
+                    if (googleSignInContainer) googleSignInContainer.style.display = 'none';
+                }
+
+                // Update current mood display
+                if (currentMoodEmoji && currentMoodText) {
+                    const moodMap = {
+                        'sad': { emoji: '☹️', text: 'Feeling Stressed' },
+                        'unhappy': { emoji: '🙁', text: 'Feeling Down' },
+                        'neutral': { emoji: '😐', text: 'Feeling Neutral' },
+                        'happy': { emoji: '🙂', text: 'Feeling Good' },
+                        'good': { emoji: '🙂', text: 'Feeling Good' },
+                        'excited': { emoji: '😁', text: 'Feeling Great!' }
+                    };
+
+                    const currentMood = currentUser.mood || 'neutral';
+                    const moodData = moodMap[currentMood] || moodMap.neutral;
+
+                    currentMoodEmoji.textContent = moodData.emoji;
+                    currentMoodText.textContent = moodData.text;
+                }
+
+                // Update notification counts
+                updateNotificationCounts();
+            }
+
+            /* ---------- NOTIFICATION SYSTEM INTEGRATION ---------- */
+            function updateNotificationCounts() {
+                if (!currentUser) return;
+
+                const notifications = currentUser.notifications || {};
+                const totalUnread = userDB.getTotalUnreadNotifications(currentUser.id);
+                
+                // Update notification badge
+                const notificationBadge = document.getElementById('notificationBadge');
+                const unreadCount = document.getElementById('unreadCount');
+                if (notificationBadge && unreadCount) {
+                    unreadCount.textContent = totalUnread;
+                    if (totalUnread === 0) {
+                        notificationBadge.innerHTML = '<i class="fas fa-check-circle"></i> All Caught Up';
+                        notificationBadge.style.background = 'linear-gradient(135deg, #86b499 0%, #6a9c7d 100%)';
+                    } else {
+                        notificationBadge.innerHTML = '<i class="fas fa-bell"></i> <span id="unreadCount">' + totalUnread + '</span> Unread Notifications';
+                        notificationBadge.style.background = 'linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%)';
+                    }
+                }
+                
+                // Update individual notification type counts
+                document.getElementById('calendarCount').textContent = notifications.calendar || 0;
+                document.getElementById('mentalHealthCount').textContent = notifications.mentalHealth || 0;
+                document.getElementById('henryCount').textContent = notifications.henry || 0;
+                document.getElementById('systemCount').textContent = notifications.system || 0;
+                
+                // Update bottom nav badge
+                const bottomNavBadge = document.getElementById('bottomNavBadge');
+                if (bottomNavBadge) {
+                    bottomNavBadge.textContent = totalUnread;
+                    if (totalUnread === 0) {
+                        bottomNavBadge.style.background = 'rgba(34, 96, 78, 0.3)';
+                        bottomNavBadge.classList.remove('pulse-animation');
+                    } else {
+                        bottomNavBadge.style.background = 'linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%)';
+                        bottomNavBadge.classList.add('pulse-animation');
+                    }
+                }
+                
+                // Update notification toggles based on current counts
+                updateNotificationToggles(notifications);
+            }
+
+            function updateNotificationToggles(notifications) {
+                const notificationSettings = userDB.getNotificationSettings(currentUser.id);
+                
+                // Update global toggle
+                const globalToggle = document.getElementById('globalNotificationsToggle');
+                if (globalToggle) {
+                    globalToggle.checked = notificationSettings.enabled;
+                }
+                
+                // Update individual toggles
+                const toggles = [
+                    { id: 'calendarToggle', key: 'calendar' },
+                    { id: 'mentalHealthToggle', key: 'mentalHealth' },
+                    { id: 'henryToggle', key: 'henry' },
+                    { id: 'systemToggle', key: 'system' }
+                ];
+                
+                toggles.forEach(toggle => {
+                    const element = document.getElementById(toggle.id);
+                    if (element) {
+                        element.checked = notificationSettings[toggle.key];
+                        
+                        // If notification type is disabled but has unread notifications, show special styling
+                        if (!notificationSettings[toggle.key] && notifications[toggle.key] > 0) {
+                            const notificationType = document.querySelector(`#${toggle.id}`).closest('.notification-type');
+                            if (notificationType) {
+                                notificationType.style.background = 'rgba(255, 87, 34, 0.1)';
+                                notificationType.style.border = '1px solid rgba(255, 87, 34, 0.2)';
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Initial UI update
+            updateProfileInterface();
+
+            /* ---------- NOTIFICATION TOGGLE HANDLERS ---------- */
+            // Global notifications toggle
+            const globalToggle = document.getElementById('globalNotificationsToggle');
+            if (globalToggle) {
+                globalToggle.addEventListener('change', function() {
+                    const isEnabled = this.checked;
+                    userDB.updateNotificationSetting(currentUser.id, 'enabled', isEnabled);
+                    
+                    // Enable/disable all individual toggles
+                    const individualToggles = document.querySelectorAll('.notification-type input[type="checkbox"]');
+                    individualToggles.forEach(toggle => {
+                        toggle.disabled = !isEnabled;
+                        if (!isEnabled) {
+                            toggle.checked = false;
+                        }
+                    });
+                    
+                    showFeedback(`Notifications ${isEnabled ? 'enabled' : 'disabled'}`, isEnabled ? 'success' : 'info');
+                });
+            }
+
+            // Individual notification type toggles
+            const notificationToggles = document.querySelectorAll('.notification-type input[type="checkbox"]');
+            notificationToggles.forEach(toggle => {
+                toggle.addEventListener('change', function() {
+                    const type = this.getAttribute('data-type');
+                    const isEnabled = this.checked;
+                    
+                    userDB.updateNotificationSetting(currentUser.id, type, isEnabled);
+                    
+                    // If disabling a toggle that has unread notifications, offer to mark them as read
+                    if (!isEnabled && currentUser.notifications[type] > 0) {
+                        if (confirm(`You have ${currentUser.notifications[type]} unread ${type} notifications. Would you like to mark them as read before disabling?`)) {
+                            userDB.markNotificationTypeRead(currentUser.id, type);
+                            currentUser.notifications = userDB.getNotifications(currentUser.id);
+                            updateNotificationCounts();
+                            showFeedback(`${type} notifications marked as read and disabled`, 'success');
+                        } else {
+                            showFeedback(`${type} notifications disabled`, 'info');
+                        }
+                    } else {
+                        showFeedback(`${type.replace(/([A-Z])/g, ' $1').toLowerCase()} notifications ${isEnabled ? 'enabled' : 'disabled'}`, isEnabled ? 'success' : 'info');
+                    }
+                });
+            });
+
+            /* ---------- MARK ALL NOTIFICATIONS READ ---------- */
+            const markAllReadButton = document.getElementById('markAllNotificationsRead');
+            if (markAllReadButton) {
+                markAllReadButton.addEventListener('click', function() {
+                    const totalUnread = userDB.getTotalUnreadNotifications(currentUser.id);
+                    
+                    if (totalUnread === 0) {
+                        showFeedback('All notifications are already read!', 'info');
+                        return;
+                    }
+                    
+                    // Mark all as read in database
+                    const updatedNotifications = userDB.markAllNotificationsRead(currentUser.id);
+                    
+                    // Update current user data
+                    currentUser.notifications = updatedNotifications;
+                    
+                    // Update UI
+                    updateNotificationCounts();
+                    
+                    // Show success message
+                    showFeedback(`Marked ${totalUnread} notifications as read!`, 'success');
+                });
+            }
+
+            /* ---------- FAKE GOOGLE SIGN-IN FUNCTIONALITY ---------- */
+            
+            // Connect Google button click - shows fake Google sign-in button
+            const connectGoogleButton = document.getElementById('connectGoogleButton');
+            if (connectGoogleButton) {
+                connectGoogleButton.addEventListener('click', function() {
+                    const googleSignInContainer = document.getElementById('googleSignInContainer');
+                    if (googleSignInContainer) {
+                        googleSignInContainer.style.display = 'block';
+                        this.style.display = 'none';
+                    }
+                });
+            }
+
+            // Fake Google sign-in button click
+            const fakeGoogleSignIn = document.getElementById('fakeGoogleSignIn');
+            if (fakeGoogleSignIn) {
+                fakeGoogleSignIn.addEventListener('click', function() {
+                    // Simulate Google sign-in with demo data
+                    const fakeGoogleUser = {
+                        id: 'google_' + Math.random().toString(36).substr(2, 9),
+                        email: currentUser.email || 'user@gmail.com',
+                        name: currentUser.name || 'Google User',
+                        picture: 'https://ui-avatars.com/api/?name=Google+User&background=4285F4&color=fff&size=140&bold=true',
+                        token: 'fake_google_token_' + Math.random().toString(36).substr(2, 20)
+                    };
+                    
+                    // Save fake Google user data
+                    userDB.saveGoogleUser(fakeGoogleUser);
+                    
+                    // Link Google account to current user
+                    userDB.linkGoogleAccount(currentUser.id, fakeGoogleUser);
+                    
+                    // Refresh user data
+                    const updatedUser = userDB.getCurrentUser();
+                    Object.assign(currentUser, updatedUser);
+                    
+                    // Update UI
+                    updateProfileInterface();
+                    
+                    // Hide the fake sign-in button
+                    const googleSignInContainer = document.getElementById('googleSignInContainer');
+                    if (googleSignInContainer) {
+                        googleSignInContainer.style.display = 'none';
+                    }
+                    
+                    // Show success message
+                    showFeedback('Google account connected successfully!', 'success');
+                });
+            }
+
+            // Disconnect Google button click
+            const disconnectGoogleButton = document.getElementById('disconnectGoogleButton');
+            if (disconnectGoogleButton) {
+                disconnectGoogleButton.addEventListener('click', function() {
+                    if (confirm('Are you sure you want to disconnect your Google account? You can reconnect it anytime.')) {
+                        // Remove Google data
+                        userDB.disconnectGoogle();
+                        
+                        // Remove Google account link from user
+                        const users = JSON.parse(localStorage.getItem(userDB.key) || '[]');
+                        const userIndex = users.findIndex(u => u.id === currentUser.id);
+                        
+                        if (userIndex !== -1) {
+                            delete users[userIndex].googleAccount;
+                            localStorage.setItem(userDB.key, JSON.stringify(users));
+                            
+                            // Update current user
+                            delete currentUser.googleAccount;
+                            localStorage.setItem(userDB.currentUserKey, JSON.stringify(currentUser));
+                        }
+                        
+                        // Update UI
+                        updateProfileInterface();
+                        
+                        // Show success message
+                        showFeedback('Google account disconnected successfully.', 'info');
+                    }
+                });
+            }
+
+            /* ---------- SETTING ITEM CLICKS ---------- */
+            const settingItems = document.querySelectorAll('.setting-item');
+            settingItems.forEach(item => {
+                item.addEventListener('click', function (e) {
+                    // Don't trigger if clicking the toggle switch
+                    if (e.target.closest('.toggle-switch')) {
+                        return;
+                    }
+
+                    const settingId = this.id;
+                    const settingText = this.querySelector('.setting-text').textContent;
+
+                    switch (settingId) {
+                        case 'notificationsSetting':
+                            // Already handled by toggles
+                            break;
+                        case 'privacySetting':
+                            showFeedback('Privacy settings coming soon!', 'info');
+                            break;
+                        case 'helpSetting':
+                            showFeedback('Help & support coming soon!', 'info');
+                            break;
+                        default:
+                            showFeedback(`Opening ${settingText}`, 'info');
+                    }
+                });
+            });
+
+            /* ---------- LOGOUT FUNCTIONALITY ---------- */
+            const logoutButton = document.getElementById('logoutButton');
+            if (logoutButton) {
+                logoutButton.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    // Show confirmation
+                    if (confirm('Are you sure you want to log out? You will need to sign in again to access your data.')) {
+                        showFeedback('Logging out...', 'info');
+                        
+                        // Use UserDatabase to log out
+                        userDB.logout();
+                        
+                        // Redirect to login page after delay
+                        setTimeout(() => {
+                            window.location.href = 'login.html';
+                        }, 1000);
+                    }
+                });
+            }
+
+            /* ---------- NAVIGATION ---------- */
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.addEventListener('click', function (e) {
+                    if (this.classList.contains('active')) {
+                        e.preventDefault();
+                        return;
+                    }
+
+                    // Remove active class from all
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    // Add active to clicked
+                    this.classList.add('active');
+
+                    // Navigate after delay
+                    const href = this.getAttribute('href');
+                    if (href && href !== 'profile.html') {
+                        setTimeout(() => {
+                            window.location.href = href;
+                        }, 300);
+                    }
+                });
+            });
+
+            // Set active nav item
+            navItems.forEach(item => {
+                if (item.getAttribute('href') === 'profile.html') {
+                    item.classList.add('active');
+                }
+            });
+
+            /* ---------- ANIMATIONS ---------- */
+            const fadeElements = document.querySelectorAll('.fade-in');
+            fadeElements.forEach((el, index) => {
+                setTimeout(() => {
+                    el.style.animation = 'fadeInUp 0.5s ease forwards';
+                }, index * 100);
+            });
+
+            /* ---------- HELPER FUNCTION ---------- */
+            function showFeedback(message, type = 'info') {
+                // Remove existing feedback
+                const existingFeedback = document.querySelector('.feedback-message');
+                if (existingFeedback) existingFeedback.remove();
+
+                // Create feedback element
+                const feedback = document.createElement('div');
+                feedback.className = `feedback-message feedback-${type}`;
+                feedback.style.cssText = `
+                position: fixed;
+                top: 100px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: ${type === 'error' ? 'rgba(231, 76, 60, 0.95)' : 
+                         type === 'success' ? 'rgba(46, 204, 113, 0.95)' : 
+                         'rgba(34, 96, 78, 0.95)'};
+                color: white;
+                padding: 12px 24px;
+                border-radius: 25px;
+                font-family: 'Nunito', sans-serif;
+                font-weight: 600;
+                font-size: 14px;
+                z-index: 1000;
+                animation: slideDown 0.3s ease;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+                max-width: 80%;
+                text-align: center;
+            `;
+                feedback.textContent = message;
+                document.body.appendChild(feedback);
+
+                // Remove after 2 seconds
+                setTimeout(() => {
+                    feedback.style.animation = 'slideUp 0.3s ease forwards';
+                    setTimeout(() => feedback.remove(), 300);
+                }, 2000);
+            }
+
+            // Add animation styles
+            const style = document.createElement('style');
+            style.textContent = `
+            @keyframes slideDown {
+                from {
+                    top: 80px;
+                    opacity: 0;
+                }
+                to {
+                    top: 100px;
+                    opacity: 1;
+                }
+            }
+            
+            @keyframes slideUp {
+                from {
+                    top: 100px;
+                    opacity: 1;
+                }
+                to {
+                    top: 80px;
+                    opacity: 0;
+                }
+            }
+            
+            .pulse-animation {
+                animation: pulse 2s infinite;
+            }
+            
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.05); }
+                100% { transform: scale(1); }
+            }
+            
+            .nav-item {
+                transition: all 0.3s ease !important;
+            }
+            
+            .setting-item {
+                transition: all 0.3s ease !important;
+            }
+            
+            .action-button {
+                transition: all 0.3s ease !important;
+            }
+            
+            .action-button:hover:not(:disabled) {
+                transform: translateY(-5px);
+            }
+            
+            .fake-google-button {
+                transition: all 0.3s ease !important;
+            }
+            
+            .notification-type {
+                transition: all 0.3s ease !important;
+            }
+            `;
+            document.head.appendChild(style);
+
+            // Update counts when page becomes visible
+            document.addEventListener('visibilitychange', function () {
+                if (!document.hidden) {
+                    const updatedUser = userDB.getCurrentUser();
+                    if (updatedUser) {
+                        currentUser.notifications = updatedUser.notifications;
+                        updateNotificationCounts();
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

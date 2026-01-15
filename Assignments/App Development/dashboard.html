@@ -446,12 +446,7 @@
             box-shadow: 0 3px 8px rgba(255, 82, 82, 0.4);
         }
 
-        /* Phone Container Adjustments for Bottom Nav */
-        .phone {
-            position: relative;
-            overflow: hidden;
-        }
-
+        /* App Content Adjustments for Bottom Nav */
         .app-content {
             height: calc(100% - 40px);
             overflow-y: auto;
@@ -650,6 +645,15 @@
                 font-size: 14px;
             }
         }
+
+        /* Animation delay helper classes (moved from inline styles) */
+        .delay-01 { animation-delay: 0.1s; }
+        .delay-02 { animation-delay: 0.2s; }
+        .delay-03 { animation-delay: 0.3s; }
+        .delay-04 { animation-delay: 0.4s; }
+        .delay-05 { animation-delay: 0.5s; }
+        .delay-06 { animation-delay: 0.6s; }
+
     </style>
 </head>
 
@@ -736,7 +740,7 @@
                 <!-- Navigation Cards (like your image) -->
                 <div class="nav-cards">
                     <!-- Calendar Card -->
-                    <a href="calendar.html" class="nav-card fade-in" style="animation-delay: 0.1s; position: relative;">
+                    <a href="calendar.html" class="nav-card fade-in delay-01">
                         <div class="notification-count">2</div>
                         <div class="card-icon">
                             <i class="fas fa-calendar-alt"></i>
@@ -746,8 +750,7 @@
                     </a>
 
                     <!-- Mental Health Card -->
-                    <a href="mental-health.html" class="nav-card fade-in"
-                        style="animation-delay: 0.2s; position: relative;">
+                    <a href="mental-health.html" class="nav-card fade-in delay-02">
                         <div class="notification-count">3</div>
                         <div class="card-icon">
                             <i class="fas fa-brain"></i>
@@ -757,7 +760,7 @@
                     </a>
 
                     <!-- Henry Card -->
-                    <a href="messages.html" class="nav-card fade-in" style="animation-delay: 0.3s; position: relative;">
+                    <a href="messages.html" class="nav-card fade-in delay-03">
                         <div class="notification-count">1</div>
                         <div class="card-icon">
                             <i class="fas fa-user-friends"></i>
@@ -767,7 +770,7 @@
                     </a>
 
                     <!-- Journal Card -->
-                    <a href="journal.html" class="nav-card fade-in" style="animation-delay: 0.4s;">
+                    <a href="journal.html" class="nav-card fade-in delay-04">
                         <div class="card-icon">
                             <i class="fas fa-book"></i>
                         </div>
@@ -777,7 +780,7 @@
                 </div>
 
                 <!-- Today's Mood Section -->
-                <div class="todays-mood fade-in" style="animation-delay: 0.5s;">
+                <div class="todays-mood fade-in delay-05">
                     <div class="mood-title">How are you feeling today?</div>
                     <div class="mood-options">
                         <div class="mood-option">
@@ -792,7 +795,7 @@
                             <div class="mood-emoji">😐</div>
                             <div class="mood-label">Neutral</div>
                         </div>
-                        <div class="mood-option selected">
+                        <div class="mood-option">
                             <div class="mood-emoji">🙂</div>
                             <div class="mood-label">Good</div>
                         </div>
@@ -804,7 +807,7 @@
                 </div>
 
                 <!-- Recent Activity -->
-                <div class="recent-activity fade-in" style="animation-delay: 0.6s;">
+                <div class="recent-activity fade-in delay-06">
                     <div class="activity-title">Recent Activity</div>
                     <div class="activity-list">
                         <div class="activity-item">

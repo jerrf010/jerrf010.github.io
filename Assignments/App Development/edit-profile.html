@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile -- Hey, Day</title>
+    <link rel="icon" href="https://github.com/jerrf010/basic_html/blob/main/park_with_shades.png?raw=true"
+        type="image/icon type">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Chewy&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Oswald:wght@200..700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Edit Profile Specific Styles */
+        .edit-profile-header {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+            padding-top: 10px;
+        }
+
+        .edit-profile-title {
+            font-family: 'Chewy', cursive;
+            font-size: 40px;
+            color: #1a3c27;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .edit-profile-subtitle {
+            font-family: 'Nunito', sans-serif;
+            font-size: 16px;
+            color: #2d5a3d;
+            font-weight: 600;
+            opacity: 0.9;
+        }
+
+        /* Back Button */
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(34, 96, 78, 0.3);
+            border-radius: 15px;
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 16px;
+            color: #1a3c27;
+            font-weight: 700;
+            z-index: 10;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+            border-color: rgba(34, 96, 78, 0.5);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Profile Avatar Upload */
+        .avatar-upload-section {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            padding: 30px;
+            margin-bottom: 25px;
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            position: relative;
+            width: 100%;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .avatar-upload-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .avatar-preview {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, #86b499 0%, #6a9c7d 100%);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 70px;
+            font-weight: bold;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .avatar-preview:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        .avatar-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 26px;
+        }
+
+        /* Hide avatar image by default (remove inline styles) */
+        #avatarImage {
+            display: none;
+        }
+
+        .avatar-preview.has-google {
+            background: linear-gradient(135deg, #4285F4 0%, #34A853 33%, #FBBC05 66%, #EA4335 100%);
+        }
+
+        .avatar-upload-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .avatar-upload-btn {
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(34, 96, 78, 0.3);
+            border-radius: 15px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            color: #1a3c27;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .avatar-upload-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .avatar-upload-btn.primary {
+            background: rgba(34, 96, 78, 0.2);
+            border-color: #22604e;
+            color: #1a3c27;
+            font-weight: 700;
+        }
+
+        .avatar-upload-btn.primary:hover {
+            background: rgba(34, 96, 78, 0.3);
+        }
+
+        .avatar-upload-btn.danger {
+            background: rgba(231, 76, 60, 0.1);
+            border-color: rgba(231, 76, 60, 0.3);
+            color: #e74c3c;
+        }
+
+        .avatar-upload-btn.danger:hover {
+            background: rgba(231, 76, 60, 0.2);
+        }
+
+        /* Form Section */
+        .form-section {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 30px;
+            padding: 30px;
+            margin-bottom: 25px;
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .form-title {
+            font-family: 'Nunito', sans-serif;
+            font-size: 22px;
+            color: #1a3c27;
+            font-weight: 700;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .edit-form {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .form-label {
+            font-family: 'Nunito', sans-serif;
+            font-size: 16px;
+            color: #1a3c27;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-label i {
+            color: #22604e;
+            font-size: 18px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 18px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(34, 96, 78, 0.2);
+            border-radius: 20px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 16px;
+            color: #1a3c27;
+            outline: none;
+            transition: all 0.3s ease;
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+        }
+
+        .form-input:focus {
+            border-color: #22604e;
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 0 3px rgba(34, 96, 78, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: rgba(34, 96, 78, 0.5);
+        }
+
+        .form-input:disabled {
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(34, 96, 78, 0.6);
+            cursor: not-allowed;
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 18px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(34, 96, 78, 0.2);
+            border-radius: 20px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 16px;
+            color: #1a3c27;
+            outline: none;
+            transition: all 0.3s ease;
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-textarea:focus {
+            border-color: #22604e;
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 0 3px rgba(34, 96, 78, 0.1);
+        }
+
+        .form-help {
+            font-family: 'Nunito', sans-serif;
+            font-size: 13px;
+            color: #2d5a3d;
+            font-weight: 600;
+            margin-top: 5px;
+            padding-left: 5px;
+        }
+
+        .form-help i {
+            margin-right: 6px;
+            font-size: 11px;
+        }
+
+        .input-with-button {
+            display: flex;
+            gap: 10px;
+        }
+
+        .input-with-button .form-input {
+            flex: 1;
+        }
+
+        .verify-button {
+            padding: 0 25px;
+            background: rgba(34, 96, 78, 0.2);
+            border: 2px solid #22604e;
+            border-radius: 20px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            color: #1a3c27;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .verify-button:hover {
+            background: rgba(34, 96, 78, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .verify-button.verified {
+            background: rgba(46, 204, 113, 0.2);
+            border-color: #2ecc71;
+            color: #27ae60;
+        }
+
+        .verify-button.verified:hover {
+            background: rgba(46, 204, 113, 0.3);
+        }
+
+        /* Account Type Section */
+        .account-type-section {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 30px;
+            padding: 30px;
+            margin-bottom: 25px;
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .account-type-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(34, 96, 78, 0.3);
+            border-radius: 20px;
+            padding: 12px 24px;
+            margin-bottom: 20px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 16px;
+            color: #1a3c27;
+            font-weight: 600;
+        }
+
+        .account-type-badge.google {
+            background: rgba(66, 133, 244, 0.1);
+            border-color: rgba(66, 133, 244, 0.3);
+            color: #4285F4;
+        }
+
+        .account-type-badge i {
+            font-size: 20px;
+        }
+
+        .account-type-info {
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            color: #2d5a3d;
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        /* Danger Zone */
+        .danger-zone {
+            background: rgba(231, 76, 60, 0.05);
+            border-radius: 30px;
+            padding: 30px;
+            margin-bottom: 25px;
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(231, 76, 60, 0.1);
+            width: 100%;
+            max-width: 480px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .danger-title {
+            font-family: 'Nunito', sans-serif;
+            font-size: 20px;
+            color: #e74c3c;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .danger-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .danger-button {
+            padding: 16px;
+            background: rgba(231, 76, 60, 0.1);
+            border: 2px solid rgba(231, 76, 60, 0.3);
+            border-radius: 20px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 16px;
+            color: #e74c3c;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-align: left;
+        }
+
+        .danger-button:hover {
+            background: rgba(231, 76, 60, 0.2);
+            border-color: rgba(231, 76, 60, 0.5);
+            transform: translateY(-3px);
+        }
+
+        .danger-button i {
+            font-size: 18px;
+        }
+
+        /* Action Buttons */
+        .actions-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 25px auto;
+            width: 100%;
+            max-width: 480px;
+        }
+
+        .action-button {
+            width: 100%;
+            height: 65px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(34, 96, 78, 0.2);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Nunito', sans-serif;
+            font-size: 18px;
+            color: #1a3c27;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            padding: 0 25px;
+            border: none;
+            outline: none;
+        }
+
+        .action-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-5px);
+            border-color: rgba(34, 96, 78, 0.4);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .action-button.primary {
+            background: linear-gradient(135deg, #86b499 0%, #6a9c7d 100%);
+            color: white;
+            border: none;
+        }
+
+        .action-button.primary:hover {
+            background: linear-gradient(135deg, #6a9c7d 0%, #5a8c6d 100%);
+        }
+
+        .action-button.secondary {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(34, 96, 78, 0.2);
+            color: #1a3c27;
+        }
+
+        .action-button.secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(34, 96, 78, 0.4);
+        }
+
+        .action-button i {
+            font-size: 22px;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.5s ease forwards;
+            opacity: 0;
+        }
+
+        /* Animation delay utility classes (use instead of inline styles) */
+        .fade-delay-100 { animation-delay: 0.1s; }
+        .fade-delay-200 { animation-delay: 0.2s; }
+        .fade-delay-300 { animation-delay: 0.3s; }
+        .fade-delay-400 { animation-delay: 0.4s; }
+        .fade-delay-500 { animation-delay: 0.5s; }
+
+        /* App Content Adjustments */
+        .app-content {
+            height: calc(100% - 40px);
+            overflow-y: auto;
+            padding-bottom: 120px;
+        }
+
+        /* Custom scrollbar */
+        .app-content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .app-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .app-content::-webkit-scrollbar-thumb {
+            background: #22604e;
+            border-radius: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .edit-profile-title {
+                font-size: 34px;
+            }
+
+            .avatar-upload-section,
+            .form-section,
+            .account-type-section,
+            .danger-zone,
+            .actions-container {
+                max-width: 420px;
+                padding: 20px;
+            }
+
+            .avatar-preview {
+                width: 120px;
+                height: 120px;
+                font-size: 60px;
+            }
+
+            .avatar-upload-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .avatar-upload-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .input-with-button {
+                flex-direction: column;
+            }
+
+            .verify-button {
+                padding: 12px;
+                width: 100%;
+            }
+
+            .back-button {
+                top: 15px;
+                left: 20px;
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Decorative Elements -->
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+        <div class="leaf leaf-1"></div>
+        <div class="leaf leaf-2"></div>
+        <div class="leaf leaf-3"></div>
+
+        <!-- Phone Container -->
+        <div class="phone" id="main-page">
+            <!-- Phone Notch -->
+            <div class="phone-notch"></div>
+
+            <!-- Status Bar -->
+            <div class="status-bar">
+                <span>9:41</span>
+                <div class="status-icons">
+                    <i class="fas fa-signal"></i>
+                    <i class="fas fa-wifi"></i>
+                    <i class="fas fa-battery-three-quarters"></i>
+                </div>
+            </div>
+
+            <!-- App Content -->
+            <div class="app-content">
+                <!-- Back Button -->
+                <a href="profile.html" class="back-button">
+                    <i class="fas fa-arrow-left"></i>
+                    Back
+                </a>
+
+                <!-- Header -->
+                <div class="edit-profile-header">
+                    <h1 class="edit-profile-title">Edit Profile</h1>
+                    <p class="edit-profile-subtitle">Update your personal information</p>
+                </div>
+
+                <!-- Avatar Upload Section -->
+                <div class="avatar-upload-section fade-in fade-delay-100">
+                    <div class="avatar-upload-container">
+                        <div class="avatar-preview" id="avatarPreview">
+                            <div id="avatarText">J</div>
+                            <img id="avatarImage">
+                        </div>
+                        <div class="avatar-upload-buttons">
+                            <button class="avatar-upload-btn" id="uploadAvatarBtn">
+                                <i class="fas fa-camera"></i>
+                                Upload Photo
+                            </button>
+                            <button class="avatar-upload-btn" id="removeAvatarBtn">
+                                <i class="fas fa-trash"></i>
+                                Remove Photo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Section -->
+                <form id="editProfileForm" class="form-section fade-in fade-delay-200">
+                    <div class="form-title">Personal Information</div>
+                    
+                    <div class="edit-form">
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-user"></i>
+                                Full Name
+                            </label>
+                            <input type="text" class="form-input" id="fullName" 
+                                   placeholder="Enter your full name" 
+                                   value="Joe!!" 
+                                   required>
+                            <div class="form-help">
+                                <i class="fas fa-info-circle"></i>
+                                This is how your name will appear in the app
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-envelope"></i>
+                                Email Address
+                            </label>
+                            <div class="input-with-button">
+                                <input type="email" class="form-input" id="email" 
+                                       placeholder="you@example.com" 
+                                       value="joe@example.com" 
+                                       required>
+                                <button type="button" class="verify-button" id="verifyEmailBtn">
+                                    Verify
+                                </button>
+                            </div>
+                            <div class="form-help">
+                                <i class="fas fa-info-circle"></i>
+                                We'll send you a verification email
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-phone"></i>
+                                Phone Number
+                            </label>
+                            <input type="tel" class="form-input" id="phone" 
+                                   placeholder="(123) 456-7890"
+                                   value="">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="birthDate">
+                                <i class="fas fa-calendar"></i>
+                                Date of Birth
+                            </label>
+                            <input type="date" class="form-input" id="birthDate" title="Date of birth" 
+                                   value="1990-01-01">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="gender">
+                                <i class="fas fa-venus-mars"></i>
+                                Gender
+                            </label>
+                            <select class="form-input" id="gender" title="Gender">
+                                <option value="">Prefer not to say</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="non-binary">Non-binary</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-map-marker-alt"></i>
+                                Location
+                            </label>
+                            <input type="text" class="form-input" id="location" 
+                                   placeholder="City, Country"
+                                   value="">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-quote-left"></i>
+                                Bio / About Me
+                            </label>
+                            <textarea class="form-textarea" id="bio" 
+                                      placeholder="Tell us a little about yourself..."
+                                      rows="4">Wellness enthusiast and mindfulness practitioner. Love meditation and nature walks!</textarea>
+                            <div class="form-help">
+                                <i class="fas fa-info-circle"></i>
+                                Maximum 500 characters
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Account Type Section -->
+                <div class="account-type-section fade-in fade-delay-300">
+                    <div class="form-title">Account Type</div>
+                    <div class="account-type-badge local" id="accountTypeBadge">
+                        <i class="fas fa-user-circle"></i>
+                        Local Account
+                    </div>
+                    <div class="account-type-info" id="accountTypeInfo">
+                        Your account is stored locally on this device. You can connect a Google account for cloud backup and easier sign-in.
+                    </div>
+                    <button class="action-button secondary" id="manageAccountBtn">
+                        <i class="fab fa-google"></i>
+                        Manage Google Connection
+                    </button>
+                </div>
+
+                <!-- Danger Zone -->
+                <div class="danger-zone fade-in fade-delay-400">
+                    <div class="danger-title">Danger Zone</div>
+                    <div class="danger-actions">
+                        <button class="danger-button" id="changePasswordBtn">
+                            <i class="fas fa-key"></i>
+                            Change Password
+                        </button>
+                        <button class="danger-button" id="deleteAccountBtn">
+                            <i class="fas fa-user-slash"></i>
+                            Delete Account
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="actions-container fade-in fade-delay-500">
+                    <button type="submit" form="editProfileForm" class="action-button primary" id="saveChangesBtn">
+                        <i class="fas fa-save"></i>
+                        Save Changes
+                    </button>
+                    <a href="profile.html" class="action-button secondary">
+                        <i class="fas fa-times"></i>
+                        Cancel
+                    </a>
+                </div>
+            </div>
+
+            <!-- Home Indicator -->
+            <div class="home-indicator"></div>
+        </div>
+    </div>
+
+    <!-- Script -->
+    <script>
+        // User Database Class
+        (function () {
+            if (typeof window.UserDatabase === 'undefined') {
+                window.UserDatabase = class {
+                    constructor() {
+                        this.key = 'heyday_users';
+                        this.currentUserKey = 'heyday_current_user';
+                        this.googleUserKey = 'heyday_google_user';
+                    }
+
+                    getCurrentUser() {
+                        const user = localStorage.getItem(this.currentUserKey);
+                        return user ? JSON.parse(user) : null;
+                    }
+
+                    isLoggedIn() {
+                        return localStorage.getItem('heyday_logged_in') === 'true';
+                    }
+
+                    updateCurrentUser(updatedData) {
+                        const currentUser = this.getCurrentUser();
+                        if (!currentUser) return false;
+
+                        // Update user data
+                        const updatedUser = { ...currentUser, ...updatedData };
+                        
+                        // Update all users array
+                        const users = JSON.parse(localStorage.getItem(this.key) || '[]');
+                        const userIndex = users.findIndex(u => u.id === currentUser.id);
+                        
+                        if (userIndex !== -1) {
+                            users[userIndex] = { ...users[userIndex], ...updatedData };
+                            localStorage.setItem(this.key, JSON.stringify(users));
+                        }
+                        
+                        // Update current user in session
+                        localStorage.setItem(this.currentUserKey, JSON.stringify(updatedUser));
+                        
+                        return true;
+                    }
+
+                    getGoogleUser() {
+                        const user = localStorage.getItem(this.googleUserKey);
+                        return user ? JSON.parse(user) : null;
+                    }
+
+                    hasGoogleAccount() {
+                        const currentUser = this.getCurrentUser();
+                        return currentUser && currentUser.googleAccount;
+                    }
+                };
+            }
+        })();
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const userDB = new window.UserDatabase();
+
+            // Check if user is logged in
+            if (!userDB.isLoggedIn()) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Get current user
+            const currentUser = userDB.getCurrentUser();
+
+            if (!currentUser) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            /* ---------- INITIALIZE FORM WITH USER DATA ---------- */
+            function initializeForm() {
+                // Set form values from user data
+                document.getElementById('fullName').value = currentUser.name || currentUser.username || '';
+                document.getElementById('email').value = currentUser.email || '';
+                document.getElementById('phone').value = currentUser.phone || '';
+                document.getElementById('birthDate').value = currentUser.birthDate || '';
+                document.getElementById('gender').value = currentUser.gender || '';
+                document.getElementById('location').value = currentUser.location || '';
+                document.getElementById('bio').value = currentUser.bio || '';
+
+                // Update avatar preview
+                updateAvatarPreview();
+
+                // Update account type info
+                updateAccountTypeInfo();
+            }
+
+            function updateAvatarPreview() {
+                const avatarPreview = document.getElementById('avatarPreview');
+                const avatarText = document.getElementById('avatarText');
+                const avatarImage = document.getElementById('avatarImage');
+                const hasGoogleAccount = userDB.hasGoogleAccount();
+                const googleUser = userDB.getGoogleUser();
+
+                if (hasGoogleAccount || googleUser) {
+                    // Google account
+                    const googleData = currentUser.googleAccount || googleUser;
+                    avatarText.style.display = 'none';
+                    avatarImage.style.display = 'block';
+                    
+                    if (googleData.picture) {
+                        avatarImage.src = googleData.picture;
+                    } else {
+                        // Generate avatar from name
+                        const name = googleData.name || currentUser.name || 'User';
+                        avatarImage.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=4285F4&color=fff&size=150&bold=true`;
+                    }
+                    
+                    avatarPreview.classList.add('has-google');
+                } else if (currentUser.avatar) {
+                    // Custom avatar
+                    avatarText.style.display = 'none';
+                    avatarImage.style.display = 'block';
+                    avatarImage.src = currentUser.avatar;
+                    avatarPreview.classList.remove('has-google');
+                } else {
+                    // Initial avatar
+                    const name = currentUser.name || currentUser.username || 'User';
+                    avatarText.textContent = name.charAt(0).toUpperCase();
+                    avatarText.style.display = 'block';
+                    avatarImage.style.display = 'none';
+                    avatarPreview.classList.remove('has-google');
+                }
+            }
+
+            function updateAccountTypeInfo() {
+                const accountTypeBadge = document.getElementById('accountTypeBadge');
+                const accountTypeInfo = document.getElementById('accountTypeInfo');
+                const hasGoogleAccount = userDB.hasGoogleAccount();
+
+                if (hasGoogleAccount) {
+                    accountTypeBadge.innerHTML = '<i class="fab fa-google"></i> Google Account';
+                    accountTypeBadge.className = 'account-type-badge google';
+                    accountTypeInfo.textContent = 'Your account is connected to Google. You can disconnect it if you prefer to use a local account.';
+                } else {
+                    accountTypeBadge.innerHTML = '<i class="fas fa-user-circle"></i> Local Account';
+                    accountTypeBadge.className = 'account-type-badge local';
+                    accountTypeInfo.textContent = 'Your account is stored locally on this device. You can connect a Google account for cloud backup and easier sign-in.';
+                }
+            }
+
+            // Initialize form on load
+            initializeForm();
+
+            /* ---------- AVATAR UPLOAD FUNCTIONALITY ---------- */
+            const avatarPreview = document.getElementById('avatarPreview');
+            const uploadAvatarBtn = document.getElementById('uploadAvatarBtn');
+            const removeAvatarBtn = document.getElementById('removeAvatarBtn');
+
+            // Avatar preview click (opens file picker)
+            avatarPreview.addEventListener('click', function() {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = 'image/*';
+                
+                input.onchange = function(e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        // Read the file as data URL
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            // Save to localStorage
+                            currentUser.avatar = e.target.result;
+                            userDB.updateCurrentUser({ avatar: e.target.result });
+                            
+                            // Update preview
+                            updateAvatarPreview();
+                            
+                            // Show success message
+                            showFeedback('Profile picture updated successfully!', 'success');
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                };
+                
+                input.click();
+            });
+
+            // Upload button
+            uploadAvatarBtn.addEventListener('click', function() {
+                avatarPreview.click();
+            });
+
+            // Remove avatar button
+            removeAvatarBtn.addEventListener('click', function() {
+                if (confirm('Are you sure you want to remove your profile picture?')) {
+                    // Remove avatar from user data
+                    delete currentUser.avatar;
+                    userDB.updateCurrentUser({ avatar: null });
+                    
+                    // Update preview
+                    updateAvatarPreview();
+                    
+                    // Show success message
+                    showFeedback('Profile picture removed.', 'info');
+                }
+            });
+
+            /* ---------- EMAIL VERIFICATION ---------- */
+            const verifyEmailBtn = document.getElementById('verifyEmailBtn');
+            const emailInput = document.getElementById('email');
+
+            verifyEmailBtn.addEventListener('click', function() {
+                const email = emailInput.value.trim();
+                
+                if (!email) {
+                    showFeedback('Please enter an email address first.', 'error');
+                    return;
+                }
+                
+                if (!isValidEmail(email)) {
+                    showFeedback('Please enter a valid email address.', 'error');
+                    return;
+                }
+                
+                // Simulate email verification
+                verifyEmailBtn.textContent = 'Sending...';
+                verifyEmailBtn.disabled = true;
+                
+                setTimeout(() => {
+                    verifyEmailBtn.textContent = 'Sent!';
+                    verifyEmailBtn.classList.add('verified');
+                    showFeedback('Verification email sent! Check your inbox.', 'success');
+                    
+                    // Reset button after 3 seconds
+                    setTimeout(() => {
+                        verifyEmailBtn.textContent = 'Verify';
+                        verifyEmailBtn.classList.remove('verified');
+                        verifyEmailBtn.disabled = false;
+                    }, 3000);
+                }, 1500);
+            });
+
+            function isValidEmail(email) {
+                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            }
+
+            /* ---------- MANAGE GOOGLE CONNECTION ---------- */
+            const manageAccountBtn = document.getElementById('manageAccountBtn');
+            
+            manageAccountBtn.addEventListener('click', function() {
+                const hasGoogleAccount = userDB.hasGoogleAccount();
+                
+                if (hasGoogleAccount) {
+                    // Disconnect Google
+                    if (confirm('Are you sure you want to disconnect your Google account? You can reconnect it anytime.')) {
+                        // Remove Google connection
+                        delete currentUser.googleAccount;
+                        userDB.updateCurrentUser({ googleAccount: null });
+                        
+                        // Update UI
+                        updateAvatarPreview();
+                        updateAccountTypeInfo();
+                        
+                        // Show success message
+                        showFeedback('Google account disconnected.', 'info');
+                    }
+                } else {
+                    // Connect Google (simulated)
+                    if (confirm('This will redirect you to Google to connect your account. Continue?')) {
+                        // Simulate Google connection
+                        showFeedback('Redirecting to Google...', 'info');
+                        
+                        setTimeout(() => {
+                            // Simulate successful connection
+                            const fakeGoogleData = {
+                                id: 'google_' + Math.random().toString(36).substr(2, 9),
+                                email: currentUser.email || 'user@gmail.com',
+                                name: currentUser.name || 'Google User',
+                                picture: `https://ui-avatars.com/api/?name=${encodeURIComponent(currentUser.name || 'User')}&background=4285F4&color=fff&size=150&bold=true`
+                            };
+                            
+                            currentUser.googleAccount = fakeGoogleData;
+                            userDB.updateCurrentUser({ googleAccount: fakeGoogleData });
+                            
+                            // Update UI
+                            updateAvatarPreview();
+                            updateAccountTypeInfo();
+                            
+                            // Show success message
+                            showFeedback('Google account connected successfully!', 'success');
+                        }, 2000);
+                    }
+                }
+            });
+
+            /* ---------- DANGER ZONE ACTIONS ---------- */
+            const changePasswordBtn = document.getElementById('changePasswordBtn');
+            const deleteAccountBtn = document.getElementById('deleteAccountBtn');
+
+            // Change Password
+            changePasswordBtn.addEventListener('click', function() {
+                const newPassword = prompt('Enter new password (min. 6 characters):', '');
+                
+                if (newPassword) {
+                    if (newPassword.length < 6) {
+                        showFeedback('Password must be at least 6 characters.', 'error');
+                        return;
+                    }
+                    
+                    // In a real app, you would update the password in the database
+                    showFeedback('Password changed successfully!', 'success');
+                }
+            });
+
+            // Delete Account
+            deleteAccountBtn.addEventListener('click', function() {
+                const confirmation = prompt('Type "DELETE" to confirm account deletion:');
+                
+                if (confirmation === 'DELETE') {
+                    if (confirm('⚠️ WARNING: This will permanently delete your account and all data. This action cannot be undone. Are you absolutely sure?')) {
+                        // Simulate account deletion
+                        showFeedback('Deleting your account...', 'error');
+                        
+                        setTimeout(() => {
+                            // Log out and redirect
+                            userDB.logout();
+                            window.location.href = 'login.html';
+                        }, 2000);
+                    }
+                } else if (confirmation) {
+                    showFeedback('Incorrect confirmation text. Account deletion cancelled.', 'error');
+                }
+            });
+
+            /* ---------- FORM SUBMISSION ---------- */
+            const editProfileForm = document.getElementById('editProfileForm');
+            const saveChangesBtn = document.getElementById('saveChangesBtn');
+
+            editProfileForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Collect form data
+                const formData = {
+                    name: document.getElementById('fullName').value.trim(),
+                    email: document.getElementById('email').value.trim(),
+                    phone: document.getElementById('phone').value.trim(),
+                    birthDate: document.getElementById('birthDate').value,
+                    gender: document.getElementById('gender').value,
+                    location: document.getElementById('location').value.trim(),
+                    bio: document.getElementById('bio').value.trim()
+                };
+
+                // Validate required fields
+                if (!formData.name) {
+                    showFeedback('Please enter your name.', 'error');
+                    return;
+                }
+
+                if (!formData.email) {
+                    showFeedback('Please enter your email address.', 'error');
+                    return;
+                }
+
+                if (!isValidEmail(formData.email)) {
+                    showFeedback('Please enter a valid email address.', 'error');
+                    return;
+                }
+
+                // Show loading state
+                const originalText = saveChangesBtn.innerHTML;
+                saveChangesBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+                saveChangesBtn.disabled = true;
+
+                // Simulate API call
+                setTimeout(() => {
+                    // Update user data
+                    userDB.updateCurrentUser(formData);
+                    
+                    // Update current user object
+                    Object.assign(currentUser, formData);
+                    
+                    // Reset button
+                    saveChangesBtn.innerHTML = originalText;
+                    saveChangesBtn.disabled = false;
+                    
+                    // Show success message
+                    showFeedback('Profile updated successfully!', 'success');
+                    
+                    // Redirect back to profile after delay
+                    setTimeout(() => {
+                        window.location.href = 'profile.html';
+                    }, 1500);
+                }, 1000);
+            });
+
+            /* ---------- ANIMATIONS ---------- */
+            const fadeElements = document.querySelectorAll('.fade-in');
+            fadeElements.forEach((el, index) => {
+                setTimeout(() => {
+                    el.style.animation = 'fadeInUp 0.5s ease forwards';
+                }, index * 100);
+            });
+
+            /* ---------- HELPER FUNCTION ---------- */
+            function showFeedback(message, type = 'info') {
+                // Remove existing feedback
+                const existingFeedback = document.querySelector('.feedback-message');
+                if (existingFeedback) existingFeedback.remove();
+
+                // Create feedback element
+                const feedback = document.createElement('div');
+                feedback.className = `feedback-message feedback-${type}`;
+                feedback.style.cssText = `
+                position: fixed;
+                top: 100px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: ${type === 'error' ? 'rgba(231, 76, 60, 0.95)' : 
+                         type === 'success' ? 'rgba(46, 204, 113, 0.95)' : 
+                         'rgba(34, 96, 78, 0.95)'};
+                color: white;
+                padding: 12px 24px;
+                border-radius: 25px;
+                font-family: 'Nunito', sans-serif;
+                font-weight: 600;
+                font-size: 14px;
+                z-index: 1000;
+                animation: slideDown 0.3s ease;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+                max-width: 80%;
+                text-align: center;
+            `;
+                feedback.textContent = message;
+                document.body.appendChild(feedback);
+
+                // Remove after 3 seconds
+                setTimeout(() => {
+                    feedback.style.animation = 'slideUp 0.3s ease forwards';
+                    setTimeout(() => feedback.remove(), 300);
+                }, 3000);
+            }
+
+            // Add animation styles
+            const style = document.createElement('style');
+            style.textContent = `
+            @keyframes slideDown {
+                from {
+                    top: 80px;
+                    opacity: 0;
+                }
+                to {
+                    top: 100px;
+                    opacity: 1;
+                }
+            }
+            
+            @keyframes slideUp {
+                from {
+                    top: 100px;
+                    opacity: 1;
+                }
+                to {
+                    top: 80px;
+                    opacity: 0;
+                }
+            }
+            
+            .fa-spinner {
+                animation: spin 1s linear infinite;
+            }
+            
+            @keyframes spin {
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+            
+            .action-button, .avatar-upload-btn, .verify-button, .danger-button {
+                transition: all 0.3s ease !important;
+            }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+
+</html>
