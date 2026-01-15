@@ -226,29 +226,6 @@
             margin-left: 7px;
         }
 
-        /* Bottom Navigation - Inside Phone Container */
-        .bottom-nav-container {
-            position: absolute;
-            bottom: 20px;
-            left: 0;
-            right: 0;
-            width: 100%;
-        }
-
-        .bottom-nav {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 25px;
-            padding: 15px 10px;
-            margin: 0 30px;
-            -webkit-backdrop-filter: blur(20px);
-            backdrop-filter: blur(20px);
-            border: 2px solid rgba(34, 96, 78, 0.2);
-            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
-        }
-
         .nav-item {
             display: flex;
             flex-direction: column;
@@ -409,6 +386,43 @@
                 font-size: 20px;
             }
         }
+
+        /* Unread Button Styles */
+        .notification-actions {
+            margin-top: 10px;
+            text-align: right;
+            padding-left: 10px;
+        }
+
+        .unread-btn {
+            background: rgba(52, 152, 219, 0.1);
+            border: 2px solid rgba(52, 152, 219, 0.3);
+            border-radius: 15px;
+            padding: 8px 15px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 12px;
+            color: #3498db;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .unread-btn:hover {
+            background: rgba(52, 152, 219, 0.2);
+            transform: translateY(-2px);
+            border-color: rgba(52, 152, 219, 0.5);
+        }
+
+        .unread-btn i {
+            font-size: 10px;
+        }
+
+        .notification-item.unread .unread-btn {
+            display: none;
+        }
     </style>
 </head>
 
@@ -461,10 +475,10 @@
                                 </div>
                                 Calendar
                             </div>
-                            <div class="notification-count">2</div>
+                            <div class="notification-count">0</div>
                         </div>
 
-                        <div class="notification-item unread">
+                        <div class="notification-item" data-id="calendar-1" data-type="calendar">
                             <div class="notification-content">
                                 <strong>Morning Meditation Reminder</strong><br>
                                 Your daily meditation session starts in 15 minutes.
@@ -473,9 +487,14 @@
                                 <i class="far fa-clock"></i>
                                 9:15 AM · Today
                             </div>
+                            <div class="notification-actions">
+                                <button class="unread-btn" data-id="calendar-1">
+                                    <i class="fas fa-undo"></i> Mark as Unread
+                                </button>
+                            </div>
                         </div>
 
-                        <div class="notification-item unread">
+                        <div class="notification-item" data-id="calendar-2" data-type="calendar">
                             <div class="notification-content">
                                 <strong>Weekly Check-in Scheduled</strong><br>
                                 Don't forget your weekly wellness check-in tomorrow at 10 AM.
@@ -483,6 +502,11 @@
                             <div class="notification-time">
                                 <i class="far fa-clock"></i>
                                 8:30 AM · Today
+                            </div>
+                            <div class="notification-actions">
+                                <button class="unread-btn" data-id="calendar-2">
+                                    <i class="fas fa-undo"></i> Mark as Unread
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -496,10 +520,10 @@
                                 </div>
                                 Mental Health
                             </div>
-                            <div class="notification-count">3</div>
+                            <div class="notification-count">0</div>
                         </div>
 
-                        <div class="notification-item unread">
+                        <div class="notification-item" data-id="mental-1" data-type="mentalHealth">
                             <div class="notification-content">
                                 <strong>Mood Trend Alert</strong><br>
                                 We've noticed positive changes in your mood patterns this week!
@@ -508,9 +532,14 @@
                                 <i class="far fa-clock"></i>
                                 2 hours ago
                             </div>
+                            <div class="notification-actions">
+                                <button class="unread-btn" data-id="mental-1">
+                                    <i class="fas fa-undo"></i> Mark as Unread
+                                </button>
+                            </div>
                         </div>
 
-                        <div class="notification-item">
+                        <div class="notification-item" data-id="mental-2" data-type="mentalHealth">
                             <div class="notification-content">
                                 <strong>New Breathing Exercise Available</strong><br>
                                 Try our new 5-minute stress relief breathing exercise.
@@ -519,9 +548,14 @@
                                 <i class="far fa-clock"></i>
                                 Yesterday
                             </div>
+                            <div class="notification-actions">
+                                <button class="unread-btn" data-id="mental-2">
+                                    <i class="fas fa-undo"></i> Mark as Unread
+                                </button>
+                            </div>
                         </div>
 
-                        <div class="notification-item unread">
+                        <div class="notification-item" data-id="mental-3" data-type="mentalHealth">
                             <div class="notification-content">
                                 <strong>Daily Journal Prompt</strong><br>
                                 "What are three things you're grateful for today?"
@@ -529,6 +563,11 @@
                             <div class="notification-time">
                                 <i class="far fa-clock"></i>
                                 1 day ago
+                            </div>
+                            <div class="notification-actions">
+                                <button class="unread-btn" data-id="mental-3">
+                                    <i class="fas fa-undo"></i> Mark as Unread
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -542,18 +581,52 @@
                                 </div>
                                 Henry
                             </div>
-                            <div class="notification-count">1</div>
+                            <div class="notification-count">0</div>
                         </div>
 
-                        <div class="notification-item unread">
+                        <div class="notification-item" data-id="henry-1" data-type="henry">
                             <div class="notification-content">
                                 <strong>Henry sent you a message</strong><br>
-                                "Hey Joe! How's your mindfulness practice going? I tried that breathing exercise you
+                                "Hey there! How's your mindfulness practice going? I tried that breathing exercise you
                                 recommended!"
                             </div>
                             <div class="notification-time">
                                 <i class="far fa-clock"></i>
                                 45 minutes ago
+                            </div>
+                            <div class="notification-actions">
+                                <button class="unread-btn" data-id="henry-1">
+                                    <i class="fas fa-undo"></i> Mark as Unread
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- System Notifications -->
+                    <div class="notifications-section delay-4">
+                        <div class="section-header">
+                            <div class="section-title">
+                                <div class="section-icon">
+                                    <i class="fas fa-cog"></i>
+                                </div>
+                                System
+                            </div>
+                            <div class="notification-count">0</div>
+                        </div>
+
+                        <div class="notification-item" data-id="system-1" data-type="system">
+                            <div class="notification-content">
+                                <strong>App Update Available</strong><br>
+                                A new version of Hey, Day is available with performance improvements.
+                            </div>
+                            <div class="notification-time">
+                                <i class="far fa-clock"></i>
+                                3 days ago
+                            </div>
+                            <div class="notification-actions">
+                                <button class="unread-btn" data-id="system-1">
+                                    <i class="fas fa-undo"></i> Mark as Unread
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -689,10 +762,10 @@
                         const users = this.getAllUsers();
                         const user = users.find(u => u.id === userId);
                         return user ? (user.notifications || {
-                            calendar: 2,
-                            mentalHealth: 3,
-                            henry: 1,
-                            system: 1
+                            calendar: 0,
+                            mentalHealth: 0,
+                            henry: 0,
+                            system: 0
                         }) : {};
                     }
 
@@ -734,6 +807,15 @@
                         return currentNotifications;
                     }
 
+                    markNotificationTypeUnread(userId, type) {
+                        const currentNotifications = this.getNotifications(userId);
+                        if (currentNotifications[type] !== undefined) {
+                            currentNotifications[type] = (currentNotifications[type] || 0) + 1;
+                            this.updateNotifications(userId, currentNotifications);
+                        }
+                        return currentNotifications;
+                    }
+
                     getTotalUnreadNotifications(userId) {
                         const notifications = this.getNotifications(userId);
                         return Object.values(notifications).reduce((sum, count) => sum + count, 0);
@@ -742,10 +824,10 @@
                     // Initialize default notifications for new users
                     initializeDefaultNotifications(userId) {
                         const defaultNotifications = {
-                            calendar: 2,
-                            mentalHealth: 3,
-                            henry: 1,
-                            system: 1
+                            calendar: 0,
+                            mentalHealth: 0,
+                            henry: 0,
+                            system: 0
                         };
 
                         const users = this.getAllUsers();
@@ -791,15 +873,29 @@
                 currentUser.notifications = userDB.getNotifications(currentUser.id);
             }
 
+            // Update greeting with user's name
+            const greetingText = document.querySelector('.greeting-text span');
+            if (greetingText) {
+                greetingText.textContent = currentUser.name || currentUser.username || 'User';
+            }
+
             // Elements
             const markAllReadBtn = document.getElementById('markAllRead');
-            const notificationItems = document.querySelectorAll('.notification-item.unread');
+            const notificationItems = document.querySelectorAll('.notification-item');
             const navBadge = document.querySelector('.nav-badge');
-            const loginButton = document.getElementById('loginButton');
-            const togglePasswordBtn = document.getElementById('togglePassword');
-            const moodButtons = document.querySelectorAll('.mood-btn');
+            const unreadButtons = document.querySelectorAll('.unread-btn');
             const navItems = document.querySelectorAll('.nav-item');
-            let selectedMood = null;
+
+            // Store notification states
+            const notificationStates = {
+                'calendar-1': false,
+                'calendar-2': false,
+                'mental-1': false,
+                'mental-2': false,
+                'mental-3': false,
+                'henry-1': false,
+                'system-1': false
+            };
 
             /* ---------- INITIALIZE NOTIFICATION COUNTS ---------- */
             function initializeNotificationCounts() {
@@ -813,61 +909,96 @@
 
                 if (calendarCount && notifications.calendar !== undefined) {
                     calendarCount.textContent = notifications.calendar;
-                    calendarCount.style.background = notifications.calendar > 0 ?
-                        'linear-gradient(135deg, #86b499 0%, #6a9c7d 100%)' :
-                        'rgba(34, 96, 78, 0.3)';
+                    if (notifications.calendar > 0) {
+                        calendarCount.style.background = 'linear-gradient(135deg, #86b499 0%, #6a9c7d 100%)';
+                        calendarCount.style.display = 'flex';
+                    } else {
+                        calendarCount.style.display = 'none';
+                        calendarCount.textContent = '';
+                        calendarCount.style.background = 'none';
+                    }
                 }
 
                 if (mentalHealthCount && notifications.mentalHealth !== undefined) {
                     mentalHealthCount.textContent = notifications.mentalHealth;
-                    mentalHealthCount.style.background = notifications.mentalHealth > 0 ?
-                        'linear-gradient(135deg, #86b499 0%, #6a9c7d 100%)' :
-                        'rgba(34, 96, 78, 0.3)';
+                    if (notifications.mentalHealth > 0) {
+                        mentalHealthCount.style.background = 'linear-gradient(135deg, #86b499 0%, #6a9c7d 100%)';
+                        mentalHealthCount.style.display = 'flex';
+                    } else {
+                        mentalHealthCount.style.display = 'none';
+                        mentalHealthCount.textContent = '';
+                        mentalHealthCount.style.background = 'none';
+                    }
                 }
 
                 if (henryCount && notifications.henry !== undefined) {
                     henryCount.textContent = notifications.henry;
-                    henryCount.style.background = notifications.henry > 0 ?
-                        'linear-gradient(135deg, #86b499 0%, #6a9c7d 100%)' :
-                        'rgba(34, 96, 78, 0.3)';
+                    if (notifications.henry > 0) {
+                        henryCount.style.background = 'linear-gradient(135deg, #86b499 0%, #6a9c7d 100%)';
+                        henryCount.style.display = 'flex';
+                    } else {
+                        henryCount.style.display = 'none';
+                        henryCount.textContent = '';
+                        henryCount.style.background = 'none';
+                    }
                 }
 
                 if (systemCount && notifications.system !== undefined) {
                     systemCount.textContent = notifications.system;
-                    systemCount.style.background = notifications.system > 0 ?
-                        'linear-gradient(135deg, #86b499 0%, #6a9c7d 100%)' :
-                        'rgba(34, 96, 78, 0.3)';
+                    if (notifications.system > 0) {
+                        systemCount.style.background = 'linear-gradient(135deg, #86b499 0%, #6a9c7d 100%)';
+                        systemCount.style.display = 'flex';
+                    } else {
+                        systemCount.style.display = 'none';
+                        systemCount.textContent = '';
+                        systemCount.style.background = 'none';
+                    }
                 }
+
+                // Update individual notification items based on database state
+                updateNotificationItemsFromDatabase();
 
                 // Update total counts
                 updateTotalNotificationCount();
+            }
+
+            /* ---------- UPDATE NOTIFICATION ITEMS FROM DATABASE ---------- */
+            function updateNotificationItemsFromDatabase() {
+                const notifications = currentUser.notifications || {};
+
+                // Reset all items to read state
+                notificationItems.forEach(item => {
+                    item.classList.remove('unread');
+                    const unreadBtn = item.querySelector('.unread-btn');
+                    if (unreadBtn) {
+                        unreadBtn.style.display = 'inline-flex';
+                    }
+                });
+
+                // Hide unread buttons for items that should be unread
+                // This simulates the database state
+                // In a real app, you'd track which specific notifications are unread
             }
 
             /* ---------- UPDATE TOTAL NOTIFICATION COUNT ---------- */
             function updateTotalNotificationCount() {
                 const totalUnread = userDB.getTotalUnreadNotifications(currentUser.id);
 
-                // Update nav badge
+                // Update nav badge - EXPLORE.Html STYLE
                 if (navBadge) {
-                    navBadge.textContent = totalUnread;
-                    if (totalUnread === 0) {
-                        navBadge.style.background = 'rgba(34, 96, 78, 0.3)';
-                        navBadge.classList.remove('pulse-animation');
-                    } else {
-                        navBadge.style.background = 'linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%)';
-                        navBadge.classList.add('pulse-animation');
-                    }
-                }
-
-                // Update welcome badge
-                const welcomeBadge = document.querySelector('.notifications-badge');
-                if (welcomeBadge) {
-                    const badgeContent = welcomeBadge.querySelector('span') || welcomeBadge;
                     if (totalUnread > 0) {
-                        badgeContent.innerHTML = `<i class="fas fa-bell"></i> You have ${totalUnread} new notifications`;
+                        navBadge.textContent = totalUnread > 9 ? '9+' : totalUnread;
+                        navBadge.style.display = 'flex';
+                        navBadge.style.background = 'linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%)';
+                        navBadge.style.boxShadow = '0 3px 8px rgba(255, 82, 82, 0.4)';
+                        navBadge.classList.add('pulse-animation');
                     } else {
-                        badgeContent.innerHTML = `<i class="fas fa-check-circle"></i> All caught up!`;
-                        welcomeBadge.style.background = 'linear-gradient(135deg, #86b499 0%, #6a9c7d 100%)';
+                        // Hide badge completely when no notifications
+                        navBadge.style.display = 'none';
+                        navBadge.textContent = '';
+                        navBadge.classList.remove('pulse-animation');
+                        navBadge.style.background = 'none';
+                        navBadge.style.boxShadow = 'none';
                     }
                 }
 
@@ -902,12 +1033,17 @@
                     // Update all notification items visually
                     document.querySelectorAll('.notification-item').forEach(item => {
                         item.classList.remove('unread');
+                        const unreadBtn = item.querySelector('.unread-btn');
+                        if (unreadBtn) {
+                            unreadBtn.style.display = 'inline-flex';
+                        }
                     });
 
                     // Update all notification counts to 0
                     document.querySelectorAll('.notification-count').forEach(countElement => {
                         countElement.textContent = '0';
-                        countElement.style.background = 'rgba(34, 96, 78, 0.3)';
+                        countElement.style.background = 'none';
+                        countElement.style.display = 'none';
                     });
 
                     // Update current user data
@@ -921,69 +1057,117 @@
                 });
             }
 
-            /* ---------- INDIVIDUAL NOTIFICATION CLICK ---------- */
-            document.querySelectorAll('.notification-item').forEach(item => {
-                item.addEventListener('click', function () {
+            /* ---------- INDIVIDUAL NOTIFICATION CLICK (MARK AS READ) ---------- */
+            notificationItems.forEach(item => {
+                item.addEventListener('click', function (e) {
+                    // Don't trigger if clicking the unread button
+                    if (e.target.closest('.unread-btn')) {
+                        return;
+                    }
+
                     const wasUnread = this.classList.contains('unread');
 
                     if (wasUnread) {
                         this.classList.remove('unread');
 
-                        // Find the notification type from parent section
-                        const section = this.closest('.notifications-section');
-                        if (section) {
-                            const sectionTitle = section.querySelector('.section-title').textContent.trim();
-                            const notificationMap = {
-                                'Calendar': 'calendar',
-                                'Mental Health': 'mentalHealth',
-                                'Henry': 'henry',
-                                'System': 'system'
-                            };
+                        // Show the unread button
+                        const unreadBtn = this.querySelector('.unread-btn');
+                        if (unreadBtn) {
+                            unreadBtn.style.display = 'inline-flex';
+                        }
 
-                            const notificationType = notificationMap[sectionTitle];
+                        // Find the notification type from data attribute
+                        const notificationType = this.getAttribute('data-type');
 
-                            if (notificationType) {
-                                // Decrement count in database
-                                userDB.markNotificationTypeRead(currentUser.id, notificationType);
+                        if (notificationType) {
+                            // Decrement count in database
+                            userDB.markNotificationTypeRead(currentUser.id, notificationType);
 
-                                // Update current user data
-                                currentUser.notifications = userDB.getNotifications(currentUser.id);
+                            // Update current user data
+                            currentUser.notifications = userDB.getNotifications(currentUser.id);
 
-                                // Update the specific section count
+                            // Update the specific section count
+                            const section = this.closest('.notifications-section');
+                            if (section) {
                                 const countElement = section.querySelector('.notification-count');
                                 if (countElement) {
                                     const newCount = currentUser.notifications[notificationType] || 0;
                                     countElement.textContent = newCount;
-                                    countElement.style.background = newCount > 0 ?
-                                        'linear-gradient(135deg, #86b499 0%, #6a9c7d 100%)' :
-                                        'rgba(34, 96, 78, 0.3)';
+                                    if (newCount > 0) {
+                                        countElement.style.background = 'linear-gradient(135deg, #86b499 0%, #6a9c7d 100%)';
+                                        countElement.style.display = 'flex';
+                                    } else {
+                                        countElement.style.display = 'none';
+                                        countElement.textContent = '';
+                                        countElement.style.background = 'none';
+                                    }
                                 }
-
-                                // Update total counts
-                                updateTotalNotificationCount();
-
-                                // Show visual feedback
-                                this.style.transform = 'translateY(-3px) scale(1.02)';
-                                setTimeout(() => {
-                                    this.style.transform = 'translateY(-3px)';
-                                }, 150);
                             }
+
+                            // Update total counts
+                            updateTotalNotificationCount();
+
+                            // Show visual feedback
+                            this.style.transform = 'translateY(-3px) scale(1.02)';
+                            setTimeout(() => {
+                                this.style.transform = 'translateY(-3px)';
+                            }, 150);
+
+                            // Show success message
+                            showFeedback('Notification marked as read', 'success');
                         }
                     }
                 });
             });
 
-            /* ---------- MOOD SELECTION ---------- */
-            moodButtons.forEach(button => {
-                button.addEventListener("click", () => {
-                    if (button === selectedMood) {
-                        button.classList.remove("selected");
-                        selectedMood = null;
-                    } else {
-                        moodButtons.forEach(btn => btn.classList.remove("selected"));
-                        button.classList.add("selected");
-                        selectedMood = button;
+            /* ---------- MARK AS UNREAD FUNCTIONALITY ---------- */
+            unreadButtons.forEach(button => {
+                button.addEventListener('click', function (e) {
+                    e.stopPropagation(); // Prevent triggering the parent click event
+
+                    const notificationId = this.getAttribute('data-id');
+                    const notificationItem = this.closest('.notification-item');
+                    const notificationType = notificationItem.getAttribute('data-type');
+
+                    // Mark as unread visually
+                    notificationItem.classList.add('unread');
+                    this.style.display = 'none';
+
+                    // Increment count in database
+                    userDB.markNotificationTypeUnread(currentUser.id, notificationType);
+
+                    // Update current user data
+                    currentUser.notifications = userDB.getNotifications(currentUser.id);
+
+                    // Update the specific section count
+                    const section = notificationItem.closest('.notifications-section');
+                    if (section) {
+                        const countElement = section.querySelector('.notification-count');
+                        if (countElement) {
+                            const newCount = currentUser.notifications[notificationType] || 0;
+                            countElement.textContent = newCount;
+                            if (newCount > 0) {
+                                countElement.style.background = 'linear-gradient(135deg, #86b499 0%, #6a9c7d 100%)';
+                                countElement.style.display = 'flex';
+                            } else {
+                                countElement.style.display = 'none';
+                                countElement.textContent = '';
+                                countElement.style.background = 'none';
+                            }
+                        }
                     }
+
+                    // Update total counts
+                    updateTotalNotificationCount();
+
+                    // Show feedback
+                    showFeedback('Notification marked as unread', 'info');
+
+                    // Visual feedback
+                    notificationItem.style.transform = 'translateY(-3px) scale(1.02)';
+                    setTimeout(() => {
+                        notificationItem.style.transform = 'translateY(-3px)';
+                    }, 150);
                 });
             });
 
@@ -1019,7 +1203,10 @@
                 top: 100px;
                 left: 50%;
                 transform: translateX(-50%);
-                background: ${type === 'error' ? 'rgba(231, 76, 60, 0.95)' : type === 'success' ? 'rgba(46, 204, 113, 0.95)' : 'rgba(52, 152, 219, 0.95)'};
+                background: ${type === 'error' ? 'rgba(231, 76, 60, 0.95)' :
+                        type === 'success' ? 'rgba(46, 204, 113, 0.95)' :
+                            type === 'info' ? 'rgba(52, 152, 219, 0.95)' :
+                                'rgba(34, 96, 78, 0.95)'};
                 color: white;
                 padding: 12px 24px;
                 border-radius: 25px;
@@ -1038,18 +1225,12 @@
                 setTimeout(() => {
                     feedback.style.animation = "slideUp 0.3s ease forwards";
                     setTimeout(() => feedback.remove(), 300);
-                }, 3000);
+                }, 2000);
             }
 
             /* ---------- ANIMATION STYLES ---------- */
             const style = document.createElement('style');
             style.textContent = `
-            @keyframes shake {
-                0%, 100% { transform: translateX(0); }
-                10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-                20%, 40%, 60%, 80% { transform: translateX(5px); }
-            }
-            
             @keyframes slideDown {
                 from {
                     top: 80px;
@@ -1093,36 +1274,8 @@
                 animation: pulse 2s infinite;
             }
             
-            .button {
-                transition: all 0.3s ease !important;
-            }
-            
-            .button:hover {
-                transform: translateY(-5px) scale(1.05) !important;
-            }
-            
-            .button:active {
-                transform: translateY(0) scale(0.98) !important;
-            }
-            
-            .mood-btn {
-                transition: all 0.2s ease !important;
-            }
-            
-            .mood-btn.selected {
-                transform: scale(1.2) !important;
-                box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.4) !important;
-                background: rgba(46, 204, 113, 0.1) !important;
-                border-color: #2ecc71 !important;
-            }
-            
             .nav-item {
                 transition: all 0.3s ease !important;
-            }
-            
-            .fade-in {
-                animation: fadeIn 0.5s ease forwards;
-                opacity: 0;
             }
             
             .action-button {
@@ -1136,6 +1289,78 @@
             .action-button:disabled {
                 opacity: 0.6;
                 cursor: not-allowed;
+            }
+            
+            /* CRITICAL: Ensure badge is completely hidden when empty */
+            .nav-badge:empty,
+            .nav-badge[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                opacity: 0 !important;
+                background: none !important;
+                box-shadow: none !important;
+                transform: scale(0) !important;
+            }
+            
+            .nav-badge {
+                position: absolute;
+                top: 5px;
+                right: 10px;
+                color: white;
+                font-family: 'Nunito', sans-serif;
+                font-size: 10px;
+                font-weight: 800;
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 3px 8px rgba(255, 82, 82, 0.4);
+                transition: all 0.3s ease;
+                z-index: 10;
+            }
+            
+            .notification-count {
+                background: linear-gradient(135deg, #86b499 0%, #6a9c7d 100%);
+                color: white;
+                font-family: 'Nunito', sans-serif;
+                font-weight: 800;
+                font-size: 16px;
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                transition: all 0.3s ease;
+            }
+            
+            .notification-count:empty,
+            .notification-count[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                opacity: 0 !important;
+                background: none !important;
+                box-shadow: none !important;
+                transform: scale(0) !important;
+            }
+            
+            .notification-item {
+                transition: all 0.3s ease;
+            }
+            
+            .notification-item:hover {
+                transform: translateY(-3px);
+            }
+            
+            .unread-btn {
+                transition: all 0.3s ease;
+            }
+            
+            .unread-btn:hover {
+                transform: translateY(-2px);
             }
         `;
             document.head.appendChild(style);
@@ -1157,6 +1382,31 @@
                     item.classList.add('active');
                 }
             });
+
+            // Force hide badge on load to ensure it starts at 0
+            setTimeout(() => {
+                const totalUnread = userDB.getTotalUnreadNotifications(currentUser.id);
+
+                if (navBadge && totalUnread === 0) {
+                    navBadge.style.display = 'none';
+                    navBadge.textContent = '';
+                    navBadge.classList.remove('pulse-animation');
+                    navBadge.style.background = 'none';
+                    navBadge.style.boxShadow = 'none';
+                }
+            }, 100);
+
+            // Final check to ensure badge is hidden if no notifications
+            setTimeout(() => {
+                const finalUnreadCount = userDB.getTotalUnreadNotifications(currentUser.id);
+                if (finalUnreadCount === 0 && navBadge) {
+                    navBadge.style.display = 'none';
+                    navBadge.textContent = '';
+                    navBadge.classList.remove('pulse-animation');
+                    navBadge.style.background = 'none';
+                    navBadge.style.boxShadow = 'none';
+                }
+            }, 500);
 
             // Update counts when page becomes visible
             document.addEventListener('visibilitychange', function () {

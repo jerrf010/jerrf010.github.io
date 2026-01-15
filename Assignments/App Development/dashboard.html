@@ -357,29 +357,6 @@
             font-weight: 600;
         }
 
-        /* Bottom Navigation - Inside Phone Container */
-        .bottom-nav-container {
-            position: absolute;
-            bottom: 20px;
-            left: 0;
-            right: 0;
-            width: 100%;
-        }
-
-        .bottom-nav {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 25px;
-            padding: 15px 10px;
-            margin: 20px 30px;
-            -webkit-backdrop-filter: blur(20px);
-            backdrop-filter: blur(20px);
-            border: 2px solid rgba(34, 96, 78, 0.2);
-            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
-        }
-
         .nav-item {
             display: flex;
             flex-direction: column;
@@ -543,6 +520,53 @@
             justify-content: center;
         }
 
+        /* Enhanced notification count styling */
+        .notification-count {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #86b499 0%, #6a9c7d 100%);
+            color: white;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 800;
+            font-size: 12px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .notification-count.pulse {
+            animation: pulse 1.5s infinite;
+        }
+
+        .card-subtitle {
+            transition: color 0.3s ease;
+        }
+
+        @keyframes countChange {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .count-updated {
+            animation: countChange 0.5s ease;
+        }
+
         .logout-modal-btn {
             padding: 15px 30px;
             border-radius: 20px;
@@ -647,13 +671,29 @@
         }
 
         /* Animation delay helper classes (moved from inline styles) */
-        .delay-01 { animation-delay: 0.1s; }
-        .delay-02 { animation-delay: 0.2s; }
-        .delay-03 { animation-delay: 0.3s; }
-        .delay-04 { animation-delay: 0.4s; }
-        .delay-05 { animation-delay: 0.5s; }
-        .delay-06 { animation-delay: 0.6s; }
+        .delay-01 {
+            animation-delay: 0.1s;
+        }
 
+        .delay-02 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-03 {
+            animation-delay: 0.3s;
+        }
+
+        .delay-04 {
+            animation-delay: 0.4s;
+        }
+
+        .delay-05 {
+            animation-delay: 0.5s;
+        }
+
+        .delay-06 {
+            animation-delay: 0.6s;
+        }
     </style>
 </head>
 
@@ -737,36 +777,36 @@
                     </div>
                 </div>
 
-                <!-- Navigation Cards (like your image) -->
+                <!-- Navigation Cards -->
                 <div class="nav-cards">
                     <!-- Calendar Card -->
-                    <a href="calendar.html" class="nav-card fade-in delay-01">
-                        <div class="notification-count">2</div>
+                    <a href="calendar.html" class="nav-card fade-in delay-01" data-type="calendar">
+                        <div class="notification-count" id="calendarNotificationCount">0</div>
                         <div class="card-icon">
                             <i class="fas fa-calendar-alt"></i>
                         </div>
                         <div class="card-title">Calendar</div>
-                        <div class="card-subtitle">2 new notifications</div>
+                        <div class="card-subtitle" id="calendarNotificationText">0 new notifications</div>
                     </a>
 
                     <!-- Mental Health Card -->
-                    <a href="mental-health.html" class="nav-card fade-in delay-02">
-                        <div class="notification-count">3</div>
+                    <a href="mental-health.html" class="nav-card fade-in delay-02" data-type="mentalHealth">
+                        <div class="notification-count" id="mentalHealthNotificationCount">0</div>
                         <div class="card-icon">
                             <i class="fas fa-brain"></i>
                         </div>
                         <div class="card-title">Mental Health</div>
-                        <div class="card-subtitle">3 new notifications</div>
+                        <div class="card-subtitle" id="mentalHealthNotificationText">0 new notifications</div>
                     </a>
 
                     <!-- Henry Card -->
-                    <a href="messages.html" class="nav-card fade-in delay-03">
-                        <div class="notification-count">1</div>
+                    <a href="messages.html" class="nav-card fade-in delay-03" data-type="henry">
+                        <div class="notification-count" id="henryNotificationCount">0</div>
                         <div class="card-icon">
                             <i class="fas fa-user-friends"></i>
                         </div>
                         <div class="card-title">Henry</div>
-                        <div class="card-subtitle">1 new notification</div>
+                        <div class="card-subtitle" id="henryNotificationText">0 new notifications</div>
                     </a>
 
                     <!-- Journal Card -->
@@ -950,10 +990,10 @@
                         const users = this.getAllUsers();
                         const user = users.find(u => u.id === userId);
                         return user ? (user.notifications || {
-                            calendar: 2,
-                            mentalHealth: 3,
-                            henry: 1,
-                            system: 1
+                            calendar: 0,
+                            mentalHealth: 0,
+                            henry: 0,
+                            system: 0
                         }) : {};
                     }
 
@@ -995,6 +1035,24 @@
                         return currentNotifications;
                     }
 
+                    markAllNotificationsTypeRead(userId, type) {
+                        const currentNotifications = this.getNotifications(userId);
+                        if (currentNotifications[type] !== undefined) {
+                            currentNotifications[type] = 0;
+                            this.updateNotifications(userId, currentNotifications);
+                        }
+                        return currentNotifications;
+                    }
+
+                    markNotificationTypeUnread(userId, type) {
+                        const currentNotifications = this.getNotifications(userId);
+                        if (currentNotifications[type] !== undefined) {
+                            currentNotifications[type] = (currentNotifications[type] || 0) + 1;
+                            this.updateNotifications(userId, currentNotifications);
+                        }
+                        return currentNotifications;
+                    }
+
                     getTotalUnreadNotifications(userId) {
                         const notifications = this.getNotifications(userId);
                         return Object.values(notifications).reduce((sum, count) => sum + count, 0);
@@ -1003,10 +1061,10 @@
                     // Initialize default notifications for new users
                     initializeDefaultNotifications(userId) {
                         const defaultNotifications = {
-                            calendar: 2,
-                            mentalHealth: 3,
-                            henry: 1,
-                            system: 1
+                            calendar: 0,
+                            mentalHealth: 0,
+                            henry: 0,
+                            system: 0
                         };
 
                         const users = this.getAllUsers();
@@ -1022,6 +1080,18 @@
                             }
                         }
                         return defaultNotifications;
+                    }
+
+                    // Add test notifications for demonstration
+                    addTestNotifications(userId) {
+                        const testNotifications = {
+                            calendar: Math.floor(Math.random() * 3), // 0-2 notifications
+                            mentalHealth: Math.floor(Math.random() * 4), // 0-3 notifications
+                            henry: Math.floor(Math.random() * 2), // 0-1 notifications
+                            system: Math.floor(Math.random() * 2) // 0-1 notifications
+                        };
+
+                        return this.updateNotifications(userId, testNotifications);
                     }
                 };
             }
@@ -1050,6 +1120,10 @@
                 userDB.initializeDefaultNotifications(currentUser.id);
                 // Refresh user data
                 currentUser.notifications = userDB.getNotifications(currentUser.id);
+
+                // Add test notifications for demonstration (optional)
+                // Uncomment the line below to add test notifications on first visit
+                // userDB.addTestNotifications(currentUser.id);
             }
 
             /* ---------- UPDATE USER INTERFACE ---------- */
@@ -1075,7 +1149,9 @@
                 }
 
                 if (greetingTextElement) {
-                    greetingTextElement.textContent = `Welcome back, ${currentUser.name || currentUser.username || 'Friend'}!`;
+                    const userName = currentUser.name || currentUser.username || 'Friend';
+                    const timeOfDay = getTimeOfDay();
+                    greetingTextElement.textContent = `${timeOfDay.greeting}, ${userName}!`;
                 }
 
                 if (logoutUserNameElement) {
@@ -1092,57 +1168,89 @@
 
                 const notifications = currentUser.notifications || {};
 
-                // Update card notification counts
-                const calendarCount = document.querySelector('.nav-card:nth-child(1) .notification-count');
-                const mentalHealthCount = document.querySelector('.nav-card:nth-child(2) .notification-count');
-                const henryCount = document.querySelector('.nav-card:nth-child(3) .notification-count');
-
-                if (calendarCount && notifications.calendar !== undefined) {
-                    calendarCount.textContent = notifications.calendar;
-                    calendarCount.style.background = notifications.calendar > 0 ?
-                        'linear-gradient(135deg, #86b499 0%, #6a9c7d 100%)' :
-                        'rgba(34, 96, 78, 0.3)';
-                }
-
-                if (mentalHealthCount && notifications.mentalHealth !== undefined) {
-                    mentalHealthCount.textContent = notifications.mentalHealth;
-                    mentalHealthCount.style.background = notifications.mentalHealth > 0 ?
-                        'linear-gradient(135deg, #86b499 0%, #6a9c7d 100%)' :
-                        'rgba(34, 96, 78, 0.3)';
-                }
-
-                if (henryCount && notifications.henry !== undefined) {
-                    henryCount.textContent = notifications.henry;
-                    henryCount.style.background = notifications.henry > 0 ?
-                        'linear-gradient(135deg, #86b499 0%, #6a9c7d 100%)' :
-                        'rgba(34, 96, 78, 0.3)';
-                }
+                // Update individual notification counts
+                updateNotificationCard('calendar', notifications.calendar || 0);
+                updateNotificationCard('mentalHealth', notifications.mentalHealth || 0);
+                updateNotificationCard('henry', notifications.henry || 0);
 
                 // Update total notifications badge
                 const totalNotifications = userDB.getTotalUnreadNotifications(currentUser.id) || 0;
                 const notificationsBadge = document.querySelector('.notifications-badge');
 
                 if (notificationsBadge) {
-                    const badgeText = notificationsBadge.querySelector('span') || notificationsBadge;
                     if (totalNotifications > 0) {
-                        badgeText.innerHTML = `<i class="fas fa-bell"></i> You have ${totalNotifications} new notifications`;
+                        notificationsBadge.innerHTML = `<i class="fas fa-bell"></i> You have ${totalNotifications} new notification${totalNotifications === 1 ? '' : 's'}`;
                         notificationsBadge.style.background = 'linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%)';
+                        notificationsBadge.style.display = 'flex';
+                        notificationsBadge.classList.add('pulse');
                     } else {
-                        badgeText.innerHTML = `<i class="fas fa-check-circle"></i> All caught up!`;
+                        notificationsBadge.innerHTML = `<i class="fas fa-check-circle"></i> All caught up!`;
                         notificationsBadge.style.background = 'linear-gradient(135deg, #86b499 0%, #6a9c7d 100%)';
+                        notificationsBadge.style.display = 'flex';
+                        notificationsBadge.classList.remove('pulse');
                     }
                 }
 
-                // Update bottom nav badge
+                // Update bottom nav badge - EXPLORE.Html STYLE
                 const navBadge = document.querySelector('.nav-badge');
                 if (navBadge) {
-                    navBadge.textContent = totalNotifications;
-                    if (totalNotifications === 0) {
-                        navBadge.style.background = 'rgba(34, 96, 78, 0.3)';
-                        navBadge.classList.remove('pulse-animation');
-                    } else {
+                    if (totalNotifications > 0) {
+                        navBadge.textContent = totalNotifications > 9 ? '9+' : totalNotifications;
+                        navBadge.style.display = 'flex';
                         navBadge.style.background = 'linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%)';
+                        navBadge.style.boxShadow = '0 3px 8px rgba(255, 82, 82, 0.4)';
                         navBadge.classList.add('pulse-animation');
+                    } else {
+                        // Hide badge completely when no notifications
+                        navBadge.style.display = 'none';
+                        navBadge.textContent = '';
+                        navBadge.classList.remove('pulse-animation');
+                        navBadge.style.background = 'none';
+                        navBadge.style.boxShadow = 'none';
+                    }
+                }
+            }
+
+            /* ---------- UPDATE INDIVIDUAL NOTIFICATION CARD ---------- */
+            function updateNotificationCard(type, count) {
+                const countElement = document.getElementById(`${type}NotificationCount`);
+                const textElement = document.getElementById(`${type}NotificationText`);
+
+                if (countElement) {
+                    if (count > 0) {
+                        countElement.textContent = count > 9 ? '9+' : count;
+                        countElement.style.background = 'linear-gradient(135deg, #86b499 0%, #6a9c7d 100%)';
+                        countElement.style.display = 'flex';
+                        countElement.style.boxShadow = '0 3px 6px rgba(0, 0, 0, 0.2)';
+                        countElement.classList.add('pulse');
+
+                        // Add animation for count change
+                        countElement.classList.add('count-updated');
+                        setTimeout(() => {
+                            countElement.classList.remove('count-updated');
+                        }, 500);
+                    } else {
+                        countElement.style.display = 'none';
+                        countElement.textContent = '';
+                        countElement.style.background = 'none';
+                        countElement.style.boxShadow = 'none';
+                        countElement.classList.remove('pulse', 'count-updated');
+                    }
+                }
+
+                if (textElement) {
+                    if (count === 0) {
+                        textElement.textContent = 'No new notifications';
+                        textElement.style.color = 'rgba(45, 90, 61, 0.6)';
+                        textElement.style.fontWeight = '600';
+                    } else if (count === 1) {
+                        textElement.textContent = '1 new notification';
+                        textElement.style.color = '#2d5a3d';
+                        textElement.style.fontWeight = '700';
+                    } else {
+                        textElement.textContent = `${count} new notifications`;
+                        textElement.style.color = '#2d5a3d';
+                        textElement.style.fontWeight = '700';
                     }
                 }
             }
@@ -1180,10 +1288,10 @@
                 confirmLogoutButton.addEventListener('click', function () {
                     // Use UserDatabase to log out
                     userDB.logout();
-                    
+
                     // Show feedback
                     showFeedback('Logging out...', 'info');
-                    
+
                     // Redirect to login page after delay
                     setTimeout(() => {
                         window.location.href = 'login.html';
@@ -1262,12 +1370,16 @@
                         // Show feedback
                         const moodEmoji = this.querySelector('.mood-emoji').textContent;
                         showFeedback(`Mood updated to ${moodLabel} ${moodEmoji}`, 'success');
+
+                        // Update greeting based on mood
+                        updateGreetingBasedOnMood(moodValue);
                     }
                 });
             });
 
-            // Card hover effects
+            /* ---------- CARD CLICK HANDLERS ---------- */
             const cards = document.querySelectorAll('.nav-card');
+
             cards.forEach(card => {
                 card.addEventListener('mouseenter', function () {
                     this.style.transform = 'translateY(-5px) scale(1.03)';
@@ -1277,47 +1389,106 @@
                     this.style.transform = 'translateY(0) scale(1)';
                 });
 
-                // Click to navigate
+                // Click to navigate and mark as read
                 card.addEventListener('click', function (e) {
-                    const href = this.getAttribute('href');
-                    if (href && !e.target.classList.contains('notification-count')) {
-                        // Update notification count before navigating
-                        const cardType = this.querySelector('.card-title').textContent;
-                        const notificationMap = {
-                            'Calendar': 'calendar',
-                            'Mental Health': 'mentalHealth',
-                            'Henry': 'henry'
-                        };
+                    e.preventDefault();
 
-                        const notificationType = notificationMap[cardType];
-                        if (notificationType && currentUser.notifications[notificationType] > 0) {
-                            userDB.markNotificationTypeRead(currentUser.id, notificationType);
-                            currentUser.notifications = userDB.getNotifications(currentUser.id);
-                            updateDashboardNotifications();
+                    const href = this.getAttribute('href');
+                    const cardType = this.getAttribute('data-type');
+
+                    // Check if this card has a notification type
+                    if (cardType && currentUser.notifications[cardType] > 0) {
+                        // Store current count for feedback
+                        const oldCount = currentUser.notifications[cardType];
+
+                        // Mark all notifications of this type as read
+                        userDB.markAllNotificationsTypeRead(currentUser.id, cardType);
+
+                        // Refresh user data
+                        currentUser.notifications = userDB.getNotifications(currentUser.id);
+
+                        // Update dashboard
+                        updateDashboardNotifications();
+
+                        // Show feedback
+                        showFeedback(`Marked ${oldCount} ${getNotificationTypeName(cardType)} notification${oldCount > 1 ? 's' : ''} as read`, 'success');
+
+                        // Visual feedback
+                        this.style.transform = 'translateY(-5px) scale(1.05)';
+                        this.style.boxShadow = '0 10px 25px rgba(34, 96, 78, 0.3)';
+
+                        // Navigate after short delay
+                        if (href) {
+                            setTimeout(() => {
+                                window.location.href = href;
+                            }, 500);
                         }
+                    } else if (href) {
+                        // No notifications, just navigate
+                        this.style.transform = 'translateY(-5px) scale(1.05)';
+                        this.style.boxShadow = '0 10px 25px rgba(34, 96, 78, 0.3)';
+
+                        setTimeout(() => {
+                            window.location.href = href;
+                        }, 300);
                     }
                 });
             });
 
-            // Activity item click
+            /* ---------- ACTIVITY ITEM CLICK ---------- */
             const activityItems = document.querySelectorAll('.activity-item');
             activityItems.forEach(item => {
                 item.addEventListener('click', function () {
                     const activityText = this.querySelector('.activity-main').textContent;
-                    showFeedback(`Viewing: ${activityText}`);
+                    showFeedback(`Viewing: ${activityText}`, 'info');
+
+                    // Visual feedback
+                    this.style.transform = 'translateX(5px)';
+                    this.style.background = 'rgba(255, 255, 255, 0.3)';
+
+                    setTimeout(() => {
+                        this.style.transform = 'translateX(0)';
+                        this.style.background = 'rgba(255, 255, 255, 0.1)';
+                    }, 200);
                 });
             });
 
-            // Notification badge click
+            /* ---------- NOTIFICATION BADGE CLICK ---------- */
             const notificationBadge = document.querySelector('.notifications-badge');
             if (notificationBadge) {
                 notificationBadge.addEventListener('click', function (e) {
                     e.preventDefault();
-                    window.location.href = 'notifications.html';
+
+                    const totalUnread = userDB.getTotalUnreadNotifications(currentUser.id);
+                    if (totalUnread > 0) {
+                        // Visual feedback
+                        this.style.transform = 'scale(1.1)';
+                        this.style.boxShadow = '0 5px 15px rgba(255, 82, 82, 0.5)';
+
+                        setTimeout(() => {
+                            this.style.transform = 'scale(1)';
+                            this.style.boxShadow = '0 4px 12px rgba(255, 82, 82, 0.4)';
+
+                            // Navigate to notifications
+                            window.location.href = 'notifications.html';
+                        }, 200);
+                    } else {
+                        // Visual feedback for no notifications
+                        this.style.transform = 'scale(1.1)';
+                        this.style.boxShadow = '0 5px 15px rgba(134, 180, 153, 0.5)';
+
+                        setTimeout(() => {
+                            this.style.transform = 'scale(1)';
+                            this.style.boxShadow = '0 4px 12px rgba(134, 180, 153, 0.4)';
+
+                            // Navigate to notifications anyway
+                            window.location.href = 'notifications.html';
+                        }, 200);
+                    }
                 });
             }
 
-            // Navigation item clicks
+            /* ---------- NAVIGATION ---------- */
             const navItems = document.querySelectorAll('.nav-item');
             navItems.forEach(item => {
                 item.addEventListener('click', function (e) {
@@ -1348,7 +1519,7 @@
                 }
             });
 
-            // Helper function for feedback
+            /* ---------- HELPER FUNCTIONS ---------- */
             function showFeedback(message, type = 'info') {
                 // Remove existing feedback
                 const existingFeedback = document.querySelector('.feedback-message');
@@ -1362,9 +1533,10 @@
                 top: 100px;
                 left: 50%;
                 transform: translateX(-50%);
-                background: ${type === 'error' ? 'rgba(231, 76, 60, 0.95)' : 
-                         type === 'success' ? 'rgba(46, 204, 113, 0.95)' : 
-                         'rgba(34, 96, 78, 0.95)'};
+                background: ${type === 'error' ? 'rgba(231, 76, 60, 0.95)' :
+                        type === 'success' ? 'rgba(46, 204, 113, 0.95)' :
+                            type === 'info' ? 'rgba(52, 152, 219, 0.95)' :
+                                'rgba(34, 96, 78, 0.95)'};
                 color: white;
                 padding: 12px 24px;
                 border-radius: 25px;
@@ -1387,7 +1559,41 @@
                 }, 2000);
             }
 
-            // Add animation styles
+            function getNotificationTypeName(type) {
+                const typeNames = {
+                    'calendar': 'Calendar',
+                    'mentalHealth': 'Mental Health',
+                    'henry': 'Henry',
+                    'system': 'System'
+                };
+                return typeNames[type] || type;
+            }
+
+            function getTimeOfDay() {
+                const hour = new Date().getHours();
+                if (hour < 12) return { greeting: 'Good morning', emoji: '🌅' };
+                if (hour < 18) return { greeting: 'Good afternoon', emoji: '☀️' };
+                return { greeting: 'Good evening', emoji: '🌙' };
+            }
+
+            function updateGreetingBasedOnMood(mood) {
+                const greetingTextElement = document.getElementById('greetingText');
+                if (!greetingTextElement) return;
+
+                const userName = currentUser.name || currentUser.username || 'Friend';
+                const timeOfDay = getTimeOfDay();
+                const moodGreetings = {
+                    'sad': `Hope your day improves, ${userName}!`,
+                    'unhappy': `Sending positive vibes, ${userName}!`,
+                    'neutral': `${timeOfDay.greeting}, ${userName}!`,
+                    'happy': `Great to see you, ${userName}!`,
+                    'excited': `Awesome energy, ${userName}!`
+                };
+
+                greetingTextElement.textContent = moodGreetings[mood] || `${timeOfDay.greeting}, ${userName}!`;
+            }
+
+            /* ---------- ANIMATION STYLES ---------- */
             const style = document.createElement('style');
             style.textContent = `
             @keyframes slideDown {
@@ -1429,8 +1635,22 @@
                 100% { transform: scale(1); }
             }
             
+            @keyframes countChange {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.2); }
+                100% { transform: scale(1); }
+            }
+            
             .pulse-animation {
                 animation: pulse 2s infinite;
+            }
+            
+            .pulse {
+                animation: pulse 1.5s infinite;
+            }
+            
+            .count-updated {
+                animation: countChange 0.5s ease;
             }
             
             .fade-in {
@@ -1494,10 +1714,87 @@
             .logout-btn:hover {
                 transform: translateY(-3px);
             }
+            
+            /* CRITICAL: Ensure badge is completely hidden when empty */
+            .nav-badge:empty,
+            .nav-badge[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                opacity: 0 !important;
+                background: none !important;
+                box-shadow: none !important;
+                transform: scale(0) !important;
+            }
+            
+            .nav-badge {
+                position: absolute;
+                top: 5px;
+                right: 10px;
+                color: white;
+                font-family: 'Nunito', sans-serif;
+                font-size: 10px;
+                font-weight: 800;
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 3px 8px rgba(255, 82, 82, 0.4);
+                transition: all 0.3s ease;
+                z-index: 10;
+            }
+            
+            .notification-count {
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                color: white;
+                font-family: 'Nunito', sans-serif;
+                font-weight: 800;
+                font-size: 12px;
+                width: 24px;
+                height: 24px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+                transition: all 0.3s ease;
+                z-index: 10;
+            }
+            
+            .notification-count:empty,
+            .notification-count[style*="display: none"] {
+                display: none !important;
+                visibility: hidden !important;
+                opacity: 0 !important;
+                background: none !important;
+                box-shadow: none !important;
+                transform: scale(0) !important;
+            }
+            
+            .activity-item {
+                transition: all 0.3s ease;
+            }
+            
+            .activity-item:hover {
+                background: rgba(255, 255, 255, 0.2);
+                transform: translateX(5px);
+            }
+            
+            .notifications-badge {
+                transition: all 0.3s ease;
+                cursor: pointer;
+            }
+            
+            .notifications-badge:hover {
+                transform: translateY(-2px);
+            }
         `;
             document.head.appendChild(style);
 
-            // Simulate loading animation
+            /* ---------- INITIAL ANIMATIONS ---------- */
             const fadeElements = document.querySelectorAll('.fade-in');
             fadeElements.forEach((el, index) => {
                 setTimeout(() => {
@@ -1527,20 +1824,75 @@
                 }
             });
 
-            // Check content fit
-            const checkFit = () => {
-                const phone = document.querySelector('.phone');
-                const content = document.querySelector('.app-content');
-                const phoneHeight = phone.clientHeight;
-                const contentHeight = content.scrollHeight;
+            // Force hide badge on load to ensure it starts at 0
+            setTimeout(() => {
+                const navBadge = document.querySelector('.nav-badge');
+                const totalUnread = userDB.getTotalUnreadNotifications(currentUser.id);
 
-                if (contentHeight > phoneHeight) {
-                    console.log('Dashboard content fits perfectly!');
+                if (navBadge && totalUnread === 0) {
+                    navBadge.style.display = 'none';
+                    navBadge.textContent = '';
+                    navBadge.classList.remove('pulse-animation');
+                    navBadge.style.background = 'none';
+                    navBadge.style.boxShadow = 'none';
                 }
-            };
+            }, 100);
 
-            window.addEventListener('load', checkFit);
-            window.addEventListener('resize', checkFit);
+            // Final check to ensure badge is hidden if no notifications
+            setTimeout(() => {
+                const finalUnreadCount = userDB.getTotalUnreadNotifications(currentUser.id);
+                const navBadge = document.querySelector('.nav-badge');
+                if (finalUnreadCount === 0 && navBadge) {
+                    navBadge.style.display = 'none';
+                    navBadge.textContent = '';
+                    navBadge.classList.remove('pulse-animation');
+                    navBadge.style.background = 'none';
+                    navBadge.style.boxShadow = 'none';
+                }
+            }, 500);
+
+            /* ---------- ADD TEST NOTIFICATIONS BUTTON (FOR TESTING) ---------- */
+            // Add a hidden button to add test notifications (for demonstration)
+            const testButton = document.createElement('button');
+            testButton.style.cssText = `
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(52, 152, 219, 0.2);
+            border: 2px solid rgba(52, 152, 219, 0.3);
+            border-radius: 15px;
+            padding: 8px 15px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 11px;
+            color: #3498db;
+            font-weight: 600;
+            cursor: pointer;
+            z-index: 999;
+            opacity: 0.5;
+            transition: all 0.3s ease;
+        `;
+            testButton.textContent = 'Add Test Notifications';
+            testButton.title = 'Click to add random test notifications for demonstration';
+
+            testButton.addEventListener('mouseenter', function () {
+                this.style.opacity = '1';
+                this.style.transform = 'translateY(-2px)';
+            });
+
+            testButton.addEventListener('mouseleave', function () {
+                this.style.opacity = '0.5';
+                this.style.transform = 'translateY(0)';
+            });
+
+            testButton.addEventListener('click', function () {
+                userDB.addTestNotifications(currentUser.id);
+                currentUser.notifications = userDB.getNotifications(currentUser.id);
+                updateDashboardNotifications();
+                showFeedback('Test notifications added!', 'success');
+            });
+
+            // Uncomment the line below to add the test button
+            // document.body.appendChild(testButton);
         });
     </script>
 </body>

@@ -74,7 +74,7 @@ body {
 /* Phone Container - Universal */
 .phone {
     width: 550px !important;
-    height: 1000px !important;
+    height: 970px !important;
     background: radial-gradient(circle at 0% 0%, #c8ff99 0%, #22604e 100%);
     border-radius: 50px;
     box-shadow: 
@@ -101,6 +101,30 @@ body {
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     z-index: 10;
+}
+
+/* Bottom Navigation - Inside Phone Container */
+.bottom-nav-container {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    width: 100%;
+}
+
+.bottom-nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 25px;
+    padding: 15px 10px;
+    margin: 0 30px;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(34, 96, 78, 0.2);
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
 }
 
 /* Status Bar - Universal */

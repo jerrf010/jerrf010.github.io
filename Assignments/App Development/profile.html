@@ -421,11 +421,11 @@
             transition: .4s;
         }
 
-        input:checked + .toggle-slider {
+        input:checked+.toggle-slider {
             background-color: #22604e;
         }
 
-        input:checked + .toggle-slider:before {
+        input:checked+.toggle-slider:before {
             transform: translateX(30px);
         }
 
@@ -533,7 +533,7 @@
             transition: all 0.3s ease;
             font-family: 'Nunito', sans-serif;
             font-size: 18px;
-            color: #1a3c27;
+            color: #1A3C26;
             font-weight: 700;
             text-decoration: none;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
@@ -561,9 +561,9 @@
         }
 
         .action-button.notification-action {
-            background: rgba(52, 152, 219, 0.1);
+            background: 74a482;
             border-color: rgba(52, 152, 219, 0.3);
-            color: #3498db;
+            color: #1a3c27;
         }
 
         .action-button.notification-action:hover {
@@ -627,30 +627,7 @@
             background: #4285f4;
             border-radius: 50%;
         }
-
-        /* Bottom Navigation - Inside Phone Container */
-        .bottom-nav-container {
-            position: absolute;
-            bottom: 20px;
-            left: 0;
-            right: 0;
-            width: 100%;
-        }
-
-        .bottom-nav {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 25px;
-            padding: 15px 10px;
-            margin: 0 30px;
-            -webkit-backdrop-filter: blur(20px);
-            backdrop-filter: blur(20px);
-            border: 2px solid rgba(34, 96, 78, 0.2);
-            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
-        }
-
+        
         .nav-item {
             display: flex;
             flex-direction: column;
@@ -722,15 +699,19 @@
             0% {
                 left: -100%;
             }
+
             100% {
                 left: 200%;
             }
         }
 
         @keyframes floatEmoji {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: translateY(0);
             }
+
             50% {
                 transform: translateY(-15px);
             }
@@ -741,6 +722,7 @@
                 opacity: 0;
                 transform: translateY(20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -840,14 +822,39 @@
         }
 
         /* Utility classes to replace inline styles */
-        .hidden { display: none !important; }
-        .notification-controls { display: flex; align-items: center; gap: 10px; }
-        .fade-in.delay-01 { animation-delay: 0.1s; }
-        .fade-in.delay-02 { animation-delay: 0.2s; }
-        .fade-in.delay-03 { animation-delay: 0.3s; }
-        .fade-in.delay-035 { animation-delay: 0.35s; }
-        .fade-in.delay-04 { animation-delay: 0.4s; }
-        .fade-in.delay-05 { animation-delay: 0.5s; }
+        .hidden {
+            display: none !important;
+        }
+
+        .notification-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .fade-in.delay-01 {
+            animation-delay: 0.1s;
+        }
+
+        .fade-in.delay-02 {
+            animation-delay: 0.2s;
+        }
+
+        .fade-in.delay-03 {
+            animation-delay: 0.3s;
+        }
+
+        .fade-in.delay-035 {
+            animation-delay: 0.35s;
+        }
+
+        .fade-in.delay-04 {
+            animation-delay: 0.4s;
+        }
+
+        .fade-in.delay-05 {
+            animation-delay: 0.5s;
+        }
     </style>
 </head>
 
@@ -966,12 +973,14 @@
                             <div class="notification-controls">
                                 <span class="notification-count-badge" id="calendarCount">2</span>
                                 <label class="toggle-switch">
-                                    <input type="checkbox" id="calendarToggle" checked data-type="calendar" aria-label="Enable calendar notifications" title="Enable calendar notifications">
+                                    <input type="checkbox" id="calendarToggle" checked data-type="calendar"
+                                        aria-label="Enable calendar notifications"
+                                        title="Enable calendar notifications">
                                     <span class="toggle-slider"></span>
                                 </label>
                             </div>
                         </div>
-                        
+
                         <div class="notification-type">
                             <div class="notification-type-content">
                                 <div class="notification-type-icon">
@@ -985,12 +994,14 @@
                             <div class="notification-controls">
                                 <span class="notification-count-badge" id="mentalHealthCount">3</span>
                                 <label class="toggle-switch">
-                                    <input type="checkbox" id="mentalHealthToggle" checked data-type="mentalHealth" aria-label="Enable mental health notifications" title="Enable mental health notifications">
+                                    <input type="checkbox" id="mentalHealthToggle" checked data-type="mentalHealth"
+                                        aria-label="Enable mental health notifications"
+                                        title="Enable mental health notifications">
                                     <span class="toggle-slider"></span>
                                 </label>
                             </div>
                         </div>
-                        
+
                         <div class="notification-type">
                             <div class="notification-type-content">
                                 <div class="notification-type-icon">
@@ -1004,12 +1015,13 @@
                             <div class="notification-controls">
                                 <span class="notification-count-badge" id="henryCount">1</span>
                                 <label class="toggle-switch">
-                                    <input type="checkbox" id="henryToggle" checked data-type="henry" aria-label="Enable social notifications" title="Enable social notifications">
+                                    <input type="checkbox" id="henryToggle" checked data-type="henry"
+                                        aria-label="Enable social notifications" title="Enable social notifications">
                                     <span class="toggle-slider"></span>
                                 </label>
                             </div>
                         </div>
-                        
+
                         <div class="notification-type">
                             <div class="notification-type-content">
                                 <div class="notification-type-icon">
@@ -1023,7 +1035,8 @@
                             <div class="notification-controls">
                                 <span class="notification-count-badge" id="systemCount">1</span>
                                 <label class="toggle-switch">
-                                    <input type="checkbox" id="systemToggle" checked data-type="system" aria-label="Enable system notifications" title="Enable system notifications">
+                                    <input type="checkbox" id="systemToggle" checked data-type="system"
+                                        aria-label="Enable system notifications" title="Enable system notifications">
                                     <span class="toggle-slider"></span>
                                 </label>
                             </div>
@@ -1046,7 +1059,8 @@
                                 </div>
                             </div>
                             <label class="toggle-switch">
-                                <input type="checkbox" checked id="globalNotificationsToggle" aria-label="Enable all notifications" title="Enable or disable all notifications">
+                                <input type="checkbox" checked id="globalNotificationsToggle"
+                                    aria-label="Enable all notifications" title="Enable or disable all notifications">
                                 <span class="toggle-slider"></span>
                             </label>
                         </div>
@@ -1086,27 +1100,27 @@
                             Sign in with Google
                         </button>
                     </div>
-                    
-                    <button class="action-button" id="connectGoogleButton">
-                        <i class="fab fa-google"></i>
-                        Connect Google Account
-                    </button>
-                    
-                    <button class="action-button google-disconnect hidden" id="disconnectGoogleButton">
-                        <i class="fab fa-google"></i>
-                        Disconnect Google Account
-                    </button>
-                    
+
                     <button class="action-button notification-action" id="markAllNotificationsRead">
                         <i class="fas fa-check-double"></i>
                         Mark All Notifications Read
                     </button>
-                    
+
+                    <button class="action-button" id="connectGoogleButton">
+                        <i class="fab fa-google"></i>
+                        Connect Google Account
+                    </button>
+
+                    <button class="action-button google-disconnect hidden" id="disconnectGoogleButton">
+                        <i class="fab fa-google"></i>
+                        Disconnect Google Account
+                    </button>
+
                     <a href="edit-profile.html" class="action-button">
                         <i class="fas fa-user-edit"></i>
                         Edit Profile
                     </a>
-                    
+
                     <button class="action-button logout" id="logoutButton">
                         <i class="fas fa-sign-out-alt"></i>
                         Log Out
@@ -1196,7 +1210,7 @@
                     linkGoogleAccount(userId, googleData) {
                         const users = JSON.parse(localStorage.getItem(this.key) || '[]');
                         const userIndex = users.findIndex(u => u.id === userId);
-                        
+
                         if (userIndex !== -1) {
                             users[userIndex].googleAccount = {
                                 id: googleData.id,
@@ -1205,15 +1219,15 @@
                                 picture: googleData.picture,
                                 linkedAt: new Date().toISOString()
                             };
-                            
+
                             localStorage.setItem(this.key, JSON.stringify(users));
-                            
+
                             const currentUser = this.getCurrentUser();
                             if (currentUser && currentUser.id === userId) {
                                 currentUser.googleAccount = users[userIndex].googleAccount;
                                 localStorage.setItem(this.currentUserKey, JSON.stringify(currentUser));
                             }
-                            
+
                             return true;
                         }
                         return false;
@@ -1224,10 +1238,10 @@
                         const users = this.getAllUsers();
                         const user = users.find(u => u.id === userId);
                         return user ? (user.notifications || {
-                            calendar: 2,
-                            mentalHealth: 3,
-                            henry: 1,
-                            system: 1
+                            calendar: 0,
+                            mentalHealth: 0,
+                            henry: 0,
+                            system: 0
                         }) : {};
                     }
 
@@ -1260,11 +1274,11 @@
                     markAllNotificationsRead(userId) {
                         const currentNotifications = this.getNotifications(userId);
                         const updatedNotifications = {};
-                        
+
                         Object.keys(currentNotifications).forEach(key => {
                             updatedNotifications[key] = 0;
                         });
-                        
+
                         this.updateNotifications(userId, updatedNotifications);
                         return updatedNotifications;
                     }
@@ -1285,18 +1299,18 @@
 
                     initializeDefaultNotifications(userId) {
                         const defaultNotifications = {
-                            calendar: 2,
-                            mentalHealth: 3,
-                            henry: 1,
-                            system: 1
+                            calendar: 0,
+                            mentalHealth: 0,
+                            henry: 0,
+                            system: 0
                         };
-                        
+
                         const users = this.getAllUsers();
                         const userIndex = users.findIndex(u => u.id === userId);
                         if (userIndex !== -1 && !users[userIndex].notifications) {
                             users[userIndex].notifications = defaultNotifications;
                             this.saveAllUsers(users);
-                            
+
                             const currentUser = this.getCurrentUser();
                             if (currentUser && currentUser.id === userId) {
                                 currentUser.notifications = defaultNotifications;
@@ -1383,30 +1397,30 @@
 
                 if (hasGoogleAccount) {
                     const googleData = currentUser.googleAccount || googleUser;
-                    
+
                     // Update avatar with Google picture
                     avatarText.style.display = 'none';
                     googleAvatar.style.display = 'block';
-                    
+
                     // Use a placeholder Google avatar if no picture
                     if (googleData.picture) {
                         googleAvatar.src = googleData.picture;
                     } else {
                         googleAvatar.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(googleData.name || currentUser.name)}&background=4285F4&color=fff&size=140&bold=true`;
                     }
-                    
+
                     profileAvatar.classList.add('has-google');
-                    
+
                     // Update name and email from Google
                     if (profileName) profileName.textContent = googleData.name || currentUser.name || 'User';
                     if (profileEmail) profileEmail.textContent = googleData.email || currentUser.email || 'user@example.com';
-                    
+
                     // Update account badge
                     if (accountBadge) {
                         accountBadge.innerHTML = '<i class="fab fa-google"></i> Google Account';
                         accountBadge.className = 'account-badge google';
                     }
-                    
+
                     // Show disconnect button, hide connect button and sign-in container
                     if (connectGoogleButton) connectGoogleButton.style.display = 'none';
                     if (disconnectGoogleButton) disconnectGoogleButton.style.display = 'block';
@@ -1420,20 +1434,20 @@
                         googleAvatar.style.display = 'none';
                         profileAvatar.classList.remove('has-google');
                     }
-                    
+
                     if (profileName) {
                         profileName.textContent = currentUser.name || currentUser.username || 'User';
                     }
-                    
+
                     if (profileEmail) {
                         profileEmail.textContent = currentUser.email || 'user@example.com';
                     }
-                    
+
                     if (accountBadge) {
                         accountBadge.innerHTML = '<i class="fas fa-user-circle"></i> Local Account';
                         accountBadge.className = 'account-badge local';
                     }
-                    
+
                     // Show connect button, hide disconnect button and sign-in container
                     if (connectGoogleButton) connectGoogleButton.style.display = 'block';
                     if (disconnectGoogleButton) disconnectGoogleButton.style.display = 'none';
@@ -1468,53 +1482,59 @@
 
                 const notifications = currentUser.notifications || {};
                 const totalUnread = userDB.getTotalUnreadNotifications(currentUser.id);
-                
+
                 // Update notification badge
                 const notificationBadge = document.getElementById('notificationBadge');
                 const unreadCount = document.getElementById('unreadCount');
                 if (notificationBadge && unreadCount) {
-                    unreadCount.textContent = totalUnread;
                     if (totalUnread === 0) {
                         notificationBadge.innerHTML = '<i class="fas fa-check-circle"></i> All Caught Up';
                         notificationBadge.style.background = 'linear-gradient(135deg, #86b499 0%, #6a9c7d 100%)';
                     } else {
+                        unreadCount.textContent = totalUnread;
                         notificationBadge.innerHTML = '<i class="fas fa-bell"></i> <span id="unreadCount">' + totalUnread + '</span> Unread Notifications';
                         notificationBadge.style.background = 'linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%)';
                     }
                 }
-                
+
                 // Update individual notification type counts
                 document.getElementById('calendarCount').textContent = notifications.calendar || 0;
                 document.getElementById('mentalHealthCount').textContent = notifications.mentalHealth || 0;
                 document.getElementById('henryCount').textContent = notifications.henry || 0;
                 document.getElementById('systemCount').textContent = notifications.system || 0;
-                
-                // Update bottom nav badge
+
+                // Update bottom nav badge - EXPLORE.Html STYLE
                 const bottomNavBadge = document.getElementById('bottomNavBadge');
                 if (bottomNavBadge) {
-                    bottomNavBadge.textContent = totalUnread;
-                    if (totalUnread === 0) {
-                        bottomNavBadge.style.background = 'rgba(34, 96, 78, 0.3)';
-                        bottomNavBadge.classList.remove('pulse-animation');
-                    } else {
+                    if (totalUnread > 0) {
+                        bottomNavBadge.textContent = totalUnread > 9 ? '9+' : totalUnread;
+                        bottomNavBadge.style.display = 'flex';
                         bottomNavBadge.style.background = 'linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%)';
+                        bottomNavBadge.style.boxShadow = '0 3px 8px rgba(255, 82, 82, 0.4)';
                         bottomNavBadge.classList.add('pulse-animation');
+                    } else {
+                        // Hide badge completely when no notifications
+                        bottomNavBadge.style.display = 'none';
+                        bottomNavBadge.textContent = '';
+                        bottomNavBadge.classList.remove('pulse-animation');
+                        bottomNavBadge.style.background = 'none';
+                        bottomNavBadge.style.boxShadow = 'none';
                     }
                 }
-                
+
                 // Update notification toggles based on current counts
                 updateNotificationToggles(notifications);
             }
 
             function updateNotificationToggles(notifications) {
                 const notificationSettings = userDB.getNotificationSettings(currentUser.id);
-                
+
                 // Update global toggle
                 const globalToggle = document.getElementById('globalNotificationsToggle');
                 if (globalToggle) {
                     globalToggle.checked = notificationSettings.enabled;
                 }
-                
+
                 // Update individual toggles
                 const toggles = [
                     { id: 'calendarToggle', key: 'calendar' },
@@ -1522,12 +1542,12 @@
                     { id: 'henryToggle', key: 'henry' },
                     { id: 'systemToggle', key: 'system' }
                 ];
-                
+
                 toggles.forEach(toggle => {
                     const element = document.getElementById(toggle.id);
                     if (element) {
                         element.checked = notificationSettings[toggle.key];
-                        
+
                         // If notification type is disabled but has unread notifications, show special styling
                         if (!notificationSettings[toggle.key] && notifications[toggle.key] > 0) {
                             const notificationType = document.querySelector(`#${toggle.id}`).closest('.notification-type');
@@ -1547,10 +1567,10 @@
             // Global notifications toggle
             const globalToggle = document.getElementById('globalNotificationsToggle');
             if (globalToggle) {
-                globalToggle.addEventListener('change', function() {
+                globalToggle.addEventListener('change', function () {
                     const isEnabled = this.checked;
                     userDB.updateNotificationSetting(currentUser.id, 'enabled', isEnabled);
-                    
+
                     // Enable/disable all individual toggles
                     const individualToggles = document.querySelectorAll('.notification-type input[type="checkbox"]');
                     individualToggles.forEach(toggle => {
@@ -1559,7 +1579,7 @@
                             toggle.checked = false;
                         }
                     });
-                    
+
                     showFeedback(`Notifications ${isEnabled ? 'enabled' : 'disabled'}`, isEnabled ? 'success' : 'info');
                 });
             }
@@ -1567,12 +1587,12 @@
             // Individual notification type toggles
             const notificationToggles = document.querySelectorAll('.notification-type input[type="checkbox"]');
             notificationToggles.forEach(toggle => {
-                toggle.addEventListener('change', function() {
+                toggle.addEventListener('change', function () {
                     const type = this.getAttribute('data-type');
                     const isEnabled = this.checked;
-                    
+
                     userDB.updateNotificationSetting(currentUser.id, type, isEnabled);
-                    
+
                     // If disabling a toggle that has unread notifications, offer to mark them as read
                     if (!isEnabled && currentUser.notifications[type] > 0) {
                         if (confirm(`You have ${currentUser.notifications[type]} unread ${type} notifications. Would you like to mark them as read before disabling?`)) {
@@ -1592,34 +1612,34 @@
             /* ---------- MARK ALL NOTIFICATIONS READ ---------- */
             const markAllReadButton = document.getElementById('markAllNotificationsRead');
             if (markAllReadButton) {
-                markAllReadButton.addEventListener('click', function() {
+                markAllReadButton.addEventListener('click', function () {
                     const totalUnread = userDB.getTotalUnreadNotifications(currentUser.id);
-                    
+
                     if (totalUnread === 0) {
                         showFeedback('All notifications are already read!', 'info');
                         return;
                     }
-                    
+
                     // Mark all as read in database
                     const updatedNotifications = userDB.markAllNotificationsRead(currentUser.id);
-                    
+
                     // Update current user data
                     currentUser.notifications = updatedNotifications;
-                    
+
                     // Update UI
                     updateNotificationCounts();
-                    
+
                     // Show success message
                     showFeedback(`Marked ${totalUnread} notifications as read!`, 'success');
                 });
             }
 
             /* ---------- FAKE GOOGLE SIGN-IN FUNCTIONALITY ---------- */
-            
+
             // Connect Google button click - shows fake Google sign-in button
             const connectGoogleButton = document.getElementById('connectGoogleButton');
             if (connectGoogleButton) {
-                connectGoogleButton.addEventListener('click', function() {
+                connectGoogleButton.addEventListener('click', function () {
                     const googleSignInContainer = document.getElementById('googleSignInContainer');
                     if (googleSignInContainer) {
                         googleSignInContainer.style.display = 'block';
@@ -1631,7 +1651,7 @@
             // Fake Google sign-in button click
             const fakeGoogleSignIn = document.getElementById('fakeGoogleSignIn');
             if (fakeGoogleSignIn) {
-                fakeGoogleSignIn.addEventListener('click', function() {
+                fakeGoogleSignIn.addEventListener('click', function () {
                     // Simulate Google sign-in with demo data
                     const fakeGoogleUser = {
                         id: 'google_' + Math.random().toString(36).substr(2, 9),
@@ -1640,26 +1660,26 @@
                         picture: 'https://ui-avatars.com/api/?name=Google+User&background=4285F4&color=fff&size=140&bold=true',
                         token: 'fake_google_token_' + Math.random().toString(36).substr(2, 20)
                     };
-                    
+
                     // Save fake Google user data
                     userDB.saveGoogleUser(fakeGoogleUser);
-                    
+
                     // Link Google account to current user
                     userDB.linkGoogleAccount(currentUser.id, fakeGoogleUser);
-                    
+
                     // Refresh user data
                     const updatedUser = userDB.getCurrentUser();
                     Object.assign(currentUser, updatedUser);
-                    
+
                     // Update UI
                     updateProfileInterface();
-                    
+
                     // Hide the fake sign-in button
                     const googleSignInContainer = document.getElementById('googleSignInContainer');
                     if (googleSignInContainer) {
                         googleSignInContainer.style.display = 'none';
                     }
-                    
+
                     // Show success message
                     showFeedback('Google account connected successfully!', 'success');
                 });
@@ -1668,27 +1688,27 @@
             // Disconnect Google button click
             const disconnectGoogleButton = document.getElementById('disconnectGoogleButton');
             if (disconnectGoogleButton) {
-                disconnectGoogleButton.addEventListener('click', function() {
+                disconnectGoogleButton.addEventListener('click', function () {
                     if (confirm('Are you sure you want to disconnect your Google account? You can reconnect it anytime.')) {
                         // Remove Google data
                         userDB.disconnectGoogle();
-                        
+
                         // Remove Google account link from user
                         const users = JSON.parse(localStorage.getItem(userDB.key) || '[]');
                         const userIndex = users.findIndex(u => u.id === currentUser.id);
-                        
+
                         if (userIndex !== -1) {
                             delete users[userIndex].googleAccount;
                             localStorage.setItem(userDB.key, JSON.stringify(users));
-                            
+
                             // Update current user
                             delete currentUser.googleAccount;
                             localStorage.setItem(userDB.currentUserKey, JSON.stringify(currentUser));
                         }
-                        
+
                         // Update UI
                         updateProfileInterface();
-                        
+
                         // Show success message
                         showFeedback('Google account disconnected successfully.', 'info');
                     }
@@ -1732,10 +1752,10 @@
                     // Show confirmation
                     if (confirm('Are you sure you want to log out? You will need to sign in again to access your data.')) {
                         showFeedback('Logging out...', 'info');
-                        
+
                         // Use UserDatabase to log out
                         userDB.logout();
-                        
+
                         // Redirect to login page after delay
                         setTimeout(() => {
                             window.location.href = 'login.html';
@@ -1793,25 +1813,25 @@
                 const feedback = document.createElement('div');
                 feedback.className = `feedback-message feedback-${type}`;
                 feedback.style.cssText = `
-                position: fixed;
-                top: 100px;
-                left: 50%;
-                transform: translateX(-50%);
-                background: ${type === 'error' ? 'rgba(231, 76, 60, 0.95)' : 
-                         type === 'success' ? 'rgba(46, 204, 113, 0.95)' : 
-                         'rgba(34, 96, 78, 0.95)'};
-                color: white;
-                padding: 12px 24px;
-                border-radius: 25px;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 600;
-                font-size: 14px;
-                z-index: 1000;
-                animation: slideDown 0.3s ease;
-                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-                max-width: 80%;
-                text-align: center;
-            `;
+            position: fixed;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: ${type === 'error' ? 'rgba(231, 76, 60, 0.95)' :
+                        type === 'success' ? 'rgba(46, 204, 113, 0.95)' :
+                            'rgba(34, 96, 78, 0.95)'};
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            z-index: 1000;
+            animation: slideDown 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            max-width: 80%;
+            text-align: center;
+        `;
                 feedback.textContent = message;
                 document.body.appendChild(feedback);
 
@@ -1825,62 +1845,92 @@
             // Add animation styles
             const style = document.createElement('style');
             style.textContent = `
-            @keyframes slideDown {
-                from {
-                    top: 80px;
-                    opacity: 0;
-                }
-                to {
-                    top: 100px;
-                    opacity: 1;
-                }
+        @keyframes slideDown {
+            from {
+                top: 80px;
+                opacity: 0;
             }
-            
-            @keyframes slideUp {
-                from {
-                    top: 100px;
-                    opacity: 1;
-                }
-                to {
-                    top: 80px;
-                    opacity: 0;
-                }
+            to {
+                top: 100px;
+                opacity: 1;
             }
-            
-            .pulse-animation {
-                animation: pulse 2s infinite;
+        }
+        
+        @keyframes slideUp {
+            from {
+                top: 100px;
+                opacity: 1;
             }
-            
-            @keyframes pulse {
-                0% { transform: scale(1); }
-                50% { transform: scale(1.05); }
-                100% { transform: scale(1); }
+            to {
+                top: 80px;
+                opacity: 0;
             }
-            
-            .nav-item {
-                transition: all 0.3s ease !important;
-            }
-            
-            .setting-item {
-                transition: all 0.3s ease !important;
-            }
-            
-            .action-button {
-                transition: all 0.3s ease !important;
-            }
-            
-            .action-button:hover:not(:disabled) {
-                transform: translateY(-5px);
-            }
-            
-            .fake-google-button {
-                transition: all 0.3s ease !important;
-            }
-            
-            .notification-type {
-                transition: all 0.3s ease !important;
-            }
-            `;
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .nav-item {
+            transition: all 0.3s ease !important;
+        }
+        
+        .setting-item {
+            transition: all 0.3s ease !important;
+        }
+        
+        .action-button {
+            transition: all 0.3s ease !important;
+        }
+        
+        .action-button:hover:not(:disabled) {
+            transform: translateY(-5px);
+        }
+        
+        .fake-google-button {
+            transition: all 0.3s ease !important;
+        }
+        
+        .notification-type {
+            transition: all 0.3s ease !important;
+        }
+        
+        /* CRITICAL: Ensure badge is completely hidden when empty */
+        .nav-badge:empty,
+        .nav-badge[style*="display: none"] {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            background: none !important;
+            box-shadow: none !important;
+            transform: scale(0) !important;
+        }
+        
+        .nav-badge {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            color: white;
+            font-family: 'Nunito', sans-serif;
+            font-size: 10px;
+            font-weight: 800;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 8px rgba(255, 82, 82, 0.4);
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        `;
             document.head.appendChild(style);
 
             // Update counts when page becomes visible
@@ -1893,6 +1943,33 @@
                     }
                 }
             });
+
+            // Force hide badge on load to ensure it starts at 0
+            setTimeout(() => {
+                const bottomNavBadge = document.getElementById('bottomNavBadge');
+                const totalUnread = userDB.getTotalUnreadNotifications(currentUser.id);
+
+                if (bottomNavBadge && totalUnread === 0) {
+                    bottomNavBadge.style.display = 'none';
+                    bottomNavBadge.textContent = '';
+                    bottomNavBadge.classList.remove('pulse-animation');
+                    bottomNavBadge.style.background = 'none';
+                    bottomNavBadge.style.boxShadow = 'none';
+                }
+            }, 100);
+
+            // Final check to ensure badge is hidden if no notifications
+            setTimeout(() => {
+                const finalUnreadCount = userDB.getTotalUnreadNotifications(currentUser.id);
+                const navBadge = document.querySelector('.nav-badge');
+                if (finalUnreadCount === 0 && navBadge) {
+                    navBadge.style.display = 'none';
+                    navBadge.textContent = '';
+                    navBadge.classList.remove('pulse-animation');
+                    navBadge.style.background = 'none';
+                    navBadge.style.boxShadow = 'none';
+                }
+            }, 500);
         });
     </script>
 </body>

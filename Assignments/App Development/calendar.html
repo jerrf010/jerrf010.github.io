@@ -1,0 +1,1917 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar -- Hey, Day</title>
+    <link rel="icon" href="https://github.com/jerrf010/basic_html/blob/main/park_with_shades.png?raw=true"
+        type="image/icon type">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Chewy&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Oswald:wght@200..700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Calendar Page Specific Styles */
+        .calendar-header {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+            padding-top: 10px;
+        }
+
+        .calendar-title {
+            font-family: 'Chewy', cursive;
+            font-size: 40px;
+            color: #1a3c27;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .calendar-subtitle {
+            font-family: 'Nunito', sans-serif;
+            font-size: 16px;
+            color: #2d5a3d;
+            font-weight: 600;
+            opacity: 0.9;
+        }
+
+        /* Date Navigation */
+        .date-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 15px 20px;
+            margin: 20px 0;
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(34, 96, 78, 0.2);
+        }
+
+        .nav-btn {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(34, 96, 78, 0.2);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #22604e;
+            font-size: 20px;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+            border-color: rgba(34, 96, 78, 0.4);
+        }
+
+        .current-date {
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .current-month {
+            font-family: 'Nunito', sans-serif;
+            font-size: 22px;
+            color: #1a3c27;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .current-year {
+            font-family: 'Nunito', sans-serif;
+            font-size: 16px;
+            color: #2d5a3d;
+            font-weight: 600;
+        }
+
+        /* Calendar Grid */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            margin-bottom: 25px;
+        }
+
+        .day-header {
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            color: #1a3c27;
+            font-weight: 700;
+            text-align: center;
+            padding: 10px 0;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+        }
+
+        .day-cell {
+            aspect-ratio: 1;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(34, 96, 78, 0.1);
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 5px;
+        }
+
+        .day-cell:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+            border-color: rgba(34, 96, 78, 0.3);
+        }
+
+        .day-cell.today {
+            background: rgba(134, 180, 153, 0.3);
+            border-color: #86b499;
+        }
+
+        .day-cell.selected {
+            background: rgba(34, 96, 78, 0.2);
+            border-color: #22604e;
+        }
+
+        .day-number {
+            font-family: 'Nunito', sans-serif;
+            font-size: 18px;
+            color: #1a3c27;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .day-cell.today .day-number {
+            color: #22604e;
+        }
+
+        .event-dots {
+            display: flex;
+            gap: 3px;
+            margin-top: 5px;
+        }
+
+        .event-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+
+        .event-dot.assignment {
+            background: #ff6b6b;
+        }
+
+        .event-dot.class {
+            background: #4ecdc4;
+        }
+
+        .event-dot.personal {
+            background: #ffe66d;
+        }
+
+        /* Google Classroom Integration */
+        .google-classroom-section {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 20px;
+            margin: 25px 0;
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(34, 96, 78, 0.2);
+        }
+
+        .integration-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .integration-title {
+            font-family: 'Nunito', sans-serif;
+            font-size: 22px;
+            color: #1a3c27;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .integration-title i {
+            color: #4285F4;
+            font-size: 24px;
+        }
+
+        /* Hide classroom content by default (moved from inline style) */
+        #classroomContent {
+            display: none;
+        }
+
+        .connect-btn {
+            background: rgba(66, 133, 244, 0.1);
+            border: 2px solid rgba(66, 133, 244, 0.3);
+            border-radius: 15px;
+            padding: 12px 20px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            color: #4285F4;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .connect-btn:hover {
+            background: rgba(66, 133, 244, 0.2);
+            transform: translateY(-3px);
+            border-color: rgba(66, 133, 244, 0.5);
+        }
+
+        .connect-btn.connected {
+            background: rgba(52, 168, 83, 0.1);
+            border-color: rgba(52, 168, 83, 0.3);
+            color: #34A853;
+        }
+
+        .classroom-courses {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .integration-description {
+            font-family: 'Nunito', sans-serif;
+            color: #2d5a3d;
+            margin-bottom: 20px;
+        }
+
+        .course-card {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 18px;
+            padding: 18px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .course-card:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-5px);
+            border-color: rgba(34, 96, 78, 0.3);
+        }
+
+        .course-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .course-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #4285F4 0%, #34A853 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .course-name {
+            font-family: 'Nunito', sans-serif;
+            font-size: 18px;
+            color: #1a3c27;
+            font-weight: 700;
+            margin-bottom: 3px;
+        }
+
+        .course-teacher {
+            font-family: 'Nunito', sans-serif;
+            font-size: 13px;
+            color: #2d5a3d;
+            font-weight: 600;
+        }
+
+        .assignments-list {
+            margin-top: 10px;
+        }
+
+        .assignment-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .assignment-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(5px);
+        }
+
+        .assignment-due {
+            font-family: 'Nunito', sans-serif;
+            font-size: 12px;
+            color: #ff6b6b;
+            font-weight: 700;
+            min-width: 60px;
+        }
+
+        .assignment-title {
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            color: #1a3c27;
+            font-weight: 600;
+            flex-grow: 1;
+        }
+
+        .assignment-status {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ff6b6b;
+        }
+
+        .assignment-status.completed {
+            background: #34A853;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: flex;
+            gap: 15px;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            flex: 1;
+            min-width: 150px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(34, 96, 78, 0.2);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+            text-decoration: none;
+        }
+
+        .action-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-5px);
+            border-color: rgba(34, 96, 78, 0.4);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .action-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #ffffff 0%, #e8f5e9 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .action-icon i {
+            font-size: 22px;
+            color: #22604e;
+        }
+
+        .action-text {
+            font-family: 'Nunito', sans-serif;
+            font-size: 16px;
+            color: #1a3c27;
+            font-weight: 700;
+            text-align: left;
+        }
+
+        .action-subtext {
+            font-family: 'Nunito', sans-serif;
+            font-size: 12px;
+            color: #2d5a3d;
+            font-weight: 600;
+        }
+
+        /* Upcoming Assignments */
+        .upcoming-section {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 20px;
+            margin: 25px 0 100px 0;
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(34, 96, 78, 0.2);
+        }
+
+        .section-title {
+            font-family: 'Nunito', sans-serif;
+            font-size: 22px;
+            color: #1a3c27;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: #22604e;
+            font-size: 20px;
+        }
+
+        .upcoming-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .upcoming-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 18px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .upcoming-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(8px);
+        }
+
+        .upcoming-date {
+            min-width: 70px;
+            text-align: center;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            border: 2px solid rgba(34, 96, 78, 0.2);
+        }
+
+        .date-day {
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            color: #2d5a3d;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .date-number {
+            font-family: 'Nunito', sans-serif;
+            font-size: 24px;
+            color: #1a3c27;
+            font-weight: 800;
+        }
+
+        .upcoming-content {
+            flex-grow: 1;
+        }
+
+        .upcoming-title {
+            font-family: 'Nunito', sans-serif;
+            font-size: 16px;
+            color: #1a3c27;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .upcoming-course {
+            font-family: 'Nunito', sans-serif;
+            font-size: 13px;
+            color: #2d5a3d;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .priority-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            margin-left: 10px;
+        }
+
+        .priority-high {
+            background: rgba(255, 107, 107, 0.2);
+            color: #ff6b6b;
+        }
+
+        .priority-medium {
+            background: rgba(255, 230, 109, 0.2);
+            color: #e6b800;
+        }
+
+        .priority-low {
+            background: rgba(78, 205, 196, 0.2);
+            color: #4ecdc4;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav-container {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            width: 100%;
+        }
+
+        .bottom-nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 25px;
+            padding: 15px 10px;
+            margin: 0 30px;
+            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(34, 96, 78, 0.2);
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 65px;
+            height: 65px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            position: relative;
+            border-radius: 18px;
+        }
+
+        .nav-item.active {
+            background: rgba(34, 96, 78, 0.15);
+            transform: translateY(-10px);
+        }
+
+        .nav-item:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .nav-icon {
+            font-size: 22px;
+            color: #22604e;
+            margin-bottom: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item.active .nav-icon {
+            color: #1a3c27;
+            transform: scale(1.1);
+        }
+
+        .nav-label {
+            font-family: 'Nunito', sans-serif;
+            font-size: 10px;
+            color: #1a3c27;
+            font-weight: 700;
+        }
+
+        .nav-item.active .nav-label {
+            color: #22604e;
+            font-weight: 800;
+        }
+
+        .nav-badge {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%);
+            color: white;
+            font-family: 'Nunito', sans-serif;
+            font-size: 10px;
+            font-weight: 800;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 8px rgba(255, 82, 82, 0.4);
+        }
+
+        .app-content {
+            padding-bottom: 120px;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 3px solid rgba(34, 96, 78, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .modal-title {
+            font-family: 'Nunito', sans-serif;
+            font-size: 24px;
+            color: #1a3c27;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #22604e;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            transform: rotate(90deg);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-family: 'Nunito', sans-serif;
+            font-size: 16px;
+            color: #1a3c27;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid rgba(34, 96, 78, 0.2);
+            border-radius: 15px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 16px;
+            color: #1a3c27;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            border-color: #22604e;
+            box-shadow: 0 0 0 3px rgba(34, 96, 78, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 16px;
+            border-radius: 18px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #86b499 0%, #6a9c7d 100%);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(134, 180, 153, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(34, 96, 78, 0.3);
+            color: #1a3c27;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+            opacity: 0;
+        }
+
+        .slide-in {
+            animation: slideInUp 0.5s ease forwards;
+            opacity: 0;
+        }
+
+        /* Custom scrollbar */
+        .app-content::-webkit-scrollbar,
+        .modal-content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .app-content::-webkit-scrollbar-track,
+        .modal-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .app-content::-webkit-scrollbar-thumb,
+        .modal-content::-webkit-scrollbar-thumb {
+            background: #22604e;
+            border-radius: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .calendar-title {
+                font-size: 34px;
+            }
+
+            .quick-actions {
+                flex-direction: column;
+            }
+
+            .action-btn {
+                min-width: 100%;
+            }
+
+            .classroom-courses {
+                grid-template-columns: 1fr;
+            }
+
+            .bottom-nav {
+                margin: 0 20px;
+                padding: 12px 8px;
+            }
+
+            .nav-item {
+                width: 60px;
+                height: 60px;
+            }
+
+            .nav-icon {
+                font-size: 20px;
+            }
+
+            .modal-content {
+                padding: 20px;
+            }
+        }
+
+        /* Delay utility classes */
+        .delay-01 { animation-delay: 0.1s; }
+        .delay-02 { animation-delay: 0.2s; }
+        .delay-03 { animation-delay: 0.3s; }
+        .delay-04 { animation-delay: 0.4s; }
+        .delay-05 { animation-delay: 0.5s; }
+        .delay-06 { animation-delay: 0.6s; }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Decorative Elements -->
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+        <div class="leaf leaf-1"></div>
+        <div class="leaf leaf-2"></div>
+        <div class="leaf leaf-3"></div>
+
+        <!-- Add Assignment Modal -->
+        <div class="modal" id="addAssignmentModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">
+                        <i class="fas fa-book"></i>
+                        Add New Assignment
+                    </h2>
+                    <button class="modal-close" id="closeAssignmentModal">&times;</button>
+                </div>
+                <form id="assignmentForm">
+                    <div class="form-group">
+                        <label class="form-label">Assignment Title</label>
+                        <input type="text" class="form-input" id="assignmentTitle" placeholder="e.g., Math Homework" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Course</label>
+                        <select class="form-select" id="assignmentCourse" required>
+                            <option value="">Select a course</option>
+                            <option value="mathematics">Mathematics</option>
+                            <option value="physics">Physics</option>
+                            <option value="english">English Literature</option>
+                            <option value="history">World History</option>
+                            <option value="computer">Computer Science</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Due Date</label>
+                        <input type="date" class="form-input" id="assignmentDueDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Priority</label>
+                        <select class="form-select" id="assignmentPriority" required>
+                            <option value="low">Low</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-textarea" id="assignmentDescription" placeholder="Add details about the assignment..."></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" id="cancelAssignment">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Add Assignment</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Add Event Modal -->
+        <div class="modal" id="addEventModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">
+                        <i class="fas fa-calendar-plus"></i>
+                        Add New Event
+                    </h2>
+                    <button class="modal-close" id="closeEventModal">&times;</button>
+                </div>
+                <form id="eventForm">
+                    <div class="form-group">
+                        <label class="form-label">Event Title</label>
+                        <input type="text" class="form-input" id="eventTitle" placeholder="e.g., Study Session" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Event Type</label>
+                        <select class="form-select" id="eventType" required>
+                            <option value="personal">Personal</option>
+                            <option value="academic">Academic</option>
+                            <option value="meeting">Meeting</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Date</label>
+                        <input type="date" class="form-input" id="eventDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Time</label>
+                        <input type="time" class="form-input" id="eventTime" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Duration (hours)</label>
+                        <select class="form-select" id="eventDuration">
+                            <option value="0.5">30 minutes</option>
+                            <option value="1" selected>1 hour</option>
+                            <option value="1.5">1.5 hours</option>
+                            <option value="2">2 hours</option>
+                            <option value="3">3 hours</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-textarea" id="eventDescription" placeholder="Add event details..."></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" id="cancelEvent">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Add Event</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Phone Container -->
+        <div class="phone" id="main-page">
+            <!-- Phone Notch -->
+            <div class="phone-notch"></div>
+
+            <!-- Status Bar -->
+            <div class="status-bar">
+                <span>9:41</span>
+                <div class="status-icons">
+                    <i class="fas fa-signal"></i>
+                    <i class="fas fa-wifi"></i>
+                    <i class="fas fa-battery-three-quarters"></i>
+                </div>
+            </div>
+
+            <!-- App Content -->
+            <div class="app-content">
+                <!-- Header -->
+                <div class="calendar-header">
+                    <h1 class="calendar-title">Calendar</h1>
+                    <p class="calendar-subtitle">Schedule & Assignments</p>
+                </div>
+
+                <!-- Date Navigation -->
+                <div class="date-navigation fade-in delay-01">
+                    <button type="button" class="nav-btn" id="prevMonth" aria-label="Previous month" title="Previous month">
+                        <i class="fas fa-chevron-left" aria-hidden="true"></i>
+                    </button>
+                    <div class="current-date">
+                        <div class="current-month" id="currentMonth">April 2024</div>
+                        <div class="current-year" id="currentYear">2024</div>
+                    </div>
+                    <button type="button" class="nav-btn" id="nextMonth" aria-label="Next month" title="Next month">
+                        <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                    </button>
+                </div>
+
+                <!-- Calendar Grid -->
+                <div class="calendar-grid fade-in delay-02">
+                    <div class="day-header">Sun</div>
+                    <div class="day-header">Mon</div>
+                    <div class="day-header">Tue</div>
+                    <div class="day-header">Wed</div>
+                    <div class="day-header">Thu</div>
+                    <div class="day-header">Fri</div>
+                    <div class="day-header">Sat</div>
+                    <!-- Calendar days will be populated by JavaScript -->
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions fade-in delay-03">
+                    <a href="#" class="action-btn" id="addAssignmentBtn">
+                        <div class="action-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div>
+                            <div class="action-text">Add Assignment</div>
+                            <div class="action-subtext">Create new task</div>
+                        </div>
+                    </a>
+                    <a href="#" class="action-btn" id="addEventBtn">
+                        <div class="action-icon">
+                            <i class="fas fa-calendar-plus"></i>
+                        </div>
+                        <div>
+                            <div class="action-text">Add Event</div>
+                            <div class="action-subtext">Schedule activity</div>
+                        </div>
+                    </a>
+                    <a href="#" class="action-btn" id="syncGoogleBtn">
+                        <div class="action-icon">
+                            <i class="fab fa-google"></i>
+                        </div>
+                        <div>
+                            <div class="action-text">Sync</div>
+                            <div class="action-subtext">Update calendar</div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Google Classroom Integration -->
+                <div class="google-classroom-section fade-in delay-04">
+                    <div class="integration-header">
+                        <h2 class="integration-title">
+                            <i class="fab fa-google"></i>
+                            Google Classroom
+                        </h2>
+                        <button class="connect-btn" id="connectGoogleClassroom">
+                            <i class="fas fa-plug"></i>
+                            Connect
+                        </button>
+                    </div>
+                    <p class="integration-description">
+                        Connect to view assignments, due dates, and class schedules from Google Classroom.
+                    </p>
+                    
+                    <!-- Connected State (hidden by default) -->
+                    <div id="classroomContent">
+                        <div class="classroom-courses">
+                            <!-- Course cards will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Disconnected State -->
+                    <div id="classroomDisconnected" style="text-align: center; padding: 30px 20px;">
+                        <div style="font-size: 48px; color: #4285F4; margin-bottom: 20px;">
+                            <i class="fab fa-google"></i>
+                        </div>
+                        <h3 style="font-family: 'Nunito', sans-serif; color: #1a3c27; margin-bottom: 10px;">
+                            Connect Google Classroom
+                        </h3>
+                        <p style="font-family: 'Nunito', sans-serif; color: #2d5a3d; margin-bottom: 25px;">
+                            Sync your assignments, due dates, and class schedules automatically.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Upcoming Assignments -->
+                <div class="upcoming-section fade-in delay-05">
+                    <h2 class="section-title">
+                        <i class="fas fa-clock"></i>
+                        Upcoming Assignments
+                    </h2>
+                    <div class="upcoming-list" id="upcomingAssignments">
+                        <!-- Upcoming assignments will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Navigation Container -->
+            <div class="bottom-nav-container">
+                <div class="bottom-nav">
+                    <a href="dashboard.html" class="nav-item">
+                        <div class="nav-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="nav-label">Home</div>
+                    </a>
+                    <a href="explore.html" class="nav-item">
+                        <div class="nav-icon">
+                            <i class="fas fa-compass"></i>
+                        </div>
+                        <div class="nav-label">Explore</div>
+                    </a>
+                    <a href="notifications.html" class="nav-item">
+                        <div class="nav-icon">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <div class="nav-label">Alerts</div>
+                        <div class="nav-badge" id="calendarNavBadge">0</div>
+                    </a>
+                    <a href="calendar.html" class="nav-item active">
+                        <div class="nav-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="nav-label">Calendar</div>
+                    </a>
+                    <a href="profile.html" class="nav-item">
+                        <div class="nav-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="nav-label">Profile</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Home Indicator -->
+            <div class="home-indicator"></div>
+        </div>
+    </div>
+
+    <!-- Script -->
+    <script>
+        // Calendar Database Class
+        (function () {
+            if (typeof window.CalendarDatabase === 'undefined') {
+                window.CalendarDatabase = class {
+                    constructor() {
+                        this.assignmentsKey = 'heyday_assignments';
+                        this.eventsKey = 'heyday_calendar_events';
+                        this.googleClassroomKey = 'heyday_google_classroom';
+                    }
+
+                    // Assignment Management
+                    getAssignments() {
+                        const assignments = localStorage.getItem(this.assignmentsKey);
+                        return assignments ? JSON.parse(assignments) : [];
+                    }
+
+                    saveAssignments(assignments) {
+                        localStorage.setItem(this.assignmentsKey, JSON.stringify(assignments));
+                    }
+
+                    addAssignment(assignment) {
+                        const assignments = this.getAssignments();
+                        assignment.id = 'assignment_' + Date.now();
+                        assignment.createdAt = new Date().toISOString();
+                        assignment.completed = false;
+                        assignments.push(assignment);
+                        this.saveAssignments(assignments);
+                        return assignment;
+                    }
+
+                    updateAssignment(id, updates) {
+                        const assignments = this.getAssignments();
+                        const index = assignments.findIndex(a => a.id === id);
+                        if (index !== -1) {
+                            assignments[index] = { ...assignments[index], ...updates };
+                            this.saveAssignments(assignments);
+                            return assignments[index];
+                        }
+                        return null;
+                    }
+
+                    deleteAssignment(id) {
+                        const assignments = this.getAssignments();
+                        const filtered = assignments.filter(a => a.id !== id);
+                        this.saveAssignments(filtered);
+                        return filtered;
+                    }
+
+                    getUpcomingAssignments(days = 7) {
+                        const assignments = this.getAssignments();
+                        const today = new Date();
+                        const futureDate = new Date();
+                        futureDate.setDate(today.getDate() + days);
+                        
+                        return assignments
+                            .filter(a => !a.completed)
+                            .filter(a => {
+                                const dueDate = new Date(a.dueDate);
+                                return dueDate >= today && dueDate <= futureDate;
+                            })
+                            .sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+                    }
+
+                    // Event Management
+                    getEvents() {
+                        const events = localStorage.getItem(this.eventsKey);
+                        return events ? JSON.parse(events) : [];
+                    }
+
+                    saveEvents(events) {
+                        localStorage.setItem(this.eventsKey, JSON.stringify(events));
+                    }
+
+                    addEvent(event) {
+                        const events = this.getEvents();
+                        event.id = 'event_' + Date.now();
+                        event.createdAt = new Date().toISOString();
+                        events.push(event);
+                        this.saveEvents(events);
+                        return event;
+                    }
+
+                    getEventsForDate(date) {
+                        const events = this.getEvents();
+                        const targetDate = new Date(date).toDateString();
+                        return events.filter(event => {
+                            const eventDate = new Date(event.date).toDateString();
+                            return eventDate === targetDate;
+                        });
+                    }
+
+                    // Google Classroom Integration
+                    getGoogleClassroomStatus() {
+                        const status = localStorage.getItem(this.googleClassroomKey);
+                        return status ? JSON.parse(status) : { connected: false, courses: [] };
+                    }
+
+                    setGoogleClassroomStatus(status) {
+                        localStorage.setItem(this.googleClassroomKey, JSON.stringify(status));
+                    }
+
+                    connectGoogleClassroom() {
+                        // Simulate Google Classroom connection with mock data
+                        const mockCourses = [
+                            {
+                                id: 'course_1',
+                                name: 'Mathematics',
+                                teacher: 'Mr. Johnson',
+                                color: '#4285F4',
+                                assignments: [
+                                    { id: 'a1', title: 'Algebra Homework', dueDate: '2024-04-15', completed: false },
+                                    { id: 'a2', title: 'Geometry Quiz', dueDate: '2024-04-18', completed: true }
+                                ]
+                            },
+                            {
+                                id: 'course_2',
+                                name: 'Physics',
+                                teacher: 'Dr. Smith',
+                                color: '#EA4335',
+                                assignments: [
+                                    { id: 'a3', title: 'Lab Report', dueDate: '2024-04-16', completed: false },
+                                    { id: 'a4', title: 'Chapter 5 Problems', dueDate: '2024-04-20', completed: false }
+                                ]
+                            },
+                            {
+                                id: 'course_3',
+                                name: 'English Literature',
+                                teacher: 'Ms. Davis',
+                                color: '#34A853',
+                                assignments: [
+                                    { id: 'a5', title: 'Essay Draft', dueDate: '2024-04-17', completed: false }
+                                ]
+                            }
+                        ];
+
+                        const status = {
+                            connected: true,
+                            connectedAt: new Date().toISOString(),
+                            courses: mockCourses
+                        };
+
+                        this.setGoogleClassroomStatus(status);
+                        return status;
+                    }
+
+                    disconnectGoogleClassroom() {
+                        const status = { connected: false, courses: [] };
+                        this.setGoogleClassroomStatus(status);
+                        return status;
+                    }
+
+                    // Sync assignments from Google Classroom
+                    syncAssignmentsFromClassroom() {
+                        const status = this.getGoogleClassroomStatus();
+                        if (!status.connected) return { synced: 0, total: 0 };
+
+                        let syncedCount = 0;
+                        const existingAssignments = this.getAssignments();
+                        
+                        status.courses.forEach(course => {
+                            course.assignments.forEach(classroomAssignment => {
+                                // Check if assignment already exists
+                                const exists = existingAssignments.some(a => 
+                                    a.title === classroomAssignment.title && 
+                                    a.course === course.name
+                                );
+                                
+                                if (!exists) {
+                                    this.addAssignment({
+                                        title: classroomAssignment.title,
+                                        course: course.name,
+                                        dueDate: classroomAssignment.dueDate,
+                                        priority: 'medium',
+                                        description: `Assignment from ${course.name} - ${course.teacher}`,
+                                        source: 'google_classroom'
+                                    });
+                                    syncedCount++;
+                                }
+                            });
+                        });
+
+                        return { synced: syncedCount, total: existingAssignments.length };
+                    }
+                };
+            }
+        })();
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialize databases
+            const calendarDB = new window.CalendarDatabase();
+            const userDB = new window.UserDatabase || (window.UserDatabase ? new window.UserDatabase() : null);
+            
+            // Current date state
+            let currentDate = new Date();
+            let selectedDate = new Date();
+            
+            // DOM Elements
+            const currentMonthElement = document.getElementById('currentMonth');
+            const currentYearElement = document.getElementById('currentYear');
+            const calendarGrid = document.querySelector('.calendar-grid');
+            const prevMonthBtn = document.getElementById('prevMonth');
+            const nextMonthBtn = document.getElementById('nextMonth');
+            const addAssignmentBtn = document.getElementById('addAssignmentBtn');
+            const addEventBtn = document.getElementById('addEventBtn');
+            const syncGoogleBtn = document.getElementById('syncGoogleBtn');
+            const connectGoogleClassroomBtn = document.getElementById('connectGoogleClassroom');
+            const classroomContent = document.getElementById('classroomContent');
+            const classroomDisconnected = document.getElementById('classroomDisconnected');
+            const upcomingAssignmentsList = document.getElementById('upcomingAssignments');
+            const calendarNavBadge = document.getElementById('calendarNavBadge');
+            
+            // Modal elements
+            const addAssignmentModal = document.getElementById('addAssignmentModal');
+            const addEventModal = document.getElementById('addEventModal');
+            const closeAssignmentModal = document.getElementById('closeAssignmentModal');
+            const closeEventModal = document.getElementById('closeEventModal');
+            const cancelAssignment = document.getElementById('cancelAssignment');
+            const cancelEvent = document.getElementById('cancelEvent');
+            const assignmentForm = document.getElementById('assignmentForm');
+            const eventForm = document.getElementById('eventForm');
+
+            /* ---------- INITIALIZE PAGE ---------- */
+            function initializePage() {
+                renderCalendar();
+                updateGoogleClassroomUI();
+                renderUpcomingAssignments();
+                updateNotificationBadge();
+                
+                // Set today's date in date inputs
+                const today = new Date().toISOString().split('T')[0];
+                document.getElementById('assignmentDueDate').value = today;
+                document.getElementById('eventDate').value = today;
+                
+                // Set current time (rounded to nearest 30 minutes)
+                const now = new Date();
+                const minutes = Math.round(now.getMinutes() / 30) * 30;
+                now.setMinutes(minutes);
+                const timeString = now.toTimeString().slice(0, 5);
+                document.getElementById('eventTime').value = timeString;
+            }
+
+            /* ---------- CALENDAR RENDERING ---------- */
+            function renderCalendar() {
+                const year = currentDate.getFullYear();
+                const month = currentDate.getMonth();
+                
+                // Update header
+                currentMonthElement.textContent = currentDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+                currentYearElement.textContent = year;
+                
+                // Clear existing calendar days (keeping day headers)
+                while (calendarGrid.children.length > 7) {
+                    calendarGrid.removeChild(calendarGrid.lastChild);
+                }
+                
+                // Get first day of month and total days
+                const firstDay = new Date(year, month, 1);
+                const lastDay = new Date(year, month + 1, 0);
+                const totalDays = lastDay.getDate();
+                const startingDay = firstDay.getDay(); // 0 = Sunday, 1 = Monday, etc.
+                
+                // Add empty cells for days before the first day of the month
+                for (let i = 0; i < startingDay; i++) {
+                    const emptyCell = document.createElement('div');
+                    emptyCell.className = 'day-cell empty';
+                    calendarGrid.appendChild(emptyCell);
+                }
+                
+                // Add cells for each day of the month
+                const today = new Date();
+                const todayString = today.toDateString();
+                const selectedString = selectedDate.toDateString();
+                
+                for (let day = 1; day <= totalDays; day++) {
+                    const dayDate = new Date(year, month, day);
+                    const dayString = dayDate.toDateString();
+                    
+                    const dayCell = document.createElement('div');
+                    dayCell.className = 'day-cell';
+                    dayCell.dataset.date = dayDate.toISOString().split('T')[0];
+                    
+                    if (dayString === todayString) {
+                        dayCell.classList.add('today');
+                    }
+                    
+                    if (dayString === selectedString) {
+                        dayCell.classList.add('selected');
+                    }
+                    
+                    // Day number
+                    const dayNumber = document.createElement('div');
+                    dayNumber.className = 'day-number';
+                    dayNumber.textContent = day;
+                    dayCell.appendChild(dayNumber);
+                    
+                    // Event dots
+                    const events = calendarDB.getEventsForDate(dayDate);
+                    const assignments = calendarDB.getAssignments().filter(a => {
+                        const dueDate = new Date(a.dueDate);
+                        return dueDate.toDateString() === dayString && !a.completed;
+                    });
+                    
+                    if (events.length > 0 || assignments.length > 0) {
+                        const eventDots = document.createElement('div');
+                        eventDots.className = 'event-dots';
+                        
+                        // Add dots for events
+                        events.forEach(event => {
+                            const dot = document.createElement('div');
+                            dot.className = `event-dot ${event.type}`;
+                            eventDots.appendChild(dot);
+                        });
+                        
+                        // Add dots for assignments
+                        if (assignments.length > 0) {
+                            const dot = document.createElement('div');
+                            dot.className = 'event-dot assignment';
+                            eventDots.appendChild(dot);
+                        }
+                        
+                        dayCell.appendChild(eventDots);
+                    }
+                    
+                    // Click handler
+                    dayCell.addEventListener('click', () => {
+                        selectedDate = dayDate;
+                        renderCalendar();
+                        showDayDetails(dayDate);
+                    });
+                    
+                    calendarGrid.appendChild(dayCell);
+                }
+            }
+
+            /* ---------- GOOGLE CLASSROOM UI ---------- */
+            function updateGoogleClassroomUI() {
+                const status = calendarDB.getGoogleClassroomStatus();
+                const connectBtn = connectGoogleClassroomBtn;
+                
+                if (status.connected) {
+                    // Update button
+                    connectBtn.innerHTML = '<i class="fas fa-check"></i> Connected';
+                    connectBtn.classList.add('connected');
+                    
+                    // Show content, hide disconnected state
+                    classroomContent.style.display = 'block';
+                    classroomDisconnected.style.display = 'none';
+                    
+                    // Render courses
+                    renderClassroomCourses(status.courses);
+                } else {
+                    // Update button
+                    connectBtn.innerHTML = '<i class="fas fa-plug"></i> Connect';
+                    connectBtn.classList.remove('connected');
+                    
+                    // Hide content, show disconnected state
+                    classroomContent.style.display = 'none';
+                    classroomDisconnected.style.display = 'block';
+                }
+            }
+
+            function renderClassroomCourses(courses) {
+                const coursesContainer = document.querySelector('.classroom-courses');
+                coursesContainer.innerHTML = '';
+                
+                courses.forEach(course => {
+                    const courseCard = document.createElement('div');
+                    courseCard.className = 'course-card';
+                    courseCard.dataset.courseId = course.id;
+                    
+                    const pendingAssignments = course.assignments.filter(a => !a.completed);
+                    
+                    courseCard.innerHTML = `
+                        <div class="course-header">
+                            <div class="course-icon" style="background: ${course.color}">
+                                ${course.name.charAt(0)}
+                            </div>
+                            <div>
+                                <div class="course-name">${course.name}</div>
+                                <div class="course-teacher">${course.teacher}</div>
+                            </div>
+                        </div>
+                        <div class="assignments-list">
+                            ${pendingAssignments.length > 0 ? 
+                                pendingAssignments.map(assignment => `
+                                    <div class="assignment-item" data-assignment-id="${assignment.id}">
+                                        <div class="assignment-due">
+                                            ${formatDueDate(assignment.dueDate)}
+                                        </div>
+                                        <div class="assignment-title">${assignment.title}</div>
+                                        <div class="assignment-status ${assignment.completed ? 'completed' : ''}"></div>
+                                    </div>
+                                `).join('') :
+                                '<div style="text-align: center; padding: 10px; color: #2d5a3d; font-family: Nunito, sans-serif; font-size: 14px;">No pending assignments</div>'
+                            }
+                        </div>
+                    `;
+                    
+                    coursesContainer.appendChild(courseCard);
+                });
+            }
+
+            /* ---------- UPCOMING ASSIGNMENTS ---------- */
+            function renderUpcomingAssignments() {
+                const assignments = calendarDB.getUpcomingAssignments(14); // Next 14 days
+                upcomingAssignmentsList.innerHTML = '';
+                
+                if (assignments.length === 0) {
+                    upcomingAssignmentsList.innerHTML = `
+                        <div style="text-align: center; padding: 30px 20px;">
+                            <div style="font-size: 48px; color: #86b499; margin-bottom: 20px;">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <h3 style="font-family: 'Nunito', sans-serif; color: #1a3c27; margin-bottom: 10px;">
+                                No Upcoming Assignments
+                            </h3>
+                            <p style="font-family: 'Nunito', sans-serif; color: #2d5a3d;">
+                                You're all caught up! Add new assignments to get started.
+                            </p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                assignments.forEach(assignment => {
+                    const dueDate = new Date(assignment.dueDate);
+                    const item = document.createElement('div');
+                    item.className = 'upcoming-item';
+                    item.dataset.assignmentId = assignment.id;
+                    
+                    item.innerHTML = `
+                        <div class="upcoming-date">
+                            <div class="date-day">${dueDate.toLocaleDateString('en-US', { weekday: 'short' })}</div>
+                            <div class="date-number">${dueDate.getDate()}</div>
+                        </div>
+                        <div class="upcoming-content">
+                            <div class="upcoming-title">
+                                ${assignment.title}
+                                <span class="priority-badge priority-${assignment.priority}">
+                                    ${assignment.priority.charAt(0).toUpperCase() + assignment.priority.slice(1)}
+                                </span>
+                            </div>
+                            <div class="upcoming-course">
+                                <i class="fas fa-book"></i>
+                                ${assignment.course}
+                            </div>
+                        </div>
+                        <div class="assignment-status ${assignment.completed ? 'completed' : ''}"></div>
+                    `;
+                    
+                    item.addEventListener('click', () => {
+                        showAssignmentDetails(assignment);
+                    });
+                    
+                    upcomingAssignmentsList.appendChild(item);
+                });
+            }
+
+            /* ---------- NOTIFICATION BADGE ---------- */
+            function updateNotificationBadge() {
+                if (!userDB || !calendarNavBadge) return;
+                
+                const currentUser = userDB.getCurrentUser();
+                if (!currentUser || !currentUser.notifications) return;
+                
+                const calendarNotifications = currentUser.notifications.calendar || 0;
+                
+                if (calendarNotifications > 0) {
+                    calendarNavBadge.textContent = calendarNotifications > 9 ? '9+' : calendarNotifications;
+                    calendarNavBadge.style.display = 'flex';
+                    calendarNavBadge.style.background = 'linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%)';
+                    calendarNavBadge.style.boxShadow = '0 3px 8px rgba(255, 82, 82, 0.4)';
+                    calendarNavBadge.classList.add('pulse-animation');
+                } else {
+                    calendarNavBadge.style.display = 'none';
+                    calendarNavBadge.textContent = '';
+                    calendarNavBadge.classList.remove('pulse-animation');
+                }
+            }
+
+            /* ---------- EVENT HANDLERS ---------- */
+            // Month navigation
+            prevMonthBtn.addEventListener('click', () => {
+                currentDate.setMonth(currentDate.getMonth() - 1);
+                renderCalendar();
+            });
+
+            nextMonthBtn.addEventListener('click', () => {
+                currentDate.setMonth(currentDate.getMonth() + 1);
+                renderCalendar();
+            });
+
+            // Google Classroom connection
+            connectGoogleClassroomBtn.addEventListener('click', () => {
+                const status = calendarDB.getGoogleClassroomStatus();
+                
+                if (status.connected) {
+                    // Disconnect
+                    if (confirm('Are you sure you want to disconnect Google Classroom?')) {
+                        calendarDB.disconnectGoogleClassroom();
+                        updateGoogleClassroomUI();
+                        showFeedback('Google Classroom disconnected', 'info');
+                    }
+                } else {
+                    // Connect (simulated)
+                    showFeedback('Connecting to Google Classroom...', 'info');
+                    
+                    setTimeout(() => {
+                        calendarDB.connectGoogleClassroom();
+                        updateGoogleClassroomUI();
+                        
+                        // Sync assignments
+                        const syncResult = calendarDB.syncAssignmentsFromClassroom();
+                        renderUpcomingAssignments();
+                        
+                        showFeedback(`Connected! Synced ${syncResult.synced} assignments from Google Classroom.`, 'success');
+                    }, 1500);
+                }
+            });
+
+            // Sync button
+            syncGoogleBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                const status = calendarDB.getGoogleClassroomStatus();
+                if (!status.connected) {
+                    showFeedback('Please connect Google Classroom first', 'info');
+                    return;
+                }
+                
+                showFeedback('Syncing with Google Classroom...', 'info');
+                
+                setTimeout(() => {
+                    const syncResult = calendarDB.syncAssignmentsFromClassroom();
+                    renderUpcomingAssignments();
+                    
+                    if (syncResult.synced > 0) {
+                        showFeedback(`Synced ${syncResult.synced} new assignments`, 'success');
+                    } else {
+                        showFeedback('All assignments are already synced', 'info');
+                    }
+                }, 1000);
+            });
+
+            // Modal controls
+            addAssignmentBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                addAssignmentModal.style.display = 'flex';
+            });
+
+            addEventBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                addEventModal.style.display = 'flex';
+            });
+
+            closeAssignmentModal.addEventListener('click', () => {
+                addAssignmentModal.style.display = 'none';
+            });
+
+            closeEventModal.addEventListener('click', () => {
+                addEventModal.style.display = 'none';
+            });
+
+            cancelAssignment.addEventListener('click', () => {
+                addAssignmentModal.style.display = 'none';
+            });
+
+            cancelEvent.addEventListener('click', () => {
+                addEventModal.style.display = 'none';
+            });
+
+            // Close modals when clicking outside
+            window.addEventListener('click', (e) => {
+                if (e.target === addAssignmentModal) {
+                    addAssignmentModal.style.display = 'none';
+                }
+                if (e.target === addEventModal) {
+                    addEventModal.style.display = 'none';
+                }
+            });
+
+            // Form submissions
+            assignmentForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const assignment = {
+                    title: document.getElementById('assignmentTitle').value,
+                    course: document.getElementById('assignmentCourse').value,
+                    dueDate: document.getElementById('assignmentDueDate').value,
+                    priority: document.getElementById('assignmentPriority').value,
+                    description: document.getElementById('assignmentDescription').value
+                };
+                
+                calendarDB.addAssignment(assignment);
+                addAssignmentModal.style.display = 'none';
+                assignmentForm.reset();
+                
+                // Reset date to today
+                const today = new Date().toISOString().split('T')[0];
+                document.getElementById('assignmentDueDate').value = today;
+                
+                // Update UI
+                renderCalendar();
+                renderUpcomingAssignments();
+                showFeedback('Assignment added successfully!', 'success');
+            });
+
+            eventForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const event = {
+                    title: document.getElementById('eventTitle').value,
+                    type: document.getElementById('eventType').value,
+                    date: document.getElementById('eventDate').value,
+                    time: document.getElementById('eventTime').value,
+                    duration: document.getElementById('eventDuration').value,
+                    description: document.getElementById('eventDescription').value
+                };
+                
+                calendarDB.addEvent(event);
+                addEventModal.style.display = 'none';
+                eventForm.reset();
+                
+                // Reset date and time
+                const today = new Date().toISOString().split('T')[0];
+                document.getElementById('eventDate').value = today;
+                
+                const now = new Date();
+                const timeString = now.toTimeString().slice(0, 5);
+                document.getElementById('eventTime').value = timeString;
+                
+                // Update UI
+                renderCalendar();
+                showFeedback('Event added successfully!', 'success');
+            });
+
+            /* ---------- HELPER FUNCTIONS ---------- */
+            function showDayDetails(date) {
+                const events = calendarDB.getEventsForDate(date);
+                const assignments = calendarDB.getAssignments().filter(a => {
+                    const dueDate = new Date(a.dueDate);
+                    return dueDate.toDateString() === date.toDateString();
+                });
+                
+                if (events.length === 0 && assignments.length === 0) {
+                    showFeedback(`No events or assignments for ${date.toLocaleDateString()}`, 'info');
+                } else {
+                    const eventCount = events.length;
+                    const assignmentCount = assignments.length;
+                    showFeedback(`${date.toLocaleDateString()}: ${eventCount} events, ${assignmentCount} assignments`, 'info');
+                }
+            }
+
+            function showAssignmentDetails(assignment) {
+                const dueDate = new Date(assignment.dueDate);
+                const details = `
+                    <strong>${assignment.title}</strong><br>
+                    Course: ${assignment.course}<br>
+                    Due: ${dueDate.toLocaleDateString()} (${formatDueDate(assignment.dueDate)})<br>
+                    Priority: ${assignment.priority}<br>
+                    ${assignment.description ? `Description: ${assignment.description}` : ''}
+                `;
+                
+                if (confirm(`${details}\n\nMark this assignment as completed?`)) {
+                    calendarDB.updateAssignment(assignment.id, { completed: true });
+                    renderUpcomingAssignments();
+                    renderCalendar();
+                    showFeedback('Assignment marked as completed!', 'success');
+                }
+            }
+
+            function formatDueDate(dateString) {
+                const dueDate = new Date(dateString);
+                const today = new Date();
+                const tomorrow = new Date();
+                tomorrow.setDate(today.getDate() + 1);
+                
+                if (dueDate.toDateString() === today.toDateString()) {
+                    return 'Today';
+                } else if (dueDate.toDateString() === tomorrow.toDateString()) {
+                    return 'Tomorrow';
+                } else {
+                    const diffDays = Math.ceil((dueDate - today) / (1000 * 60 * 60 * 24));
+                    return `In ${diffDays} days`;
+                }
+            }
+
+            function showFeedback(message, type = 'info') {
+                const existingFeedback = document.querySelector('.feedback-message');
+                if (existingFeedback) existingFeedback.remove();
+
+                const feedback = document.createElement('div');
+                feedback.className = `feedback-message feedback-${type}`;
+                feedback.style.cssText = `
+                    position: fixed;
+                    top: 100px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: ${type === 'error' ? 'rgba(231, 76, 60, 0.95)' : 
+                             type === 'success' ? 'rgba(46, 204, 113, 0.95)' : 
+                             type === 'info' ? 'rgba(52, 152, 219, 0.95)' : 
+                             'rgba(34, 96, 78, 0.95)'};
+                    color: white;
+                    padding: 12px 24px;
+                    border-radius: 25px;
+                    font-family: 'Nunito', sans-serif;
+                    font-weight: 600;
+                    font-size: 14px;
+                    z-index: 1000;
+                    animation: slideDown 0.3s ease;
+                    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+                    max-width: 80%;
+                    text-align: center;
+                `;
+                feedback.textContent = message;
+                document.body.appendChild(feedback);
+
+                setTimeout(() => {
+                    feedback.style.animation = "slideUp 0.3s ease forwards";
+                    setTimeout(() => feedback.remove(), 300);
+                }, 3000);
+            }
+
+            /* ---------- NAVIGATION ---------- */
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.addEventListener('click', function (e) {
+                    if (this.classList.contains('active')) {
+                        e.preventDefault();
+                        return;
+                    }
+
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    this.classList.add('active');
+
+                    const href = this.getAttribute('href');
+                    if (href && href !== 'calendar.html') {
+                        setTimeout(() => {
+                            window.location.href = href;
+                        }, 300);
+                    }
+                });
+            });
+
+            // Set active nav item
+            navItems.forEach(item => {
+                if (item.getAttribute('href') === 'calendar.html') {
+                    item.classList.add('active');
+                }
+            });
+
+            /* ---------- INITIALIZE ---------- */
+            initializePage();
+            
+            // Animate elements
+            const fadeElements = document.querySelectorAll('.fade-in');
+            fadeElements.forEach((el, index) => {
+                setTimeout(() => {
+                    el.style.animation = 'fadeIn 0.5s ease forwards';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>
