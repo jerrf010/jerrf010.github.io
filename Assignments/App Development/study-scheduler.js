@@ -1,5 +1,10 @@
 // study-scheduler.js - Updated AI Study Scheduler Algorithm
 
+function parseDateFromString(dateString) {
+    const [year, month, day] = dateString.split('-').map(Number);
+    return new Date(year, month - 1, day);
+}
+
 class StudyScheduler {
     constructor() {
         this.difficultyMultiplier = {
