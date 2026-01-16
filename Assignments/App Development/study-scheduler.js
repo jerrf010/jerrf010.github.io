@@ -1,5 +1,6 @@
 // study-scheduler.js - Updated AI Study Scheduler Algorithm
 
+// Helper function to parse date string
 function parseDateFromString(dateString) {
     const [year, month, day] = dateString.split('-').map(Number);
     return new Date(year, month - 1, day);
