@@ -1,11 +1,5 @@
 // study-scheduler.js - Updated AI Study Scheduler Algorithm
 
-// Helper function to parse date string
-function parseDateFromString(dateString) {
-    const [year, month, day] = dateString.split('-').map(Number);
-    return new Date(year, month - 1, day);
-}
-
 class StudyScheduler {
     constructor() {
         this.difficultyMultiplier = {
@@ -21,13 +15,21 @@ class StudyScheduler {
     }
 
     /**
+     * Helper function to parse date string
+     */
+    parseDateFromString(dateString) {
+        const [year, month, day] = dateString.split('-').map(Number);
+        return new Date(year, month - 1, day);
+    }
+
+    /**
      * Generates an AI-powered study schedule for an assignment with balanced workload
      * @param {Object} assignment - Assignment details
      * @param {Date} today - Current date
      * @returns {Object} - Generated schedule with sessions and metadata
      */
     generateStudySchedule(assignment, today = new Date()) {
-        const dueDate = parseDateFromString(assignment.dueDate);
+        const dueDate = this.parseDateFromString(assignment.dueDate);
         
         // Calculate days until due date
         const daysUntilDue = Math.ceil((dueDate - today) / (1000 * 60 * 60 * 24));
