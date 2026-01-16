@@ -151,9 +151,9 @@
             color: #27ae60;
         }
 
-        /* Success animation */
+        /* Success animation - INSIDE PHONE CONTAINER */
         .success-animation {
-            position: fixed;
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
@@ -162,8 +162,10 @@
             display: none;
             justify-content: center;
             align-items: center;
-            z-index: 1000;
+            z-index: 100;
             animation: fadeIn 0.3s ease;
+            border-radius: 50px;
+            overflow: hidden;
         }
 
         .success-content {
@@ -175,10 +177,13 @@
             -webkit-backdrop-filter: blur(20px);
             backdrop-filter: blur(20px);
             border: 2px solid rgba(255, 255, 255, 0.2);
+            margin: 0 20px;
+            max-width: 320px;
+            width: 80%;
         }
 
         .success-icon {
-            font-size: 80px;
+            font-size: 70px;
             margin-bottom: 20px;
             color: #86b499;
             animation: bounce 1s ease infinite;
@@ -186,14 +191,35 @@
 
         .success-text {
             font-family: 'Chewy', cursive;
-            font-size: 36px;
+            font-size: 32px;
             margin-bottom: 15px;
         }
 
         .success-subtext {
             font-family: 'Nunito', sans-serif;
-            font-size: 18px;
+            font-size: 16px;
             opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .success-content {
+                padding: 25px;
+                max-width: 280px;
+                width: 85%;
+            }
+            
+            .success-icon {
+                font-size: 60px;
+            }
+            
+            .success-text {
+                font-size: 28px;
+            }
+            
+            .success-subtext {
+                font-size: 15px;
+            }
         }
 
         .loading-spinner {
@@ -208,31 +234,17 @@
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         @keyframes bounce {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-20px);
-            }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
         }
 
         @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
+            to { transform: rotate(360deg); }
         }
 
         .terms-link {
@@ -251,20 +263,20 @@
         <div class="leaf leaf-2"></div>
         <div class="leaf leaf-3"></div>
 
-        <!-- Success Animation Overlay -->
-        <div class="success-animation" id="successOverlay">
-            <div class="success-content">
-                <div class="success-icon">
-                    <i class="fas fa-check-circle"></i>
-                </div>
-                <div class="success-text">Welcome to Hey, Day!</div>
-                <div class="success-subtext">Creating your account...</div>
-                <div class="loading-spinner" id="loadingSpinner"></div>
-            </div>
-        </div>
-
         <!-- Phone Container -->
         <div class="phone Chewy" id="main-page">
+            <!-- Success Animation Overlay - INSIDE PHONE -->
+            <div class="success-animation" id="successOverlay">
+                <div class="success-content">
+                    <div class="success-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="success-text">Welcome to Hey, Day!</div>
+                    <div class="success-subtext">Creating your account...</div>
+                    <div class="loading-spinner" id="loadingSpinner"></div>
+                </div>
+            </div>
+
             <!-- Phone Notch -->
             <div class="phone-notch"></div>
 
@@ -418,13 +430,12 @@
     </div>
 
     <!-- Script -->
-    <!-- Replace the entire <script> section in joinUs.html with this: -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const emailInput = document.getElementById("email");
             const passwordInput = document.getElementById("password");
             const usernameInput = document.getElementById("username");
-            const termsCheckbox = document.getElementById("terms");
+            const termsCheckbox = document.getElementById("consent");
             const submitButton = document.getElementById("submitButton");
             const togglePasswordBtn = document.getElementById("togglePassword");
             const toggleIcon = togglePasswordBtn.querySelector("i");
@@ -434,111 +445,57 @@
             const loadingSpinner = document.getElementById("loadingSpinner");
             let selectedMood = null;
 
-            /* ---------- USER DATABASE CLASS ---------- */
-            class UserDatabase {
-                constructor() {
-                    this.key = 'heyday_users';
-                    this.currentUserKey = 'heyday_current_user';
-                    this.initDemoData();
-                }
-
-                initDemoData() {
-                    let users = this.getAllUsers();
-
-                    if (users.length === 0) {
-                        const demoUsers = [
-                            {
-                                id: 1,
-                                username: 'demo_user',
-                                email: 'test@example.com',
-                                password: 'Demo123!',
-                                mood: 'happy',
-                                createdAt: new Date().toISOString(),
-                                name: 'Demo User'
-                            },
-                            {
-                                id: 2,
-                                username: 'joe_user',
-                                email: 'joe@example.com',
-                                password: 'Test123!',
-                                mood: 'good',
-                                createdAt: new Date().toISOString(),
-                                name: 'Joe'
-                            }
-                        ];
-
-                        localStorage.setItem(this.key, JSON.stringify(demoUsers));
-                    }
-                }
-
-                getAllUsers() {
-                    const users = localStorage.getItem(this.key);
-                    return users ? JSON.parse(users) : [];
-                }
-
-                saveAllUsers(users) {
-                    localStorage.setItem(this.key, JSON.stringify(users));
-                }
-
-                findUser(identifier) {
-                    const users = this.getAllUsers();
-                    return users.find(user =>
-                        user.username.toLowerCase() === identifier.toLowerCase() ||
-                        user.email.toLowerCase() === identifier.toLowerCase()
-                    );
-                }
-
-                addUser(userData) {
-                    const users = this.getAllUsers();
-
-                    // Check if user already exists
-                    const existingUser = this.findUser(userData.username) || this.findUser(userData.email);
-                    if (existingUser) {
-                        return { success: false, message: 'User already exists' };
+            /* ---------- USE GLOBAL USERDATABASE ---------- */
+            // Check if UserDatabase exists globally, if not, define it
+            if (typeof window.UserDatabase === 'undefined') {
+                window.UserDatabase = class {
+                    constructor() {
+                        this.key = 'heyday_users';
+                        this.currentUserKey = 'heyday_current_user';
                     }
 
-                    const newUser = {
-                        id: users.length + 1,
-                        ...userData,
-                        createdAt: new Date().toISOString()
-                    };
-                    users.push(newUser);
-                    this.saveAllUsers(users);
-                    return { success: true, user: newUser };
-                }
-
-                authenticate(identifier, password) {
-                    const user = this.findUser(identifier);
-                    if (!user) {
-                        return { success: false, message: 'User not found' };
+                    getAllUsers() {
+                        const users = localStorage.getItem(this.key);
+                        return users ? JSON.parse(users) : [];
                     }
 
-                    if (user.password !== password) {
-                        return { success: false, message: 'Incorrect password' };
+                    saveAllUsers(users) {
+                        localStorage.setItem(this.key, JSON.stringify(users));
                     }
 
-                    return { success: true, user };
-                }
+                    findUser(identifier) {
+                        const users = this.getAllUsers();
+                        return users.find(user =>
+                            user.username.toLowerCase() === identifier.toLowerCase() ||
+                            user.email.toLowerCase() === identifier.toLowerCase()
+                        );
+                    }
 
-                setCurrentUser(user) {
-                    const { password, ...safeUser } = user;
-                    localStorage.setItem(this.currentUserKey, JSON.stringify(safeUser));
-                    localStorage.setItem('heyday_logged_in', 'true');
-                }
+                    addUser(userData) {
+                        const users = this.getAllUsers();
 
-                getCurrentUser() {
-                    const user = localStorage.getItem(this.currentUserKey);
-                    return user ? JSON.parse(user) : null;
-                }
+                        // Check if user already exists
+                        const existingUser = this.findUser(userData.username) || this.findUser(userData.email);
+                        if (existingUser) {
+                            return { success: false, message: 'User already exists' };
+                        }
 
-                isLoggedIn() {
-                    return localStorage.getItem('heyday_logged_in') === 'true';
-                }
+                        const newUser = {
+                            id: users.length + 1,
+                            ...userData,
+                            createdAt: new Date().toISOString()
+                        };
+                        users.push(newUser);
+                        this.saveAllUsers(users);
+                        return { success: true, user: newUser };
+                    }
 
-                logout() {
-                    localStorage.removeItem(this.currentUserKey);
-                    localStorage.removeItem('heyday_logged_in');
-                }
+                    setCurrentUser(user) {
+                        const { password, ...safeUser } = user;
+                        localStorage.setItem(this.currentUserKey, JSON.stringify(safeUser));
+                        localStorage.setItem('heyday_logged_in', 'true');
+                    }
+                };
             }
 
             /* ---------- MOOD SELECTION TOGGLE ---------- */
@@ -580,19 +537,17 @@
                 );
             });
 
-            /* ---------- USERNAME VALIDATION ---------- */
+            /* ---------- VALIDATION FUNCTIONS ---------- */
             function validateUsername(username) {
                 const regex = /^[a-zA-Z0-9_]{3,20}$/;
                 return regex.test(username);
             }
 
-            /* ---------- EMAIL VALIDATION ---------- */
             function validateEmail(email) {
                 const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 return regex.test(email);
             }
 
-            /* ---------- PASSWORD VALIDATION ---------- */
             function validatePassword(password) {
                 return {
                     length: password.length >= 8,
@@ -634,16 +589,14 @@
                 };
 
                 // Update each rule icon
-                ruleIcons.length.classList.toggle("valid", rules.length);
-                ruleIcons.upper.classList.toggle("valid", rules.upper);
-                ruleIcons.lower.classList.toggle("valid", rules.lower);
-                ruleIcons.number.classList.toggle("valid", rules.number);
-                ruleIcons.special.classList.toggle("valid", rules.special);
-
-                // Update icon classes
-                Object.values(ruleIcons).forEach(icon => {
-                    icon.classList.toggle("fa-times-circle", !icon.classList.contains("valid"));
-                    icon.classList.toggle("fa-check-circle", icon.classList.contains("valid"));
+                Object.keys(rules).forEach((key, index) => {
+                    const icon = Object.values(ruleIcons)[index];
+                    if (icon) {
+                        const isValid = rules[key];
+                        icon.classList.toggle("valid", isValid);
+                        icon.classList.toggle("fa-times-circle", !isValid);
+                        icon.classList.toggle("fa-check-circle", isValid);
+                    }
                 });
 
                 // Update status text, color, and style
@@ -672,16 +625,18 @@
                 if (valid) {
                     input.classList.remove("input-error");
                     input.classList.add("input-success");
-                    error.style.display = "none";
-                    validIcon.style.display = "block";
-                    errorIcon.style.display = "none";
+                    if (error) error.style.display = "none";
+                    if (validIcon) validIcon.style.display = "block";
+                    if (errorIcon) errorIcon.style.display = "none";
                 } else {
                     input.classList.remove("input-success");
                     input.classList.add("input-error");
-                    error.textContent = message;
-                    error.style.display = "block";
-                    validIcon.style.display = "none";
-                    errorIcon.style.display = "block";
+                    if (error) {
+                        error.textContent = message;
+                        error.style.display = "block";
+                    }
+                    if (validIcon) validIcon.style.display = "none";
+                    if (errorIcon) errorIcon.style.display = "block";
                 }
             }
 
@@ -695,23 +650,23 @@
                 const feedback = document.createElement('div');
                 feedback.className = `feedback-message feedback-${type}`;
                 feedback.style.cssText = `
-                position: fixed;
-                top: 100px;
-                left: 50%;
-                transform: translateX(-50%);
-                background: ${type === 'error' ? 'rgba(231, 76, 60, 0.95)' : type === 'success' ? 'rgba(46, 204, 113, 0.95)' : 'rgba(52, 152, 219, 0.95)'};
-                color: white;
-                padding: 12px 24px;
-                border-radius: 25px;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 600;
-                font-size: 14px;
-                z-index: 1000;
-                animation: slideDown 0.3s ease;
-                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-                max-width: 80%;
-                text-align: center;
-            `;
+                    position: fixed;
+                    top: 100px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: ${type === 'error' ? 'rgba(231, 76, 60, 0.95)' : type === 'success' ? 'rgba(46, 204, 113, 0.95)' : 'rgba(52, 152, 219, 0.95)'};
+                    color: white;
+                    padding: 12px 24px;
+                    border-radius: 25px;
+                    font-family: 'Nunito', sans-serif;
+                    font-weight: 600;
+                    font-size: 14px;
+                    z-index: 1000;
+                    animation: slideDown 0.3s ease;
+                    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+                    max-width: 80%;
+                    text-align: center;
+                `;
                 feedback.textContent = message;
                 document.body.appendChild(feedback);
 
@@ -722,21 +677,19 @@
                 }, 3000);
             }
 
-            /* ---------- LIVE USERNAME CHECK ---------- */
+            /* ---------- LIVE VALIDATION ---------- */
             usernameInput.addEventListener("input", () => {
                 const valid = validateUsername(usernameInput.value.trim());
                 showValidation("username", valid, "Username must be 3-20 characters (letters, numbers, underscore)");
                 updateSubmitState();
             });
 
-            /* ---------- LIVE EMAIL CHECK ---------- */
             emailInput.addEventListener("input", () => {
                 const valid = validateEmail(emailInput.value.trim());
                 showValidation("email", valid, "Please enter a valid email address");
                 updateSubmitState();
             });
 
-            /* ---------- LIVE PASSWORD CHECK ---------- */
             passwordInput.addEventListener("input", () => {
                 const strong = isPasswordStrong(passwordInput.value);
                 showValidation("password", strong, "Password must be 8+ characters with letters, numbers & symbols");
@@ -744,13 +697,12 @@
                 updateSubmitState();
             });
 
-            /* ---------- TERMS CHECKBOX VALIDATION ---------- */
             termsCheckbox.addEventListener("change", () => {
                 const error = document.getElementById("termsError");
                 if (termsCheckbox.checked) {
-                    error.style.display = "none";
+                    if (error) error.style.display = "none";
                 } else {
-                    error.style.display = "block";
+                    if (error) error.style.display = "block";
                 }
                 updateSubmitState();
             });
@@ -778,7 +730,7 @@
             }
 
             /* ---------- FORM SUBMISSION ---------- */
-            signupForm.addEventListener("submit", async (e) => {
+            signupForm.addEventListener("submit", (e) => {
                 e.preventDefault();
 
                 // Final validation check
@@ -793,63 +745,59 @@
                     return;
                 }
 
-                // Show success animation
+                // Show success animation INSIDE PHONE
                 successOverlay.style.display = "flex";
                 loadingSpinner.style.display = "block";
 
-                // Simulate account creation process
-                setTimeout(() => {
-                    // Create user data
-                    const userData = {
-                        username: usernameInput.value.trim(),
-                        email: emailInput.value.trim(),
-                        password: passwordInput.value, // In real app, this would be hashed
-                        mood: selectedMood.getAttribute("data-mood"),
-                        name: usernameInput.value.trim()
-                    };
+                // Create user data
+                const userData = {
+                    username: usernameInput.value.trim(),
+                    email: emailInput.value.trim(),
+                    password: passwordInput.value,
+                    mood: selectedMood.getAttribute("data-mood"),
+                    name: usernameInput.value.trim()
+                };
 
-                    // Add to database
-                    try {
-                        const userDB = new UserDatabase();
-                        const result = userDB.addUser(userData);
+                // Add to database
+                try {
+                    const userDB = new window.UserDatabase();
+                    const result = userDB.addUser(userData);
 
-                        if (!result.success) {
-                            // Hide overlay
-                            successOverlay.style.display = "none";
-                            loadingSpinner.style.display = "none";
-
-                            // Show error
-                            showFeedback(result.message, "error");
-                            return;
-                        }
-
-                        // Set as current user
-                        userDB.setCurrentUser(result.user);
-
-                        // Update success message
-                        const successText = document.querySelector(".success-text");
-                        const successSubtext = document.querySelector(".success-subtext");
-
-                        if (successText && successSubtext) {
-                            successText.textContent = "Account Created!";
-                            successSubtext.textContent = "Welcome to Hey, Day!";
-                        }
-
-                        // Redirect to dashboard after 2 seconds
-                        setTimeout(() => {
-                            window.location.href = "dashboard.html";
-                        }, 2000);
-
-                    } catch (error) {
-                        console.error("Error creating account:", error);
+                    if (!result.success) {
                         // Hide overlay
                         successOverlay.style.display = "none";
                         loadingSpinner.style.display = "none";
 
-                        showFeedback("Error creating account. Please try again.", "error");
+                        // Show error
+                        showFeedback(result.message, "error");
+                        return;
                     }
 
-                }, 1500);
+                    // Set as current user
+                    userDB.setCurrentUser(result.user);
+
+                    // Update success message
+                    const successText = document.querySelector(".success-text");
+                    const successSubtext = document.querySelector(".success-subtext");
+
+                    if (successText && successSubtext) {
+                        successText.textContent = "Account Created!";
+                        successSubtext.textContent = "Welcome to Hey, Day!";
+                    }
+
+                    // Redirect to dashboard after 2 seconds
+                    setTimeout(() => {
+                        window.location.href = "dashboard.html";
+                    }, 2000);
+
+                } catch (error) {
+                    console.error("Error creating account:", error);
+                    // Hide overlay
+                    successOverlay.style.display = "none";
+                    loadingSpinner.style.display = "none";
+
+                    showFeedback("Error creating account. Please try again.", "error");
+                }
             });
 
             /* ---------- INITIAL VALIDATION UPDATE ---------- */
@@ -858,40 +806,40 @@
             /* ---------- ADD ANIMATION STYLES ---------- */
             const style = document.createElement('style');
             style.textContent = `
-            @keyframes slideDown {
-                from {
-                    top: 80px;
-                    opacity: 0;
+                @keyframes slideDown {
+                    from {
+                        top: 80px;
+                        opacity: 0;
+                    }
+                    to {
+                        top: 100px;
+                        opacity: 1;
+                    }
                 }
-                to {
-                    top: 100px;
-                    opacity: 1;
+                
+                @keyframes slideUp {
+                    from {
+                        top: 100px;
+                        opacity: 1;
+                    }
+                    to {
+                        top: 80px;
+                        opacity: 0;
+                    }
                 }
-            }
-            
-            @keyframes slideUp {
-                from {
-                    top: 100px;
-                    opacity: 1;
+                
+                .button {
+                    transition: all 0.3s ease;
                 }
-                to {
-                    top: 80px;
-                    opacity: 0;
+                
+                .button:hover {
+                    transform: translateY(-5px) scale(1.05);
                 }
-            }
-            
-            .button {
-                transition: all 0.3s ease;
-            }
-            
-            .button:hover {
-                transform: translateY(-5px) scale(1.05);
-            }
-            
-            .button:active {
-                transform: translateY(0) scale(0.98);
-            }
-        `;
+                
+                .button:active {
+                    transform: translateY(0) scale(0.98);
+                }
+            `;
             document.head.appendChild(style);
         });
     </script>
