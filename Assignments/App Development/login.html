@@ -37,7 +37,7 @@
 
         /* Success Animation */
         .success-animation {
-            position: fixed;
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
@@ -46,23 +46,30 @@
             display: none;
             justify-content: center;
             align-items: center;
-            z-index: 1000;
+            z-index: 100;
             animation: fadeIn 0.3s ease;
+            border-radius: 25px;
+            /* Match phone border radius */
+            overflow: hidden;
         }
 
         .success-content {
             text-align: center;
             color: white;
-            padding: 40px;
+            padding: 30px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 30px;
             -webkit-backdrop-filter: blur(20px);
             backdrop-filter: blur(20px);
             border: 2px solid rgba(255, 255, 255, 0.2);
+            margin: 0 20px;
+            /* Add margin for smaller screens */
+            max-width: 320px;
+            width: 80%;
         }
 
         .success-icon {
-            font-size: 80px;
+            font-size: 70px;
             margin-bottom: 20px;
             color: #86b499;
             animation: bounce 1s ease infinite;
@@ -70,14 +77,36 @@
 
         .success-text {
             font-family: 'Chewy', cursive;
-            font-size: 36px;
+            font-size: 32px;
             margin-bottom: 15px;
         }
 
         .success-subtext {
             font-family: 'Nunito', sans-serif;
-            font-size: 18px;
+            font-size: 16px;
             opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        /* Add responsive adjustments */
+        @media (max-width: 600px) {
+            .success-content {
+                padding: 25px;
+                max-width: 280px;
+                width: 85%;
+            }
+
+            .success-icon {
+                font-size: 60px;
+            }
+
+            .success-text {
+                font-size: 28px;
+            }
+
+            .success-subtext {
+                font-size: 15px;
+            }
         }
 
         .loading-spinner {
@@ -136,6 +165,7 @@
             font-weight: 700;
             text-decoration: none;
         }
+
         .signup-link:hover {
             text-decoration: underline;
         }
@@ -152,6 +182,7 @@
             font-size: 14px;
             color: #2c3e50;
         }
+
         .no-users-icon {
             color: #3498db;
             margin-right: 8px;
@@ -169,20 +200,20 @@
         <div class="leaf leaf-2"></div>
         <div class="leaf leaf-3"></div>
 
-        <!-- Success Animation Overlay -->
-        <div class="success-animation" id="successOverlay">
-            <div class="success-content">
-                <div class="success-icon">
-                    <i class="fas fa-check-circle"></i>
-                </div>
-                <div class="success-text">Welcome Back!</div>
-                <div class="success-subtext">Signing you in...</div>
-                <div class="loading-spinner" id="loadingSpinner"></div>
-            </div>
-        </div>
-
         <!-- Phone Container -->
         <div class="phone Chewy" id="main-page">
+            <!-- Success Animation Overlay -->
+            <div class="success-animation" id="successOverlay">
+                <div class="success-content">
+                    <div class="success-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="success-text">Welcome Back!</div>
+                    <div class="success-subtext">Signing you in...</div>
+                    <div class="loading-spinner" id="loadingSpinner"></div>
+                </div>
+            </div>
+
             <!-- Phone Notch -->
             <div class="phone-notch"></div>
 
@@ -239,7 +270,7 @@
                                     <input type="checkbox" name="consent" id="consent" required>
                                     <span class="checkmark"></span>
                                     <span>I agree with our <a
-                                            href="https://jerrf010.github.io/Assignments/App%20Development/termsConditions.html"
+                                            href="termsConditions.html"
                                             class="terms-link"> Terms and Conditions</a></span>
                                 </label>
                             </div>
@@ -263,7 +294,8 @@
                             <h3>SIGN IN</h3>
                             <i class="fas fa-arrow-right button-arrow"></i>
                         </button>
-                        <p class="button-hint">Don't have an account? <a href="joinUs.html" class="signup-link">Sign up here</a></p>
+                        <p class="button-hint">Don't have an account? <a href="joinUs.html" class="signup-link">Sign up
+                                here</a></p>
                     </form>
                 </div>
 

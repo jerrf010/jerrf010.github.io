@@ -3,15 +3,477 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terms & Conditions -- App Development</title>
+    <title>Terms & Conditions -- Hey, Day</title>
     <link rel="icon" href="https://github.com/jerrf010/basic_html/blob/main/park_with_shades.png?raw=true" type="image/icon type">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Chewy&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Terms & Conditions - Enhanced Dashboard Style */
+        .terms-header {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 25px;
+            padding: 25px;
+            margin: 15px 0 25px 0;
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            animation: fadeIn 0.6s ease;
+        }
+
+        .terms-logo {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .terms-logo-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #86b499 0%, #6a9c7d 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .terms-title-container {
+            flex: 1;
+        }
+
+        .terms-main-title {
+            font-family: 'Chewy', cursive;
+            font-size: 36px;
+            color: #1a3c27;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            letter-spacing: 0.5px;
+        }
+
+        .terms-subtitle {
+            font-family: 'Nunito', sans-serif;
+            font-size: 16px;
+            color: #2d5a3d;
+            font-weight: 600;
+            opacity: 0.9;
+        }
+
+        .terms-intro {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 25px;
+            border-radius: 25px;
+            margin-bottom: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            animation: fadeIn 0.8s ease;
+        }
+
+        .terms-intro p {
+            font-family: 'Nunito', sans-serif;
+            font-size: 16px;
+            color: #2d5a3d;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .terms-intro strong {
+            color: #1a3c27;
+            font-weight: 700;
+        }
+
+        /* Enhanced Section Styling - Dashboard-like */
+        .tc-section {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 25px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+        }
+
+        .tc-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .tc-section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(34, 96, 78, 0.2);
+        }
+
+        .tc-section-number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #86b499 0%, #6a9c7d 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: 'Chewy', cursive;
+            font-size: 22px;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .tc-section-title {
+            font-family: 'Nunito', sans-serif;
+            font-size: 24px;
+            color: #1a3c27;
+            font-weight: 800;
+            margin: 0;
+        }
+
+        .tc-section-content {
+            padding: 0 5px;
+        }
+
+        .tc-subsection {
+            margin-bottom: 20px;
+        }
+
+        .tc-subsection:last-child {
+            margin-bottom: 0;
+        }
+
+        .tc-subsection-title {
+            font-family: 'Nunito', sans-serif;
+            font-size: 18px;
+            color: #2d5a3d;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tc-subsection-title i {
+            color: #22604e;
+            font-size: 16px;
+            width: 24px;
+        }
+
+        .tc-subsection-content {
+            font-family: 'Nunito', sans-serif;
+            font-size: 15px;
+            color: #2d5a3d;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .tc-terms-list {
+            list-style-type: none;
+            padding-left: 0;
+            margin-bottom: 15px;
+        }
+
+        .tc-terms-list li {
+            font-family: 'Nunito', sans-serif;
+            font-size: 15px;
+            color: #2d5a3d;
+            line-height: 1.6;
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .tc-terms-list li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #22604e;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        /* Dashboard-style Highlight Boxes */
+        .tc-highlight-box {
+            background: rgba(200, 255, 153, 0.2);
+            border: 2px solid rgba(34, 96, 78, 0.3);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px 0;
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+        }
+
+        .tc-highlight-box p {
+            font-family: 'Nunito', sans-serif;
+            font-size: 15px;
+            color: #1a3c27;
+            line-height: 1.6;
+            margin: 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .tc-highlight-box i {
+            color: #22604e;
+            font-size: 20px;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .tc-warning-box {
+            background: rgba(231, 76, 60, 0.1);
+            border: 2px solid rgba(231, 76, 60, 0.3);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px 0;
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+        }
+
+        .tc-warning-box p {
+            font-family: 'Nunito', sans-serif;
+            font-size: 15px;
+            color: #c0392b;
+            line-height: 1.6;
+            margin: 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .tc-warning-box i {
+            color: #e74c3c;
+            font-size: 20px;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        /* Contact Section - Dashboard Style */
+        .tc-contact-info {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 25px;
+            padding: 25px;
+            margin: 20px 0;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            animation: fadeIn 0.6s ease;
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+        }
+
+        .tc-contact-title {
+            font-family: 'Chewy', cursive;
+            font-size: 28px;
+            color: #1a3c27;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .tc-contact-info p {
+            font-family: 'Nunito', sans-serif;
+            font-size: 15px;
+            color: #2d5a3d;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .tc-contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .tc-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(34, 96, 78, 0.1);
+        }
+
+        .tc-contact-item:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+            border-color: rgba(34, 96, 78, 0.3);
+        }
+
+        .tc-contact-item i {
+            color: #22604e;
+            font-size: 20px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .tc-contact-item span {
+            font-family: 'Nunito', sans-serif;
+            font-size: 15px;
+            color: #2d5a3d;
+            font-weight: 600;
+        }
+
+        /* Footer - Dashboard Style */
+        .tc-terms-footer {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 25px;
+            padding: 25px;
+            margin: 20px 0 100px 0;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            animation: fadeIn 0.6s ease;
+            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px);
+        }
+
+        .tc-terms-footer p {
+            font-family: 'Nunito', sans-serif;
+            font-size: 15px;
+            color: #2d5a3d;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .tc-last-updated {
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            color: #22604e;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        /* Back Button - Dashboard Style */
+        .tc-back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #86b499 0%, #6a9c7d 100%);
+            color: white;
+            text-decoration: none;
+            padding: 16px 32px;
+            border-radius: 25px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .tc-back-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #6a9c7d 0%, #5a8c6d 100%);
+        }
+
+        .tc-back-button i {
+            font-size: 18px;
+            transition: transform 0.3s ease;
+        }
+
+        .tc-back-button:hover i {
+            transform: translateX(-3px);
+        }
+
+        /* Scroll Content Area */
+        .terms-scroll-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0 30px 30px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .terms-main-title {
+                font-size: 30px;
+            }
+
+            .terms-logo {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+
+            .terms-logo-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 28px;
+            }
+
+            .tc-section-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+
+            .tc-section-title {
+                font-size: 22px;
+            }
+
+            .tc-contact-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+                padding: 12px;
+            }
+
+            .tc-contact-item i {
+                font-size: 24px;
+            }
+
+            .terms-intro,
+            .tc-section,
+            .tc-contact-info,
+            .tc-terms-footer {
+                padding: 20px;
+            }
+
+            .tc-back-button {
+                width: 100%;
+                justify-content: center;
+                padding: 14px 20px;
+            }
+            
+            .terms-scroll-content {
+                padding: 0 20px 25px;
+            }
+            
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
 </head>
-<body class="terms-page">
+<body>
     <div class="container">
         <!-- Decorative Elements -->
         <div class="cloud cloud-1"></div>
@@ -59,37 +521,46 @@
                     </div>
 
                     <!-- Section 1 -->
-                    <div class="terms-section">
-                        <div class="section-header">
-                            <div class="section-number">1</div>
-                            <h2 class="section-title">Acceptance of Terms</h2>
+                    <div class="tc-section">
+                        <div class="tc-section-header">
+                            <div class="tc-section-number">1</div>
+                            <h2 class="tc-section-title">Acceptance of Terms</h2>
                         </div>
-                        <div class="section-content">
-                            <div class="subsection">
-                                <h3 class="subsection-title">Agreement to Terms</h3>
-                                <p class="subsection-content">By downloading, installing, or using Hey, Day, you confirm that you accept these Terms and Conditions and that you agree to comply with them. If you do not agree to these terms, you must not use our application.</p>
+                        <div class="tc-section-content">
+                            <div class="tc-subsection">
+                                <h3 class="tc-subsection-title">
+                                    <i class="fas fa-check-circle"></i>
+                                    Agreement to Terms
+                                </h3>
+                                <p class="tc-subsection-content">By downloading, installing, or using Hey, Day, you confirm that you accept these Terms and Conditions and that you agree to comply with them. If you do not agree to these terms, you must not use our application.</p>
                             </div>
-                            <div class="subsection">
-                                <h3 class="subsection-title">Eligibility Requirements</h3>
-                                <p class="subsection-content">You must be at least 13 years of age to use Hey, Day. If you are under 18, you confirm that you have obtained parental or guardian consent to use the application and agree to these terms.</p>
+                            <div class="tc-subsection">
+                                <h3 class="tc-subsection-title">
+                                    <i class="fas fa-user-check"></i>
+                                    Eligibility Requirements
+                                </h3>
+                                <p class="tc-subsection-content">You must be at least 13 years of age to use Hey, Day. If you are under 18, you confirm that you have obtained parental or guardian consent to use the application and agree to these terms.</p>
                             </div>
-                            <div class="highlight-box">
+                            <div class="tc-highlight-box">
                                 <p><i class="fas fa-info-circle"></i> <strong>Important:</strong> Continued use of Hey, Day after any changes to these terms constitutes acceptance of those changes.</p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Section 2 -->
-                    <div class="terms-section">
-                        <div class="section-header">
-                            <div class="section-number">2</div>
-                            <h2 class="section-title">Account Responsibilities</h2>
+                    <div class="tc-section">
+                        <div class="tc-section-header">
+                            <div class="tc-section-number">2</div>
+                            <h2 class="tc-section-title">Account Responsibilities</h2>
                         </div>
-                        <div class="section-content">
-                            <div class="subsection">
-                                <h3 class="subsection-title">Account Creation & Security</h3>
-                                <p class="subsection-content">To access certain features of Hey, Day, you must create an account. You agree to:</p>
-                                <ul class="terms-list">
+                        <div class="tc-section-content">
+                            <div class="tc-subsection">
+                                <h3 class="tc-subsection-title">
+                                    <i class="fas fa-user-shield"></i>
+                                    Account Creation & Security
+                                </h3>
+                                <p class="tc-subsection-content">To access certain features of Hey, Day, you must create an account. You agree to:</p>
+                                <ul class="tc-terms-list">
                                     <li>Provide accurate, current, and complete information during registration</li>
                                     <li>Maintain and promptly update your account information</li>
                                     <li>Maintain the confidentiality of your password and account</li>
@@ -97,10 +568,13 @@
                                     <li>Accept responsibility for all activities that occur under your account</li>
                                 </ul>
                             </div>
-                            <div class="subsection">
-                                <h3 class="subsection-title">Prohibited Activities</h3>
-                                <p class="subsection-content">You agree not to:</p>
-                                <ul class="terms-list">
+                            <div class="tc-subsection">
+                                <h3 class="tc-subsection-title">
+                                    <i class="fas fa-ban"></i>
+                                    Prohibited Activities
+                                </h3>
+                                <p class="tc-subsection-content">You agree not to:</p>
+                                <ul class="tc-terms-list">
                                     <li>Use Hey, Day for any illegal purpose or in violation of any laws</li>
                                     <li>Harass, abuse, or harm another person through the application</li>
                                     <li>Attempt to gain unauthorized access to other users' accounts</li>
@@ -112,61 +586,73 @@
                     </div>
 
                     <!-- Section 3 -->
-                    <div class="terms-section">
-                        <div class="section-header">
-                            <div class="section-number">3</div>
-                            <h2 class="section-title">Privacy & Data Protection</h2>
+                    <div class="tc-section">
+                        <div class="tc-section-header">
+                            <div class="tc-section-number">3</div>
+                            <h2 class="tc-section-title">Privacy & Data Protection</h2>
                         </div>
-                        <div class="section-content">
-                            <div class="subsection">
-                                <h3 class="subsection-title">Data Collection</h3>
-                                <p class="subsection-content">Hey, Day collects and processes personal data in accordance with our Privacy Policy. We collect:</p>
-                                <ul class="terms-list">
+                        <div class="tc-section-content">
+                            <div class="tc-subsection">
+                                <h3 class="tc-subsection-title">
+                                    <i class="fas fa-database"></i>
+                                    Data Collection
+                                </h3>
+                                <p class="tc-subsection-content">Hey, Day collects and processes personal data in accordance with our Privacy Policy. We collect:</p>
+                                <ul class="tc-terms-list">
                                     <li>Account information (username, email)</li>
                                     <li>Wellness data (mood entries, journal entries, meditation logs)</li>
                                     <li>Device information and usage statistics</li>
                                     <li>Optional demographic information for personalized content</li>
                                 </ul>
                             </div>
-                            <div class="subsection">
-                                <h3 class="subsection-title">Data Security</h3>
-                                <p class="subsection-content">We implement industry-standard security measures to protect your data, including:</p>
-                                <ul class="terms-list">
+                            <div class="tc-subsection">
+                                <h3 class="tc-subsection-title">
+                                    <i class="fas fa-shield-alt"></i>
+                                    Data Security
+                                </h3>
+                                <p class="tc-subsection-content">We implement industry-standard security measures to protect your data, including:</p>
+                                <ul class="tc-terms-list">
                                     <li>End-to-end encryption for sensitive wellness data</li>
                                     <li>Secure servers with regular security audits</li>
                                     <li>Regular backups and disaster recovery procedures</li>
                                     <li>Compliance with data protection regulations (GDPR, CCPA)</li>
                                 </ul>
                             </div>
-                            <div class="highlight-box">
-                                <p><i class="fas fa-shield-alt"></i> <strong>Your Privacy Rights:</strong> You have the right to access, correct, or delete your personal data at any time through your account settings or by contacting us.</p>
+                            <div class="tc-highlight-box">
+                                <p><i class="fas fa-user-cog"></i> <strong>Your Privacy Rights:</strong> You have the right to access, correct, or delete your personal data at any time through your account settings or by contacting us.</p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Section 4 -->
-                    <div class="terms-section">
-                        <div class="section-header">
-                            <div class="section-number">4</div>
-                            <h2 class="section-title">Intellectual Property Rights</h2>
+                    <div class="tc-section">
+                        <div class="tc-section-header">
+                            <div class="tc-section-number">4</div>
+                            <h2 class="tc-section-title">Intellectual Property Rights</h2>
                         </div>
-                        <div class="section-content">
-                            <div class="subsection">
-                                <h3 class="subsection-title">Ownership</h3>
-                                <p class="subsection-content">All intellectual property rights in Hey, Day, including but not limited to:</p>
-                                <ul class="terms-list">
+                        <div class="tc-section-content">
+                            <div class="tc-subsection">
+                                <h3 class="tc-subsection-title">
+                                    <i class="fas fa-copyright"></i>
+                                    Ownership
+                                </h3>
+                                <p class="tc-subsection-content">All intellectual property rights in Hey, Day, including but not limited to:</p>
+                                <ul class="tc-terms-list">
                                     <li>Application design, interface, and layout</li>
                                     <li>Proprietary algorithms and wellness methodologies</li>
                                     <li>Meditation scripts, breathing exercises, and guided content</li>
                                     <li>Logos, trademarks, and branding materials</li>
                                     <li>Documentation and educational materials</li>
                                 </ul>
-                                <p class="subsection-content">are owned by or licensed to us and are protected by copyright, trademark, and other intellectual property laws.</p>
+                                <p class="tc-subsection-content">are owned by or licensed to us and are protected by copyright, trademark, and other intellectual property laws.</p>
                             </div>
-                            <div class="subsection">
-                                <h3 class="subsection-title">User Content License</h3>
-                                <p class="subsection-content">By submitting content to Hey, Day (journal entries, mood data, etc.), you grant us a non-exclusive, worldwide, royalty-free license to:</p>
-                                <ul class="terms-list">
+                            <div class="tc-subsection">
+                                <h3 class="tc-subsection-title">
+                                    <i class="fas fa-file-upload"></i>
+                                    User Content License
+                                </h3>
+                                <p class="tc-subsection-content">By submitting content to Hey, Day (journal entries, mood data, etc.), you grant us a non-exclusive, worldwide, royalty-free license to:</p>
+                                <ul class="tc-terms-list">
                                     <li>Store, process, and display your content within the application</li>
                                     <li>Use anonymized, aggregated data for research and improvement</li>
                                     <li>Generate personalized insights and recommendations</li>
@@ -176,30 +662,36 @@
                     </div>
 
                     <!-- Section 5 -->
-                    <div class="terms-section">
-                        <div class="section-header">
-                            <div class="section-number">5</div>
-                            <h2 class="section-title">Health Disclaimer & Limitation of Liability</h2>
+                    <div class="tc-section">
+                        <div class="tc-section-header">
+                            <div class="tc-section-number">5</div>
+                            <h2 class="tc-section-title">Health Disclaimer & Limitation of Liability</h2>
                         </div>
-                        <div class="section-content">
-                            <div class="warning-box">
+                        <div class="tc-section-content">
+                            <div class="tc-warning-box">
                                 <p><i class="fas fa-exclamation-triangle"></i> <strong>Important Disclaimer:</strong> Hey, Day is designed as a wellness companion tool and is not a substitute for professional medical advice, diagnosis, or treatment.</p>
                             </div>
-                            <div class="subsection">
-                                <h3 class="subsection-title">Medical Disclaimer</h3>
-                                <p class="subsection-content">The application provides:</p>
-                                <ul class="terms-list">
+                            <div class="tc-subsection">
+                                <h3 class="tc-subsection-title">
+                                    <i class="fas fa-stethoscope"></i>
+                                    Medical Disclaimer
+                                </h3>
+                                <p class="tc-subsection-content">The application provides:</p>
+                                <ul class="tc-terms-list">
                                     <li>Tools for mood tracking and self-reflection</li>
                                     <li>Guided meditation and breathing exercises</li>
                                     <li>Educational content about mental wellness</li>
                                     <li>Community support features</li>
                                 </ul>
-                                <p class="subsection-content">However, it does not provide medical or psychological services. Always seek the advice of qualified health providers with any questions regarding medical conditions.</p>
+                                <p class="tc-subsection-content">However, it does not provide medical or psychological services. Always seek the advice of qualified health providers with any questions regarding medical conditions.</p>
                             </div>
-                            <div class="subsection">
-                                <h3 class="subsection-title">Limitation of Liability</h3>
-                                <p class="subsection-content">To the maximum extent permitted by law, we shall not be liable for:</p>
-                                <ul class="terms-list">
+                            <div class="tc-subsection">
+                                <h3 class="tc-subsection-title">
+                                    <i class="fas fa-balance-scale"></i>
+                                    Limitation of Liability
+                                </h3>
+                                <p class="tc-subsection-content">To the maximum extent permitted by law, we shall not be liable for:</p>
+                                <ul class="tc-terms-list">
                                     <li>Any indirect, incidental, or consequential damages</li>
                                     <li>Loss of data, profits, or business opportunities</li>
                                     <li>Damages resulting from reliance on the application's content</li>
@@ -211,50 +703,56 @@
                     </div>
 
                     <!-- Section 6 -->
-                    <div class="terms-section">
-                        <div class="section-header">
-                            <div class="section-number">6</div>
-                            <h2 class="section-title">Service Modifications & Termination</h2>
+                    <div class="tc-section">
+                        <div class="tc-section-header">
+                            <div class="tc-section-number">6</div>
+                            <h2 class="tc-section-title">Service Modifications & Termination</h2>
                         </div>
-                        <div class="section-content">
-                            <div class="subsection">
-                                <h3 class="subsection-title">Service Changes</h3>
-                                <p class="subsection-content">We reserve the right to:</p>
-                                <ul class="terms-list">
+                        <div class="tc-section-content">
+                            <div class="tc-subsection">
+                                <h3 class="tc-subsection-title">
+                                    <i class="fas fa-cogs"></i>
+                                    Service Changes
+                                </h3>
+                                <p class="tc-subsection-content">We reserve the right to:</p>
+                                <ul class="tc-terms-list">
                                     <li>Modify or discontinue any feature of Hey, Day at any time</li>
                                     <li>Change pricing for premium features with 30 days' notice</li>
                                     <li>Update these Terms and Conditions periodically</li>
                                     <li>Suspend or terminate service for maintenance or upgrades</li>
                                 </ul>
                             </div>
-                            <div class="subsection">
-                                <h3 class="subsection-title">Account Termination</h3>
-                                <p class="subsection-content">We may terminate or suspend your account if:</p>
-                                <ul class="terms-list">
+                            <div class="tc-subsection">
+                                <h3 class="tc-subsection-title">
+                                    <i class="fas fa-user-times"></i>
+                                    Account Termination
+                                </h3>
+                                <p class="tc-subsection-content">We may terminate or suspend your account if:</p>
+                                <ul class="tc-terms-list">
                                     <li>You violate these Terms and Conditions</li>
                                     <li>We suspect fraudulent or illegal activity</li>
                                     <li>Required to do so by law</li>
                                     <li>For prolonged inactivity (24 months or more)</li>
                                 </ul>
-                                <p class="subsection-content">Upon termination, you may request deletion of your personal data, which will be processed within 30 days.</p>
+                                <p class="tc-subsection-content">Upon termination, you may request deletion of your personal data, which will be processed within 30 days.</p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Contact Information -->
-                    <div class="contact-info">
-                        <h3 class="contact-title">Questions & Support</h3>
+                    <div class="tc-contact-info">
+                        <h3 class="tc-contact-title">Questions & Support</h3>
                         <p>If you have any questions about these Terms and Conditions, please contact us:</p>
-                        <div class="contact-details">
-                            <div class="contact-item">
+                        <div class="tc-contact-details">
+                            <div class="tc-contact-item">
                                 <i class="fas fa-envelope"></i>
                                 <span>legal@heydaywellness.com</span>
                             </div>
-                            <div class="contact-item">
+                            <div class="tc-contact-item">
                                 <i class="fas fa-phone"></i>
                                 <span>+1 (800) 123-4567</span>
                             </div>
-                            <div class="contact-item">
+                            <div class="tc-contact-item">
                                 <i class="fas fa-map-marker-alt"></i>
                                 <span>123 Wellness Street, Mindful City</span>
                             </div>
@@ -262,10 +760,10 @@
                     </div>
 
                     <!-- Footer -->
-                    <div class="terms-footer">
-                        <p class="last-updated">Last Updated: January 13, 2024</p>
+                    <div class="tc-terms-footer">
+                        <p class="tc-last-updated">Last Updated: January 13, 2024</p>
                         <p>By using Hey, Day, you acknowledge that you have read, understood, and agree to be bound by these Terms and Conditions.</p>
-                        <a href="javascript:history.back()" class="back-button">
+                        <a href="javascript:history.back()" class="tc-back-button">
                             <i class="fas fa-arrow-left"></i> Back to Application
                         </a>
                     </div>
@@ -280,12 +778,13 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Fade in sections on scroll
-            const termsSections = document.querySelectorAll('.terms-section, .contact-info');
+            const termsSections = document.querySelectorAll('.tc-section');
             
             const fadeInObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
+                        fadeInObserver.unobserve(entry.target);
                     }
                 });
             }, {
@@ -299,7 +798,7 @@
 
             // Update current year in footer
             const currentYear = new Date().getFullYear();
-            const lastUpdated = document.querySelector('.last-updated');
+            const lastUpdated = document.querySelector('.tc-last-updated');
             if (lastUpdated) {
                 lastUpdated.textContent = `Last Updated: January 13, ${currentYear}`;
             }
@@ -317,6 +816,27 @@
                     }
                 });
             });
+
+            // Add animation styles
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes fadeIn {
+                    from { opacity: 0; }
+                    to { opacity: 1; }
+                }
+                
+                @keyframes slideUp {
+                    from {
+                        transform: translateY(30px);
+                        opacity: 0;
+                    }
+                    to {
+                        transform: translateY(0);
+                        opacity: 1;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
         });
     </script>
 </body>

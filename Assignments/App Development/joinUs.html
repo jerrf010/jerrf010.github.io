@@ -234,6 +234,10 @@
                 transform: rotate(360deg);
             }
         }
+
+        .terms-link {
+            font-family: 'Nunito', sans-serif;
+        }
     </style>
 </head>
 
@@ -361,20 +365,18 @@
                         <!-- Terms and Conditions -->
                         <div class="terms-section">
                             <div class="terms-box">
-                                <div class="terms-line">
-                                    <label class="terms-label">
-                                        <input type="checkbox" name="terms" id="terms" required>
-                                        <span class="checkmark"></span>
-                                        <span class="consent-text">I consent to agree with our</span>
-                                    </label>
-                                    <a href="https://jerrf010.github.io/Assignments/App%20Development/termsConditions.html"
-                                        class="terms-link">Terms and Conditions
-                                    </a>
-                                </div>
-                                <div class="error-message" id="termsError" style="margin-top: 10px;">You must agree to
-                                    the terms</div>
+                                <label class="terms-label">
+                                    <input type="checkbox" name="consent" id="consent" required>
+                                    <span class="checkmark"></span>
+                                    <span>I agree with our <a
+                                            href="termsConditions.html"
+                                            class="terms-link"> Terms and Conditions</a></span>
+                                </label>
                             </div>
+                            <p class="terms-note"><i class="fas fa-lock"></i> Your data is private and secure</p>
                         </div>
+                        <div class="error-message" id="termsError">You must agree to the terms and conditions</div>
+                        
                         <!-- Mood Tracker -->
                         <div class="mood-tracker">
                             <label class="mood-label">How are you feeling?</label>
@@ -403,7 +405,7 @@
                     <p class="tagline">Breathe in peace</p>
                     <div class="footer-links">
                         <a
-                            href="https://jerrf010.github.io/Assignments/App%20Development/TermsAndConditions/index.html">
+                            href="termsConditions.html">
                             <i class="fas fa-book"></i> Read our Terms
                         </a>
                     </div>

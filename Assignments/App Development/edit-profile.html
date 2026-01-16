@@ -14,6 +14,7 @@
         href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Chewy&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Oswald:wght@200..700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="userDatabase.js"></script>
     <style>
         /* Edit Profile Specific Styles */
         .edit-profile-header {
@@ -427,7 +428,7 @@
             border-radius: 20px;
             font-family: 'Nunito', sans-serif;
             font-size: 16px;
-            color: #e74c3c;
+            color: #c04b3f;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -519,6 +520,7 @@
                 opacity: 0;
                 transform: translateY(20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -531,11 +533,108 @@
         }
 
         /* Animation delay utility classes (use instead of inline styles) */
-        .fade-delay-100 { animation-delay: 0.1s; }
-        .fade-delay-200 { animation-delay: 0.2s; }
-        .fade-delay-300 { animation-delay: 0.3s; }
-        .fade-delay-400 { animation-delay: 0.4s; }
-        .fade-delay-500 { animation-delay: 0.5s; }
+        .fade-delay-100 {
+            animation-delay: 0.1s;
+        }
+
+        .fade-delay-200 {
+            animation-delay: 0.2s;
+        }
+
+        .fade-delay-300 {
+            animation-delay: 0.3s;
+        }
+
+        .fade-delay-400 {
+            animation-delay: 0.4s;
+        }
+
+        .fade-delay-500 {
+            animation-delay: 0.5s;
+        }
+
+        /* New animations for styled prompts */
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+
+            to {
+                opacity: 0;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Responsive adjustments for prompts */
+        @media (max-width: 600px) {
+            .styled-prompt-content {
+                padding: 25px !important;
+                max-width: 320px !important;
+                width: 90% !important;
+            }
+
+            .styled-prompt-title {
+                font-size: 22px !important;
+            }
+
+            .styled-prompt-message {
+                font-size: 15px !important;
+                margin-bottom: 20px !important;
+            }
+
+            .styled-prompt-buttons {
+                flex-direction: column !important;
+                gap: 12px !important;
+            }
+
+            .styled-prompt-btn {
+                padding: 14px 20px !important;
+                font-size: 15px !important;
+            }
+        }
 
         /* App Content Adjustments */
         .app-content {
@@ -671,17 +770,15 @@
                 <!-- Form Section -->
                 <form id="editProfileForm" class="form-section fade-in fade-delay-200">
                     <div class="form-title">Personal Information</div>
-                    
+
                     <div class="edit-form">
                         <div class="form-group">
                             <label class="form-label">
                                 <i class="fas fa-user"></i>
                                 Full Name
                             </label>
-                            <input type="text" class="form-input" id="fullName" 
-                                   placeholder="Enter your full name" 
-                                   value="Joe!!" 
-                                   required>
+                            <input type="text" class="form-input" id="fullName" placeholder="Enter your full name"
+                                value="Joe!!" required>
                             <div class="form-help">
                                 <i class="fas fa-info-circle"></i>
                                 This is how your name will appear in the app
@@ -694,10 +791,8 @@
                                 Email Address
                             </label>
                             <div class="input-with-button">
-                                <input type="email" class="form-input" id="email" 
-                                       placeholder="you@example.com" 
-                                       value="joe@example.com" 
-                                       required>
+                                <input type="email" class="form-input" id="email" placeholder="you@example.com"
+                                    value="joe@example.com" required>
                                 <button type="button" class="verify-button" id="verifyEmailBtn">
                                     Verify
                                 </button>
@@ -713,9 +808,7 @@
                                 <i class="fas fa-phone"></i>
                                 Phone Number
                             </label>
-                            <input type="tel" class="form-input" id="phone" 
-                                   placeholder="(123) 456-7890"
-                                   value="">
+                            <input type="tel" class="form-input" id="phone" placeholder="(123) 456-7890" value="">
                         </div>
 
                         <div class="form-group">
@@ -723,8 +816,8 @@
                                 <i class="fas fa-calendar"></i>
                                 Date of Birth
                             </label>
-                            <input type="date" class="form-input" id="birthDate" title="Date of birth" 
-                                   value="1990-01-01">
+                            <input type="date" class="form-input" id="birthDate" title="Date of birth"
+                                value="1990-01-01">
                         </div>
 
                         <div class="form-group">
@@ -746,9 +839,7 @@
                                 <i class="fas fa-map-marker-alt"></i>
                                 Location
                             </label>
-                            <input type="text" class="form-input" id="location" 
-                                   placeholder="City, Country"
-                                   value="">
+                            <input type="text" class="form-input" id="location" placeholder="City, Country" value="">
                         </div>
 
                         <div class="form-group">
@@ -756,9 +847,8 @@
                                 <i class="fas fa-quote-left"></i>
                                 Bio / About Me
                             </label>
-                            <textarea class="form-textarea" id="bio" 
-                                      placeholder="Tell us a little about yourself..."
-                                      rows="4">Wellness enthusiast and mindfulness practitioner. Love meditation and nature walks!</textarea>
+                            <textarea class="form-textarea" id="bio" placeholder="Tell us a little about yourself..."
+                                rows="4">Wellness enthusiast and mindfulness practitioner. Love meditation and nature walks!</textarea>
                             <div class="form-help">
                                 <i class="fas fa-info-circle"></i>
                                 Maximum 500 characters
@@ -775,7 +865,8 @@
                         Local Account
                     </div>
                     <div class="account-type-info" id="accountTypeInfo">
-                        Your account is stored locally on this device. You can connect a Google account for cloud backup and easier sign-in.
+                        Your account is stored locally on this device. You can connect a Google account for cloud backup
+                        and easier sign-in.
                     </div>
                     <button class="action-button secondary" id="manageAccountBtn">
                         <i class="fab fa-google"></i>
@@ -816,64 +907,27 @@
         </div>
     </div>
 
-    <!-- Script -->
     <script>
-        // User Database Class
-        (function () {
-            if (typeof window.UserDatabase === 'undefined') {
-                window.UserDatabase = class {
-                    constructor() {
-                        this.key = 'heyday_users';
-                        this.currentUserKey = 'heyday_current_user';
-                        this.googleUserKey = 'heyday_google_user';
-                    }
-
-                    getCurrentUser() {
-                        const user = localStorage.getItem(this.currentUserKey);
-                        return user ? JSON.parse(user) : null;
-                    }
-
-                    isLoggedIn() {
-                        return localStorage.getItem('heyday_logged_in') === 'true';
-                    }
-
-                    updateCurrentUser(updatedData) {
-                        const currentUser = this.getCurrentUser();
-                        if (!currentUser) return false;
-
-                        // Update user data
-                        const updatedUser = { ...currentUser, ...updatedData };
-                        
-                        // Update all users array
-                        const users = JSON.parse(localStorage.getItem(this.key) || '[]');
-                        const userIndex = users.findIndex(u => u.id === currentUser.id);
-                        
-                        if (userIndex !== -1) {
-                            users[userIndex] = { ...users[userIndex], ...updatedData };
-                            localStorage.setItem(this.key, JSON.stringify(users));
-                        }
-                        
-                        // Update current user in session
-                        localStorage.setItem(this.currentUserKey, JSON.stringify(updatedUser));
-                        
-                        return true;
-                    }
-
-                    getGoogleUser() {
-                        const user = localStorage.getItem(this.googleUserKey);
-                        return user ? JSON.parse(user) : null;
-                    }
-
-                    hasGoogleAccount() {
-                        const currentUser = this.getCurrentUser();
-                        return currentUser && currentUser.googleAccount;
-                    }
-                };
-            }
-        })();
-
+        // Wait for DOM and ensure UserDatabase is loaded
         document.addEventListener('DOMContentLoaded', function () {
-            const userDB = new window.UserDatabase();
+            // Ensure UserDatabase is loaded
+            if (typeof UserDatabase === 'undefined') {
+                console.error('UserDatabase class not found!');
+                // Try to load it dynamically
+                const script = document.createElement('script');
+                script.src = 'userDatabase.js';
+                script.onload = function () {
+                    console.log('UserDatabase loaded dynamically');
+                    initializeEditProfile();
+                };
+                document.head.appendChild(script);
+            } else {
+                initializeEditProfile();
+            }
+        });
+
+        function initializeEditProfile() {
+            const userDB = new UserDatabase();
 
             // Check if user is logged in
             if (!userDB.isLoggedIn()) {
@@ -882,12 +936,32 @@
             }
 
             // Get current user
-            const currentUser = userDB.getCurrentUser();
+            let currentUser = userDB.getCurrentUser();
 
             if (!currentUser) {
                 window.location.href = 'login.html';
                 return;
             }
+
+            // Get fresh user data from database to ensure we have latest
+            const allUsers = userDB.getAllUsers();
+            const userInDb = allUsers.find(u => u.id === currentUser.id);
+
+            // Use database user data if available
+            if (userInDb) {
+                currentUser = { ...currentUser, ...userInDb };
+            }
+
+            console.log('Current user for edit profile:', currentUser);
+
+            /* ---------- DEBUG: Check user data ---------- */
+            console.log('=== EDIT PROFILE DEBUG ===');
+            console.log('Current user:', currentUser);
+            console.log('Current user avatar exists:', !!currentUser.avatar);
+            console.log('User ID:', currentUser.id);
+            console.log('User in database:', userInDb);
+            console.log('User avatar in database:', userInDb ? !!userInDb.avatar : 'Not found');
+            console.log('=== END DEBUG ===');
 
             /* ---------- INITIALIZE FORM WITH USER DATA ---------- */
             function initializeForm() {
@@ -908,18 +982,29 @@
             }
 
             function updateAvatarPreview() {
+                console.log('Updating avatar preview...');
+                console.log('Current user avatar:', currentUser.avatar ? 'Has avatar' : 'No avatar');
+
                 const avatarPreview = document.getElementById('avatarPreview');
                 const avatarText = document.getElementById('avatarText');
                 const avatarImage = document.getElementById('avatarImage');
-                const hasGoogleAccount = userDB.hasGoogleAccount();
-                const googleUser = userDB.getGoogleUser();
 
-                if (hasGoogleAccount || googleUser) {
+                // Check for Google user
+                const googleUser = localStorage.getItem('heyday_google_user');
+                const hasGoogleAccount = googleUser || currentUser.googleAccount;
+
+                if (hasGoogleAccount) {
                     // Google account
-                    const googleData = currentUser.googleAccount || googleUser;
+                    let googleData;
+                    try {
+                        googleData = googleUser ? JSON.parse(googleUser) : currentUser.googleAccount;
+                    } catch (e) {
+                        googleData = currentUser.googleAccount || {};
+                    }
+
                     avatarText.style.display = 'none';
                     avatarImage.style.display = 'block';
-                    
+
                     if (googleData.picture) {
                         avatarImage.src = googleData.picture;
                     } else {
@@ -927,28 +1012,40 @@
                         const name = googleData.name || currentUser.name || 'User';
                         avatarImage.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=4285F4&color=fff&size=150&bold=true`;
                     }
-                    
+
                     avatarPreview.classList.add('has-google');
-                } else if (currentUser.avatar) {
-                    // Custom avatar
-                    avatarText.style.display = 'none';
-                    avatarImage.style.display = 'block';
-                    avatarImage.src = currentUser.avatar;
-                    avatarPreview.classList.remove('has-google');
+                    console.log('Showing Google avatar');
                 } else {
-                    // Initial avatar
-                    const name = currentUser.name || currentUser.username || 'User';
-                    avatarText.textContent = name.charAt(0).toUpperCase();
-                    avatarText.style.display = 'block';
-                    avatarImage.style.display = 'none';
-                    avatarPreview.classList.remove('has-google');
+                    // Check for custom avatar
+                    const avatar = currentUser.avatar;
+                    console.log('User avatar:', !!avatar);
+
+                    if (avatar) {
+                        // Custom avatar
+                        avatarText.style.display = 'none';
+                        avatarImage.style.display = 'block';
+                        avatarImage.src = avatar;
+                        avatarPreview.classList.remove('has-google');
+                        console.log('Showing custom avatar');
+                    } else {
+                        // Initial avatar from name
+                        const name = currentUser.name || currentUser.username || 'User';
+                        avatarText.textContent = name.charAt(0).toUpperCase();
+                        avatarText.style.display = 'block';
+                        avatarImage.style.display = 'none';
+                        avatarPreview.classList.remove('has-google');
+                        console.log('Showing initial avatar from name');
+                    }
                 }
             }
 
             function updateAccountTypeInfo() {
                 const accountTypeBadge = document.getElementById('accountTypeBadge');
                 const accountTypeInfo = document.getElementById('accountTypeInfo');
-                const hasGoogleAccount = userDB.hasGoogleAccount();
+
+                // Check for Google user
+                const googleUser = localStorage.getItem('heyday_google_user');
+                const hasGoogleAccount = googleUser || currentUser.googleAccount;
 
                 if (hasGoogleAccount) {
                     accountTypeBadge.innerHTML = '<i class="fab fa-google"></i> Google Account';
@@ -968,90 +1065,351 @@
             const avatarPreview = document.getElementById('avatarPreview');
             const uploadAvatarBtn = document.getElementById('uploadAvatarBtn');
             const removeAvatarBtn = document.getElementById('removeAvatarBtn');
+            const phoneContainer = document.querySelector('.phone');
 
             // Avatar preview click (opens file picker)
-            avatarPreview.addEventListener('click', function() {
+            avatarPreview.addEventListener('click', function () {
                 const input = document.createElement('input');
                 input.type = 'file';
                 input.accept = 'image/*';
-                
-                input.onchange = function(e) {
+
+                input.onchange = function (e) {
                     const file = e.target.files[0];
                     if (file) {
+                        // Check file size (limit to 2MB)
+                        if (file.size > 2 * 1024 * 1024) {
+                            showFeedback('Image size should be less than 2MB', 'error');
+                            return;
+                        }
+
                         // Read the file as data URL
                         const reader = new FileReader();
-                        reader.onload = function(e) {
-                            // Save to localStorage
-                            currentUser.avatar = e.target.result;
-                            userDB.updateCurrentUser({ avatar: e.target.result });
-                            
+                        reader.onload = function (e) {
+                            const avatarDataUrl = e.target.result;
+                            console.log('Avatar data URL length:', avatarDataUrl.length);
+
+                            // Update user avatar in database
+                            userDB.updateAvatar(currentUser.id, avatarDataUrl);
+
+                            // Update current user object
+                            currentUser.avatar = avatarDataUrl;
+
+                            // Update localStorage current user
+                            const { password, ...safeUser } = currentUser;
+                            localStorage.setItem('heyday_current_user', JSON.stringify(safeUser));
+
                             // Update preview
                             updateAvatarPreview();
-                            
+
                             // Show success message
                             showFeedback('Profile picture updated successfully!', 'success');
+                        };
+                        reader.onloaderror = function (e) {
+                            console.error('Error reading file:', e);
+                            showFeedback('Error reading image file', 'error');
                         };
                         reader.readAsDataURL(file);
                     }
                 };
-                
+
                 input.click();
             });
 
             // Upload button
-            uploadAvatarBtn.addEventListener('click', function() {
-                avatarPreview.click();
-            });
+            if (uploadAvatarBtn) {
+                uploadAvatarBtn.addEventListener('click', function () {
+                    avatarPreview.click();
+                });
+            }
 
-            // Remove avatar button
-            removeAvatarBtn.addEventListener('click', function() {
-                if (confirm('Are you sure you want to remove your profile picture?')) {
-                    // Remove avatar from user data
-                    delete currentUser.avatar;
-                    userDB.updateCurrentUser({ avatar: null });
-                    
-                    // Update preview
-                    updateAvatarPreview();
-                    
-                    // Show success message
-                    showFeedback('Profile picture removed.', 'info');
+            // Show a styled prompt within the phone container
+            function showStyledPrompt(type, title, message, options = {}) {
+                // Remove existing prompt if any
+                const existingPrompt = phoneContainer.querySelector('.styled-prompt');
+                if (existingPrompt) existingPrompt.remove();
+
+                // Create prompt overlay
+                const promptOverlay = document.createElement('div');
+                promptOverlay.className = 'styled-prompt';
+                promptOverlay.style.cssText = `
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.85);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+                animation: fadeIn 0.3s ease;
+                border-radius: 38px;
+            `;
+
+                // Create prompt content
+                const promptContent = document.createElement('div');
+                promptContent.className = 'styled-prompt-content';
+                promptContent.style.cssText = `
+                background: ${type === 'danger' ? 'rgba(255, 255, 255, 0.95)' : 'rgba(255, 255, 255, 0.95)'};
+                border-radius: 30px;
+                padding: 35px;
+                max-width: 380px;
+                width: 80%;
+                text-align: center;
+                border: ${type === 'danger' ? '3px solid rgba(231, 76, 60, 0.3)' : '3px solid rgba(52, 152, 219, 0.3)'};
+                box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+                -webkit-backdrop-filter: blur(20px);
+                backdrop-filter: blur(20px);
+                margin: 0 20px;
+                animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            `;
+
+                // Create icon
+                const icon = document.createElement('div');
+                icon.className = 'styled-prompt-icon';
+                icon.style.cssText = `
+                font-size: 60px;
+                margin-bottom: 20px;
+                color: ${type === 'danger' ? '#e74c3c' : '#3498db'};
+                animation: pulse 1.5s infinite;
+            `;
+                icon.innerHTML = type === 'danger' ? '<i class="fas fa-exclamation-triangle"></i>' : '<i class="fas fa-shield-alt"></i>';
+
+                // Create title
+                const titleEl = document.createElement('div');
+                titleEl.className = 'styled-prompt-title';
+                titleEl.style.cssText = `
+                font-family: 'Nunito', sans-serif;
+                font-size: 24px;
+                color: ${type === 'danger' ? '#c0392b' : '#2c3e50'};
+                font-weight: 800;
+                margin-bottom: 15px;
+                line-height: 1.3;
+            `;
+                titleEl.textContent = title;
+
+                // Create message
+                const messageEl = document.createElement('div');
+                messageEl.className = 'styled-prompt-message';
+                messageEl.style.cssText = `
+                font-family: 'Nunito', sans-serif;
+                font-size: 15px;
+                color: #2d5a3d;
+                margin-bottom: 25px;
+                line-height: 1.6;
+            `;
+                messageEl.innerHTML = message;
+
+                // Create input field if needed
+                let inputField = null;
+                if (options.requiresInput) {
+                    inputField = document.createElement('input');
+                    inputField.type = 'text';
+                    inputField.className = 'styled-prompt-input';
+                    inputField.style.cssText = `
+                    width: 100%;
+                    padding: 16px 18px;
+                    background: rgba(255, 255, 255, 0.9);
+                    border: 2px solid ${type === 'danger' ? 'rgba(231, 76, 60, 0.3)' : 'rgba(34, 96, 78, 0.3)'};
+                    border-radius: 18px;
+                    font-family: 'Nunito', sans-serif;
+                    font-size: 15px;
+                    color: #1a3c27;
+                    outline: none;
+                    transition: all 0.3s ease;
+                    margin-bottom: 20px;
+                    text-align: center;
+                `;
+                    inputField.placeholder = options.inputPlaceholder || 'Enter text...';
+                    if (options.inputType === 'password') {
+                        inputField.type = 'password';
+                    }
                 }
-            });
+
+                // Create buttons container
+                const buttonsContainer = document.createElement('div');
+                buttonsContainer.className = 'styled-prompt-buttons';
+                buttonsContainer.style.cssText = `
+                display: flex;
+                gap: 12px;
+                justify-content: center;
+            `;
+
+                // Create cancel button
+                const cancelButton = document.createElement('button');
+                cancelButton.className = 'styled-prompt-btn cancel';
+                cancelButton.style.cssText = `
+                padding: 14px 25px;
+                background: rgba(52, 152, 219, 0.1);
+                border: 2px solid rgba(52, 152, 219, 0.3);
+                border-radius: 18px;
+                font-family: 'Nunito', sans-serif;
+                font-size: 15px;
+                font-weight: 700;
+                color: #3498db;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                flex: 1;
+            `;
+                cancelButton.textContent = options.cancelText || 'Cancel';
+                cancelButton.onmouseenter = () => {
+                    cancelButton.style.background = 'rgba(52, 152, 219, 0.2)';
+                    cancelButton.style.transform = 'translateY(-2px)';
+                };
+                cancelButton.onmouseleave = () => {
+                    cancelButton.style.background = 'rgba(52, 152, 219, 0.1)';
+                    cancelButton.style.transform = 'translateY(0)';
+                };
+
+                // Create confirm button
+                const confirmButton = document.createElement('button');
+                confirmButton.className = 'styled-prompt-btn confirm';
+                confirmButton.style.cssText = `
+                padding: 14px 25px;
+                background: ${type === 'danger' ? 'linear-gradient(135deg, #e74c3c 0%, #c0392b 100%)' : 'linear-gradient(135deg, #86b499 0%, #6a9c7d 100%)'};
+                border: none;
+                border-radius: 18px;
+                font-family: 'Nunito', sans-serif;
+                font-size: 15px;
+                font-weight: 700;
+                color: white;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                flex: 1;
+                box-shadow: 0 5px 15px ${type === 'danger' ? 'rgba(231, 76, 60, 0.4)' : 'rgba(134, 180, 153, 0.4)'};
+            `;
+                confirmButton.textContent = options.confirmText || 'Confirm';
+                confirmButton.onmouseenter = () => {
+                    confirmButton.style.transform = 'translateY(-2px)';
+                    confirmButton.style.boxShadow = `0 8px 20px ${type === 'danger' ? 'rgba(231, 76, 60, 0.6)' : 'rgba(134, 180, 153, 0.6)'}`;
+                };
+                confirmButton.onmouseleave = () => {
+                    confirmButton.style.transform = 'translateY(0)';
+                    confirmButton.style.boxShadow = `0 5px 15px ${type === 'danger' ? 'rgba(231, 76, 60, 0.4)' : 'rgba(134, 180, 153, 0.4)'}`;
+                };
+
+                // Assemble the prompt
+                promptContent.appendChild(icon);
+                promptContent.appendChild(titleEl);
+                promptContent.appendChild(messageEl);
+                if (inputField) {
+                    promptContent.appendChild(inputField);
+                }
+                buttonsContainer.appendChild(cancelButton);
+                buttonsContainer.appendChild(confirmButton);
+                promptContent.appendChild(buttonsContainer);
+                promptOverlay.appendChild(promptContent);
+                phoneContainer.appendChild(promptOverlay);
+
+                // Focus input if exists
+                if (inputField) {
+                    setTimeout(() => inputField.focus(), 100);
+                }
+
+                // Return promise for async handling
+                return new Promise((resolve) => {
+                    cancelButton.onclick = () => {
+                        promptOverlay.style.animation = 'fadeOut 0.3s ease forwards';
+                        setTimeout(() => promptOverlay.remove(), 300);
+                        resolve(null);
+                    };
+
+                    confirmButton.onclick = () => {
+                        const value = inputField ? inputField.value.trim() : true;
+                        if (inputField && options.validateInput && !options.validateInput(value)) {
+                            inputField.style.borderColor = '#e74c3c';
+                            inputField.style.background = 'rgba(231, 76, 60, 0.05)';
+                            inputField.placeholder = options.errorMessage || 'Invalid input!';
+                            inputField.value = '';
+                            inputField.focus();
+                            return;
+                        }
+                        promptOverlay.style.animation = 'fadeOut 0.3s ease forwards';
+                        setTimeout(() => promptOverlay.remove(), 300);
+                        resolve(value);
+                    };
+
+                    // Close on overlay click
+                    promptOverlay.onclick = (e) => {
+                        if (e.target === promptOverlay) {
+                            promptOverlay.style.animation = 'fadeOut 0.3s ease forwards';
+                            setTimeout(() => promptOverlay.remove(), 300);
+                            resolve(null);
+                        }
+                    };
+                });
+            }
+
+            // Remove avatar button - Now using styled prompt
+            if (removeAvatarBtn) {
+                removeAvatarBtn.addEventListener('click', async function () {
+                    const result = await showStyledPrompt(
+                        'warning',
+                        'Remove Profile Picture',
+                        'Are you sure you want to remove your profile picture?<br><br>This will revert to using your initial avatar.',
+                        {
+                            requiresInput: false,
+                            cancelText: 'Keep Picture',
+                            confirmText: 'Remove Picture'
+                        }
+                    );
+
+                    if (result) {
+                        // Remove avatar from database
+                        userDB.removeAvatar(currentUser.id);
+
+                        // Update current user object
+                        delete currentUser.avatar;
+
+                        // Update localStorage current user
+                        const { password, ...safeUser } = currentUser;
+                        localStorage.setItem('heyday_current_user', JSON.stringify(safeUser));
+
+                        // Update preview
+                        updateAvatarPreview();
+
+                        // Show success message
+                        showFeedback('Profile picture removed.', 'info');
+                    }
+                });
+            }
 
             /* ---------- EMAIL VERIFICATION ---------- */
             const verifyEmailBtn = document.getElementById('verifyEmailBtn');
             const emailInput = document.getElementById('email');
 
-            verifyEmailBtn.addEventListener('click', function() {
-                const email = emailInput.value.trim();
-                
-                if (!email) {
-                    showFeedback('Please enter an email address first.', 'error');
-                    return;
-                }
-                
-                if (!isValidEmail(email)) {
-                    showFeedback('Please enter a valid email address.', 'error');
-                    return;
-                }
-                
-                // Simulate email verification
-                verifyEmailBtn.textContent = 'Sending...';
-                verifyEmailBtn.disabled = true;
-                
-                setTimeout(() => {
-                    verifyEmailBtn.textContent = 'Sent!';
-                    verifyEmailBtn.classList.add('verified');
-                    showFeedback('Verification email sent! Check your inbox.', 'success');
-                    
-                    // Reset button after 3 seconds
+            if (verifyEmailBtn) {
+                verifyEmailBtn.addEventListener('click', function () {
+                    const email = emailInput.value.trim();
+
+                    if (!email) {
+                        showFeedback('Please enter an email address first.', 'error');
+                        return;
+                    }
+
+                    if (!isValidEmail(email)) {
+                        showFeedback('Please enter a valid email address.', 'error');
+                        return;
+                    }
+
+                    // Simulate email verification
+                    verifyEmailBtn.textContent = 'Sending...';
+                    verifyEmailBtn.disabled = true;
+
                     setTimeout(() => {
-                        verifyEmailBtn.textContent = 'Verify';
-                        verifyEmailBtn.classList.remove('verified');
-                        verifyEmailBtn.disabled = false;
-                    }, 3000);
-                }, 1500);
-            });
+                        verifyEmailBtn.textContent = 'Sent!';
+                        verifyEmailBtn.classList.add('verified');
+                        showFeedback('Verification email sent! Check your inbox.', 'success');
+
+                        // Reset button after 3 seconds
+                        setTimeout(() => {
+                            verifyEmailBtn.textContent = 'Verify';
+                            verifyEmailBtn.classList.remove('verified');
+                            verifyEmailBtn.disabled = false;
+                        }, 3000);
+                    }, 1500);
+                });
+            }
 
             function isValidEmail(email) {
                 return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -1059,152 +1417,312 @@
 
             /* ---------- MANAGE GOOGLE CONNECTION ---------- */
             const manageAccountBtn = document.getElementById('manageAccountBtn');
-            
-            manageAccountBtn.addEventListener('click', function() {
-                const hasGoogleAccount = userDB.hasGoogleAccount();
-                
-                if (hasGoogleAccount) {
-                    // Disconnect Google
-                    if (confirm('Are you sure you want to disconnect your Google account? You can reconnect it anytime.')) {
-                        // Remove Google connection
-                        delete currentUser.googleAccount;
-                        userDB.updateCurrentUser({ googleAccount: null });
-                        
-                        // Update UI
-                        updateAvatarPreview();
-                        updateAccountTypeInfo();
-                        
-                        // Show success message
-                        showFeedback('Google account disconnected.', 'info');
-                    }
-                } else {
-                    // Connect Google (simulated)
-                    if (confirm('This will redirect you to Google to connect your account. Continue?')) {
-                        // Simulate Google connection
-                        showFeedback('Redirecting to Google...', 'info');
-                        
-                        setTimeout(() => {
-                            // Simulate successful connection
-                            const fakeGoogleData = {
-                                id: 'google_' + Math.random().toString(36).substr(2, 9),
-                                email: currentUser.email || 'user@gmail.com',
-                                name: currentUser.name || 'Google User',
-                                picture: `https://ui-avatars.com/api/?name=${encodeURIComponent(currentUser.name || 'User')}&background=4285F4&color=fff&size=150&bold=true`
-                            };
-                            
-                            currentUser.googleAccount = fakeGoogleData;
-                            userDB.updateCurrentUser({ googleAccount: fakeGoogleData });
-                            
+
+            if (manageAccountBtn) {
+                manageAccountBtn.addEventListener('click', async function () {
+                    const googleUser = localStorage.getItem('heyday_google_user');
+                    const hasGoogleAccount = googleUser || currentUser.googleAccount;
+
+                    if (hasGoogleAccount) {
+                        // Disconnect Google using styled prompt
+                        const result = await showStyledPrompt(
+                            'warning',
+                            'Disconnect Google Account',
+                            'Are you sure you want to disconnect your Google account?<br><br>You can reconnect it anytime.',
+                            {
+                                requiresInput: false,
+                                cancelText: 'Keep Connected',
+                                confirmText: 'Disconnect'
+                            }
+                        );
+
+                        if (result) {
+                            // Remove Google connection
+                            localStorage.removeItem('heyday_google_user');
+                            delete currentUser.googleAccount;
+                            userDB.updateCurrentUser({ googleAccount: null });
+
                             // Update UI
                             updateAvatarPreview();
                             updateAccountTypeInfo();
-                            
+
                             // Show success message
-                            showFeedback('Google account connected successfully!', 'success');
-                        }, 2000);
+                            showFeedback('Google account disconnected.', 'info');
+                        }
+                    } else {
+                        // Connect Google using styled prompt
+                        const result = await showStyledPrompt(
+                            'info',
+                            'Connect Google Account',
+                            'This will redirect you to Google to connect your account for cloud backup and easier sign-in.<br><br>Continue?',
+                            {
+                                requiresInput: false,
+                                cancelText: 'Cancel',
+                                confirmText: 'Connect Google'
+                            }
+                        );
+
+                        if (result) {
+                            // Simulate Google connection
+                            showFeedback('Redirecting to Google...', 'info');
+
+                            setTimeout(() => {
+                                // Simulate successful connection
+                                const fakeGoogleData = {
+                                    id: 'google_' + Math.random().toString(36).substr(2, 9),
+                                    email: currentUser.email || 'user@gmail.com',
+                                    name: currentUser.name || 'Google User',
+                                    picture: `https://ui-avatars.com/api/?name=${encodeURIComponent(currentUser.name || 'User')}&background=4285F4&color=fff&size=150&bold=true`
+                                };
+
+                                // Save Google user
+                                localStorage.setItem('heyday_google_user', JSON.stringify(fakeGoogleData));
+
+                                // Update user data
+                                currentUser.googleAccount = fakeGoogleData;
+                                userDB.updateCurrentUser({ googleAccount: fakeGoogleData });
+
+                                // Update UI
+                                updateAvatarPreview();
+                                updateAccountTypeInfo();
+
+                                // Show success message
+                                showFeedback('Google account connected successfully!', 'success');
+                            }, 2000);
+                        }
                     }
-                }
-            });
+                });
+            }
 
             /* ---------- DANGER ZONE ACTIONS ---------- */
             const changePasswordBtn = document.getElementById('changePasswordBtn');
             const deleteAccountBtn = document.getElementById('deleteAccountBtn');
 
             // Change Password
-            changePasswordBtn.addEventListener('click', function() {
-                const newPassword = prompt('Enter new password (min. 6 characters):', '');
-                
-                if (newPassword) {
-                    if (newPassword.length < 6) {
-                        showFeedback('Password must be at least 6 characters.', 'error');
-                        return;
-                    }
-                    
-                    // In a real app, you would update the password in the database
-                    showFeedback('Password changed successfully!', 'success');
-                }
-            });
+            if (changePasswordBtn) {
+                changePasswordBtn.addEventListener('click', async function () {
+                    const result = await showStyledPrompt(
+                        'warning',
+                        'Change Password',
+                        'Enter a new password. It must be at least 6 characters long.',
+                        {
+                            requiresInput: true,
+                            inputType: 'password',
+                            inputPlaceholder: 'Enter new password...',
+                            cancelText: 'Cancel',
+                            confirmText: 'Change Password',
+                            validateInput: (value) => value.length >= 6,
+                            errorMessage: 'Password must be at least 6 characters'
+                        }
+                    );
 
-            // Delete Account
-            deleteAccountBtn.addEventListener('click', function() {
-                const confirmation = prompt('Type "DELETE" to confirm account deletion:');
-                
-                if (confirmation === 'DELETE') {
-                    if (confirm('⚠️ WARNING: This will permanently delete your account and all data. This action cannot be undone. Are you absolutely sure?')) {
-                        // Simulate account deletion
-                        showFeedback('Deleting your account...', 'error');
-                        
+                    if (result) {
+                        // Simulate password change
+                        showFeedback('Password changed successfully!', 'success');
+
+                        // Show success animation within phone
+                        const successOverlay = document.createElement('div');
+                        successOverlay.style.cssText = `
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background: rgba(46, 204, 113, 0.95);
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        z-index: 1000;
+                        animation: fadeIn 0.3s ease;
+                        border-radius: 38px;
+                    `;
+
+                        const successContent = document.createElement('div');
+                        successContent.style.cssText = `
+                        text-align: center;
+                        color: white;
+                        padding: 30px;
+                    `;
+
+                        successContent.innerHTML = `
+                        <div style="font-size: 70px; margin-bottom: 20px; animation: bounce 1s ease infinite;">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div style="font-family: 'Chewy', cursive; font-size: 32px; margin-bottom: 15px;">
+                            Password Updated!
+                        </div>
+                        <div style="font-family: 'Nunito', sans-serif; font-size: 16px; opacity: 0.9;">
+                            Your password has been changed successfully
+                        </div>
+                    `;
+
+                        successOverlay.appendChild(successContent);
+                        phoneContainer.appendChild(successOverlay);
+
                         setTimeout(() => {
-                            // Log out and redirect
-                            userDB.logout();
-                            window.location.href = 'login.html';
+                            successOverlay.style.animation = 'fadeOut 0.3s ease forwards';
+                            setTimeout(() => successOverlay.remove(), 300);
                         }, 2000);
                     }
-                } else if (confirmation) {
-                    showFeedback('Incorrect confirmation text. Account deletion cancelled.', 'error');
-                }
-            });
+                });
+            }
+
+            // Delete Account
+            if (deleteAccountBtn) {
+                deleteAccountBtn.addEventListener('click', async function () {
+                    const result = await showStyledPrompt(
+                        'danger',
+                        '⚠️ Delete Account',
+                        'This action is <strong>permanent and irreversible</strong>. All your data will be deleted.<br><br>Type <strong>"DELETE"</strong> below to confirm:',
+                        {
+                            requiresInput: true,
+                            inputPlaceholder: 'Type DELETE to confirm...',
+                            cancelText: 'Keep Account',
+                            confirmText: 'Delete Forever',
+                            validateInput: (value) => value === 'DELETE',
+                            errorMessage: 'Must type exactly "DELETE"'
+                        }
+                    );
+
+                    if (result === 'DELETE') {
+                        // Second confirmation for extreme danger
+                        const finalResult = await showStyledPrompt(
+                            'danger',
+                            '⛔ FINAL WARNING',
+                            'Are you absolutely sure?<br><br><strong>This cannot be undone!</strong><br><br>All your data will be permanently lost.',
+                            {
+                                requiresInput: false,
+                                cancelText: 'Cancel - Keep My Data',
+                                confirmText: 'Yes, Delete Everything'
+                            }
+                        );
+
+                        if (finalResult) {
+                            // Show deleting animation within phone
+                            const deletingOverlay = document.createElement('div');
+                            deletingOverlay.style.cssText = `
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(231, 76, 60, 0.95);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+                animation: fadeIn 0.3s ease;
+                border-radius: 38px;
+            `;
+
+                            const deletingContent = document.createElement('div');
+                            deletingContent.style.cssText = `
+                text-align: center;
+                color: white;
+                padding: 30px;
+            `;
+
+                            deletingContent.innerHTML = `
+                <div style="font-size: 70px; margin-bottom: 20px; animation: spin 2s linear infinite;">
+                    <i class="fas fa-trash"></i>
+                </div>
+                <div style="font-family: 'Chewy', cursive; font-size: 32px; margin-bottom: 15px;">
+                    Deleting Account...
+                </div>
+                <div style="font-family: 'Nunito', sans-serif; font-size: 16px; opacity: 0.9;">
+                    Removing all your data
+                </div>
+            `;
+
+                            deletingOverlay.appendChild(deletingContent);
+                            phoneContainer.appendChild(deletingOverlay);
+
+                            showFeedback('Deleting your account...', 'error');
+
+                            setTimeout(() => {
+                                // Delete user account from database
+                                userDB.deleteUser(currentUser.id);
+
+                                // Redirect to login page
+                                window.location.href = 'login.html';
+                            }, 2000);
+                        }
+                    }
+                });
+            }
 
             /* ---------- FORM SUBMISSION ---------- */
             const editProfileForm = document.getElementById('editProfileForm');
             const saveChangesBtn = document.getElementById('saveChangesBtn');
 
-            editProfileForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // Collect form data
-                const formData = {
-                    name: document.getElementById('fullName').value.trim(),
-                    email: document.getElementById('email').value.trim(),
-                    phone: document.getElementById('phone').value.trim(),
-                    birthDate: document.getElementById('birthDate').value,
-                    gender: document.getElementById('gender').value,
-                    location: document.getElementById('location').value.trim(),
-                    bio: document.getElementById('bio').value.trim()
-                };
+            if (editProfileForm) {
+                editProfileForm.addEventListener('submit', function (e) {
+                    e.preventDefault();
 
-                // Validate required fields
-                if (!formData.name) {
-                    showFeedback('Please enter your name.', 'error');
-                    return;
-                }
+                    // Collect form data
+                    const formData = {
+                        name: document.getElementById('fullName').value.trim(),
+                        email: document.getElementById('email').value.trim(),
+                        phone: document.getElementById('phone').value.trim(),
+                        birthDate: document.getElementById('birthDate').value,
+                        gender: document.getElementById('gender').value,
+                        location: document.getElementById('location').value.trim(),
+                        bio: document.getElementById('bio').value.trim()
+                    };
 
-                if (!formData.email) {
-                    showFeedback('Please enter your email address.', 'error');
-                    return;
-                }
+                    // Validate required fields
+                    if (!formData.name) {
+                        showFeedback('Please enter your name.', 'error');
+                        return;
+                    }
 
-                if (!isValidEmail(formData.email)) {
-                    showFeedback('Please enter a valid email address.', 'error');
-                    return;
-                }
+                    if (!formData.email) {
+                        showFeedback('Please enter your email address.', 'error');
+                        return;
+                    }
 
-                // Show loading state
-                const originalText = saveChangesBtn.innerHTML;
-                saveChangesBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
-                saveChangesBtn.disabled = true;
+                    if (!isValidEmail(formData.email)) {
+                        showFeedback('Please enter a valid email address.', 'error');
+                        return;
+                    }
 
-                // Simulate API call
-                setTimeout(() => {
-                    // Update user data
-                    userDB.updateCurrentUser(formData);
-                    
+                    // Show loading state
+                    const originalText = saveChangesBtn.innerHTML;
+                    saveChangesBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+                    saveChangesBtn.disabled = true;
+
+                    // Preserve existing avatar
+                    if (currentUser.avatar) {
+                        formData.avatar = currentUser.avatar;
+                    }
+
+                    console.log('Form data to save:', formData);
+
+                    // Update user data using UserDatabase
+                    const success = userDB.updateCurrentUser(formData);
+                    console.log('UserDB update success:', success);
+
                     // Update current user object
                     Object.assign(currentUser, formData);
-                    
+
+                    // Also update localStorage directly
+                    const { password, ...safeUser } = currentUser;
+                    localStorage.setItem('heyday_current_user', JSON.stringify(safeUser));
+                    console.log('Updated localStorage');
+
                     // Reset button
                     saveChangesBtn.innerHTML = originalText;
                     saveChangesBtn.disabled = false;
-                    
+
                     // Show success message
                     showFeedback('Profile updated successfully!', 'success');
-                    
+
                     // Redirect back to profile after delay
                     setTimeout(() => {
                         window.location.href = 'profile.html';
                     }, 1500);
-                }, 1000);
-            });
+                });
+            }
 
             /* ---------- ANIMATIONS ---------- */
             const fadeElements = document.querySelectorAll('.fade-in');
@@ -1214,7 +1732,39 @@
                 }, index * 100);
             });
 
-            /* ---------- HELPER FUNCTION ---------- */
+            /* ---------- CHECK FOR GOOGLE CONNECTION FOCUS ---------- */
+            const focusGoogleConnection = localStorage.getItem('heyday_focus_google_connection');
+            if (focusGoogleConnection === 'true') {
+                // Clear the flag
+                localStorage.removeItem('heyday_focus_google_connection');
+
+                // Wait for the page to load and animations to complete
+                setTimeout(() => {
+                    // Find the manage account button and scroll to it
+                    const manageAccountBtn = document.getElementById('manageAccountBtn');
+                    if (manageAccountBtn) {
+                        // Scroll to the account type section
+                        manageAccountBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                        // Highlight the button briefly
+                        manageAccountBtn.style.backgroundColor = 'rgba(66, 133, 244, 0.3)';
+                        manageAccountBtn.style.borderColor = '#4285F4';
+                        manageAccountBtn.style.boxShadow = '0 0 0 3px rgba(66, 133, 244, 0.2)';
+
+                        // Show a tooltip/message
+                        showFeedback('Click here to connect your Google account', 'info');
+
+                        // Remove highlight after 3 seconds
+                        setTimeout(() => {
+                            manageAccountBtn.style.backgroundColor = '';
+                            manageAccountBtn.style.borderColor = '';
+                            manageAccountBtn.style.boxShadow = '';
+                        }, 3000);
+                    }
+                }, 500);
+            }
+
+            /* ---------- HELPER FUNCTION FOR FEEDBACK MESSAGES ---------- */
             function showFeedback(message, type = 'info') {
                 // Remove existing feedback
                 const existingFeedback = document.querySelector('.feedback-message');
@@ -1228,9 +1778,9 @@
                 top: 100px;
                 left: 50%;
                 transform: translateX(-50%);
-                background: ${type === 'error' ? 'rgba(231, 76, 60, 0.95)' : 
-                         type === 'success' ? 'rgba(46, 204, 113, 0.95)' : 
-                         'rgba(34, 96, 78, 0.95)'};
+                background: ${type === 'error' ? 'rgba(231, 76, 60, 0.95)' :
+                        type === 'success' ? 'rgba(46, 204, 113, 0.95)' :
+                            'rgba(34, 96, 78, 0.95)'};
                 color: white;
                 padding: 12px 24px;
                 border-radius: 25px;
@@ -1242,6 +1792,7 @@
                 box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
                 max-width: 80%;
                 text-align: center;
+                margin-top: 100px;
             `;
                 feedback.textContent = message;
                 document.body.appendChild(feedback);
@@ -1256,44 +1807,74 @@
             // Add animation styles
             const style = document.createElement('style');
             style.textContent = `
-            @keyframes slideDown {
-                from {
-                    top: 80px;
-                    opacity: 0;
-                }
-                to {
-                    top: 100px;
-                    opacity: 1;
-                }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
             }
-            
-            @keyframes slideUp {
-                from {
-                    top: 100px;
-                    opacity: 1;
-                }
-                to {
-                    top: 80px;
-                    opacity: 0;
-                }
+            to {
+                transform: translateY(0);
+                opacity: 1;
             }
-            
-            .fa-spinner {
-                animation: spin 1s linear infinite;
+        }
+        
+        @keyframes slideDown {
+            from {
+                top: 80px;
+                opacity: 0;
             }
-            
-            @keyframes spin {
-                to {
-                    transform: rotate(360deg);
-                }
+            to {
+                top: 100px;
+                opacity: 1;
             }
-            
-            .action-button, .avatar-upload-btn, .verify-button, .danger-button {
-                transition: all 0.3s ease !important;
+        }
+        
+        @keyframes slideUpOut {
+            from {
+                top: 100px;
+                opacity: 1;
             }
-            `;
+            to {
+                top: 80px;
+                opacity: 0;
+            }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .fa-spinner {
+            animation: spin 1s linear infinite;
+        }
+        
+        .action-button, .avatar-upload-btn, .verify-button, .danger-button {
+            transition: all 0.3s ease !important;
+        }
+    `;
             document.head.appendChild(style);
-        });
+        }
     </script>
 </body>
 

@@ -14,6 +14,7 @@
         href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Chewy&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Oswald:wght@200..700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="userDatabase.js"></script>
     <style>
         /* Profile Page Specific Styles */
         .profile-header {
@@ -627,7 +628,7 @@
             background: #4285f4;
             border-radius: 50%;
         }
-        
+
         .nav-item {
             display: flex;
             flex-direction: column;
@@ -826,6 +827,19 @@
             display: none !important;
         }
 
+        #avatarImage {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 26px;
+            display: none;
+        }
+
+        #avatarText {
+            display: block;
+            /* Default to showing text */
+        }
+
         .notification-controls {
             display: flex;
             align-items: center;
@@ -895,7 +909,7 @@
                 <div class="profile-card fade-in delay-01">
                     <div class="profile-avatar" id="profileAvatar">
                         <div id="avatarText">J</div>
-                        <img id="googleAvatar" class="hidden">
+                        <img id="avatarImage"> <!-- Changed id from googleAvatar to avatarImage -->
                     </div>
                     <div class="profile-name" id="profileName">Joe!!</div>
                     <div class="profile-email" id="profileEmail">joe@example.com</div>
@@ -1093,13 +1107,13 @@
 
                 <!-- Google Account Integration -->
                 <div class="actions-container fade-in delay-05">
-                    <!-- Fake Google Sign-In Button -->
-                    <div id="googleSignInContainer" class="hidden">
+                    <!-- Fake Google Sign-In Button - REMOVED since we redirect to edit-profile.html instead -->
+                    <!-- <div id="googleSignInContainer" class="hidden">
                         <button class="fake-google-button" id="fakeGoogleSignIn">
                             <div class="google-icon"></div>
                             Sign in with Google
                         </button>
-                    </div>
+                    </div> -->
 
                     <button class="action-button notification-action" id="markAllNotificationsRead">
                         <i class="fas fa-check-double"></i>
@@ -1164,662 +1178,451 @@
         </div>
     </div>
 
-    <!-- Script -->
     <script>
-        // User Database Class with notification management
-        (function () {
-            if (typeof window.UserDatabase === 'undefined') {
-                window.UserDatabase = class {
-                    constructor() {
-                        this.key = 'heyday_users';
-                        this.currentUserKey = 'heyday_current_user';
-                        this.googleUserKey = 'heyday_google_user';
-                        this.notificationSettingsKey = 'heyday_notification_settings';
-                    }
+        // Ensure UserDatabase is loaded
+        if (typeof UserDatabase === 'undefined') {
+            console.error('UserDatabase class not found!');
+            // Try to load it dynamically
+            const script = document.createElement('script');
+            script.src = 'userDatabase.js';
+            script.onload = function () {
+                console.log('UserDatabase loaded dynamically');
+                initializeApp();
+            };
+            document.head.appendChild(script);
+        } else {
+            initializeApp();
+        }
 
-                    getCurrentUser() {
-                        const user = localStorage.getItem(this.currentUserKey);
-                        return user ? JSON.parse(user) : null;
-                    }
+        function initializeApp() {
+            document.addEventListener('DOMContentLoaded', function () {
+                const userDB = new UserDatabase();
 
-                    isLoggedIn() {
-                        return localStorage.getItem('heyday_logged_in') === 'true';
-                    }
+                // Check if user is logged in
+                if (!userDB.isLoggedIn()) {
+                    window.location.href = 'login.html';
+                    return;
+                }
 
-                    logout() {
-                        localStorage.removeItem(this.currentUserKey);
-                        localStorage.removeItem('heyday_logged_in');
-                        localStorage.removeItem(this.googleUserKey);
-                        return true;
-                    }
+                // Get current user
+                let currentUser = userDB.getCurrentUser();
+                const allUsers = userDB.getAllUsers();
 
-                    saveGoogleUser(googleUser) {
-                        localStorage.setItem(this.googleUserKey, JSON.stringify(googleUser));
-                    }
+                // Get fresh user data from database
+                const userInDb = allUsers.find(u => u.id === currentUser.id);
+                if (userInDb) {
+                    // Merge database data with current user session data
+                    currentUser = { ...currentUser, ...userInDb };
+                }
 
-                    getGoogleUser() {
-                        const user = localStorage.getItem(this.googleUserKey);
-                        return user ? JSON.parse(user) : null;
-                    }
+                /* ---------- DEBUG: Check user data ---------- */
+                console.log('=== DEBUG: Checking localStorage ===');
+                console.log('heyday_current_user:', localStorage.getItem('heyday_current_user'));
+                console.log('All users in database:', allUsers);
+                console.log('User in database:', userInDb);
+                console.log('User avatar in database:', userInDb ? userInDb.avatar : 'Not found');
+                console.log('=== END DEBUG ===');
 
-                    disconnectGoogle() {
-                        localStorage.removeItem(this.googleUserKey);
-                        return true;
-                    }
+                if (!currentUser) {
+                    userDB.logout();
+                    window.location.href = 'login.html';
+                    return;
+                }
 
-                    linkGoogleAccount(userId, googleData) {
-                        const users = JSON.parse(localStorage.getItem(this.key) || '[]');
-                        const userIndex = users.findIndex(u => u.id === userId);
+                // Initialize notifications if not exists
+                if (!currentUser.notifications) {
+                    const users = userDB.getAllUsers();
+                    const userIndex = users.findIndex(u => u.id === currentUser.id);
 
-                        if (userIndex !== -1) {
-                            users[userIndex].googleAccount = {
-                                id: googleData.id,
-                                email: googleData.email,
-                                name: googleData.name,
-                                picture: googleData.picture,
-                                linkedAt: new Date().toISOString()
-                            };
-
-                            localStorage.setItem(this.key, JSON.stringify(users));
-
-                            const currentUser = this.getCurrentUser();
-                            if (currentUser && currentUser.id === userId) {
-                                currentUser.googleAccount = users[userIndex].googleAccount;
-                                localStorage.setItem(this.currentUserKey, JSON.stringify(currentUser));
-                            }
-
-                            return true;
-                        }
-                        return false;
-                    }
-
-                    // NOTIFICATION MANAGEMENT METHODS (from notifications.html)
-                    getNotifications(userId) {
-                        const users = this.getAllUsers();
-                        const user = users.find(u => u.id === userId);
-                        return user ? (user.notifications || {
-                            calendar: 0,
-                            mentalHealth: 0,
-                            henry: 0,
-                            system: 0
-                        }) : {};
-                    }
-
-                    getAllUsers() {
-                        const users = localStorage.getItem(this.key);
-                        return users ? JSON.parse(users) : [];
-                    }
-
-                    saveAllUsers(users) {
-                        localStorage.setItem(this.key, JSON.stringify(users));
-                    }
-
-                    updateNotifications(userId, newNotifications) {
-                        const users = this.getAllUsers();
-                        const userIndex = users.findIndex(u => u.id === userId);
-                        if (userIndex !== -1) {
-                            users[userIndex].notifications = newNotifications;
-                            this.saveAllUsers(users);
-
-                            const currentUser = this.getCurrentUser();
-                            if (currentUser && currentUser.id === userId) {
-                                currentUser.notifications = newNotifications;
-                                localStorage.setItem(this.currentUserKey, JSON.stringify(currentUser));
-                            }
-                            return true;
-                        }
-                        return false;
-                    }
-
-                    markAllNotificationsRead(userId) {
-                        const currentNotifications = this.getNotifications(userId);
-                        const updatedNotifications = {};
-
-                        Object.keys(currentNotifications).forEach(key => {
-                            updatedNotifications[key] = 0;
-                        });
-
-                        this.updateNotifications(userId, updatedNotifications);
-                        return updatedNotifications;
-                    }
-
-                    markNotificationTypeRead(userId, type) {
-                        const currentNotifications = this.getNotifications(userId);
-                        if (currentNotifications[type] !== undefined) {
-                            currentNotifications[type] = Math.max(0, currentNotifications[type] - 1);
-                            this.updateNotifications(userId, currentNotifications);
-                        }
-                        return currentNotifications;
-                    }
-
-                    getTotalUnreadNotifications(userId) {
-                        const notifications = this.getNotifications(userId);
-                        return Object.values(notifications).reduce((sum, count) => sum + count, 0);
-                    }
-
-                    initializeDefaultNotifications(userId) {
-                        const defaultNotifications = {
-                            calendar: 0,
-                            mentalHealth: 0,
-                            henry: 0,
-                            system: 0
+                    if (userIndex !== -1 && !users[userIndex].notifications) {
+                        users[userIndex].notifications = {
+                            calendar: 2,
+                            mentalHealth: 3,
+                            henry: 1,
+                            system: 1
                         };
+                        userDB.saveAllUsers(users);
 
-                        const users = this.getAllUsers();
-                        const userIndex = users.findIndex(u => u.id === userId);
-                        if (userIndex !== -1 && !users[userIndex].notifications) {
-                            users[userIndex].notifications = defaultNotifications;
-                            this.saveAllUsers(users);
-
-                            const currentUser = this.getCurrentUser();
-                            if (currentUser && currentUser.id === userId) {
-                                currentUser.notifications = defaultNotifications;
-                                localStorage.setItem(this.currentUserKey, JSON.stringify(currentUser));
-                            }
-                        }
-                        return defaultNotifications;
+                        // Update current user
+                        currentUser.notifications = users[userIndex].notifications;
+                        const { password, ...safeUser } = currentUser;
+                        localStorage.setItem('heyday_current_user', JSON.stringify(safeUser));
                     }
+                }
 
-                    // NOTIFICATION SETTINGS MANAGEMENT
-                    getNotificationSettings(userId) {
-                        const settings = localStorage.getItem(this.notificationSettingsKey);
-                        const allSettings = settings ? JSON.parse(settings) : {};
-                        return allSettings[userId] || {
-                            enabled: true,
-                            calendar: true,
-                            mentalHealth: true,
-                            henry: true,
-                            system: true,
-                            sound: true,
-                            vibration: true
-                        };
-                    }
+                /* ---------- UPDATE PROFILE INTERFACE ---------- */
+                function updateProfileInterface() {
+                    console.log('Updating profile interface...');
+                    console.log('Current user:', currentUser);
+                    console.log('Current user avatar:', currentUser.avatar ? 'Has avatar' : 'No avatar');
+                    console.log('Current user name:', currentUser.name || currentUser.username);
+                    console.log('Current user email:', currentUser.email);
 
-                    saveNotificationSettings(userId, settings) {
-                        const allSettings = JSON.parse(localStorage.getItem(this.notificationSettingsKey) || '{}');
-                        allSettings[userId] = settings;
-                        localStorage.setItem(this.notificationSettingsKey, JSON.stringify(allSettings));
-                        return true;
-                    }
+                    // Update profile info
+                    const profileAvatar = document.getElementById('profileAvatar');
+                    const avatarText = document.getElementById('avatarText');
+                    const avatarImage = document.getElementById('avatarImage');
+                    const profileName = document.getElementById('profileName');
+                    const profileEmail = document.getElementById('profileEmail');
+                    const accountBadge = document.getElementById('accountBadge');
+                    const currentMoodEmoji = document.getElementById('currentMoodEmoji');
+                    const currentMoodText = document.getElementById('currentMoodText');
+                    const connectGoogleButton = document.getElementById('connectGoogleButton');
+                    const disconnectGoogleButton = document.getElementById('disconnectGoogleButton');
 
-                    updateNotificationSetting(userId, settingKey, value) {
-                        const settings = this.getNotificationSettings(userId);
-                        settings[settingKey] = value;
-                        return this.saveNotificationSettings(userId, settings);
-                    }
-                };
-            }
-        })();
-
-        document.addEventListener('DOMContentLoaded', function () {
-            const userDB = new window.UserDatabase();
-
-            // Check if user is logged in
-            if (!userDB.isLoggedIn()) {
-                window.location.href = 'login.html';
-                return;
-            }
-
-            // Get current user
-            const currentUser = userDB.getCurrentUser();
-            const googleUser = userDB.getGoogleUser();
-
-            if (!currentUser) {
-                userDB.logout();
-                window.location.href = 'login.html';
-                return;
-            }
-
-            // Initialize notifications if not exists
-            if (!currentUser.notifications) {
-                userDB.initializeDefaultNotifications(currentUser.id);
-                // Refresh user data
-                currentUser.notifications = userDB.getNotifications(currentUser.id);
-            }
-
-            /* ---------- UPDATE PROFILE INTERFACE ---------- */
-            function updateProfileInterface() {
-                // Update profile info
-                const profileAvatar = document.getElementById('profileAvatar');
-                const avatarText = document.getElementById('avatarText');
-                const googleAvatar = document.getElementById('googleAvatar');
-                const profileName = document.getElementById('profileName');
-                const profileEmail = document.getElementById('profileEmail');
-                const accountBadge = document.getElementById('accountBadge');
-                const currentMoodEmoji = document.getElementById('currentMoodEmoji');
-                const currentMoodText = document.getElementById('currentMoodText');
-                const connectGoogleButton = document.getElementById('connectGoogleButton');
-                const disconnectGoogleButton = document.getElementById('disconnectGoogleButton');
-                const googleSignInContainer = document.getElementById('googleSignInContainer');
-
-                // Check if user has Google account linked
-                const hasGoogleAccount = currentUser.googleAccount || googleUser;
-
-                if (hasGoogleAccount) {
-                    const googleData = currentUser.googleAccount || googleUser;
-
-                    // Update avatar with Google picture
-                    avatarText.style.display = 'none';
-                    googleAvatar.style.display = 'block';
-
-                    // Use a placeholder Google avatar if no picture
-                    if (googleData.picture) {
-                        googleAvatar.src = googleData.picture;
-                    } else {
-                        googleAvatar.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(googleData.name || currentUser.name)}&background=4285F4&color=fff&size=140&bold=true`;
-                    }
-
-                    profileAvatar.classList.add('has-google');
-
-                    // Update name and email from Google
-                    if (profileName) profileName.textContent = googleData.name || currentUser.name || 'User';
-                    if (profileEmail) profileEmail.textContent = googleData.email || currentUser.email || 'user@example.com';
-
-                    // Update account badge
-                    if (accountBadge) {
-                        accountBadge.innerHTML = '<i class="fab fa-google"></i> Google Account';
-                        accountBadge.className = 'account-badge google';
-                    }
-
-                    // Show disconnect button, hide connect button and sign-in container
-                    if (connectGoogleButton) connectGoogleButton.style.display = 'none';
-                    if (disconnectGoogleButton) disconnectGoogleButton.style.display = 'block';
-                    if (googleSignInContainer) googleSignInContainer.style.display = 'none';
-                } else {
-                    // Local account
-                    if (profileAvatar) {
-                        const name = currentUser.name || currentUser.username || 'User';
-                        avatarText.textContent = name.charAt(0).toUpperCase();
-                        avatarText.style.display = 'block';
-                        googleAvatar.style.display = 'none';
-                        profileAvatar.classList.remove('has-google');
-                    }
-
+                    // FIRST: Update name and email (regardless of Google account)
                     if (profileName) {
-                        profileName.textContent = currentUser.name || currentUser.username || 'User';
+                        const name = currentUser.name || currentUser.username || 'User';
+                        profileName.textContent = name;
+                        console.log('Setting profile name to:', name);
                     }
 
                     if (profileEmail) {
-                        profileEmail.textContent = currentUser.email || 'user@example.com';
+                        const email = currentUser.email || 'user@example.com';
+                        profileEmail.textContent = email;
+                        console.log('Setting profile email to:', email);
                     }
 
-                    if (accountBadge) {
-                        accountBadge.innerHTML = '<i class="fas fa-user-circle"></i> Local Account';
-                        accountBadge.className = 'account-badge local';
-                    }
+                    // Check if user has Google account linked
+                    const googleUser = localStorage.getItem('heyday_google_user');
+                    const hasGoogleAccount = googleUser || currentUser.googleAccount;
 
-                    // Show connect button, hide disconnect button and sign-in container
-                    if (connectGoogleButton) connectGoogleButton.style.display = 'block';
-                    if (disconnectGoogleButton) disconnectGoogleButton.style.display = 'none';
-                    if (googleSignInContainer) googleSignInContainer.style.display = 'none';
-                }
+                    if (hasGoogleAccount) {
+                        console.log('User has Google account');
+                        const googleData = googleUser ? JSON.parse(googleUser) : currentUser.googleAccount;
 
-                // Update current mood display
-                if (currentMoodEmoji && currentMoodText) {
-                    const moodMap = {
-                        'sad': { emoji: '☹️', text: 'Feeling Stressed' },
-                        'unhappy': { emoji: '🙁', text: 'Feeling Down' },
-                        'neutral': { emoji: '😐', text: 'Feeling Neutral' },
-                        'happy': { emoji: '🙂', text: 'Feeling Good' },
-                        'good': { emoji: '🙂', text: 'Feeling Good' },
-                        'excited': { emoji: '😁', text: 'Feeling Great!' }
-                    };
+                        // Update avatar with Google picture
+                        avatarText.style.display = 'none';
+                        avatarImage.style.display = 'block';
 
-                    const currentMood = currentUser.mood || 'neutral';
-                    const moodData = moodMap[currentMood] || moodMap.neutral;
-
-                    currentMoodEmoji.textContent = moodData.emoji;
-                    currentMoodText.textContent = moodData.text;
-                }
-
-                // Update notification counts
-                updateNotificationCounts();
-            }
-
-            /* ---------- NOTIFICATION SYSTEM INTEGRATION ---------- */
-            function updateNotificationCounts() {
-                if (!currentUser) return;
-
-                const notifications = currentUser.notifications || {};
-                const totalUnread = userDB.getTotalUnreadNotifications(currentUser.id);
-
-                // Update notification badge
-                const notificationBadge = document.getElementById('notificationBadge');
-                const unreadCount = document.getElementById('unreadCount');
-                if (notificationBadge && unreadCount) {
-                    if (totalUnread === 0) {
-                        notificationBadge.innerHTML = '<i class="fas fa-check-circle"></i> All Caught Up';
-                        notificationBadge.style.background = 'linear-gradient(135deg, #86b499 0%, #6a9c7d 100%)';
-                    } else {
-                        unreadCount.textContent = totalUnread;
-                        notificationBadge.innerHTML = '<i class="fas fa-bell"></i> <span id="unreadCount">' + totalUnread + '</span> Unread Notifications';
-                        notificationBadge.style.background = 'linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%)';
-                    }
-                }
-
-                // Update individual notification type counts
-                document.getElementById('calendarCount').textContent = notifications.calendar || 0;
-                document.getElementById('mentalHealthCount').textContent = notifications.mentalHealth || 0;
-                document.getElementById('henryCount').textContent = notifications.henry || 0;
-                document.getElementById('systemCount').textContent = notifications.system || 0;
-
-                // Update bottom nav badge - EXPLORE.Html STYLE
-                const bottomNavBadge = document.getElementById('bottomNavBadge');
-                if (bottomNavBadge) {
-                    if (totalUnread > 0) {
-                        bottomNavBadge.textContent = totalUnread > 9 ? '9+' : totalUnread;
-                        bottomNavBadge.style.display = 'flex';
-                        bottomNavBadge.style.background = 'linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%)';
-                        bottomNavBadge.style.boxShadow = '0 3px 8px rgba(255, 82, 82, 0.4)';
-                        bottomNavBadge.classList.add('pulse-animation');
-                    } else {
-                        // Hide badge completely when no notifications
-                        bottomNavBadge.style.display = 'none';
-                        bottomNavBadge.textContent = '';
-                        bottomNavBadge.classList.remove('pulse-animation');
-                        bottomNavBadge.style.background = 'none';
-                        bottomNavBadge.style.boxShadow = 'none';
-                    }
-                }
-
-                // Update notification toggles based on current counts
-                updateNotificationToggles(notifications);
-            }
-
-            function updateNotificationToggles(notifications) {
-                const notificationSettings = userDB.getNotificationSettings(currentUser.id);
-
-                // Update global toggle
-                const globalToggle = document.getElementById('globalNotificationsToggle');
-                if (globalToggle) {
-                    globalToggle.checked = notificationSettings.enabled;
-                }
-
-                // Update individual toggles
-                const toggles = [
-                    { id: 'calendarToggle', key: 'calendar' },
-                    { id: 'mentalHealthToggle', key: 'mentalHealth' },
-                    { id: 'henryToggle', key: 'henry' },
-                    { id: 'systemToggle', key: 'system' }
-                ];
-
-                toggles.forEach(toggle => {
-                    const element = document.getElementById(toggle.id);
-                    if (element) {
-                        element.checked = notificationSettings[toggle.key];
-
-                        // If notification type is disabled but has unread notifications, show special styling
-                        if (!notificationSettings[toggle.key] && notifications[toggle.key] > 0) {
-                            const notificationType = document.querySelector(`#${toggle.id}`).closest('.notification-type');
-                            if (notificationType) {
-                                notificationType.style.background = 'rgba(255, 87, 34, 0.1)';
-                                notificationType.style.border = '1px solid rgba(255, 87, 34, 0.2)';
-                            }
-                        }
-                    }
-                });
-            }
-
-            // Initial UI update
-            updateProfileInterface();
-
-            /* ---------- NOTIFICATION TOGGLE HANDLERS ---------- */
-            // Global notifications toggle
-            const globalToggle = document.getElementById('globalNotificationsToggle');
-            if (globalToggle) {
-                globalToggle.addEventListener('change', function () {
-                    const isEnabled = this.checked;
-                    userDB.updateNotificationSetting(currentUser.id, 'enabled', isEnabled);
-
-                    // Enable/disable all individual toggles
-                    const individualToggles = document.querySelectorAll('.notification-type input[type="checkbox"]');
-                    individualToggles.forEach(toggle => {
-                        toggle.disabled = !isEnabled;
-                        if (!isEnabled) {
-                            toggle.checked = false;
-                        }
-                    });
-
-                    showFeedback(`Notifications ${isEnabled ? 'enabled' : 'disabled'}`, isEnabled ? 'success' : 'info');
-                });
-            }
-
-            // Individual notification type toggles
-            const notificationToggles = document.querySelectorAll('.notification-type input[type="checkbox"]');
-            notificationToggles.forEach(toggle => {
-                toggle.addEventListener('change', function () {
-                    const type = this.getAttribute('data-type');
-                    const isEnabled = this.checked;
-
-                    userDB.updateNotificationSetting(currentUser.id, type, isEnabled);
-
-                    // If disabling a toggle that has unread notifications, offer to mark them as read
-                    if (!isEnabled && currentUser.notifications[type] > 0) {
-                        if (confirm(`You have ${currentUser.notifications[type]} unread ${type} notifications. Would you like to mark them as read before disabling?`)) {
-                            userDB.markNotificationTypeRead(currentUser.id, type);
-                            currentUser.notifications = userDB.getNotifications(currentUser.id);
-                            updateNotificationCounts();
-                            showFeedback(`${type} notifications marked as read and disabled`, 'success');
+                        // Use a placeholder Google avatar if no picture
+                        if (googleData && googleData.picture) {
+                            console.log('Setting Google picture:', googleData.picture);
+                            avatarImage.src = googleData.picture;
                         } else {
-                            showFeedback(`${type} notifications disabled`, 'info');
+                            // Generate avatar from name
+                            const name = googleData?.name || currentUser.name || 'User';
+                            const generatedAvatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=4285F4&color=fff&size=140&bold=true`;
+                            console.log('Setting generated Google avatar:', generatedAvatar);
+                            avatarImage.src = generatedAvatar;
+                        }
+
+                        profileAvatar.classList.add('has-google');
+
+                        // Update account badge
+                        if (accountBadge) {
+                            accountBadge.innerHTML = '<i class="fab fa-google"></i> Google Account';
+                            accountBadge.className = 'account-badge google';
+                        }
+
+                        // Show disconnect button, hide connect button
+                        if (connectGoogleButton) {
+                            connectGoogleButton.style.display = 'none';
+                            connectGoogleButton.classList.add('hidden');
+                        }
+                        if (disconnectGoogleButton) {
+                            disconnectGoogleButton.style.display = 'block';
+                            disconnectGoogleButton.classList.remove('hidden');
                         }
                     } else {
-                        showFeedback(`${type.replace(/([A-Z])/g, ' $1').toLowerCase()} notifications ${isEnabled ? 'enabled' : 'disabled'}`, isEnabled ? 'success' : 'info');
-                    }
-                });
-            });
+                        console.log('User has local account');
+                        // Check for custom avatar
+                        const avatar = currentUser.avatar;
+                        console.log('Local avatar exists:', !!avatar);
 
-            /* ---------- MARK ALL NOTIFICATIONS READ ---------- */
-            const markAllReadButton = document.getElementById('markAllNotificationsRead');
-            if (markAllReadButton) {
-                markAllReadButton.addEventListener('click', function () {
+                        if (avatar) {
+                            console.log('Setting custom avatar:', avatar.substring(0, 50) + '...');
+                            // Custom avatar
+                            avatarText.style.display = 'none';
+                            avatarImage.style.display = 'block';
+                            avatarImage.src = avatar;
+                            profileAvatar.classList.remove('has-google');
+                        } else {
+                            console.log('Using initial avatar from name');
+                            // Initial avatar from name
+                            const name = currentUser.name || currentUser.username || 'User';
+                            avatarText.textContent = name.charAt(0).toUpperCase();
+                            avatarText.style.display = 'block';
+                            avatarImage.style.display = 'none';
+                            profileAvatar.classList.remove('has-google');
+                        }
+
+                        // Update account badge
+                        if (accountBadge) {
+                            accountBadge.innerHTML = '<i class="fas fa-user-circle"></i> Local Account';
+                            accountBadge.className = 'account-badge local';
+                        }
+
+                        // Show connect button, hide disconnect button
+                        if (connectGoogleButton) {
+                            connectGoogleButton.style.display = 'block';
+                            connectGoogleButton.classList.remove('hidden');
+                        }
+                        if (disconnectGoogleButton) {
+                            disconnectGoogleButton.style.display = 'none';
+                            disconnectGoogleButton.classList.add('hidden');
+                        }
+                    }
+
+                    // Update current mood display
+                    if (currentMoodEmoji && currentMoodText) {
+                        const moodMap = {
+                            'sad': { emoji: '☹️', text: 'Feeling Stressed' },
+                            'unhappy': { emoji: '🙁', text: 'Feeling Down' },
+                            'neutral': { emoji: '😐', text: 'Feeling Neutral' },
+                            'happy': { emoji: '🙂', text: 'Feeling Good' },
+                            'good': { emoji: '🙂', text: 'Feeling Good' },
+                            'excited': { emoji: '😁', text: 'Feeling Great!' }
+                        };
+
+                        const currentMood = currentUser.mood || 'neutral';
+                        const moodData = moodMap[currentMood] || moodMap.neutral;
+
+                        currentMoodEmoji.textContent = moodData.emoji;
+                        currentMoodText.textContent = moodData.text;
+                    }
+
+                    // Update notification counts
+                    updateNotificationCounts();
+                }
+
+                /* ---------- NOTIFICATION SYSTEM INTEGRATION ---------- */
+                function updateNotificationCounts() {
+                    if (!currentUser) return;
+
+                    const notifications = currentUser.notifications || {};
                     const totalUnread = userDB.getTotalUnreadNotifications(currentUser.id);
 
-                    if (totalUnread === 0) {
-                        showFeedback('All notifications are already read!', 'info');
-                        return;
+                    // Update notification badge
+                    const notificationBadge = document.getElementById('notificationBadge');
+                    const unreadCount = document.getElementById('unreadCount');
+                    if (notificationBadge && unreadCount) {
+                        if (totalUnread === 0) {
+                            notificationBadge.innerHTML = '<i class="fas fa-check-circle"></i> All Caught Up';
+                            notificationBadge.style.background = 'linear-gradient(135deg, #86b499 0%, #6a9c7d 100%)';
+                        } else {
+                            unreadCount.textContent = totalUnread;
+                            notificationBadge.innerHTML = '<i class="fas fa-bell"></i> <span id="unreadCount">' + totalUnread + '</span> Unread Notifications';
+                            notificationBadge.style.background = 'linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%)';
+                        }
                     }
 
-                    // Mark all as read in database
-                    const updatedNotifications = userDB.markAllNotificationsRead(currentUser.id);
+                    // Update individual notification type counts
+                    document.getElementById('calendarCount').textContent = notifications.calendar || 0;
+                    document.getElementById('mentalHealthCount').textContent = notifications.mentalHealth || 0;
+                    document.getElementById('henryCount').textContent = notifications.henry || 0;
+                    document.getElementById('systemCount').textContent = notifications.system || 0;
 
-                    // Update current user data
-                    currentUser.notifications = updatedNotifications;
-
-                    // Update UI
-                    updateNotificationCounts();
-
-                    // Show success message
-                    showFeedback(`Marked ${totalUnread} notifications as read!`, 'success');
-                });
-            }
-
-            /* ---------- FAKE GOOGLE SIGN-IN FUNCTIONALITY ---------- */
-
-            // Connect Google button click - shows fake Google sign-in button
-            const connectGoogleButton = document.getElementById('connectGoogleButton');
-            if (connectGoogleButton) {
-                connectGoogleButton.addEventListener('click', function () {
-                    const googleSignInContainer = document.getElementById('googleSignInContainer');
-                    if (googleSignInContainer) {
-                        googleSignInContainer.style.display = 'block';
-                        this.style.display = 'none';
+                    // Update bottom nav badge - EXPLORE.Html STYLE
+                    const bottomNavBadge = document.getElementById('bottomNavBadge');
+                    if (bottomNavBadge) {
+                        if (totalUnread > 0) {
+                            bottomNavBadge.textContent = totalUnread > 9 ? '9+' : totalUnread;
+                            bottomNavBadge.style.display = 'flex';
+                            bottomNavBadge.style.background = 'linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%)';
+                            bottomNavBadge.style.boxShadow = '0 3px 8px rgba(255, 82, 82, 0.4)';
+                            bottomNavBadge.classList.add('pulse-animation');
+                        } else {
+                            // Hide badge completely when no notifications
+                            bottomNavBadge.style.display = 'none';
+                            bottomNavBadge.textContent = '';
+                            bottomNavBadge.classList.remove('pulse-animation');
+                            bottomNavBadge.style.background = 'none';
+                            bottomNavBadge.style.boxShadow = 'none';
+                        }
                     }
+                }
+
+                // Initial UI update
+                updateProfileInterface();
+
+                /* ---------- NOTIFICATION TOGGLE HANDLERS ---------- */
+                // Global notifications toggle
+                const globalToggle = document.getElementById('globalNotificationsToggle');
+                if (globalToggle) {
+                    globalToggle.addEventListener('change', function () {
+                        const isEnabled = this.checked;
+                        showFeedback(`Notifications ${isEnabled ? 'enabled' : 'disabled'}`, isEnabled ? 'success' : 'info');
+                    });
+                }
+
+                // Individual notification type toggles
+                const notificationToggles = document.querySelectorAll('.notification-type input[type="checkbox"]');
+                notificationToggles.forEach(toggle => {
+                    toggle.addEventListener('change', function () {
+                        const type = this.getAttribute('data-type');
+                        const isEnabled = this.checked;
+
+                        showFeedback(`${type.replace(/([A-Z])/g, ' $1').toLowerCase()} notifications ${isEnabled ? 'enabled' : 'disabled'}`, isEnabled ? 'success' : 'info');
+                    });
                 });
-            }
 
-            // Fake Google sign-in button click
-            const fakeGoogleSignIn = document.getElementById('fakeGoogleSignIn');
-            if (fakeGoogleSignIn) {
-                fakeGoogleSignIn.addEventListener('click', function () {
-                    // Simulate Google sign-in with demo data
-                    const fakeGoogleUser = {
-                        id: 'google_' + Math.random().toString(36).substr(2, 9),
-                        email: currentUser.email || 'user@gmail.com',
-                        name: currentUser.name || 'Google User',
-                        picture: 'https://ui-avatars.com/api/?name=Google+User&background=4285F4&color=fff&size=140&bold=true',
-                        token: 'fake_google_token_' + Math.random().toString(36).substr(2, 20)
-                    };
+                /* ---------- MARK ALL NOTIFICATIONS READ ---------- */
+                const markAllReadButton = document.getElementById('markAllNotificationsRead');
+                if (markAllReadButton) {
+                    markAllReadButton.addEventListener('click', function () {
+                        const totalUnread = userDB.getTotalUnreadNotifications(currentUser.id);
 
-                    // Save fake Google user data
-                    userDB.saveGoogleUser(fakeGoogleUser);
-
-                    // Link Google account to current user
-                    userDB.linkGoogleAccount(currentUser.id, fakeGoogleUser);
-
-                    // Refresh user data
-                    const updatedUser = userDB.getCurrentUser();
-                    Object.assign(currentUser, updatedUser);
-
-                    // Update UI
-                    updateProfileInterface();
-
-                    // Hide the fake sign-in button
-                    const googleSignInContainer = document.getElementById('googleSignInContainer');
-                    if (googleSignInContainer) {
-                        googleSignInContainer.style.display = 'none';
-                    }
-
-                    // Show success message
-                    showFeedback('Google account connected successfully!', 'success');
-                });
-            }
-
-            // Disconnect Google button click
-            const disconnectGoogleButton = document.getElementById('disconnectGoogleButton');
-            if (disconnectGoogleButton) {
-                disconnectGoogleButton.addEventListener('click', function () {
-                    if (confirm('Are you sure you want to disconnect your Google account? You can reconnect it anytime.')) {
-                        // Remove Google data
-                        userDB.disconnectGoogle();
-
-                        // Remove Google account link from user
-                        const users = JSON.parse(localStorage.getItem(userDB.key) || '[]');
-                        const userIndex = users.findIndex(u => u.id === currentUser.id);
-
-                        if (userIndex !== -1) {
-                            delete users[userIndex].googleAccount;
-                            localStorage.setItem(userDB.key, JSON.stringify(users));
-
-                            // Update current user
-                            delete currentUser.googleAccount;
-                            localStorage.setItem(userDB.currentUserKey, JSON.stringify(currentUser));
+                        if (totalUnread === 0) {
+                            showFeedback('All notifications are already read!', 'info');
+                            return;
                         }
 
+                        // Mark all as read in database
+                        userDB.markAllNotificationsRead(currentUser.id);
+
+                        // Update current user data
+                        currentUser.notifications = userDB.getNotifications(currentUser.id);
+
                         // Update UI
-                        updateProfileInterface();
+                        updateNotificationCounts();
 
                         // Show success message
-                        showFeedback('Google account disconnected successfully.', 'info');
-                    }
-                });
-            }
-
-            /* ---------- SETTING ITEM CLICKS ---------- */
-            const settingItems = document.querySelectorAll('.setting-item');
-            settingItems.forEach(item => {
-                item.addEventListener('click', function (e) {
-                    // Don't trigger if clicking the toggle switch
-                    if (e.target.closest('.toggle-switch')) {
-                        return;
-                    }
-
-                    const settingId = this.id;
-                    const settingText = this.querySelector('.setting-text').textContent;
-
-                    switch (settingId) {
-                        case 'notificationsSetting':
-                            // Already handled by toggles
-                            break;
-                        case 'privacySetting':
-                            showFeedback('Privacy settings coming soon!', 'info');
-                            break;
-                        case 'helpSetting':
-                            showFeedback('Help & support coming soon!', 'info');
-                            break;
-                        default:
-                            showFeedback(`Opening ${settingText}`, 'info');
-                    }
-                });
-            });
-
-            /* ---------- LOGOUT FUNCTIONALITY ---------- */
-            const logoutButton = document.getElementById('logoutButton');
-            if (logoutButton) {
-                logoutButton.addEventListener('click', function (e) {
-                    e.preventDefault();
-
-                    // Show confirmation
-                    if (confirm('Are you sure you want to log out? You will need to sign in again to access your data.')) {
-                        showFeedback('Logging out...', 'info');
-
-                        // Use UserDatabase to log out
-                        userDB.logout();
-
-                        // Redirect to login page after delay
-                        setTimeout(() => {
-                            window.location.href = 'login.html';
-                        }, 1000);
-                    }
-                });
-            }
-
-            /* ---------- NAVIGATION ---------- */
-            const navItems = document.querySelectorAll('.nav-item');
-            navItems.forEach(item => {
-                item.addEventListener('click', function (e) {
-                    if (this.classList.contains('active')) {
-                        e.preventDefault();
-                        return;
-                    }
-
-                    // Remove active class from all
-                    navItems.forEach(nav => nav.classList.remove('active'));
-                    // Add active to clicked
-                    this.classList.add('active');
-
-                    // Navigate after delay
-                    const href = this.getAttribute('href');
-                    if (href && href !== 'profile.html') {
-                        setTimeout(() => {
-                            window.location.href = href;
-                        }, 300);
-                    }
-                });
-            });
-
-            // Set active nav item
-            navItems.forEach(item => {
-                if (item.getAttribute('href') === 'profile.html') {
-                    item.classList.add('active');
+                        showFeedback(`Marked ${totalUnread} notifications as read!`, 'success');
+                    });
                 }
-            });
 
-            /* ---------- ANIMATIONS ---------- */
-            const fadeElements = document.querySelectorAll('.fade-in');
-            fadeElements.forEach((el, index) => {
-                setTimeout(() => {
-                    el.style.animation = 'fadeInUp 0.5s ease forwards';
-                }, index * 100);
-            });
+                /* ---------- GOOGLE ACCOUNT CONNECTION ---------- */
+                // Connect Google button click - redirects to edit-profile.html
+                const connectGoogleButton = document.getElementById('connectGoogleButton');
+                if (connectGoogleButton) {
+                    connectGoogleButton.addEventListener('click', function (e) {
+                        e.preventDefault();
 
-            /* ---------- HELPER FUNCTION ---------- */
-            function showFeedback(message, type = 'info') {
-                // Remove existing feedback
-                const existingFeedback = document.querySelector('.feedback-message');
-                if (existingFeedback) existingFeedback.remove();
+                        // Store a flag to indicate we want to focus on Google connection
+                        localStorage.setItem('heyday_focus_google_connection', 'true');
 
-                // Create feedback element
-                const feedback = document.createElement('div');
-                feedback.className = `feedback-message feedback-${type}`;
-                feedback.style.cssText = `
+                        // Navigate to edit-profile.html
+                        window.location.href = 'edit-profile.html';
+                    });
+                }
+
+                // Disconnect Google button click
+                const disconnectGoogleButton = document.getElementById('disconnectGoogleButton');
+                if (disconnectGoogleButton) {
+                    disconnectGoogleButton.addEventListener('click', function () {
+                        if (confirm('Are you sure you want to disconnect your Google account? You can reconnect it anytime.')) {
+                            // Remove Google data
+                            localStorage.removeItem('heyday_google_user');
+
+                            // Remove Google account link from user
+                            delete currentUser.googleAccount;
+                            userDB.updateCurrentUser({ googleAccount: null });
+
+                            // Update UI
+                            updateProfileInterface();
+
+                            // Show success message
+                            showFeedback('Google account disconnected successfully.', 'info');
+                        }
+                    });
+                }
+
+                /* ---------- SETTING ITEM CLICKS ---------- */
+                const settingItems = document.querySelectorAll('.setting-item');
+                settingItems.forEach(item => {
+                    item.addEventListener('click', function (e) {
+                        // Don't trigger if clicking the toggle switch
+                        if (e.target.closest('.toggle-switch')) {
+                            return;
+                        }
+
+                        const settingId = this.id;
+                        const settingText = this.querySelector('.setting-text').textContent;
+
+                        switch (settingId) {
+                            case 'notificationsSetting':
+                                // Already handled by toggles
+                                break;
+                            case 'privacySetting':
+                                showFeedback('Privacy settings coming soon!', 'info');
+                                break;
+                            case 'helpSetting':
+                                showFeedback('Help & support coming soon!', 'info');
+                                break;
+                            default:
+                                showFeedback(`Opening ${settingText}`, 'info');
+                        }
+                    });
+                });
+
+                /* ---------- LOGOUT FUNCTIONALITY ---------- */
+                const logoutButton = document.getElementById('logoutButton');
+                if (logoutButton) {
+                    logoutButton.addEventListener('click', function (e) {
+                        e.preventDefault();
+
+                        // Show confirmation
+                        if (confirm('Are you sure you want to log out? You will need to sign in again to access your data.')) {
+                            showFeedback('Logging out...', 'info');
+
+                            // Use UserDatabase to log out
+                            userDB.logout();
+
+                            // Redirect to login page after delay
+                            setTimeout(() => {
+                                window.location.href = 'login.html';
+                            }, 1000);
+                        }
+                    });
+                }
+
+                /* ---------- NAVIGATION ---------- */
+                const navItems = document.querySelectorAll('.nav-item');
+                navItems.forEach(item => {
+                    item.addEventListener('click', function (e) {
+                        if (this.classList.contains('active')) {
+                            e.preventDefault();
+                            return;
+                        }
+
+                        // Remove active class from all
+                        navItems.forEach(nav => nav.classList.remove('active'));
+                        // Add active to clicked
+                        this.classList.add('active');
+
+                        // Navigate after delay
+                        const href = this.getAttribute('href');
+                        if (href && href !== 'profile.html') {
+                            setTimeout(() => {
+                                window.location.href = href;
+                            }, 300);
+                        }
+                    });
+                });
+
+                // Set active nav item
+                navItems.forEach(item => {
+                    if (item.getAttribute('href') === 'profile.html') {
+                        item.classList.add('active');
+                    }
+                });
+
+                /* ---------- ANIMATIONS ---------- */
+                const fadeElements = document.querySelectorAll('.fade-in');
+                fadeElements.forEach((el, index) => {
+                    setTimeout(() => {
+                        el.style.animation = 'fadeInUp 0.5s ease forwards';
+                    }, index * 100);
+                });
+
+                /* ---------- HELPER FUNCTION ---------- */
+                function showFeedback(message, type = 'info') {
+                    // Remove existing feedback
+                    const existingFeedback = document.querySelector('.feedback-message');
+                    if (existingFeedback) existingFeedback.remove();
+
+                    // Create feedback element
+                    const feedback = document.createElement('div');
+                    feedback.className = `feedback-message feedback-${type}`;
+                    feedback.style.cssText = `
             position: fixed;
             top: 100px;
             left: 50%;
             transform: translateX(-50%);
             background: ${type === 'error' ? 'rgba(231, 76, 60, 0.95)' :
-                        type === 'success' ? 'rgba(46, 204, 113, 0.95)' :
-                            'rgba(34, 96, 78, 0.95)'};
+                            type === 'success' ? 'rgba(46, 204, 113, 0.95)' :
+                                'rgba(34, 96, 78, 0.95)'};
             color: white;
             padding: 12px 24px;
             border-radius: 25px;
@@ -1831,20 +1634,21 @@
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
             max-width: 80%;
             text-align: center;
+            margin-top: 100px;
         `;
-                feedback.textContent = message;
-                document.body.appendChild(feedback);
+                    feedback.textContent = message;
+                    document.body.appendChild(feedback);
 
-                // Remove after 2 seconds
-                setTimeout(() => {
-                    feedback.style.animation = 'slideUp 0.3s ease forwards';
-                    setTimeout(() => feedback.remove(), 300);
-                }, 2000);
-            }
+                    // Remove after 2 seconds
+                    setTimeout(() => {
+                        feedback.style.animation = 'slideUp 0.3s ease forwards';
+                        setTimeout(() => feedback.remove(), 300);
+                    }, 2000);
+                }
 
-            // Add animation styles
-            const style = document.createElement('style');
-            style.textContent = `
+                // Add animation styles
+                const style = document.createElement('style');
+                style.textContent = `
         @keyframes slideDown {
             from {
                 top: 80px;
@@ -1893,10 +1697,6 @@
             transform: translateY(-5px);
         }
         
-        .fake-google-button {
-            transition: all 0.3s ease !important;
-        }
-        
         .notification-type {
             transition: all 0.3s ease !important;
         }
@@ -1931,46 +1731,47 @@
             z-index: 10;
         }
         `;
-            document.head.appendChild(style);
+                document.head.appendChild(style);
 
-            // Update counts when page becomes visible
-            document.addEventListener('visibilitychange', function () {
-                if (!document.hidden) {
-                    const updatedUser = userDB.getCurrentUser();
-                    if (updatedUser) {
-                        currentUser.notifications = updatedUser.notifications;
-                        updateNotificationCounts();
+                // Update counts when page becomes visible
+                document.addEventListener('visibilitychange', function () {
+                    if (!document.hidden) {
+                        const updatedUser = userDB.getCurrentUser();
+                        if (updatedUser) {
+                            currentUser.notifications = updatedUser.notifications;
+                            updateNotificationCounts();
+                        }
                     }
-                }
+                });
+
+                // Force hide badge on load to ensure it starts at 0
+                setTimeout(() => {
+                    const bottomNavBadge = document.getElementById('bottomNavBadge');
+                    const totalUnread = userDB.getTotalUnreadNotifications(currentUser.id);
+
+                    if (bottomNavBadge && totalUnread === 0) {
+                        bottomNavBadge.style.display = 'none';
+                        bottomNavBadge.textContent = '';
+                        bottomNavBadge.classList.remove('pulse-animation');
+                        bottomNavBadge.style.background = 'none';
+                        bottomNavBadge.style.boxShadow = 'none';
+                    }
+                }, 100);
+
+                // Final check to ensure badge is hidden if no notifications
+                setTimeout(() => {
+                    const finalUnreadCount = userDB.getTotalUnreadNotifications(currentUser.id);
+                    const navBadge = document.querySelector('.nav-badge');
+                    if (finalUnreadCount === 0 && navBadge) {
+                        navBadge.style.display = 'none';
+                        navBadge.textContent = '';
+                        navBadge.classList.remove('pulse-animation');
+                        navBadge.style.background = 'none';
+                        navBadge.style.boxShadow = 'none';
+                    }
+                }, 500);
             });
-
-            // Force hide badge on load to ensure it starts at 0
-            setTimeout(() => {
-                const bottomNavBadge = document.getElementById('bottomNavBadge');
-                const totalUnread = userDB.getTotalUnreadNotifications(currentUser.id);
-
-                if (bottomNavBadge && totalUnread === 0) {
-                    bottomNavBadge.style.display = 'none';
-                    bottomNavBadge.textContent = '';
-                    bottomNavBadge.classList.remove('pulse-animation');
-                    bottomNavBadge.style.background = 'none';
-                    bottomNavBadge.style.boxShadow = 'none';
-                }
-            }, 100);
-
-            // Final check to ensure badge is hidden if no notifications
-            setTimeout(() => {
-                const finalUnreadCount = userDB.getTotalUnreadNotifications(currentUser.id);
-                const navBadge = document.querySelector('.nav-badge');
-                if (finalUnreadCount === 0 && navBadge) {
-                    navBadge.style.display = 'none';
-                    navBadge.textContent = '';
-                    navBadge.classList.remove('pulse-animation');
-                    navBadge.style.background = 'none';
-                    navBadge.style.boxShadow = 'none';
-                }
-            }, 500);
-        });
+        }
     </script>
 </body>
 

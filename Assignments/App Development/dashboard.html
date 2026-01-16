@@ -1567,10 +1567,7 @@
                 top: 100px;
                 left: 50%;
                 transform: translateX(-50%);
-                background: ${type === 'error' ? 'rgba(231, 76, 60, 0.95)' :
-                        type === 'success' ? 'rgba(46, 204, 113, 0.95)' :
-                            type === 'info' ? 'rgba(52, 152, 219, 0.95)' :
-                                'rgba(34, 96, 78, 0.95)'};
+                background: #276551;
                 color: white;
                 padding: 12px 24px;
                 border-radius: 25px;
@@ -1582,6 +1579,7 @@
                 box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
                 max-width: 80%;
                 text-align: center;
+                margin-top: 100px;
             `;
                 feedback.textContent = message;
                 document.body.appendChild(feedback);

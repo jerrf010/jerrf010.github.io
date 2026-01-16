@@ -1,5 +1,3 @@
-// userDatabase.js - Shared between joinUs.html and login.html
-
 class UserDatabase {
     constructor() {
         this.key = 'heyday_users';
@@ -170,5 +168,103 @@ class UserDatabase {
     getTotalUnreadNotifications(userId) {
         const notifications = this.getNotifications(userId);
         return Object.values(notifications).reduce((sum, count) => sum + count, 0);
+    }
+    // Update current user data (including avatar)
+    updateCurrentUser(updatedData) {
+        const currentUser = this.getCurrentUser();
+        if (!currentUser) return false;
+
+        // Update user data - ensure avatar is preserved if not being updated
+        const updatedUser = { ...currentUser, ...updatedData };
+
+        // Update all users array
+        const users = this.getAllUsers();
+        const userIndex = users.findIndex(u => u.id === currentUser.id);
+
+        if (userIndex !== -1) {
+            // Keep existing avatar if not being explicitly set to null or new value
+            if (updatedData.avatar === undefined) {
+                updatedData.avatar = users[userIndex].avatar;
+            }
+            users[userIndex] = { ...users[userIndex], ...updatedData };
+            this.saveAllUsers(users);
+        }
+
+        // Update current user in session (without password)
+        const { password, ...safeUser } = updatedUser;
+        localStorage.setItem(this.currentUserKey, JSON.stringify(safeUser));
+
+        return true;
+    }
+    // Get current user's avatar
+    getCurrentAvatar() {
+        const currentUser = this.getCurrentUser();
+        return currentUser ? currentUser.avatar : null;
+    }
+
+    // Update user's avatar
+    updateAvatar(userId, avatarDataUrl) {
+        const users = this.getAllUsers();
+        const userIndex = users.findIndex(u => u.id === userId);
+
+        if (userIndex !== -1) {
+            users[userIndex].avatar = avatarDataUrl;
+            this.saveAllUsers(users);
+
+            // Also update current user in session if it's the same user
+            const currentUser = this.getCurrentUser();
+            if (currentUser && currentUser.id === userId) {
+                currentUser.avatar = avatarDataUrl;
+                const { password, ...safeUser } = currentUser;
+                localStorage.setItem(this.currentUserKey, JSON.stringify(safeUser));
+            }
+
+            return true;
+        }
+        return false;
+    }
+
+    // Remove user's avatar
+    removeAvatar(userId) {
+        const users = this.getAllUsers();
+        const userIndex = users.findIndex(u => u.id === userId);
+
+        if (userIndex !== -1) {
+            delete users[userIndex].avatar;
+            this.saveAllUsers(users);
+
+            // Also update current user in session if it's the same user
+            const currentUser = this.getCurrentUser();
+            if (currentUser && currentUser.id === userId) {
+                delete currentUser.avatar;
+                const { password, ...safeUser } = currentUser;
+                localStorage.setItem(this.currentUserKey, JSON.stringify(safeUser));
+            }
+
+            return true;
+        }
+        return false;
+    }
+    
+    // Delete user account
+    deleteUser(userId) {
+        // Remove from all users
+        const users = this.getAllUsers();
+        const updatedUsers = users.filter(user => user.id !== userId);
+        this.saveAllUsers(updatedUsers);
+
+        // If deleting current user, also clear session
+        const currentUser = this.getCurrentUser();
+        if (currentUser && currentUser.id === userId) {
+            this.logout();
+        }
+
+        // Remove Google connection if exists
+        localStorage.removeItem('heyday_google_user');
+
+        // Remove avatar backup
+        localStorage.removeItem(`heyday_avatar_${userId}`);
+
+        return true;
     }
 }
