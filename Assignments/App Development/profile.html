@@ -869,6 +869,149 @@
         .fade-in.delay-05 {
             animation-delay: 0.5s;
         }
+
+        .logout-modal {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            animation: fadeIn 0.3s ease;
+            border-radius: 25px;
+            overflow: hidden;
+        }
+
+        .logout-modal-content {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 30px;
+            max-width: 350px;
+            width: 85%;
+            text-align: center;
+            border: 3px solid rgba(34, 96, 78, 0.2);
+            box-shadow:
+                0 20px 40px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(0, 0, 0, 0.1) inset;
+            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
+            margin: 0 20px;
+        }
+
+        @media (max-width: 600px) {
+            .logout-modal-content {
+                padding: 25px;
+                max-width: 320px;
+                width: 90%;
+            }
+
+            .logout-modal-title {
+                font-size: 22px;
+            }
+
+            .logout-modal-message {
+                font-size: 15px;
+                margin-bottom: 20px;
+            }
+
+            .logout-modal-buttons {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .logout-modal-btn {
+                padding: 14px 20px;
+                font-size: 15px;
+            }
+        }
+
+        .logout-modal-icon {
+            font-size: 60px;
+            color: #e74c3c;
+            margin-bottom: 20px;
+        }
+
+        #disconnectGoogleModal .logout-modal-icon {
+            color: #4285F4;
+        }
+
+        .logout-modal-title {
+            font-family: 'Nunito', sans-serif;
+            font-size: 24px;
+            color: #1a3c27;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .logout-modal-message {
+            font-family: 'Nunito', sans-serif;
+            font-size: 16px;
+            color: #2d5a3d;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .logout-modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .logout-modal-btn {
+            padding: 15px 30px;
+            border-radius: 20px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .logout-modal-cancel {
+            background: rgba(52, 152, 219, 0.1);
+            color: #3498db;
+            border-color: rgba(52, 152, 219, 0.3);
+        }
+
+        .logout-modal-cancel:hover {
+            background: rgba(52, 152, 219, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .logout-modal-confirm {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            border: none;
+        }
+
+        #confirmDisconnect {
+            background: linear-gradient(135deg, #4285F4 0%, #34A853 100%);
+        }
+
+        .logout-modal-confirm:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+        }
+
+        #confirmDisconnect:hover {
+            box-shadow: 0 5px 15px rgba(66, 133, 244, 0.4);
+        }
+
+        /* Animation for modal */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 
@@ -886,6 +1029,46 @@
         <div class="phone" id="main-page">
             <!-- Phone Notch -->
             <div class="phone-notch"></div>
+            <div class="logout-modal" id="logoutModal">
+                <div class="logout-modal-content">
+                    <div class="logout-modal-icon">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </div>
+                    <div class="logout-modal-title">Log Out</div>
+                    <div class="logout-modal-message" id="logoutUserName">
+                        Are you sure you want to log out? You'll need to sign in again to access your data.
+                    </div>
+                    <div class="logout-modal-buttons">
+                        <button class="logout-modal-btn logout-modal-cancel" id="cancelLogout">
+                            Cancel
+                        </button>
+                        <button class="logout-modal-btn logout-modal-confirm" id="confirmLogout">
+                            Yes, Log Out
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Google Disconnect Confirmation Modal -->
+            <div class="logout-modal" id="disconnectGoogleModal">
+                <div class="logout-modal-content">
+                    <div class="logout-modal-icon">
+                        <i class="fab fa-google"></i>
+                    </div>
+                    <div class="logout-modal-title">Disconnect Google Account</div>
+                    <div class="logout-modal-message" id="disconnectGoogleMessage">
+                        Are you sure you want to disconnect your Google account? You can reconnect it anytime.
+                    </div>
+                    <div class="logout-modal-buttons">
+                        <button class="logout-modal-btn logout-modal-cancel" id="cancelDisconnect">
+                            Cancel
+                        </button>
+                        <button class="logout-modal-btn logout-modal-confirm" id="confirmDisconnect">
+                            Yes, Disconnect
+                        </button>
+                    </div>
+                </div>
+            </div>
 
             <!-- Status Bar -->
             <div class="status-bar">
@@ -1497,23 +1680,109 @@
                     });
                 }
 
-                // Disconnect Google button click
+                /* ---------- LOGOUT MODAL FUNCTIONALITY ---------- */
+                const logoutButton = document.getElementById('logoutButton');
+                const logoutModal = document.getElementById('logoutModal');
+                const cancelLogoutButton = document.getElementById('cancelLogout');
+                const confirmLogoutButton = document.getElementById('confirmLogout');
+
+                // Show logout confirmation modal
+                if (logoutButton) {
+                    logoutButton.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        if (logoutModal) {
+                            logoutModal.style.display = 'flex';
+                        }
+                    });
+                }
+
+                // Cancel logout
+                if (cancelLogoutButton) {
+                    cancelLogoutButton.addEventListener('click', function () {
+                        if (logoutModal) {
+                            logoutModal.style.display = 'none';
+                        }
+                    });
+                }
+
+                // Confirm logout
+                if (confirmLogoutButton) {
+                    confirmLogoutButton.addEventListener('click', function () {
+                        showFeedback('Logging out...', 'info');
+
+                        // Use UserDatabase to log out
+                        userDB.logout();
+
+                        // Close modal
+                        logoutModal.style.display = 'none';
+
+                        // Redirect to login page after delay
+                        setTimeout(() => {
+                            window.location.href = 'login.html';
+                        }, 1000);
+                    });
+                }
+
+                // Close modal when clicking outside
+                if (logoutModal) {
+                    logoutModal.addEventListener('click', function (e) {
+                        if (e.target === logoutModal) {
+                            logoutModal.style.display = 'none';
+                        }
+                    });
+                }
+
+                /* ---------- GOOGLE ACCOUNT DISCONNECT MODAL FUNCTIONALITY ---------- */
                 const disconnectGoogleButton = document.getElementById('disconnectGoogleButton');
+                const disconnectGoogleModal = document.getElementById('disconnectGoogleModal');
+                const cancelDisconnectButton = document.getElementById('cancelDisconnect');
+                const confirmDisconnectButton = document.getElementById('confirmDisconnect');
+
+                // Show disconnect Google modal
                 if (disconnectGoogleButton) {
-                    disconnectGoogleButton.addEventListener('click', function () {
-                        if (confirm('Are you sure you want to disconnect your Google account? You can reconnect it anytime.')) {
-                            // Remove Google data
-                            localStorage.removeItem('heyday_google_user');
+                    disconnectGoogleButton.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        if (disconnectGoogleModal) {
+                            disconnectGoogleModal.style.display = 'flex';
+                        }
+                    });
+                }
 
-                            // Remove Google account link from user
-                            delete currentUser.googleAccount;
-                            userDB.updateCurrentUser({ googleAccount: null });
+                // Cancel disconnect
+                if (cancelDisconnectButton) {
+                    cancelDisconnectButton.addEventListener('click', function () {
+                        if (disconnectGoogleModal) {
+                            disconnectGoogleModal.style.display = 'none';
+                        }
+                    });
+                }
 
-                            // Update UI
-                            updateProfileInterface();
+                // Confirm disconnect
+                if (confirmDisconnectButton) {
+                    confirmDisconnectButton.addEventListener('click', function () {
+                        // Remove Google data
+                        localStorage.removeItem('heyday_google_user');
 
-                            // Show success message
-                            showFeedback('Google account disconnected successfully.', 'info');
+                        // Remove Google account link from user
+                        delete currentUser.googleAccount;
+                        userDB.updateCurrentUser({ googleAccount: null });
+
+                        // Close modal
+                        disconnectGoogleModal.style.display = 'none';
+
+                        // Update UI
+                        updateProfileInterface();
+
+                        // Show success message
+                        showFeedback('Google account disconnected successfully.', 'info');
+                    });
+                }
+
+                // Close modal when clicking outside
+                if (disconnectGoogleModal) {
+                    disconnectGoogleModal.addEventListener('click', function (e) {
+                        if (e.target === disconnectGoogleModal) {
+                            disconnectGoogleModal.style.display = 'none';
                         }
                     });
                 }
@@ -1545,27 +1814,6 @@
                         }
                     });
                 });
-
-                /* ---------- LOGOUT FUNCTIONALITY ---------- */
-                const logoutButton = document.getElementById('logoutButton');
-                if (logoutButton) {
-                    logoutButton.addEventListener('click', function (e) {
-                        e.preventDefault();
-
-                        // Show confirmation
-                        if (confirm('Are you sure you want to log out? You will need to sign in again to access your data.')) {
-                            showFeedback('Logging out...', 'info');
-
-                            // Use UserDatabase to log out
-                            userDB.logout();
-
-                            // Redirect to login page after delay
-                            setTimeout(() => {
-                                window.location.href = 'login.html';
-                            }, 1000);
-                        }
-                    });
-                }
 
                 /* ---------- NAVIGATION ---------- */
                 const navItems = document.querySelectorAll('.nav-item');
@@ -1616,26 +1864,26 @@
                     const feedback = document.createElement('div');
                     feedback.className = `feedback-message feedback-${type}`;
                     feedback.style.cssText = `
-            position: fixed;
-            top: 100px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: ${type === 'error' ? 'rgba(231, 76, 60, 0.95)' :
+                    position: fixed;
+                    top: 100px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: ${type === 'error' ? 'rgba(231, 76, 60, 0.95)' :
                             type === 'success' ? 'rgba(46, 204, 113, 0.95)' :
                                 'rgba(34, 96, 78, 0.95)'};
-            color: white;
-            padding: 12px 24px;
-            border-radius: 25px;
-            font-family: 'Nunito', sans-serif;
-            font-weight: 600;
-            font-size: 14px;
-            z-index: 1000;
-            animation: slideDown 0.3s ease;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-            max-width: 80%;
-            text-align: center;
-            margin-top: 100px;
-        `;
+                    color: white;
+                    padding: 12px 24px;
+                    border-radius: 25px;
+                    font-family: 'Nunito', sans-serif;
+                    font-weight: 600;
+                    font-size: 14px;
+                    z-index: 1000;
+                    animation: slideDown 0.3s ease;
+                    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+                    max-width: 80%;
+                    text-align: center;
+                    margin-top: 100px;
+                `;
                     feedback.textContent = message;
                     document.body.appendChild(feedback);
 
@@ -1649,88 +1897,118 @@
                 // Add animation styles
                 const style = document.createElement('style');
                 style.textContent = `
-        @keyframes slideDown {
-            from {
-                top: 80px;
-                opacity: 0;
-            }
-            to {
-                top: 100px;
-                opacity: 1;
-            }
-        }
-        
-        @keyframes slideUp {
-            from {
-                top: 100px;
-                opacity: 1;
-            }
-            to {
-                top: 80px;
-                opacity: 0;
-            }
-        }
-        
-        .pulse-animation {
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
-        .nav-item {
-            transition: all 0.3s ease !important;
-        }
-        
-        .setting-item {
-            transition: all 0.3s ease !important;
-        }
-        
-        .action-button {
-            transition: all 0.3s ease !important;
-        }
-        
-        .action-button:hover:not(:disabled) {
-            transform: translateY(-5px);
-        }
-        
-        .notification-type {
-            transition: all 0.3s ease !important;
-        }
-        
-        /* CRITICAL: Ensure badge is completely hidden when empty */
-        .nav-badge:empty,
-        .nav-badge[style*="display: none"] {
-            display: none !important;
-            visibility: hidden !important;
-            opacity: 0 !important;
-            background: none !important;
-            box-shadow: none !important;
-            transform: scale(0) !important;
-        }
-        
-        .nav-badge {
-            position: absolute;
-            top: 5px;
-            right: 10px;
-            color: white;
-            font-family: 'Nunito', sans-serif;
-            font-size: 10px;
-            font-weight: 800;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 3px 8px rgba(255, 82, 82, 0.4);
-            transition: all 0.3s ease;
-            z-index: 10;
-        }
-        `;
+                @keyframes slideDown {
+                    from {
+                        top: 80px;
+                        opacity: 0;
+                    }
+                    to {
+                        top: 100px;
+                        opacity: 1;
+                    }
+                }
+                
+                @keyframes slideUp {
+                    from {
+                        top: 100px;
+                        opacity: 1;
+                    }
+                    to {
+                        top: 80px;
+                        opacity: 0;
+                    }
+                }
+                
+                @keyframes fadeIn {
+                    from {
+                        opacity: 0;
+                    }
+                    to {
+                        opacity: 1;
+                    }
+                }
+                
+                .pulse-animation {
+                    animation: pulse 2s infinite;
+                }
+                
+                @keyframes pulse {
+                    0% { transform: scale(1); }
+                    50% { transform: scale(1.05); }
+                    100% { transform: scale(1); }
+                }
+                
+                .nav-item {
+                    transition: all 0.3s ease !important;
+                }
+                
+                .setting-item {
+                    transition: all 0.3s ease !important;
+                }
+                
+                .action-button {
+                    transition: all 0.3s ease !important;
+                }
+                
+                .action-button:hover:not(:disabled) {
+                    transform: translateY(-5px);
+                }
+                
+                .notification-type {
+                    transition: all 0.3s ease !important;
+                }
+                
+                /* CRITICAL: Ensure badge is completely hidden when empty */
+                .nav-badge:empty,
+                .nav-badge[style*="display: none"] {
+                    display: none !important;
+                    visibility: hidden !important;
+                    opacity: 0 !important;
+                    background: none !important;
+                    box-shadow: none !important;
+                    transform: scale(0) !important;
+                }
+                
+                .nav-badge {
+                    position: absolute;
+                    top: 5px;
+                    right: 10px;
+                    color: white;
+                    font-family: 'Nunito', sans-serif;
+                    font-size: 10px;
+                    font-weight: 800;
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    box-shadow: 0 3px 8px rgba(255, 82, 82, 0.4);
+                    transition: all 0.3s ease;
+                    z-index: 10;
+                }
+
+                /* Modal button hover effects */
+                .logout-modal-btn {
+                    transition: all 0.3s ease !important;
+                }
+                
+                .logout-modal-btn:hover {
+                    transform: translateY(-3px);
+                }
+                
+                .logout-modal-cancel:hover {
+                    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+                }
+                
+                .logout-modal-confirm:hover {
+                    box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+                }
+                
+                #confirmDisconnect:hover {
+                    box-shadow: 0 5px 15px rgba(66, 133, 244, 0.4);
+                }
+            `;
                 document.head.appendChild(style);
 
                 // Update counts when page becomes visible
