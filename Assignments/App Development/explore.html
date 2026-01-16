@@ -725,7 +725,7 @@
                     <!-- Henry Card -->
                     <a href="henry.html" class="quick-access-card fade-in delay-19">
                         <div class="qa-icon henry">
-                            <i class="fas fa-robot"></i>
+                            <i class="fas fa-seedling"></i> <!-- Changed from fa-robot to fa-seedling -->
                         </div>
                         <div class="qa-title">Henry</div>
                         <div class="qa-desc">AI Wellness Companion</div>
@@ -1075,8 +1075,8 @@
         const quickAccessCards = document.querySelectorAll('.quick-access-card');
         const navItems = document.querySelectorAll('.nav-item');
         
-        // Optional: Add notification on card click (for testing)
-        const testCards = document.querySelectorAll('.news-card, .mental-health-card');
+        // Optional: Add notification on card click (for testing) - EXCLUDE mental health cards
+        const testCards = document.querySelectorAll('.news-card'); // Removed .mental-health-card from this selector
         testCards.forEach((card) => {
             card.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1099,6 +1099,22 @@
                 }
                 
                 // Visual feedback
+                this.style.transform = 'translateY(-3px) scale(0.98)';
+                this.style.boxShadow = '0 5px 15px rgba(34, 96, 78, 0.3)';
+                
+                setTimeout(() => {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.1)';
+                }, 200);
+            });
+        });
+
+        /* ---------- MENTAL HEALTH CARD CLICK HANDLERS (NO NOTIFICATIONS) ---------- */
+        mentalHealthCards.forEach((card) => {
+            card.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                // Visual feedback only - NO notification generation
                 this.style.transform = 'translateY(-3px) scale(0.98)';
                 this.style.boxShadow = '0 5px 15px rgba(34, 96, 78, 0.3)';
                 
@@ -1209,7 +1225,7 @@
             const typeIcons = {
                 calendar: 'fas fa-calendar-alt',
                 mentalHealth: 'fas fa-brain',
-                henry: 'fas fa-robot',
+                henry: 'fas fa-seedling', // Changed from fa-robot to fa-seedling
                 system: 'fas fa-cog'
             };
             

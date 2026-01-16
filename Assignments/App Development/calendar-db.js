@@ -7,6 +7,38 @@ class CalendarDatabase {
         this.currentUserKey = 'heyday_current_user';
     }
 
+    // Add these methods to the CalendarDatabase class in calendar-db.js
+
+    // Get events within N days (for notifications)
+    getEventsWithinDays(days = 3) {
+        const events = this.getAllEvents();
+        const today = new Date(2026, 1, 11); // February 11, 2026
+        const upcoming = [];
+
+        for (let i = 0; i <= days; i++) {
+            const date = new Date(today);
+            date.setDate(today.getDate() + i);
+            const dateString = this.formatDate(date);
+
+            if (events[dateString]) {
+                events[dateString].forEach(event => {
+                    upcoming.push({
+                        date: date,
+                        dateString: dateString,
+                        daysUntil: i,
+                        ...event
+                    });
+                });
+            }
+        }
+
+        return upcoming;
+    }
+
+    // Get count of events within N days
+    getEventsCountWithinDays(days = 3) {
+        return this.getEventsWithinDays(days).length;
+    }
     // Get current user
     getCurrentUser() {
         const user = localStorage.getItem(this.currentUserKey);
@@ -17,7 +49,7 @@ class CalendarDatabase {
     getAllEvents() {
         const currentUser = this.getCurrentUser();
         if (!currentUser) return {};
-        
+
         const allEvents = JSON.parse(localStorage.getItem(this.key) || '{}');
         return allEvents[currentUser.id] || {};
     }
@@ -26,7 +58,7 @@ class CalendarDatabase {
     saveAllEvents(events) {
         const currentUser = this.getCurrentUser();
         if (!currentUser) return false;
-        
+
         const allEvents = JSON.parse(localStorage.getItem(this.key) || '{}');
         allEvents[currentUser.id] = events;
         localStorage.setItem(this.key, JSON.stringify(allEvents));
@@ -36,11 +68,11 @@ class CalendarDatabase {
     // Add or update an event
     saveEvent(dateString, event) {
         const events = this.getAllEvents();
-        
+
         if (!events[dateString]) {
             events[dateString] = [];
         }
-        
+
         // Check if event already exists (update scenario)
         const eventIndex = events[dateString].findIndex(e => e.id === event.id);
         if (eventIndex !== -1) {
@@ -48,24 +80,24 @@ class CalendarDatabase {
         } else {
             events[dateString].push(event);
         }
-        
+
         return this.saveAllEvents(events);
     }
 
     // Delete an event
     deleteEvent(dateString, eventId) {
         const events = this.getAllEvents();
-        
+
         if (events[dateString]) {
             const eventIndex = events[dateString].findIndex(e => e.id === eventId);
             if (eventIndex !== -1) {
                 events[dateString].splice(eventIndex, 1);
-                
+
                 // Remove date entry if no more events
                 if (events[dateString].length === 0) {
                     delete events[dateString];
                 }
-                
+
                 return this.saveAllEvents(events);
             }
         }
@@ -99,12 +131,12 @@ class CalendarDatabase {
         const events = this.getAllEvents();
         const today = new Date(2026, 1, 11); // February 11, 2026
         const upcoming = [];
-        
+
         for (let i = 0; i < days; i++) {
             const date = new Date(today);
             date.setDate(today.getDate() + i);
             const dateString = this.formatDate(date);
-            
+
             if (events[dateString]) {
                 events[dateString].forEach(event => {
                     upcoming.push({
@@ -115,7 +147,7 @@ class CalendarDatabase {
                 });
             }
         }
-        
+
         // Sort by date
         upcoming.sort((a, b) => a.date - b.date);
         return upcoming;
@@ -125,7 +157,7 @@ class CalendarDatabase {
     getAllEventsWithDates() {
         const events = this.getAllEvents();
         const allEvents = [];
-        
+
         for (const dateString in events) {
             const date = this.parseDateString(dateString);
             events[dateString].forEach(event => {
@@ -136,7 +168,7 @@ class CalendarDatabase {
                 });
             });
         }
-        
+
         return allEvents;
     }
 
@@ -163,7 +195,7 @@ class CalendarDatabase {
     clearAllEvents() {
         const currentUser = this.getCurrentUser();
         if (!currentUser) return false;
-        
+
         const allEvents = JSON.parse(localStorage.getItem(this.key) || '{}');
         allEvents[currentUser.id] = {};
         localStorage.setItem(this.key, JSON.stringify(allEvents));
@@ -173,7 +205,7 @@ class CalendarDatabase {
     // Import events from external source (like Google Calendar)
     importEvents(eventsArray) {
         const events = this.getAllEvents();
-        
+
         eventsArray.forEach(eventData => {
             const dateString = eventData.dateString;
             if (!events[dateString]) {
@@ -181,7 +213,7 @@ class CalendarDatabase {
             }
             events[dateString].push(eventData.event);
         });
-        
+
         return this.saveAllEvents(events);
     }
 
@@ -189,7 +221,7 @@ class CalendarDatabase {
     getEventsCountByDate() {
         const events = this.getAllEvents();
         const counts = {};
-        
+
         for (const dateString in events) {
             counts[dateString] = {
                 total: events[dateString].length,
@@ -198,7 +230,7 @@ class CalendarDatabase {
                 other: events[dateString].filter(e => !['assignment', 'exam', 'study'].includes(e.type)).length
             };
         }
-        
+
         return counts;
     }
 }

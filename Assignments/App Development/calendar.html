@@ -217,7 +217,7 @@
         .event-indicator {
             width: 8px;
             height: 8px;
-            background: #ff6b6b;
+            background: #1a3c27;
             border-radius: 50%;
             position: absolute;
             bottom: 10px;
@@ -843,7 +843,7 @@
             background: rgba(231, 76, 60, 0.1);
             border: 2px solid rgba(231, 76, 60, 0.3);
             border-radius: 15px;
-            color: #e74c3c;
+            color: #b53427;
             font-family: 'Nunito', sans-serif;
             font-size: 14px;
             font-weight: 700;
@@ -1501,7 +1501,7 @@
             top: 120px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(34, 96, 78, 0.95);
+            background: rgba(34, 96, 78, 0.95) !important;
             color: white;
             padding: 12px 25px;
             border-radius: 25px;
@@ -1875,7 +1875,7 @@
                 <!-- Today's Itinerary -->
                 <div class="today-section">
                     <div class="today-header">
-                        <div class="today-title">Today's Itinerary</div>
+                        <div class="today-title">Itinerary</div>
                         <div class="today-date" id="todayDate">February 11</div>
                     </div>
 
@@ -2188,9 +2188,88 @@
             }
         })();
 
+        // Calendar Read Events Tracker
+        (function () {
+            if (typeof window.CalendarNotificationTracker === 'undefined') {
+                window.CalendarNotificationTracker = {
+                    key: 'heyday_calendar_read_events',
+
+                    // Get all read event IDs for current user
+                    getReadEvents(userId) {
+                        const allReadEvents = JSON.parse(localStorage.getItem(this.key) || '{}');
+                        return allReadEvents[userId] || [];
+                    },
+
+                    // Mark an event as read
+                    markEventAsRead(userId, eventId) {
+                        const allReadEvents = JSON.parse(localStorage.getItem(this.key) || '{}');
+                        if (!allReadEvents[userId]) {
+                            allReadEvents[userId] = [];
+                        }
+
+                        if (!allReadEvents[userId].includes(eventId)) {
+                            allReadEvents[userId].push(eventId);
+                            localStorage.setItem(this.key, JSON.stringify(allReadEvents));
+                        }
+                        return true;
+                    },
+
+                    // Check if an event is read
+                    isEventRead(userId, eventId) {
+                        const readEvents = this.getReadEvents(userId);
+                        return readEvents.includes(eventId);
+                    },
+
+                    // Remove read status for an event
+                    markEventAsUnread(userId, eventId) {
+                        const allReadEvents = JSON.parse(localStorage.getItem(this.key) || '{}');
+                        if (allReadEvents[userId]) {
+                            const index = allReadEvents[userId].indexOf(eventId);
+                            if (index > -1) {
+                                allReadEvents[userId].splice(index, 1);
+                                localStorage.setItem(this.key, JSON.stringify(allReadEvents));
+                            }
+                        }
+                        return true;
+                    },
+
+                    // Clear all read events for user
+                    clearReadEvents(userId) {
+                        const allReadEvents = JSON.parse(localStorage.getItem(this.key) || '{}');
+                        delete allReadEvents[userId];
+                        localStorage.setItem(this.key, JSON.stringify(allReadEvents));
+                    },
+
+                    // Get count of unread events from a list
+                    countUnreadEvents(userId, events) {
+                        if (!events || events.length === 0) return 0;
+
+                        const readEvents = this.getReadEvents(userId);
+                        const unreadEvents = events.filter(event => {
+                            const eventKey = `${event.dateString}-${event.id}`;
+                            return !readEvents.includes(eventKey);
+                        });
+                        return unreadEvents.length;
+                    },
+
+                    // Get only unread events from a list
+                    getUnreadEvents(userId, events) {
+                        if (!events || events.length === 0) return [];
+
+                        const readEvents = this.getReadEvents(userId);
+                        return events.filter(event => {
+                            const eventKey = `${event.dateString}-${event.id}`;
+                            return !readEvents.includes(eventKey);
+                        });
+                    }
+                };
+            }
+        })();
+
         document.addEventListener('DOMContentLoaded', function () {
             const userDB = new window.UserDatabase();
             const calendarDB = new CalendarDatabase();
+            const tracker = window.CalendarNotificationTracker;
 
             // Check if user is logged in
             if (!userDB.isLoggedIn()) {
@@ -2205,6 +2284,8 @@
                 window.location.href = 'login.html';
                 return;
             }
+
+            const userId = currentUser.id;
 
             // Initialize notifications if not exists
             if (!currentUser.notifications) {
@@ -2235,6 +2316,37 @@
                         bottomNavBadge.style.background = 'none';
                         bottomNavBadge.style.boxShadow = 'none';
                     }
+                }
+            }
+
+            /* ---------- CALENDAR NOTIFICATION UPDATES ---------- */
+            function updateCalendarNotifications() {
+                // Get events within 3 days
+                const upcomingEvents = calendarDB.getEventsWithinDays(3);
+
+                // Count only UNREAD events using the tracker
+                const unreadCount = tracker.countUnreadEvents(userId, upcomingEvents);
+
+                // Get current notifications
+                const currentNotifications = userDB.getNotifications(userId);
+
+                // Only update if count has changed
+                if (unreadCount !== (currentNotifications.calendar || 0)) {
+                    currentNotifications.calendar = unreadCount;
+                    userDB.updateNotifications(userId, currentNotifications);
+
+                    // Update current user data
+                    currentUser.notifications = currentNotifications;
+                }
+
+                // Update badge in this page
+                updateNotificationBadge();
+
+                // Show feedback if NEW events are approaching (only once per session)
+                const notificationShown = sessionStorage.getItem('calendar_notification_shown');
+                if (unreadCount > 0 && !notificationShown) {
+                    showFeedback(`${unreadCount} new event${unreadCount > 1 ? 's' : ''} coming up in the next 3 days`, 'info');
+                    sessionStorage.setItem('calendar_notification_shown', 'true');
                 }
             }
 
@@ -2300,7 +2412,7 @@
             const nextMonthBtn = document.getElementById('nextMonth');
             const todayDate = document.getElementById('todayDate');
             const todayEvents = document.getElementById('todayEvents');
-            const upcomingEvents = document.getElementById('upcomingEvents');
+            const upcomingEventsList = document.getElementById('upcomingEvents');
 
             // Today Button
             const todayBtn = document.getElementById('todayBtn');
@@ -2317,6 +2429,9 @@
 
                 // Update notification badge
                 updateNotificationBadge();
+
+                // Update calendar notifications
+                updateCalendarNotifications();
 
                 // Initialize slider value displays
                 updateSliderValues();
@@ -2414,15 +2529,15 @@
                     const eventIndicator = document.createElement('div');
                     eventIndicator.className = 'event-indicator';
                     eventIndicator.style.cssText = `
-                    width: 8px;
-                    height: 8px;
-                    background: #ff6b6b;
-                    border-radius: 50%;
-                    position: absolute;
-                    bottom: 10px;
-                    left: 50%;
-                    transform: translateX(-50%);
-                `;
+                width: 8px;
+                height: 8px;
+                background: #1a3c27;
+                border-radius: 50%;
+                position: absolute;
+                bottom: 10px;
+                left: 50%;
+                transform: translateX(-50%);
+            `;
                     dayElement.appendChild(eventIndicator);
                 }
 
@@ -2979,6 +3094,7 @@
 
                 scheduleModal.style.display = 'flex';
             }
+
             // Add schedule to calendar
             function addScheduleToCalendar(scheduleData) {
                 scheduleData.schedule.forEach(session => {
@@ -3040,6 +3156,9 @@
                 updateCalendar();
                 updateTodaySection();
                 updateUpcomingEvents();
+
+                // Update calendar notifications with the new events
+                updateCalendarNotifications();
 
                 showFeedback(`Added ${scheduleData.totalSessions} study sessions and assignment to calendar!`, 'success');
                 closeScheduleModal();
@@ -3151,6 +3270,9 @@
                 updateCalendar();
                 updateTodaySection();
                 updateUpcomingEvents();
+
+                // Update calendar notifications after deletion
+                updateCalendarNotifications();
 
                 // Close modal
                 closeDeleteModal();
@@ -3269,7 +3391,7 @@
                 const upcoming = calendarDB.getUpcomingEvents(14);
 
                 // Clear current events
-                upcomingEvents.innerHTML = '';
+                upcomingEventsList.innerHTML = '';
 
                 // Show up to 5 upcoming events
                 const eventsToShow = upcoming.slice(0, 5);
@@ -3281,13 +3403,13 @@
                     <div class="event-title">No upcoming events</div>
                     <div class="event-subtitle">Add events to see them here</div>
                 `;
-                    upcomingEvents.appendChild(noEvents);
+                    upcomingEventsList.appendChild(noEvents);
                     deleteAllUpcomingBtn.style.display = 'none';
                 } else {
                     eventsToShow.forEach(eventData => {
                         // Pass true to showDate parameter for upcoming events
                         const eventItem = createEventItem(eventData, eventData.dateString, true);
-                        upcomingEvents.appendChild(eventItem);
+                        upcomingEventsList.appendChild(eventItem);
                     });
                     deleteAllUpcomingBtn.style.display = 'flex';
                 }
@@ -3346,6 +3468,7 @@
                 max-width: 80%;
                 text-align: center;
                 width: auto;
+                margin-top: 50px;
             `;
                 feedback.textContent = message;
                 document.querySelector('.phone').appendChild(feedback);
@@ -3721,10 +3844,14 @@
                     updateTodaySection();
                     updateUpcomingEvents();
 
+                    // Update calendar notifications with the new event
+                    updateCalendarNotifications();
+
                     showFeedback(`Assignment "${title}" ${selectedEventForEditing ? 'updated' : 'added'} to calendar!`, 'success');
                     closeAddModal();
                 }
             }
+
             // Save regular event
             function saveEvent() {
                 // This is for regular events (non-assignments)
@@ -3762,6 +3889,9 @@
                 updateCalendar();
                 updateTodaySection();
                 updateUpcomingEvents();
+
+                // Update calendar notifications with the new event
+                updateCalendarNotifications();
 
                 showFeedback(`Event "${title}" ${selectedEventForEditing ? 'updated' : 'added'} successfully!`, 'success');
 
@@ -3809,6 +3939,10 @@
 
                         updateCalendar();
                         updateUpcomingEvents();
+
+                        // Update calendar notifications with the new imported events
+                        updateCalendarNotifications();
+
                         showFeedback('Imported events from Google Calendar', 'success');
                     }, 1000);
                 }, 1500);
